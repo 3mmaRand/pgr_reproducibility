@@ -1,0 +1,42 @@
+---
+title: "Quantitative and Computational Skills Overview"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Learning Outcomes 
+
+
+
+# Introduction
+
+
+
+# Topics covered in Computational and Quantitative skills
+
+Impossible to cover everything to you might ever need!
+
+Different people will use different methods and tools.
+
+Chosen topics are: foundational, follow stage 1 well, widely applicable (in this module and beyond), transferable conceptually:
+
+* Generalised Linear Models: 
+* Non-linear Models (non-linear regression)
+
+
+
+# Contact time
+
+
+## Session 1
+
+## Session 2
+
+## Session 3
+
+## Session 4
+
+## Session 5
