@@ -1,0 +1,113 @@
+---
+title: "Variation in myoglobin content of skeletal muscle of seal species."
+author: "Emma Rand"
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+bibliography: reference.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+```{r packages}
+library(tidyverse)
+library(Rmisc)
+```
+
+# Introduction
+Aquatic and marine mammals are able to dive underwater for extended periods as a result of having a higher muscle  myoglobin concentration than terrestial mammals.
+Seal species are known to vary in dive length. We investigated whether the concentration of myoglobin differed between  species.
+
+# Methods
+```{r import}
+# Data import
+# the data are organised in to three columns, one for each species. 
+seal <- read.table("raw_data/seal.txt", header = TRUE)
+```
+
+```{r tidy}
+# put the data in tidy format
+seal2 <- gather(data = seal, species, myoglobin)
+
+# write tidy data to processed
+write.table(seal2, 
+            "processed_data/seal2.txt",
+            row.names = FALSE)
+```
+
+
+```{r summarise}
+sealsummary <- summarySE(data = seal2,
+                         measurevar = "myoglobin",
+                         groupvars = "species")
+```
+
+```{r extract}
+# extract values for inline reporting
+
+highestmean <- max(sealsummary$myoglobin)
+highestse <- sealsummary$se[sealsummary$myoglobin == highestmean]
+highestspp <- sealsummary$species[sealsummary$myoglobin == highestmean]
+lowestmean <- min(sealsummary$myoglobin)
+lowestse <- sealsummary$se[sealsummary$myoglobin == lowestmean]
+lowestspp <- sealsummary$species[sealsummary$myoglobin == lowestmean]
+
+```
+
+We measured the myoglobin content of the skeletal muscle of `r sealsummary$N[1]` individuals in each of three species.
+We used R [@R-core] with tidyverse packages [@tidyverse] for all analyses.
+
+
+
+```{r testing}
+mod <- aov(data = seal2, myoglobin ~ species)
+
+# extract values for inline reporting
+res <- summary(mod)[[1]]
+fval <- round(res$`F value`[1], 2)
+df1 <- res$Df[1]
+df2 <- res$Df[2]
+p <- round(res$`Pr(>F)`[1], 3)
+```
+
+```{r posthoc, include=FALSE}
+TukeyHSD(mod)
+```
+
+# Results
+There is a significant difference in myoglobin concentration between species (_F_ = `r fval`; _d.f._=`r df1`, `r df2`; _p_ = `r p`). Post-hoc testing revealed that difference to be between the `r highestspp` seal with the highest myoglobin concentrations ($\bar{x} \pm s.e.$: `r round(highestmean,2)` $\pm$ `r round(highestse,2)` g Kg^-1^) and the `r lowestspp` seal with the lowest (`r round(lowestmean,2)` $\pm$ `r round(lowestse,2)` g Kg^-1^). See Figure 1.
+
+
+```{r myo-fig, fig.height=4, fig.width=4, fig.cap="Figure 1 Mean Myoglobin content of skeletal muscle"}
+
+ggplot(seal2, aes(x = species, y = myoglobin) ) +
+  geom_jitter(width = .2, colour = "#8c8c8c") +
+  geom_errorbar(data = sealsummary, 
+                aes(ymin = myoglobin, 
+                    ymax = myoglobin), 
+                width =.2, size = 1 ) + 
+  geom_errorbar(data = sealsummary, 
+                aes(ymin = myoglobin - se, 
+                    ymax = myoglobin + se), 
+                width = .3 ) +
+  ylab(expression("Myoglobin concentration g "*Kg^{-1})) +
+  ylim(0, 75) +
+  xlab("Seal species") +
+  scale_x_discrete(labels = c("Bladdernose", 
+                              "Harbour", 
+                              "Weddell")) +
+  theme(panel.background = element_rect(fill = "white")) +
+  theme(axis.line.x = element_line(color = "black"),
+        axis.line.y = element_line(color = "black"))
+
+
+```
+
+
+# References
+
