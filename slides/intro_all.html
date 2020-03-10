@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>An Introduction to Reproducible Analyses in R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Emma Rand" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="..\css_files\emma.css" type="text/css" />
+    <link rel="stylesheet" href="..\css_files\emma-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+background-image: url(logos/whiterose_dtp.png)
+background-position: 90% 20%
+background-size: 300px
+
+
+
+
+
+
+
+
+
+class: inverse
+
+# Introduction to Reproducibility in R
+
+## Emma Rand, emma.rand@york.ac.uk 
+
+### University of York: 2020-03-19
+
+.footnote[
+Made with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan))  
+
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+]
+
+---
+# What this workshop is and is not
+
+.pull-left[
+
+## Is an introduction to
+* R for those that have no experience
+* Advanced data import, tidying and/or presentation for those with experience
+* some universal and highly transferable concepts 
+* the skills for organising reproducible analyses  
+ 
+
+![r logo](../pics/RStudio-Logo-Flat.png)
+
+
+]
+
+--
+
+.pull-right[
+
+## It is not
+* An introduction to statistics&lt;sup&gt;1&lt;/sup&gt;  
+* Magic  
+
+&amp;nbsp;  
+&amp;nbsp;  
+&amp;nbsp;  
+&amp;nbsp;  
+[1] but ...
+]
+
+
+---
+# Workshop overview
+
+## 1000 Introduction and Principles of reproducibility  
+* Rationale for scripting
+* Why R?
+* Organisation of data  
+* Organisation of analyses
+
+## 1030 Parallel Sessions  
+.pull-left[  
+[For those without experience in R](no_experience_intro.html)  
+* Introduction to R  
+* Project based approach  
+* Stuff from rbs slides  
+]
+.pull-right[
+[For those with experience in R]()  
+* Advanced data import  
+* Advanced data tidying  
+
+]
+## 1115 Coffee in the Atrium  
+---
+# Workshop overview
+
+## 1135 Parallel Sessions  
+.pull-left[   
+[For those without experience in R](no_experience_intro.html)  
+* Stuff from rbs slides  
+* more stuff
+]
+.pull-right[ 
+[For those with experience in R]()  
+* Formatting figures for publication  
+]
+## 1230 Lunch in the Atrium  
+
+## 1315 R Markdown for Reproducible Reports  
+[R Markdown fundamentals]()  
+* ...  
+* ...  
+* ...  
+
+## 1445 Coffee in the Atrium  
+---
+# Workshop overview
+## 1505 R Markdown for Reproducible Reports
+[More advanced markdown]()  
+* bbb
+* mmm
+* citations, journal templates 
+
+## 1600 Close
+---
+background-image: url(../pics/rationale1.png)
+background-position: 50% 35%
+background-size: 600px
+
+# Rationale for scripting analysis
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.pull-left[
+Generating the results
+]
+
+.pull-right[
+Analysing and reporting them
+]
+---
+background-image: url(../pics/rationale2.png)
+background-position: 50% 35%
+background-size: 600px
+
+# Rationale for scripting analysis
+
+---
+background-image: url(../pics/rationale3.png)
+background-position: 50% 35%
+background-size: 600px
+
+# Rationale for scripting analysis
+
+---
+background-image: url(../pics/rationale5.png)
+background-position: 80% 35%
+background-size: 800px
+
+# Rationale for scripting analysis
+
+---
+# Why R?
+
+## Open source and free
+
+--
+
+### .......But so is Python
+  
+--
+
+R caters to users who do not see themselves as programmers, but then allows them to slide gradually into programming  
+
+![biologists](../pics/biologist1.png)
+
+--
+
+R was designed for data analysis and graphics  
+
+But use Python if you already have those skills!
+
+---
+background-image: url(../pics/welcome_to_rstats_twitter.png)
+background-position: 90% 55%
+background-size: 400px
+# Why R?
+
+## Community
+
+The R community is one of R's greatest assets, being vibrant, inclusive and supportive of users at all levels.
+
+[#rstats](https://twitter.com/hashtag/rstats?lang=en)  
+[RForwards](https://forwards.github.io/)  
+[RLadies](https://rladies.org/)  
+[Hey! You there! You are welcome here](https://ropensci.org/blog/2017/06/23/community/)  
+
+.footnote[
+Artwork by @allison_horst "welcome to rstats on twitter"
+]
+
+
+---
+background-image: url(../pics/rmarkdown_wizards.png)
+background-position: 10% 45%
+background-size: 500px
+# Why R?
+
+## R Markdown  
+
+R's "killer feature"  .......Super-charged reproducibility!
+
+.footnote[
+Artwork by @allison_horst "Be an Rmarkdown knitting wizard."
+]
+
+---
+# Organisation of data within files
+
+## What is tidy data?
+
+One response per row.
+
+Tidy data adhere to a consistent structure which makes it easier to manipulate, model and visualize them. The structure is defined by:  
+
+1. Each variable has its own column.  
+2. Each observation has its own row.  
+3. Each value has its own cell.  
+
+Closely allied to the relational algebra of relational databases &lt;a name=cite-Codd1990-th&gt;&lt;/a&gt;([Codd, 1990](#bib-Codd1990-th)).  
+Underlies the enforced rectangular formating in SPSS, STATA and R's dataframe.  
+The term 'tidy data' was popularised by &lt;a name=cite-Wickham2014-nl&gt;&lt;/a&gt;[Wickham (2014)](#bib-Wickham2014-nl).   
+There may be more than one potential tidy structure.  
+
+---
+# Organisation of data within files
+
+
+
+## Tidy format
+
+Suppose we had just 3 individuals in each of two populations:
+
+.pull-left[
+## NOT TIDY!
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; A &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; B &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 12.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+
+.pull-right[
+
+## TIDY!
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; population &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; distance &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+# Organisation of analyses
+
+* Project based approach, e.g., RStudio project or similar  
+* directory structure 
+* naming   
+* commenting  
+* readme  
+* version control  
+
+---
+# Organisation of analyses
+
+.pull-left[
+
+### Directories
+
+* structured  
+* systematic  
+* repeatible  
+
+### Naming
+
+* human and machine readable  
+  * no spaces  
+  * use snake/kebab case  
+  * ordering: numbers (zero left padded), dates  
+  * file extensions
+]
+
+.pull-right[
+.code50[
+```
+-- stem_cell_rna_2019
+   |__stem_cell_rna_2019.Rproj
+   |__raw_ data
+      |__2019-03-21_donor_1.csv
+      |__2019-03-21_donor_2.csv
+      |__2019-03-21_donor_3.csv
+      |__2019-05-14_donor_1.csv
+      |__2019-05-14_donor_2.csv
+      |__2019-05-14_donor_3.csv
+   |__processed_data
+      |__all_long.txt
+      |__all_wide.txt
+   |__figures
+      |__01_volcano_donor_1_vs_donor_2.eps
+      |__02_volcano_donor_1_vs_donor_3.eps
+   |__functions
+      |__01_file_import
+      |__02_normalise.R
+      |__theme_pca.R
+      |__theme_volcano.R
+   |__pics
+      |__01_image.png
+      |__01_image.png
+   |__README.md
+   |__refs
+      |__r_refs.bib
+      |__proj_refs.bib
+   |__analyses
+      |__01_data_processing.R
+      |__02_exploratory.R
+      |__03_modelling.R
+      |__04_figures.R
+      |__05_report.Rmd
+```
+]
+
+]
+
+
+
+
+
+
+
+
+---
+# Organisation of analyses
+
+## Further Reading
+
+* "Ten simple rules for reproducible computational research" &lt;a name=cite-Sandve2013-nd&gt;&lt;/a&gt;([Sandve Nekrutenko, et al., 2013](#bib-Sandve2013-nd))  
+* "Best practices for scientific computing" &lt;a name=cite-Wilson2014-ij&gt;&lt;/a&gt;([Wilson Aruliah, et al., 2014](#bib-Wilson2014-ij))  
+* "Good enough practices in scientific computing" &lt;a name=cite-Wilson2017-cp&gt;&lt;/a&gt;([Wilson Bryan, et al., 2017](#bib-Wilson2017-cp))  
+* "Excuse Me, Do You Have a Moment to Talk About Version Control?" &lt;a name=cite-Bryan2018-hl&gt;&lt;/a&gt;([Bryan, 2018](#bib-Bryan2018-hl))  
+---
+# References
+
+&lt;a name=bib-Bryan2018-hl&gt;&lt;/a&gt;[Bryan, J.](#cite-Bryan2018-hl)
+(2018). "Excuse Me, Do You Have a Moment to Talk About Version
+Control?" In: _Am. Stat._ 72.1, pp. 20-27.
+
+&lt;a name=bib-Codd1990-th&gt;&lt;/a&gt;[Codd, E. F.](#cite-Codd1990-th)
+(1990). _The Relational Model for Database Management: Version 2_.
+Boston, MA, USA: Addison-Wesley Longman Publishing Co, Inc.
+
+&lt;a name=bib-Sandve2013-nd&gt;&lt;/a&gt;[Sandve, G. K, A. Nekrutenko, et
+al.](#cite-Sandve2013-nd) (2013). "Ten simple rules for
+reproducible computational research". En. In: _PLoS Comput. Biol._
+9.10, p. e1003285.
+
+&lt;a name=bib-Wickham2014-nl&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2014-nl)
+(2014). "Tidy Data". In: _Journal of Statistical Software,
+Articles_ 59.10, pp. 1-23.
+
+&lt;a name=bib-Wilson2014-ij&gt;&lt;/a&gt;[Wilson, G, D. A. Aruliah, et
+al.](#cite-Wilson2014-ij) (2014). "Best practices for scientific
+computing". En. In: _PLoS Biol._ 12.1, p. e1001745.
+
+&lt;a name=bib-Wilson2017-cp&gt;&lt;/a&gt;[Wilson, G, J. Bryan, et
+al.](#cite-Wilson2017-cp) (2017). "Good enough practices in
+scientific computing". En. In: _PLoS Comput. Biol._ 13.6, p.
+e1005510.
+
+&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019).
+_xaringan: Presentation Ninja_. R package version 0.12. URL:
+[https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
