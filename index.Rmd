@@ -6,7 +6,7 @@ institute: "University of York, UK"
 date: "2020-19-03"
 output:
   xaringan::moon_reader:
-    css: [default, ../css_files/emma.css, ../css_files/emma-fonts.css]
+    css: [default, css_files/emma.css, css_files/emma-fonts.css]
     lib_dir: libs
     seal: false
     nature:
@@ -25,11 +25,11 @@ options(htmltools.dir.version = FALSE)
 # Workshop overview
 
 ## Introduction and Principles of reproducibility  
-[Introduction and Principles of reproducibility](intro_all.html)
+[Introduction and Principles of reproducibility](slides/intro_all.html)
 
 ## Parallel Sessions  
 .pull-left[  
-[For those without experience in R](no_experience_intro.html) 
+[For those without experience in R](slides/no_experience_intro.html) 
 ]
 .pull-right[
 [For those with experience in R]()  
