@@ -668,6 +668,16 @@ ggplot(data = nest_data,
 
 Each 'layer' is added to the `ggplot()` command with a '+'
 
+---
+add the axis na
+
+
+
+
+
+
+
+
 
 
 
