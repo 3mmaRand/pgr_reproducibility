@@ -1,0 +1,53 @@
+---
+title: "An Introduction to Reproducible Analyses in R"
+subtitle: "White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology"
+author: "Emma Rand"
+institute: "University of York, UK"
+date: "2020-19-03"
+output:
+  xaringan::moon_reader:
+    css: [default, ../css_files/emma.css, ../css_files/emma-fonts.css]
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE,	
+                      warning = FALSE)
+options(htmltools.dir.version = FALSE)
+```
+
+# Workshop overview
+
+## Introduction and Principles of reproducibility  
+[Introduction and Principles of reproducibility](intro_all.html)
+
+## Parallel Sessions  
+.pull-left[  
+[For those without experience in R](no_experience_intro.html) 
+]
+.pull-right[
+[For those with experience in R]()  
+
+]
+
+
+## R Markdown for Reproducible Reports  
+[R Markdown for Reproducible Reports]()  
+  
+---
+class: inverse
+
+# Introduction to Reproducibility in R
+
+## Emma Rand 
+
+### University of York: 2020-03-19
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+

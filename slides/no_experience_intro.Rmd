@@ -381,9 +381,9 @@ It was designed to make it easy to work with data.
 
 
 ---
-background-image: url(pics/ggplot.jpg)
-background-position: 100% 0%
-background-size: 100px
+background-image: url(../pics/ggplot2.png)
+background-position: 90% 65%
+background-size: 200px
 
 # Typing in data, calcs, plots
 
@@ -404,6 +404,9 @@ Other packages, such as `ggplot2` `r Cite(myBib, "ggplot2")`<sup>1</sup> need to
 ]
 
 ---
+background-image: url(../pics/tidyverse.png)
+background-position: 90% 65%
+background-size: 200px
 # Typing in data, calcs, plots
 
 ## Plotting using `ggplot2`
@@ -427,10 +430,6 @@ We will also later use `dplyr` and `tidyr` functions also from `tidyverse`.
 
 
 ---
-background-image: url(pics/ggplot.jpg)
-background-position: 100% 0%
-background-size: 100px
-
 # Plotting using ggplot2
 
 ## Data structure needed for `ggplot()` 
@@ -456,10 +455,6 @@ str(nest_data)
 Click on `nest_data` in the Environment pane to see a spreadsheet-like view of it.
 
 ---
-background-image: url(pics/ggplot.jpg)
-background-position: 100% 0%
-background-size: 100px
-
 # Plotting using ggplot2
 
 ## A barplot
@@ -474,10 +469,6 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 
 ---
-background-image: url(pics/ggplot.jpg)
-background-position: 100% 0%
-background-size: 100px
-
 # Plotting using ggplot2
 
 ## A barplot
@@ -547,12 +538,20 @@ Open the manual page using:
 ## Altering a ggplot
 
 We can change the fill of the bars using `fill`:
-
-```{r fig.width=4,fig.height=4}
+```{r eval=FALSE}
 ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(fill = "lightblue")
 
 ```
+.pull-left[
+```{r fig.width=4,fig.height=4, echo=FALSE}
+ggplot(data = nest_data, aes(x = n, y = freq)) +
+  geom_col(fill = "lightblue")
+
+```
+]
+--
+.pull-right[
 Colours can be given by their name: "lightblue" 
 
 Or by their hexadecimal code: "#ADD8E6".  
@@ -563,7 +562,7 @@ You can look these up as follows:
 
 [By hexadecimal code](../pics/colourhex.pdf)
 
-
+]
 
 ---
 # Using the help manual
@@ -571,59 +570,51 @@ You can look these up as follows:
 ## Altering a ggplot
 
 `fill` is an aesthetic. We can set the fill aesthetic to a particular colour inside `geom_col()` but we can also map it to a variable inside the `aes()` instead: 
-
-```{r fig.width=4,fig.height=4}
+```{r eval=FALSE}
 ggplot(data = nest_data, aes(x = n, y = freq, fill = n)) +
   geom_col()
 
 ```
+.pull-left[
+```{r fig.width=4,fig.height=4, echo=FALSE}
+ggplot(data = nest_data, aes(x = n, y = freq, fill = n)) +
+  geom_col()
+
+```
+]
 --
+.pull-right[
 
 Mapping fill to variable means the colour is variable - you get a different colour for each value of n. Not useful here but is when you have another variable.
-
+]
 ---
 # Using the help manual
 
 ## Altering a ggplot
-.pull-left[
+
 Can you use the manual to put the bars next to each other?
-
-Skip to the next slide if you want more challenge.
-
-]
+.pull-right[
+.footnote[
+`r kableExtra::text_spec("Extra exercise:", background = "#333880", color = "white", bold = TRUE)`  Can you use the manual to change to colour of the lines around each bar to black?]]
 --
 
-.pull-right[
 ```{r ,fig.width=4,fig.height=4}
 ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(fill = "lightblue", width = 1)
 ```
-]
+
+
 ---
 
 # Typing in data, calcs, plots
 
 ## Plotting
 
+
+`r kableExtra::text_spec("Extra exercise:", background = "#333880", color = "white", bold = TRUE)`  Can you use the manual to change to colour of the lines around each bar to black?
+
 .pull-left[
-Can you use the manual to change to colour of the lines around each bar to black?
-
-<style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
-div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
-</style>
-
-<div class = "blue">
-**Top Tip** 
-
-Make your code easier to read by using white space and new lines
-* put spaces around `=` , `->` and after `,`
-* use a newline after every comma in a command with lots of arguments
-]
-</div>
-
-.pull-right[
-```{r ,fig.width=4,fig.height=4}
+```{r ,fig.width=4,fig.height=4, eval=FALSE}
 ggplot(data = nest_data,
        aes(x = n, y = freq)) +
   geom_col(fill = "lightblue", 
@@ -632,22 +623,50 @@ ggplot(data = nest_data,
 ```
 ]
 
+.pull-right[
+```{r ,fig.width=4,fig.height=4, echo=FALSE}
+ggplot(data = nest_data,
+       aes(x = n, y = freq)) +
+  geom_col(fill = "lightblue", 
+           width = 1, 
+           colour = "black")
+```
+]
+---
+# Top Tip
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
+</style>
+
+<div class = "blue">
+
+.font130[
+Make your code easier to read by using white space and new lines  
+
+* put spaces around `=` , `->` and after `,`  
+* use a newline after every comma in a command with lots of arguments  
+]
+</div>
 
 ---
-background-image: url(../pics/ggplot.jpg)
-background-position: 100% 0%
-background-size: 100px
-
 # Plotting using ggplot2
 
 ## Altering the axes. 
 Changes to a discrete x axis can be made by adding a `scale_x_discrete()`.
+
 Changes to a continuous y axis can be made by adding a `scale_y_continuous()`.
 
 ggplot automatically extends the axes slightly to make sure there is room for points to plot. 
 You can turn this behaviour off with the expand argument.
 
-.pull-left[
+--
+
+Each 'layer' is added to the ggplot() command with a `+`
+
+---
+# Plotting using ggplot2
 
 ```{r fig.width=4,fig.height=4}
 ggplot(data = nest_data,
@@ -655,39 +674,36 @@ ggplot(data = nest_data,
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black") +
-  scale_x_discrete(expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0)) 
+  scale_x_discrete(expand = c(0, 0)) + #<<
+  scale_y_continuous(expand = c(0, 0)) #<<
 ```
-]
-
---
 
 .pull-right[
-
-<br><br>
-
-Each 'layer' is added to the `ggplot()` command with a '+'
+.footnote[
+`r kableExtra::text_spec("Extra exercise:", background = "#333880", color = "white", bold = TRUE)`  Look up `scale_x_discrete` in the manual and work out how to change "n" to "Number of Males"]
+]
 
 ---
-add the axis na
+# Plotting using ggplot2
 
-
-
-
-
-
-
-
-
-
-
+```{r fig.width=4,fig.height=4}
+ggplot(data = nest_data,
+       aes(x = n, y = freq)) +
+  geom_col(fill = "lightblue", 
+           width = 1, 
+           colour = "black") +
+  scale_x_discrete(expand = c(0, 0),
+                   name = "Number of Males") + #<<
+  scale_y_continuous(expand = c(0, 0),
+                     name = "Number of Nests") #<<
+```
 ---
 
 class: inverse,
 
 # Working with Data
 
-### 1115 - 1230
+### 1135 - 1230 
 
 
 ---
@@ -696,211 +712,41 @@ class: inverse,
 ## The goal
 
 ```{r echo=FALSE}
-pigeon2 <- read.table("../data/pigeon2.txt", header = T)
-pigeon3 <- gather(data = pigeon2, key = population, value = distance)
-library(Rmisc)
-sumpig <- summarySE(pigeon3, measurevar = "distance", groupvars = "population")
+pigeon <- read.table("../data/pigeon.txt", header = T)
+pigeon2 <- gather(data = pigeon, 
+                  key = population, 
+                  value = distance)
+sumpig <- pigeon2 %>%
+  group_by(population) %>% 
+  summarise(n = length(distance),
+            mean = mean(distance),
+            se = sd(distance)/sqrt(n))
 sumpig %>% 
-  select(-ci, -sd) %>% 
-  kable(format = "html",
-                 col.names = c("Population", "N", "Mean", "SE"),
+    kable(format = "html",
+                 col.names = c("Population",
+                               "N", 
+                               "Mean",
+                               "SE"),
                  row.names = FALSE) %>%
   add_header_above(c(" " = 2, " Interorbital distance" = 2))
 
 ```
-.pull-left[
+
 ```{r fig.width=5, fig.height=4,echo=FALSE}
-ggplot(data = pigeon3, aes(x = distance, fill = population))  +
+ggplot(data = pigeon2, aes(x = distance, fill = population))  +
   geom_density(col = "black", alpha = 0.3) +
   xlab("Interorbital distance (mm)") +
   theme_classic()
 ```
-]
-.pull-right[
-```{r fig.height=4, fig.width=5,echo=FALSE}
-ggplot(data = pigeon3, aes(x = population, y = distance)) +
-  geom_violin() +
-  xlab("Population") +
-  ylab("Interorbital distance (mm)") + 
-  theme_classic()
-  
-```
-]
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
-# Working with Data: single variable 
-
+# Working with Data 
+ 
 ## Importing
-
-The Data: 
-
-Measurements of interorbital width (in mm) in 40 domestic pigeons measured to the nearest 0.1 mm
-
-Save a copy [pigeon.txt](data/pigeon.txt)
-
---
-
-Import the data in to R with `read.table()`:
-
-```{r eval=FALSE}
-pigeon <- read.table("pigeon.txt", header = TRUE)
-```
-
-```{r echo=FALSE}
-pigeon <- read.table("../data/pigeon.txt", header = TRUE)
-```
---
-
-`header = TRUE` is an argument in the `read.table()` command which indicates that the datafile has a header, _i.e._, the first value in the file is the variable name
-
---
-
-You should see an object `pigeon` in the Environment window. 
-
----
-background-image: url(pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data: single variable
-## Importing
-
-Examine the structure
-
-```{r}
-str(pigeon)
-```
-
-The object created by `read.table()` is a dataframe. 
-
-That's handy! 
-
----
-background-image: url(pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data: single variable 
-
-## Understanding a dataframe 
-
-A dataframe is made of columns and rows
-
-The columns are the variables; the rows are the observations
-
---
-
-To refer a column inside a dataframe (a single column data) we need to use the dollar notation: `dataframe$columnname`
-
---
-
-So to output all of the values of one column we can use:
-```{r}
-pigeon$interorbital
-```
----
-background-image: url(pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data: single variable 
-
-## Summarising single group data  
-
-R provides many functions to allow you to make 
-
-calculations on your data.
-
---
-
-For example, the mean
-```{r}
-mean(pigeon$interorbital)
-```
-
---
-
-Which functions will calculate the standard deviation and the number of cases, _i.e._, the length of the column?
-
----
-background-image: url(pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data: single variable 
-## Summarising single group data 
-
-Standard deviation
-```{r }
-sd(pigeon$interorbital)
-```
-
---
-
-Number of cases
-```{r }
-length(pigeon$interorbital)
-```
----
-background-image: url(pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data: single variable 
-## Plotting single group data 
-
-.pull-left[
-```{r fig.height=4, fig.width=4}
-ggplot(data = pigeon, aes(x = interorbital)) +
-  geom_histogram() +
-  xlab("Interorbital distance (mm)")
-  
-```
-
-]
----
-background-image: url(pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data: single variable 
-
-## Plotting single group data 
-
-.pull-left[
-```{r fig.height=4, fig.width=4}
-ggplot(data = pigeon, aes(x = interorbital)) +
-  geom_histogram(bins = 10,             
-                 col = "black") +       #<<
-  xlab("Interorbital distance (mm)")
-  
-```
-
-]
-
---
-
-.pull-right[
-
-<br>
-<br>
-<br>
-
-We will cover more figure options as we go through the afternoon.
-
-]
-
----
-background-image: url(pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data: two variables 
-## Importing 2
 
 This section will teach you about three concepts:
 
@@ -910,63 +756,53 @@ This section will teach you about three concepts:
 
 --
 
-2. dealing with data in more than group  
+2. Tidy data
 
 --
 
-3. the concept of 'tidy' data
+3. dealing with data in more than group  
 
 --
 
 We will work with the interorbital distances of domestion pigeons in two different populations: A and B
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
-# Working with Data: two variables 
-## Importing 2
+# Working with Data 
+## Importing
 
 It is good practice to organise your files into a folder structure. 
 
 For example, I often use:
 
-![a folder called stemcells with 4 subfolders - figures, processed data, raw data and scripts](pics/dir_structure.png)
+![a folder called stemcells with 4 subfolders - figures, processed data, raw data and scripts](../pics/dir_structure.png)
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
-# Working with Data: two variables 
-## Importing 2
+# Working with Data 
+## Importing
 
-Make a folder in your Project directory 
-
-(this is also your working directory) called 'data'
+Make a folder in your Project directory (this is also your working directory) called 'data'
 
 The easiest way to do this is in RStudio  - see the bottom right Files panel
 
-
 --
 
-Forgotten where you are? Use
-```{r eval=FALSE}
-getwd()
-```
-
---
-
-Save a copy of [pigeon2.txt](../data/pigeon2.txt) to the 'data' folder
+Save a copy of [pigeon.txt](../data/pigeon.txt) to the 'data' folder
 
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
-# Working with Data: two variables 
+# Working with Data 
 ## Importing
 
 
@@ -976,7 +812,7 @@ to the file in the `read.table()` command:
 
 
 ```{r}
-pigeon2 <- read.table("../data/pigeon2.txt", header = TRUE)
+pigeon <- read.table("../data/pigeon.txt", header = TRUE)
 ```
 
 
@@ -989,34 +825,58 @@ The `data/` part is the 'relative path' to the file.
 
 It says where the file is **relative to your working directory**
 
-pigeon2.txt is inside a folder (directory) called 'data' which is in your working directory.
+pigeon.txt is inside a folder (directory) called 'data' which is in your working directory.
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
-# Working with Data: two variables 
+# Working with Data 
 ## Importing
 
-Look at the structure of the dataframe pigeon2 using `str()`
+Look at the structure of the dataframe pigeon using `str()`
 
 ```{r }
-str(pigeon2)
+str(pigeon)
 ```
 --
 
 It's a dataframe with two variables (columns) called A and B
 
 The datatype of both variables is numeric.
+---
+background-image: url(../pics/interorbital.png)
+background-position: 100% 0%
+background-size: 180px
+
+# Working with Data
+
+## Understanding the dataframe
+A dataframe is made of columns and rows
+
+The columns are the variables; the rows are the observations
+
+--
+
+To refer a column inside a dataframe (a single column data) we need to use the dollar notation: `dataframe$columnname`
+
+--
+
+So to output all of the values of one column we can use:
+```{r}
+pigeon$A
+```
+
+
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
 
-# Working with Data: two variables 
+# Working with Data
 
 ## Summarising multi-group data
 
@@ -1029,17 +889,17 @@ Remember, to refer a column inside a dataframe (a single column data) we need to
 The mean of column $A
 
 ```{r }
-mean(pigeon2$A)
+mean(pigeon$A)
 ```
 
 The mean of column $B
 
 ```{r }
-mean(pigeon2$B)
+mean(pigeon$B)
 ```
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1056,8 +916,7 @@ in one column and a second column gives the group.
 
 --
 
-This format is described as 'tidy' `r AutoCite(myBib, "Wickham2019-ml", .opts = list(max.names = 3))`.
-
+This format is described as 'tidy' `r Cite(myBib, "Wickham2019-ml")`.
 
 
 --
@@ -1065,7 +924,7 @@ This format is described as 'tidy' `r AutoCite(myBib, "Wickham2019-ml", .opts = 
 Tidy data has a variable in each column and only one observation (case) per row.
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1082,12 +941,12 @@ Suppose we had just 3 individuals in each population:
 
 **NOT TIDY!**
 ```{r echo=FALSE}
-knitr::kable(pigeon2[1:3,], 
+knitr::kable(pigeon[1:3,], 
              format = "html")
 ```
 ]
 ```{r echo=FALSE}
-pigeon3 <- gather(data = pigeon2, 
+pigeon2 <- gather(data = pigeon, 
                   key = population, 
                   value = distance)
 ```
@@ -1099,7 +958,7 @@ pigeon3 <- gather(data = pigeon2,
 
 **TIDY!**
 ```{r echo=FALSE}
-knitr::kable(head(pigeon3[c(1:3,41:43),]), 
+knitr::kable(head(pigeon2[c(1:3,41:43),]), 
              format = "html",
              row.names = FALSE)
 ```
@@ -1107,7 +966,7 @@ knitr::kable(head(pigeon3[c(1:3,41:43),]),
 
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1135,8 +994,8 @@ We can make the data tidy with `gather()`<sup>1</sup>.
 
 ```{r}
 
-pigeon3 <- gather(data = pigeon2, key = population, value = distance)
-str(pigeon3)
+pigeon2 <- gather(data = pigeon, key = population, value = distance)
+str(pigeon2)
 ```
 
 &nbsp;
@@ -1145,7 +1004,7 @@ str(pigeon3)
 
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1159,75 +1018,49 @@ easier to summarise, analyse and visualise.
 
 --
 
-How can we summarise now?
+To summarise data in this format we use the `group_by()` and `summarise()` functions.
 
 --
 
-If we use 
-```{r}
-mean(pigeon3$distance)
-```
-
-We will get the mean of the two populations combined.
-
---
-
-To get the mean of each population we can use `tapply()`. 
+We will also use the pipe operator: ` %>% `
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
 # Working with Data 
 
 ## Summarising multi-group data
-
-`tapply()` takes three arguments: 
---
-
-* the measurement variable 
---
-
-* the grouping variable   
---
-
-* function to be applied:  
-
-`tapply(measurement, grouping, function)`
-
----
-background-image: url(pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data 
-
-## Summarising multi-group data
-
-### Using `tapply()`
-
+.pull-left[
 ```{r}
-tapply(pigeon3$distance, pigeon3$population, mean)
+pigeon2 %>% 
+  group_by(population) %>% 
+  summarise(mean = mean(distance))
 ```
 
+]
 --
 
-Find the number of cases in each group
+.pull-right[
 
-.footnote[ <div class = "blue">
-Finshed and need more challenge? Go to the next slide </div>
+
+This can be read as:  
+  - take pigeon2  
+  - and then  
+  - group it by population  
+  - and then  
+  - summarise it by calculating the mean  
+
+i.e., the mean is done for each population.
 ]
 
 --
 
-The number of cases
-```{r}
-tapply(pigeon3$distance, pigeon3$population, length)
-```
+the `mean` before the `=` is just a name.
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1235,73 +1068,41 @@ background-size: 180px
 
 ## Summarising multi-group data
 
-### Extra challenges using `tapply()` 
+We can add the number of pigeons in each group to the summary using the `length()` function.
 
-Find the variance in each population
+```{r}
+pigeon2 %>% 
+  group_by(population) %>% 
+  summarise(mean = mean(distance),
+            n = length(distance)) #<<
+```
 
-.footnote[ <div class = "blue">
-Finshed and need more challenge? Go to the next slide </div>
+.footnote[
+`r kableExtra::text_spec("Extra exercise:", background = "#333880", color = "white", bold = TRUE)`  Add a column for the standard devation
+
+`r kableExtra::text_spec("Extra exercise:", background = "#333880", color = "white", bold = TRUE)`  Add a column for the standard error given by $\frac{s.d.}{\sqrt{n}}$
+
 ]
-
---
-
-```{r}
-tapply(pigeon3$distance, pigeon3$population, var)
-```
-
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
 # Working with Data 
 
 ## Summarising multi-group data
-
-### Extra challenges using `tapply()` 
-
-Calculate the standard errors for each group.
-
-Standard errors are given by 
-
-$$s.e. = \frac{s.d.}{\sqrt{n}} $$
-where $s.d.$ is the standard deviation of a sample and $n$ is the size of the sample.
---
-
-You will need to
-* calculate and assign the standard deviations to variable
-* calculate and assign the number of cases to variable
-* find out what function finds the squareroot of its argument
-* apply what you know about the elementwise way R works
-
----
-background-image: url(pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data 
-
-## Summarising multi-group data
-
-### Extra challenges using `tapply()` 
-
-Calculate the standard errors for each group.
-
+<br>
 ```{r}
-sds <- tapply(pigeon3$distance, pigeon3$population, sd)
-ns <- tapply(pigeon3$distance, pigeon3$population, length)
-ses <- sds / sqrt(ns)
-ses
-```
---
-
-To round
-```{r}
-round(ses, 3)
+pigeon2 %>% 
+  group_by(population) %>% 
+  summarise(mean = mean(distance),
+            n = length(distance),
+            sd = sd(distance), #<<
+            se = sd/sqrt(n))   #<<
 ```
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1312,7 +1113,7 @@ background-size: 180px
 .pull-left[
 
 ```{r fig.height=4, fig.width=4}
-ggplot(data = pigeon3, aes(x = distance)) +
+ggplot(data = pigeon2, aes(x = distance)) +
   geom_histogram(bins = 10,
                  col = "black") +
   xlab("Interorbital distance (mm)")
@@ -1330,7 +1131,7 @@ Plots the whole data set without separating the populations
 ]
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1343,17 +1144,15 @@ background-size: 180px
 'map' the population variable with the `fill` aesthetic
 
 ```{r fig.height=4, fig.width=5}
-ggplot(data = pigeon3, aes(x = distance, fill = population)) + #<<
+ggplot(data = pigeon2, aes(x = distance, fill = population)) + #<<
   geom_histogram(bins = 10, 
                  col = "black") +
   xlab("Interorbital distance (mm)")
   
 ```
 
- 
-
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1374,7 +1173,7 @@ Aesthetics include:
 
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1387,14 +1186,14 @@ background-size: 180px
 From `geom_histogram()` to `geom_density()`
 
 ```{r fig.height=4, fig.width=5}
-ggplot(data = pigeon3, aes(x = distance, fill = population)) +
+ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   geom_density(col = "black") +               #<<
   xlab("Interorbital distance (mm)")
   
 ```
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1406,14 +1205,14 @@ background-size: 180px
 
 
 ```{r fig.height=4, fig.width=5}
-ggplot(data = pigeon3, aes(x = distance, fill = population)) +
+ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   geom_density(col = "black", alpha = 0.3) +    #<<
   xlab("Interorbital distance (mm)")
   
 ```
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1424,7 +1223,7 @@ background-size: 180px
 ### Themes
 
 ```{r fig.height=4, fig.width=5}
-ggplot(data = pigeon3, aes(x = distance, fill = population)) +
+ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   geom_density(col = "black", alpha = 0.3) +
   xlab("Interorbital distance (mm)") +
   theme_classic()    #<<
@@ -1432,7 +1231,7 @@ ggplot(data = pigeon3, aes(x = distance, fill = population)) +
 ```
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1447,7 +1246,7 @@ Instead of plotting the distribution, we can plot the population on the _x_-axis
 and the distances on the _y_-axis **as points**
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1458,7 +1257,7 @@ background-size: 180px
 ### A different kind of plot
 
 ```{r fig.height=4, fig.width=4} 
-ggplot(data = pigeon3, aes(x = population, y = distance)) + #<<
+ggplot(data = pigeon2, aes(x = population, y = distance)) + #<<
   geom_point() +                            #<<
   xlab("Population") +
   ylab("Interorbital distance (mm)")
@@ -1467,7 +1266,7 @@ ggplot(data = pigeon3, aes(x = population, y = distance)) + #<<
 
 
 ---
-background-image: url(pics/interorbital.png)
+background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -1479,7 +1278,7 @@ background-size: 180px
 
 
 ```{r fig.height=4, fig.width=4}
-ggplot(data = pigeon3, aes(x = population, y = distance))  +
+ggplot(data = pigeon2, aes(x = population, y = distance))  +
   geom_violin() +                              #<<
   xlab("Population") +
   ylab("Interorbital distance (mm)") + 
