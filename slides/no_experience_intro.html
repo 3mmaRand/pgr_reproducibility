@@ -1,62 +1,41 @@
----
-title: "An Introduction to Reproducible Analyses in R: Without previous experience."
-subtitle: "White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology"
-author: "Emma Rand"
-institute: "University of York, UK"
-date: "2020-19-03"
-output:
-  xaringan::moon_reader:
-    css: [default, ../css_files/emma.css, ../css_files/emma-fonts.css]
-    lib_dir: libs
-    seal: false
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
----
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>An Introduction to Reproducible Analyses in R: Without previous experience.</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Emma Rand" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link rel="stylesheet" href="..\css_files\emma.css" type="text/css" />
+    <link rel="stylesheet" href="..\css_files\emma-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
 background-image: url(../logos/whiterose_dtp.png)
 background-position: 7% 50%
 background-size: 300px
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, 
-                      message = FALSE,	
-                      warning = FALSE)
-options(htmltools.dir.version = FALSE)
-```
-
-```{r packages, include=FALSE}
-library(RefManageR)
-library(kableExtra)
-library(tidyverse)
-```
 
 
-```{r, load-refs, include=FALSE, cache=FALSE}
-BibOptions(check.entries = FALSE,
-           bib.style = "authoryear",
-           cite.style = "authoryear",
-           style = "markdown",
-           hyperlink = TRUE,
-           dashed = FALSE,
-           longnamesfirst = FALSE,
-           max.names = 2)
-myBib <- ReadBib("../refs.bib", check = FALSE)
-```
+
+
+
+
 
 
 class: inverse
 
-# Introduction to Reproducibility in R <BR> For those without previous experience.
+# Introduction to Reproducibility in R &lt;BR&gt; For those without previous experience.
 
 ## Emma Rand 
 
 ### University of York: 2020-03-19
 
 .footnote[
-Made with xaringan `r Cite(myBib, "xaringan")`  
+Made with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan))  
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
 ]
 
 
@@ -95,9 +74,7 @@ class: inverse,
 
 Overview [Larger](http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg)
 
-```{r, echo=FALSE, out.width = "600px"}
-knitr::include_graphics("http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg")
-```
+&lt;img src="http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg" width="600px" /&gt;
 
 
 There is an [RStudio cheatsheet](http://www-users.york.ac.uk/~er13/rstudio-ide.pdf) which covers more advanced RStudio features.
@@ -124,7 +101,7 @@ There is an [RStudio cheatsheet](http://www-users.york.ac.uk/~er13/rstudio-ide.p
 ---
 # Finding your way round RStudio
 
-## Summary of live demonstration: <mark style="background-color: #e6f0ff">The panels</mark>
+## Summary of live demonstration: &lt;mark style="background-color: #e6f0ff"&gt;The panels&lt;/mark&gt;
 
 .pull-left[
 Top left
@@ -150,7 +127,7 @@ Bottom right
 ---
 # Finding your way round RStudio
 
-## Summary of Live demonstration: <mark style="background-color: #e6f0ff">Types of R files</mark>
+## Summary of Live demonstration: &lt;mark style="background-color: #e6f0ff"&gt;Types of R files&lt;/mark&gt;
 
 * .R 
   a script file:  code (to save) and comments
@@ -166,7 +143,7 @@ Bottom right
 ---
 # Finding your way round RStudio
 
-## Summary of Live demonstration: <mark style="background-color: #e6f0ff">Data types and structures</mark>
+## Summary of Live demonstration: &lt;mark style="background-color: #e6f0ff"&gt;Data types and structures&lt;/mark&gt;
 
 These are the most commonly needed but there are others
 .pull-left[
@@ -191,32 +168,47 @@ We will work some data on the number of males in 64 bird nests with a clutch siz
 --
 .pull-left[
 You are going to make this data, find the mean number of males per nest...
-```{r , echo=FALSE}
-n <- c(0, 1, 2, 3, 4, 5)
-freq <- c(4, 13, 14, 15, 13, 5)
-df <- data.frame(n, freq)
-knitr::kable(df, 
-             format = "html",
-             col.names = c("No. males", "No. nests"),
-             row.names = FALSE)
-```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; No. males &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; No. nests &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
 --
 .pull-right[
 ... and make a plot
 
 
-```{r , echo=FALSE,fig.width=5,fig.height=5}
-nest_data <- data.frame(n, freq)
-ggplot(data = nest_data, aes(x = n, y = freq)) +
-  geom_col(colour = "black", fill = "white") +
-  scale_x_continuous(name = "Number of males",
-                   breaks = c(0,1,2,3,4,5),
-                   expand = c(0, 0)) +
-  scale_y_continuous(name = "Number of nests",
-                     expand = c(0,0)) +
-  theme_classic()
-```
+![](no_experience_intro_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -243,9 +235,10 @@ Make a new script using the new file button ![new script](../pics/newscript.png)
 ## Putting the data into R data structures
 
 Make a vector `n` that holds the numbers 0 to 5. 
-```{r}
+
+```r
 # the number of males in a clutch of five
-n <- c(0, 1, 2, 3, 4, 5)
+n &lt;- c(0, 1, 2, 3, 4, 5)
 ```
 
 * Write your command in the script file  
@@ -259,7 +252,7 @@ n <- c(0, 1, 2, 3, 4, 5)
 
 --
 
-* Run it using the run button ![Run](../pics/runbutton.png) or doing Ctrl+Enter<sup>1</sup>. 
+* Run it using the run button ![Run](../pics/runbutton.png) or doing Ctrl+Enter&lt;sup&gt;1&lt;/sup&gt;. 
 
 .footnote[
 [1] Ctrl+Enter is the default shortcut to run the current line or selection. I prefer to set to Ctrl+R]
@@ -269,7 +262,7 @@ n <- c(0, 1, 2, 3, 4, 5)
 
 ## Putting the data into R data structures
 
-Let's take a look at it using `str()` (structure) and `class()`<sup>1</sup>:
+Let's take a look at it using `str()` (structure) and `class()`&lt;sup&gt;1&lt;/sup&gt;:
 
 .footnote[
 [1] These commands are useful to check what data type you're working with.
@@ -277,14 +270,24 @@ Let's take a look at it using `str()` (structure) and `class()`<sup>1</sup>:
 
 --
 
-```{r}
+
+```r
 class(n)
+```
+
+```
+## [1] "numeric"
 ```
 
 --
 
-```{r}
+
+```r
 str(n)
+```
+
+```
+##  num [1:6] 0 1 2 3 4 5
 ```
 
 It's a numeric vector.
@@ -298,16 +301,22 @@ It's a numeric vector.
 
 Now create a vector called `freq` containing the numbers of nests with 0 to 5 males. 
 
-```{r}
+
+```r
 # the number of nests with 0 to 5 males
-freq <- c(4, 13, 14, 15, 13, 5)
+freq &lt;- c(4, 13, 14, 15, 13, 5)
 ```
 --
 We can use `sum(freq)` to check we get the total number of nests expected, 64
 
-```{r}
+
+```r
 # the total number of nests
 sum(freq)
+```
+
+```
+## [1] 64
 ```
 
 ---
@@ -316,25 +325,57 @@ sum(freq)
 ## Finding the mean
 Our data is in the form of a frequency table so to find the mean number of males per nest we need find the total number of males like this:
 .pull-left[
-```{r , echo=FALSE}
-df$product <- df$n * df$freq
-totalm <- sum(df$product)
-totaln <- sum(df$freq)
-dfchar <- df %>%
-  mutate_all(as.character)
-dfchar <- rbind(dfchar, c("Total", totaln, totalm))
-dfchar %>% kable(format = "html",
-                 col.names = c("No. males", "No. nests", "No. males *No. nests"),
-                 row.names = FALSE) %>% 
-  kable_styling() %>%
-  row_spec(6, hline_after = TRUE) %>%
-  row_spec(7, bold = TRUE, background = "#C0C2C9")
-```
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; No. males &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; No. nests &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; No. males *No. nests &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 28 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 45 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 52 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: #C0C2C9 !important;"&gt; Total &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: #C0C2C9 !important;"&gt; 64 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: #C0C2C9 !important;"&gt; 163 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
 
 .pull-right[
 
-$$\frac{163}{64} = 2.55$$
+`$$\frac{163}{64} = 2.55$$`
 ]
 
 ---
@@ -344,25 +385,32 @@ $$\frac{163}{64} = 2.55$$
 
 
 Find the total number of nests
-```{r}
+
+```r
 # total number of nests
-total_nests <- sum(freq)
+total_nests &lt;- sum(freq)
 ```
  
 --
 
 Find the total number of males
-```{r}
+
+```r
 # total number of males
-total_males <- sum(n * freq)
+total_males &lt;- sum(n * freq)
 ```
 
 --
 
 Find the mean number of males per nest
-```{r}
+
+```r
 # mean number males/nest
 total_males/total_nests
+```
+
+```
+## [1] 2.546875
 ```
 
 
@@ -376,7 +424,7 @@ R works 'elementwise' unlike most programming lanaguges.
 ` n * freq`
 gives
 
-$$\begin{bmatrix}0\\1\\2\\3\\4\\5\end{bmatrix}\times\begin{bmatrix}4\\13\\14\\15\\13\\5\end{bmatrix}=\begin{bmatrix}0\\13\\28\\45\\52\\25\end{bmatrix}$$
+`$$\begin{bmatrix}0\\1\\2\\3\\4\\5\end{bmatrix}\times\begin{bmatrix}4\\13\\14\\15\\13\\5\end{bmatrix}=\begin{bmatrix}0\\13\\28\\45\\52\\25\end{bmatrix}$$`
 
 It was designed to make it easy to work with data.
 
@@ -396,12 +444,12 @@ Base packages (collections of commands) always come with R.
 
 --
 
-Other packages, such as `ggplot2` `r Cite(myBib, "ggplot2")`<sup>1</sup> need to be added.
+Other packages, such as `ggplot2` &lt;a name=cite-ggplot2&gt;&lt;/a&gt;([Wickham, 2016](#bib-ggplot2))&lt;sup&gt;1&lt;/sup&gt; need to be added.
 
-`ggplot2` is one of the `tidyverse` `r Cite(myBib, "tidyverse")` packages.
+`ggplot2` is one of the `tidyverse`  packages.
 
 .footnote[
-[1] A fantastic plotting system which has a common conceptual framework for visualisation based on [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl?ie=UTF8&qid=1477928463&sr=8-1&keywords=the+grammar+of+graphics&linkCode=sl1&tag=ggplot2-20&linkId=f0130e557161b83fbe97ba0e9175c431)
+[1] A fantastic plotting system which has a common conceptual framework for visualisation based on [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl?ie=UTF8&amp;qid=1477928463&amp;sr=8-1&amp;keywords=the+grammar+of+graphics&amp;linkCode=sl1&amp;tag=ggplot2-20&amp;linkId=f0130e557161b83fbe97ba0e9175c431)
 ]
 
 ---
@@ -411,7 +459,8 @@ Other packages, such as `ggplot2` `r Cite(myBib, "ggplot2")`<sup>1</sup> need to
 
 `tidyverse` is already installed in on these computers but we need to load it (add it to our library) before we can use it in a session.
 
-```{r eval=FALSE}
+
+```r
 library(tidyverse)
 ```
 
@@ -440,14 +489,22 @@ background-size: 100px
 
 We need to make one from `n` and `freq`
 
-```{r}
-nest_data <- data.frame(n, freq)
+
+```r
+nest_data &lt;- data.frame(n, freq)
 ```
 
 --
 And check
-```{r}
+
+```r
 str(nest_data)
+```
+
+```
+## 'data.frame':	6 obs. of  2 variables:
+##  $ n   : num  0 1 2 3 4 5
+##  $ freq: num  4 13 14 15 13 5
 ```
 
 --
@@ -467,11 +524,13 @@ background-size: 100px
 
 Create a simple barplot using `ggplot` like this:
 
-```{r fig.width=4,fig.height=4}
+
+```r
 ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col()
-
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -518,7 +577,8 @@ Many commands have defaults so you need only supply an object.
 --
 
 Open the manual page using:
-```{r eval=FALSE}
+
+```r
 ?geom_col()
 ```
 
@@ -549,11 +609,13 @@ Open the manual page using:
 
 We can change the fill of the bars using `fill`:
 
-```{r fig.width=4,fig.height=4}
+
+```r
 ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(fill = "lightblue")
-
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 ---
 # Using the help manual
@@ -562,11 +624,13 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 `fill` is an aesthetic. We can set the fill aesthetic to a particular colour inside `geom_col()` but we can also map it to a variable inside the `aes()` instead: 
 
-```{r fig.width=4,fig.height=4}
+
+```r
 ggplot(data = nest_data, aes(x = n, y = freq, fill = n)) +
   geom_col()
-
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -582,9 +646,7 @@ Skip to the next slide if you want more challenge.
 --
 
 .pull-right[
-```{r ,fig.width=4,fig.height=4}
 
-```
 ]
 ---
 
@@ -597,24 +659,22 @@ Can you use the manual to ?
 
 Skip to the next slide if you want more challenge.
 
-<style>
+&lt;style&gt;
 div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
-</style>
+&lt;/style&gt;
 
-<div class = "blue">
+&lt;div class = "blue"&gt;
 **Top Tip** 
 
 Make your code easier to read by using white space and new lines
-* put spaces around `=` , `->` and after `,`
+* put spaces around `=` , `-&gt;` and after `,`
 * use a newline after every comma in a command with lots of arguments
 ]
-</div>
+&lt;/div&gt;
 
 .pull-right[
-```{r ,fig.width=4,fig.height=4}
 
-```
 ]
 
 ---
@@ -640,9 +700,7 @@ Skip to the next slide if you want more challenge.
 --
 
 .pull-right[
-```{r ,fig.width=5,fig.height=5}
 
-```
 ]
 
 
@@ -657,30 +715,32 @@ You can add an axis label like this:
 
 .pull-left[
 
-```{r fig.width=4,fig.height=4}
+
+```r
 ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col() +
   xlab("Number of males")
-
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 ]
 
 --
 
 .pull-right[
 
-<br><br>
+&lt;br&gt;&lt;br&gt;
 
 Each 'layer' is added to the `ggplot()` command with a '+'
 
 
 
-<div class = "blue">
+&lt;div class = "blue"&gt;
 **We can customise much more and will return to this later.....**
 
-<small>[ggplot cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) if you can't wait</small>
+&lt;small&gt;[ggplot cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) if you can't wait&lt;/small&gt;
 ]
-</div>
+&lt;/div&gt;
 
 
 
@@ -698,36 +758,39 @@ class: inverse,
 
 ## The goal
 
-```{r echo=FALSE}
-pigeon2 <- read.table("../data/pigeon2.txt", header = T)
-pigeon3 <- gather(data = pigeon2, key = population, value = distance)
-library(Rmisc)
-sumpig <- summarySE(pigeon3, measurevar = "distance", groupvars = "population")
-sumpig %>% 
-  select(-ci, -sd) %>% 
-  kable(format = "html",
-                 col.names = c("Population", "N", "Mean", "SE"),
-                 row.names = FALSE) %>%
-  add_header_above(c(" " = 2, " Interorbital distance" = 2))
-
-```
+&lt;table&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="border-bottom:hidden" colspan="2"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt; Interorbital distance&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Population &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; N &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Mean &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; SE &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.2400 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1170032 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.7025 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0906167 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 .pull-left[
-```{r fig.width=5, fig.height=4,echo=FALSE}
-ggplot(data = pigeon3, aes(x = distance, fill = population))  +
-  geom_density(col = "black", alpha = 0.3) +
-  xlab("Interorbital distance (mm)") +
-  theme_classic()
-```
+![](no_experience_intro_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-```{r fig.height=4, fig.width=5,echo=FALSE}
-ggplot(data = pigeon3, aes(x = population, y = distance)) +
-  geom_violin() +
-  xlab("Population") +
-  ylab("Interorbital distance (mm)") + 
-  theme_classic()
-  
-```
+![](no_experience_intro_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -749,13 +812,12 @@ Save a copy [pigeon.txt](data/pigeon.txt)
 
 Import the data in to R with `read.table()`:
 
-```{r eval=FALSE}
-pigeon <- read.table("pigeon.txt", header = TRUE)
+
+```r
+pigeon &lt;- read.table("pigeon.txt", header = TRUE)
 ```
 
-```{r echo=FALSE}
-pigeon <- read.table("../data/pigeon.txt", header = TRUE)
-```
+
 --
 
 `header = TRUE` is an argument in the `read.table()` command which indicates that the datafile has a header, _i.e._, the first value in the file is the variable name
@@ -774,8 +836,14 @@ background-size: 180px
 
 Examine the structure
 
-```{r}
+
+```r
 str(pigeon)
+```
+
+```
+## 'data.frame':	40 obs. of  1 variable:
+##  $ interorbital: num  12.2 12.9 11.8 11.9 11.6 11.1 12.3 12.2 11.8 11.8 ...
 ```
 
 The object created by `read.table()` is a dataframe. 
@@ -802,8 +870,15 @@ To refer a column inside a dataframe (a single column data) we need to use the d
 --
 
 So to output all of the values of one column we can use:
-```{r}
+
+```r
 pigeon$interorbital
+```
+
+```
+##  [1] 12.2 12.9 11.8 11.9 11.6 11.1 12.3 12.2 11.8 11.8 10.7 11.5 11.3 11.2
+## [15] 11.6 11.9 13.3 11.2 10.5 11.1 12.1 11.9 10.4 10.7 10.8 11.0 11.9 10.2
+## [29] 10.9 11.6 10.8 11.6 10.4 10.7 12.0 12.4 11.7 11.8 11.3 11.1
 ```
 ---
 background-image: url(pics/interorbital.png)
@@ -821,8 +896,13 @@ calculations on your data.
 --
 
 For example, the mean
-```{r}
+
+```r
 mean(pigeon$interorbital)
+```
+
+```
+## [1] 11.48
 ```
 
 --
@@ -838,15 +918,25 @@ background-size: 180px
 ## Summarising single group data 
 
 Standard deviation
-```{r }
+
+```r
 sd(pigeon$interorbital)
+```
+
+```
+## [1] 0.6917833
 ```
 
 --
 
 Number of cases
-```{r }
+
+```r
 length(pigeon$interorbital)
+```
+
+```
+## [1] 40
 ```
 ---
 background-image: url(pics/interorbital.png)
@@ -857,12 +947,14 @@ background-size: 180px
 ## Plotting single group data 
 
 .pull-left[
-```{r fig.height=4, fig.width=4}
+
+```r
 ggplot(data = pigeon, aes(x = interorbital)) +
   geom_histogram() +
   xlab("Interorbital distance (mm)")
-  
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 ]
 ---
@@ -875,13 +967,15 @@ background-size: 180px
 ## Plotting single group data 
 
 .pull-left[
-```{r fig.height=4, fig.width=4}
+
+```r
 ggplot(data = pigeon, aes(x = interorbital)) +
   geom_histogram(bins = 10,             
-                 col = "black") +       #<<
+*                col = "black") +
   xlab("Interorbital distance (mm)")
-  
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -889,9 +983,9 @@ ggplot(data = pigeon, aes(x = interorbital)) +
 
 .pull-right[
 
-<br>
-<br>
-<br>
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 We will cover more figure options as we go through the afternoon.
 
@@ -955,7 +1049,8 @@ The easiest way to do this is in RStudio  - see the bottom right Files panel
 --
 
 Forgotten where you are? Use
-```{r eval=FALSE}
+
+```r
 getwd()
 ```
 
@@ -978,8 +1073,9 @@ To read the data in to R you need to use the 'relative path'
 to the file in the `read.table()` command:
 
 
-```{r}
-pigeon2 <- read.table("../data/pigeon2.txt", header = TRUE)
+
+```r
+pigeon2 &lt;- read.table("../data/pigeon2.txt", header = TRUE)
 ```
 
 
@@ -1004,8 +1100,15 @@ background-size: 180px
 
 Look at the structure of the dataframe pigeon2 using `str()`
 
-```{r }
+
+```r
 str(pigeon2)
+```
+
+```
+## 'data.frame':	40 obs. of  2 variables:
+##  $ A: num  12.4 11.2 11.6 12.3 11.8 10.7 11.3 11.6 12.3 10.5 ...
+##  $ B: num  12.6 11.3 12.1 12.2 11.8 11.5 11.2 11.9 11.2 12.1 ...
 ```
 --
 
@@ -1031,14 +1134,24 @@ Remember, to refer a column inside a dataframe (a single column data) we need to
 
 The mean of column $A
 
-```{r }
+
+```r
 mean(pigeon2$A)
+```
+
+```
+## [1] 11.24
 ```
 
 The mean of column $B
 
-```{r }
+
+```r
 mean(pigeon2$B)
+```
+
+```
+## [1] 11.7025
 ```
 
 ---
@@ -1059,7 +1172,7 @@ in one column and a second column gives the group.
 
 --
 
-This format is described as 'tidy' `r AutoCite(myBib, "Wickham2019-ml", .opts = list(max.names = 3))`.
+This format is described as 'tidy' &lt;a name=cite-Wickham2019-ml&gt;&lt;/a&gt;([Wickham, Averick, Bryan, et al., 2019](#bib-Wickham2019-ml)).
 
 
 
@@ -1084,28 +1197,71 @@ Suppose we had just 3 individuals in each population:
 
 
 **NOT TIDY!**
-```{r echo=FALSE}
-knitr::kable(pigeon2[1:3,], 
-             format = "html")
-```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; A &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; B &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 12.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
-```{r echo=FALSE}
-pigeon3 <- gather(data = pigeon2, 
-                  key = population, 
-                  value = distance)
-```
+
 
 .pull-right[
-<br>
-<br>
-<br>
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 **TIDY!**
-```{r echo=FALSE}
-knitr::kable(head(pigeon3[c(1:3,41:43),]), 
-             format = "html",
-             row.names = FALSE)
-```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; population &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; distance &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
 
 
@@ -1117,7 +1273,7 @@ background-size: 180px
 # Working with Data 
 ## Tidy format
 
-We can make the data tidy with `gather()`<sup>1</sup>.
+We can make the data tidy with `gather()`&lt;sup&gt;1&lt;/sup&gt;.
 
 `gather()` needs 3 arguments:
 
@@ -1136,14 +1292,20 @@ We can make the data tidy with `gather()`<sup>1</sup>.
 * a `value` the measurement variable.
 --
 
-```{r}
 
-pigeon3 <- gather(data = pigeon2, key = population, value = distance)
+```r
+pigeon3 &lt;- gather(data = pigeon2, key = population, value = distance)
 str(pigeon3)
 ```
 
-&nbsp;
-&nbsp;
+```
+## 'data.frame':	80 obs. of  2 variables:
+##  $ population: chr  "A" "A" "A" "A" ...
+##  $ distance  : num  12.4 11.2 11.6 12.3 11.8 10.7 11.3 11.6 12.3 10.5 ...
+```
+
+&amp;nbsp;
+&amp;nbsp;
 
 
 
@@ -1167,8 +1329,13 @@ How can we summarise now?
 --
 
 If we use 
-```{r}
+
+```r
 mean(pigeon3$distance)
+```
+
+```
+## [1] 11.47125
 ```
 
 We will get the mean of the two populations combined.
@@ -1210,23 +1377,35 @@ background-size: 180px
 
 ### Using `tapply()`
 
-```{r}
+
+```r
 tapply(pigeon3$distance, pigeon3$population, mean)
+```
+
+```
+##       A       B 
+## 11.2400 11.7025
 ```
 
 --
 
 Find the number of cases in each group
 
-.footnote[ <div class = "blue">
-Finshed and need more challenge? Go to the next slide </div>
+.footnote[ &lt;div class = "blue"&gt;
+Finshed and need more challenge? Go to the next slide &lt;/div&gt;
 ]
 
 --
 
 The number of cases
-```{r}
+
+```r
 tapply(pigeon3$distance, pigeon3$population, length)
+```
+
+```
+##  A  B 
+## 40 40
 ```
 
 ---
@@ -1242,14 +1421,20 @@ background-size: 180px
 
 Find the variance in each population
 
-.footnote[ <div class = "blue">
-Finshed and need more challenge? Go to the next slide </div>
+.footnote[ &lt;div class = "blue"&gt;
+Finshed and need more challenge? Go to the next slide &lt;/div&gt;
 ]
 
 --
 
-```{r}
+
+```r
 tapply(pigeon3$distance, pigeon3$population, var)
+```
+
+```
+##         A         B 
+## 0.5475897 0.3284551
 ```
 
 ---
@@ -1268,7 +1453,7 @@ Calculate the standard errors for each group.
 Standard errors are given by 
 
 $$s.e. = \frac{s.d.}{\sqrt{n}} $$
-where $s.d.$ is the standard deviation of a sample and $n$ is the size of the sample.
+where `\(s.d.\)` is the standard deviation of a sample and `\(n\)` is the size of the sample.
 --
 
 You will need to
@@ -1290,17 +1475,29 @@ background-size: 180px
 
 Calculate the standard errors for each group.
 
-```{r}
-sds <- tapply(pigeon3$distance, pigeon3$population, sd)
-ns <- tapply(pigeon3$distance, pigeon3$population, length)
-ses <- sds / sqrt(ns)
+
+```r
+sds &lt;- tapply(pigeon3$distance, pigeon3$population, sd)
+ns &lt;- tapply(pigeon3$distance, pigeon3$population, length)
+ses &lt;- sds / sqrt(ns)
 ses
+```
+
+```
+##          A          B 
+## 0.11700318 0.09061666
 ```
 --
 
 To round
-```{r}
+
+```r
 round(ses, 3)
+```
+
+```
+##     A     B 
+## 0.117 0.091
 ```
 
 ---
@@ -1314,20 +1511,22 @@ background-size: 180px
 
 .pull-left[
 
-```{r fig.height=4, fig.width=4}
+
+```r
 ggplot(data = pigeon3, aes(x = distance)) +
   geom_histogram(bins = 10,
                  col = "black") +
   xlab("Interorbital distance (mm)")
-  
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
-<br>
-<br>
-<br>
-<br>
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 Plots the whole data set without separating the populations
 
 ]
@@ -1345,13 +1544,15 @@ background-size: 180px
 
 'map' the population variable with the `fill` aesthetic
 
-```{r fig.height=4, fig.width=5}
-ggplot(data = pigeon3, aes(x = distance, fill = population)) + #<<
+
+```r
+*ggplot(data = pigeon3, aes(x = distance, fill = population)) +
   geom_histogram(bins = 10, 
                  col = "black") +
   xlab("Interorbital distance (mm)")
-  
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
 
  
 
@@ -1389,12 +1590,14 @@ background-size: 180px
 
 From `geom_histogram()` to `geom_density()`
 
-```{r fig.height=4, fig.width=5}
+
+```r
 ggplot(data = pigeon3, aes(x = distance, fill = population)) +
-  geom_density(col = "black") +               #<<
+* geom_density(col = "black") +
   xlab("Interorbital distance (mm)")
-  
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
 
 ---
 background-image: url(pics/interorbital.png)
@@ -1408,12 +1611,14 @@ background-size: 180px
 ### And altering the transparancy using `alpha`
 
 
-```{r fig.height=4, fig.width=5}
+
+```r
 ggplot(data = pigeon3, aes(x = distance, fill = population)) +
-  geom_density(col = "black", alpha = 0.3) +    #<<
+* geom_density(col = "black", alpha = 0.3) +
   xlab("Interorbital distance (mm)")
-  
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
 
 ---
 background-image: url(pics/interorbital.png)
@@ -1426,13 +1631,15 @@ background-size: 180px
 
 ### Themes
 
-```{r fig.height=4, fig.width=5}
+
+```r
 ggplot(data = pigeon3, aes(x = distance, fill = population)) +
   geom_density(col = "black", alpha = 0.3) +
   xlab("Interorbital distance (mm)") +
-  theme_classic()    #<<
-  
+* theme_classic()
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
 
 ---
 background-image: url(pics/interorbital.png)
@@ -1460,13 +1667,15 @@ background-size: 180px
 
 ### A different kind of plot
 
-```{r fig.height=4, fig.width=4} 
-ggplot(data = pigeon3, aes(x = population, y = distance)) + #<<
-  geom_point() +                            #<<
+
+```r
+*ggplot(data = pigeon3, aes(x = population, y = distance)) +
+* geom_point() +
   xlab("Population") +
   ylab("Interorbital distance (mm)")
-  
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -1481,21 +1690,32 @@ background-size: 180px
 ### Another  plot
 
 
-```{r fig.height=4, fig.width=4}
+
+```r
 ggplot(data = pigeon3, aes(x = population, y = distance))  +
-  geom_violin() +                              #<<
+* geom_violin() +
   xlab("Population") +
   ylab("Interorbital distance (mm)") + 
   theme_classic()
-  
 ```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
 
 ---
 # References
 
-```{r refs, echo=FALSE, results="asis"}
-PrintBibliography(myBib)
-```
+&lt;a name=bib-ggplot2&gt;&lt;/a&gt;[Wickham, H.](#cite-ggplot2) (2016).
+_ggplot2: Elegant Graphics for Data Analysis_. Springer-Verlag New
+York. ISBN: 978-3-319-24277-4. URL:
+[https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org).
+
+&lt;a name=bib-Wickham2019-ml&gt;&lt;/a&gt;[Wickham, H, M. Averick, et
+al.](#cite-Wickham2019-ml) (2019). "Welcome to the Tidyverse". In:
+_JOSS_ 4.43, p. 1686.
+
+&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019).
+_xaringan: Presentation Ninja_. R package version 0.12. URL:
+[https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
 
 
 
@@ -1507,10 +1727,10 @@ background-size: 350px
 class: inverse
 
 # Congratulations! Keep practising!
-<br>
-<br>
-<br>
-<br>
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 Emma Rand 
 
 emma.rand@york.ac.uk
@@ -1520,14 +1740,99 @@ Twitter: [@er13_r](https://twitter.com/er13_r)
 github: [3mmaRand](https://github.com/3mmaRand)
 
 blog: https://buzzrbeeline.blog/
-<br>
+&lt;br&gt;
 
 .footnote[
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
 ]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
 
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
 
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
 
-
-
-
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
