@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>An Introduction to Reproducible Analyses in R: Without previous experience.</title>
     <meta charset="utf-8" />
@@ -487,11 +487,11 @@ background-size: 100px
 
 `ggplot()` takes a dataframe for an argument
 
-We need to make one from `n` and `freq`
+We need to make one from `n` and `freq`. We will turn `n` into a factor (a categorical variable).
 
 
 ```r
-nest_data &lt;- data.frame(n, freq)
+nest_data &lt;- data.frame(n = factor(n), freq)
 ```
 
 --
@@ -503,7 +503,7 @@ str(nest_data)
 
 ```
 ## 'data.frame':	6 obs. of  2 variables:
-##  $ n   : num  0 1 2 3 4 5
+##  $ n   : Factor w/ 6 levels "0","1","2","3",..: 1 2 3 4 5 6
 ##  $ freq: num  4 13 14 15 13 5
 ```
 
@@ -616,6 +616,17 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 ```
 
 ![](no_experience_intro_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+Colours can be given by their name: "lightblue" 
+
+Or by their hexadecimal code: "#ADD8E6".  
+
+You can look these up as follows:  
+
+[By colour name](../pics/colournames.pdf)
+
+[By hexadecimal code](../pics/colourhex.pdf)
+
+
 
 ---
 # Using the help manual
@@ -631,14 +642,16 @@ ggplot(data = nest_data, aes(x = n, y = freq, fill = n)) +
 ```
 
 ![](no_experience_intro_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+--
 
+Mapping fill to variable means the colour is variable - you get a different colour for each value of n. Not useful here but is when you have another variable.
 
 ---
 # Using the help manual
 
 ## Altering a ggplot
 .pull-left[
-Can you use the manual to add labels for both axes?
+Can you use the manual to put the bars next to each other?
 
 Skip to the next slide if you want more challenge.
 
@@ -647,6 +660,12 @@ Skip to the next slide if you want more challenge.
 
 .pull-right[
 
+```r
+ggplot(data = nest_data, aes(x = n, y = freq)) +
+  geom_col(fill = "lightblue", width = 1)
+```
+
+![](no_experience_intro_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 ]
 ---
 
@@ -655,9 +674,7 @@ Skip to the next slide if you want more challenge.
 ## Plotting
 
 .pull-left[
-Can you use the manual to ?
-
-Skip to the next slide if you want more challenge.
+Can you use the manual to change to colour of the lines around each bar to black?
 
 &lt;style&gt;
 div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
@@ -675,54 +692,46 @@ Make your code easier to read by using white space and new lines
 
 .pull-right[
 
-]
+```r
+ggplot(data = nest_data,
+       aes(x = n, y = freq)) +
+  geom_col(fill = "lightblue", 
+           width = 1, 
+           colour = "black")
+```
 
----
-
-# Plotting - extra challenges
-
-.pull-left[
-Make all the bars red.
-
-Colours can be given by their name: "red" 
-
-Or by their hexadecimal code: "#FF3030".  
-
-You can look these up as follows:  
-
-[By colour name](pics/colournames.pdf)
-
-[By hexadecimal code](pics/colourhex.pdf)
-
-Skip to the next slide if you want more challenge.
-]
-
---
-
-.pull-right[
-
+![](no_experience_intro_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 ]
 
 
 ---
-background-image: url(pics/ggplot.jpg)
+background-image: url(../pics/ggplot.jpg)
 background-position: 100% 0%
 background-size: 100px
 
 # Plotting using ggplot2
 
-You can add an axis label like this:
+## Altering the axes. 
+Changes to a discrete x axis can be made by adding a `scale_x_discrete()`.
+Changes to a continuous y axis can be made by adding a `scale_y_continuous()`.
+
+ggplot automatically extends the axes slightly to make sure there is room for points to plot. 
+You can turn this behaviour off with the expand argument.
 
 .pull-left[
 
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq)) +
-  geom_col() +
-  xlab("Number of males")
+ggplot(data = nest_data,
+       aes(x = n, y = freq)) +
+  geom_col(fill = "lightblue", 
+           width = 1, 
+           colour = "black") +
+  scale_x_discrete(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) 
 ```
 
-![](no_experience_intro_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -733,14 +742,6 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 Each 'layer' is added to the `ggplot()` command with a '+'
 
-
-
-&lt;div class = "blue"&gt;
-**We can customise much more and will return to this later.....**
-
-&lt;small&gt;[ggplot cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) if you can't wait&lt;/small&gt;
-]
-&lt;/div&gt;
 
 
 
@@ -787,10 +788,10 @@ class: inverse,
 &lt;/tbody&gt;
 &lt;/table&gt;
 .pull-left[
-![](no_experience_intro_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-![](no_experience_intro_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -876,9 +877,9 @@ pigeon$interorbital
 ```
 
 ```
-##  [1] 12.2 12.9 11.8 11.9 11.6 11.1 12.3 12.2 11.8 11.8 10.7 11.5 11.3 11.2
-## [15] 11.6 11.9 13.3 11.2 10.5 11.1 12.1 11.9 10.4 10.7 10.8 11.0 11.9 10.2
-## [29] 10.9 11.6 10.8 11.6 10.4 10.7 12.0 12.4 11.7 11.8 11.3 11.1
+##  [1] 12.2 12.9 11.8 11.9 11.6 11.1 12.3 12.2 11.8 11.8 10.7 11.5 11.3 11.2 11.6
+## [16] 11.9 13.3 11.2 10.5 11.1 12.1 11.9 10.4 10.7 10.8 11.0 11.9 10.2 10.9 11.6
+## [31] 10.8 11.6 10.4 10.7 12.0 12.4 11.7 11.8 11.3 11.1
 ```
 ---
 background-image: url(pics/interorbital.png)
@@ -954,7 +955,7 @@ ggplot(data = pigeon, aes(x = interorbital)) +
   xlab("Interorbital distance (mm)")
 ```
 
-![](no_experience_intro_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 
 ]
 ---
@@ -975,7 +976,7 @@ ggplot(data = pigeon, aes(x = interorbital)) +
   xlab("Interorbital distance (mm)")
 ```
 
-![](no_experience_intro_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -1519,7 +1520,7 @@ ggplot(data = pigeon3, aes(x = distance)) +
   xlab("Interorbital distance (mm)")
 ```
 
-![](no_experience_intro_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
@@ -1552,7 +1553,7 @@ background-size: 180px
   xlab("Interorbital distance (mm)")
 ```
 
-![](no_experience_intro_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
 
  
 
@@ -1597,7 +1598,7 @@ ggplot(data = pigeon3, aes(x = distance, fill = population)) +
   xlab("Interorbital distance (mm)")
 ```
 
-![](no_experience_intro_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
 
 ---
 background-image: url(pics/interorbital.png)
@@ -1618,7 +1619,7 @@ ggplot(data = pigeon3, aes(x = distance, fill = population)) +
   xlab("Interorbital distance (mm)")
 ```
 
-![](no_experience_intro_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
 
 ---
 background-image: url(pics/interorbital.png)
@@ -1639,7 +1640,7 @@ ggplot(data = pigeon3, aes(x = distance, fill = population)) +
 * theme_classic()
 ```
 
-![](no_experience_intro_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
 
 ---
 background-image: url(pics/interorbital.png)
@@ -1675,7 +1676,7 @@ background-size: 180px
   ylab("Interorbital distance (mm)")
 ```
 
-![](no_experience_intro_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -1699,22 +1700,22 @@ ggplot(data = pigeon3, aes(x = population, y = distance))  +
   theme_classic()
 ```
 
-![](no_experience_intro_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
+![](no_experience_intro_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
 
 ---
 # References
 
-&lt;a name=bib-ggplot2&gt;&lt;/a&gt;[Wickham, H.](#cite-ggplot2) (2016).
-_ggplot2: Elegant Graphics for Data Analysis_. Springer-Verlag New
-York. ISBN: 978-3-319-24277-4. URL:
+&lt;a name=bib-ggplot2&gt;&lt;/a&gt;[Wickham, H.](#cite-ggplot2) (2016). _ggplot2:
+Elegant Graphics for Data Analysis_. Springer-Verlag New York. ISBN:
+978-3-319-24277-4. URL:
 [https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org).
 
 &lt;a name=bib-Wickham2019-ml&gt;&lt;/a&gt;[Wickham, H, M. Averick, et
 al.](#cite-Wickham2019-ml) (2019). "Welcome to the Tidyverse". In:
 _JOSS_ 4.43, p. 1686.
 
-&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019).
-_xaringan: Presentation Ninja_. R package version 0.12. URL:
+&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan:
+Presentation Ninja_. R package version 0.12. URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
 
 
@@ -1791,7 +1792,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {

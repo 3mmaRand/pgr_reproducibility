@@ -207,11 +207,10 @@ knitr::kable(df,
 
 
 ```{r , echo=FALSE,fig.width=5,fig.height=5}
-nest_data <- data.frame(n, freq)
+nest_data <- data.frame(n = factor(n), freq)
 ggplot(data = nest_data, aes(x = n, y = freq)) +
-  geom_col(colour = "black", fill = "white") +
-  scale_x_continuous(name = "Number of males",
-                   breaks = c(0,1,2,3,4,5),
+  geom_col(colour = "black", fill = "white", width = 1) +
+  scale_x_discrete(name = "Number of males",
                    expand = c(0, 0)) +
   scale_y_continuous(name = "Number of nests",
                      expand = c(0,0)) +
@@ -438,10 +437,10 @@ background-size: 100px
 
 `ggplot()` takes a dataframe for an argument
 
-We need to make one from `n` and `freq`
+We need to make one from `n` and `freq`. We will turn `n` into a factor (a categorical variable).
 
 ```{r}
-nest_data <- data.frame(n, freq)
+nest_data <- data.frame(n = factor(n), freq)
 ```
 
 --
@@ -554,6 +553,17 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(fill = "lightblue")
 
 ```
+Colours can be given by their name: "lightblue" 
+
+Or by their hexadecimal code: "#ADD8E6".  
+
+You can look these up as follows:  
+
+[By colour name](../pics/colournames.pdf)
+
+[By hexadecimal code](../pics/colourhex.pdf)
+
+
 
 ---
 # Using the help manual
@@ -567,14 +577,16 @@ ggplot(data = nest_data, aes(x = n, y = freq, fill = n)) +
   geom_col()
 
 ```
+--
 
+Mapping fill to variable means the colour is variable - you get a different colour for each value of n. Not useful here but is when you have another variable.
 
 ---
 # Using the help manual
 
 ## Altering a ggplot
 .pull-left[
-Can you use the manual to add labels for both axes?
+Can you use the manual to put the bars next to each other?
 
 Skip to the next slide if you want more challenge.
 
@@ -583,7 +595,8 @@ Skip to the next slide if you want more challenge.
 
 .pull-right[
 ```{r ,fig.width=4,fig.height=4}
-
+ggplot(data = nest_data, aes(x = n, y = freq)) +
+  geom_col(fill = "lightblue", width = 1)
 ```
 ]
 ---
@@ -593,9 +606,7 @@ Skip to the next slide if you want more challenge.
 ## Plotting
 
 .pull-left[
-Can you use the manual to ?
-
-Skip to the next slide if you want more challenge.
+Can you use the manual to change to colour of the lines around each bar to black?
 
 <style>
 div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
@@ -613,55 +624,39 @@ Make your code easier to read by using white space and new lines
 
 .pull-right[
 ```{r ,fig.width=4,fig.height=4}
-
-```
-]
-
----
-
-# Plotting - extra challenges
-
-.pull-left[
-Make all the bars red.
-
-Colours can be given by their name: "red" 
-
-Or by their hexadecimal code: "#FF3030".  
-
-You can look these up as follows:  
-
-[By colour name](pics/colournames.pdf)
-
-[By hexadecimal code](pics/colourhex.pdf)
-
-Skip to the next slide if you want more challenge.
-]
-
---
-
-.pull-right[
-```{r ,fig.width=5,fig.height=5}
-
+ggplot(data = nest_data,
+       aes(x = n, y = freq)) +
+  geom_col(fill = "lightblue", 
+           width = 1, 
+           colour = "black")
 ```
 ]
 
 
 ---
-background-image: url(pics/ggplot.jpg)
+background-image: url(../pics/ggplot.jpg)
 background-position: 100% 0%
 background-size: 100px
 
 # Plotting using ggplot2
 
-You can add an axis label like this:
+## Altering the axes. 
+Changes to a discrete x axis can be made by adding a `scale_x_discrete()`.
+Changes to a continuous y axis can be made by adding a `scale_y_continuous()`.
+
+ggplot automatically extends the axes slightly to make sure there is room for points to plot. 
+You can turn this behaviour off with the expand argument.
 
 .pull-left[
 
 ```{r fig.width=4,fig.height=4}
-ggplot(data = nest_data, aes(x = n, y = freq)) +
-  geom_col() +
-  xlab("Number of males")
-
+ggplot(data = nest_data,
+       aes(x = n, y = freq)) +
+  geom_col(fill = "lightblue", 
+           width = 1, 
+           colour = "black") +
+  scale_x_discrete(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) 
 ```
 ]
 
@@ -673,14 +668,6 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 Each 'layer' is added to the `ggplot()` command with a '+'
 
-
-
-<div class = "blue">
-**We can customise much more and will return to this later.....**
-
-<small>[ggplot cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) if you can't wait</small>
-]
-</div>
 
 
 
