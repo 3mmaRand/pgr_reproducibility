@@ -14,10 +14,6 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 ---
-background-image: url(../logos/whiterose_dtp.png)
-background-position: 7% 50%
-background-size: 300px
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       message = FALSE,	
@@ -47,9 +43,11 @@ myBib <- ReadBib("../refs.bib", check = FALSE)
 
 class: inverse
 
-# Introduction to Reproducibility in R <BR> For those without previous experience.
+# Introduction to Reproducibility in R 
 
-## Emma Rand 
+## For those without previous experience.
+
+### Emma Rand 
 
 ### University of York: 2020-03-19
 
@@ -595,7 +593,7 @@ Mapping fill to variable means the colour is variable - you get a different colo
 Can you use the manual to put the bars next to each other?
 .pull-right[
 .footnote[
-`r kableExtra::text_spec("Extra exercise:", background = "#333880", color = "white", bold = TRUE)`  Can you use the manual to change to colour of the lines around each bar to black?]]
+`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Can you use the manual to change to colour of the lines around each bar to black?]]
 --
 
 ```{r ,fig.width=4,fig.height=4}
@@ -611,7 +609,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 ## Plotting
 
 
-`r kableExtra::text_spec("Extra exercise:", background = "#333880", color = "white", bold = TRUE)`  Can you use the manual to change to colour of the lines around each bar to black?
+`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Can you use the manual to change to colour of the lines around each bar to black?
 
 .pull-left[
 ```{r ,fig.width=4,fig.height=4, eval=FALSE}
@@ -680,7 +678,7 @@ ggplot(data = nest_data,
 
 .pull-right[
 .footnote[
-`r kableExtra::text_spec("Extra exercise:", background = "#333880", color = "white", bold = TRUE)`  Look up `scale_x_discrete` in the manual and work out how to change "n" to "Number of Males"]
+`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Look up `scale_x_discrete` in the manual and work out how to change "n" to "Number of Males"]
 ]
 
 ---
@@ -695,8 +693,10 @@ ggplot(data = nest_data,
   scale_x_discrete(expand = c(0, 0),
                    name = "Number of Males") + #<<
   scale_y_continuous(expand = c(0, 0),
-                     name = "Number of Nests") #<<
+                     name = "Number of Nests") 
+
 ```
+
 ---
 
 class: inverse,
@@ -1046,10 +1046,8 @@ pigeon2 %>%
 
 
 This can be read as:  
-  - take pigeon2  
-  - and then  
-  - group it by population  
-  - and then  
+  - take pigeon2 and then  
+  - group it by population and then  
   - summarise it by calculating the mean  
 
 i.e., the mean is done for each population.
@@ -1078,9 +1076,9 @@ pigeon2 %>%
 ```
 
 .footnote[
-`r kableExtra::text_spec("Extra exercise:", background = "#333880", color = "white", bold = TRUE)`  Add a column for the standard devation
+`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Add a column for the standard devation
 
-`r kableExtra::text_spec("Extra exercise:", background = "#333880", color = "white", bold = TRUE)`  Add a column for the standard error given by $\frac{s.d.}{\sqrt{n}}$
+`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Add a column for the standard error given by $\frac{s.d.}{\sqrt{n}}$
 
 ]
 ---
@@ -1110,23 +1108,31 @@ background-size: 180px
 
 ## Plotting multi-group data
 
+```{r fig.height=4, fig.width=4,eval=FALSE}
+ggplot(data = pigeon2, aes(x = distance)) +
+  geom_histogram(bins = 10,               #<<
+                 col = "black") +
+  scale_x_continuous(name = "Interorbital distance (mm)")
+  
+```
 .pull-left[
 
-```{r fig.height=4, fig.width=4}
+```{r fig.height=4, fig.width=4,echo=FALSE}
 ggplot(data = pigeon2, aes(x = distance)) +
   geom_histogram(bins = 10,
                  col = "black") +
-  xlab("Interorbital distance (mm)")
+  scale_x_continuous(name = "Interorbital distance (mm)")
   
 ```
 ]
 
 .pull-right[
-<br>
-<br>
-<br>
-<br>
-Plots the whole data set without separating the populations
+
+The geom we have used this time is a `geom_histogram()`.
+
+`bins` is the the number of bars you get.
+
+We have the whole data set without separating the populations
 
 ]
 
@@ -1139,38 +1145,40 @@ background-size: 180px
 
 ## Plotting multi-group data
 
-### Using the `aes()`
-
-'map' the population variable with the `fill` aesthetic
+We can use the `aes()` to 'map' the population variable to the `fill` aesthetic
 
 ```{r fig.height=4, fig.width=5}
 ggplot(data = pigeon2, aes(x = distance, fill = population)) + #<<
   geom_histogram(bins = 10, 
                  col = "black") +
-  xlab("Interorbital distance (mm)")
+  scale_x_continuous(name = "Interorbital distance (mm)")
+  
+```
+.pull-right[
+.footnote[
+`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Can you remember how to make the axes cross at (0,0)]
+]
+---
+background-image: url(../pics/interorbital.png)
+background-position: 100% 0%
+background-size: 180px
+
+# Working with Data 
+
+`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Can you remember how to make the axes cross at (0,0)
+
+```{r fig.height=4, fig.width=5}
+ggplot(data = pigeon2, aes(x = distance, fill = population)) + #<<
+  geom_histogram(bins = 10, 
+                 col = "black") +
+  scale_x_continuous(name = "Interorbital distance (mm)",
+                     expand = c(0, 0)) +
+  scale_y_continuous(name = "Frequency",
+                     expand = c(0, 0))
+  
   
 ```
 
----
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data 
-
-## Plotting multi-group data
-
-### Using the `aes()`
-
-Aesthetics include:
-* x
-* y
-* color
-* fill
-* shape
-* size
-* alpha
-
 
 ---
 background-image: url(../pics/interorbital.png)
@@ -1181,14 +1189,12 @@ background-size: 180px
 
 ## Plotting multi-group data
 
-### Changing the `geom` 
-
-From `geom_histogram()` to `geom_density()`
+`geom_density()` is another `geom` that can be used when `distance` is mapped to `x` and the y axis gives counts.
 
 ```{r fig.height=4, fig.width=5}
 ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   geom_density(col = "black") +               #<<
-  xlab("Interorbital distance (mm)")
+  scale_x_continuous(name = "Interorbital distance (mm)")
   
 ```
 
@@ -1201,13 +1207,13 @@ background-size: 180px
 
 ## Plotting multi-group data
 
-### And altering the transparancy using `alpha`
+We can alter the transparancy using `alpha`
 
 
 ```{r fig.height=4, fig.width=5}
 ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   geom_density(col = "black", alpha = 0.3) +    #<<
-  xlab("Interorbital distance (mm)")
+  scale_x_continuous(name = "Interorbital distance (mm)")
   
 ```
 
@@ -1220,12 +1226,23 @@ background-size: 180px
 
 ## Plotting multi-group data
 
-### Themes
+We often want to format figures for inclusion in reports. 
+
+All [elements can be customised individually](https://ggplot2.tidyverse.org/reference/theme.html) but `theme_classic()` takes care of many options you are likely to desire.
+
+---
+background-image: url(../pics/interorbital.png)
+background-position: 100% 0%
+background-size: 180px
+
+# Working with Data 
+
+## Plotting multi-group data
 
 ```{r fig.height=4, fig.width=5}
 ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   geom_density(col = "black", alpha = 0.3) +
-  xlab("Interorbital distance (mm)") +
+  scale_x_continuous(name = "Interorbital distance (mm)") +
   theme_classic()    #<<
   
 ```
@@ -1241,50 +1258,56 @@ background-size: 180px
 
 ### A different kind of plot
 
-Instead of plotting the distribution, we can plot the population on the _x_-axis
-
-and the distances on the _y_-axis **as points**
-
----
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data 
-
-## Plotting multi-group data
-
-### A different kind of plot
-
-```{r fig.height=4, fig.width=4} 
-ggplot(data = pigeon2, aes(x = population, y = distance)) + #<<
-  geom_point() +                            #<<
-  xlab("Population") +
-  ylab("Interorbital distance (mm)")
-  
-```
-
-
----
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-# Working with Data 
-
-## Plotting multi-group data
-
-### Another  plot
-
-
-```{r fig.height=4, fig.width=4}
-ggplot(data = pigeon2, aes(x = population, y = distance))  +
-  geom_violin() +                              #<<
-  xlab("Population") +
-  ylab("Interorbital distance (mm)") + 
+.pull-left[
+```{r fig.height=5, fig.width=5,echo=FALSE} 
+ggplot(data = pigeon2, aes(x = population, y = distance)) + 
+  geom_boxplot() +                            
+  scale_x_discrete(name = "Population") +
+  scale_y_continuous(name = "Interorbital distance (mm)",
+                   expand = c(0, 0),
+                   limits = c(0, 15)) +
   theme_classic()
   
 ```
+]
+
+.pull-right[
+
+Note: We need to change the `aes()` as well as the `geom` because this figure has population on the x axis.
+
+]
+---
+# Working with Data 
+
+## Plotting multi-group data
+
+```{r fig.height=4, fig.width=4,eval=FALSE} 
+ggplot(data = pigeon2, aes(x = population, y = distance)) + 
+  geom_boxplot() +                            
+  scale_x_discrete(name = "Population") +
+  scale_y_continuous(name = "Interorbital distance (mm)",
+                   expand = c(0, 0),
+                   limits = c(0, 15)) +
+  theme_classic()
+  
+```
+
+.pull-left[
+```{r fig.height=4, fig.width=4,echo=FALSE} 
+ggplot(data = pigeon2, aes(x = population, y = distance)) + 
+  geom_boxplot() +                        #<<    
+  scale_x_discrete(name = "Population") +
+  scale_y_continuous(name = "Interorbital distance (mm)",
+                   expand = c(0, 0),
+                   limits = c(0, 15)) +
+  theme_classic()
+  
+```
+]
+.pull-right[
+.footnote[
+`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Can you (gratuitously) colour the boxes by population too?]
+]
 
 ---
 # References
@@ -1296,17 +1319,11 @@ PrintBibliography(myBib)
 
 
 ---
-background-image: url(pics/Royal_Society_of_Biology.png)
-background-position: 0.5% 0.5%
-background-size: 350px
 
 class: inverse
 
 # Congratulations! Keep practising!
-<br>
-<br>
-<br>
-<br>
+
 Emma Rand 
 
 emma.rand@york.ac.uk

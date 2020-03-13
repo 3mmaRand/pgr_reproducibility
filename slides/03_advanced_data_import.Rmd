@@ -1,0 +1,385 @@
+---
+title: "Workshop 3: Advanced Data Import."
+author: "Emma Rand"
+output:
+  html_document:
+    toc: true
+    depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    theme: spacelab
+  word_document: default
+bibliography: '`r here::here("refs", "references.bib")`'
+---
+
+
+![](`r here::here("pics", "58M.png")`)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+```{r pkgs, include=FALSE}
+library(tidyverse)
+
+```
+
+
+# Introduction
+
+## Aims
+
+The aim of this session is to strength your ability to import your own data files regardless of the formatting and to introduce you to some of the other ways to import data such as from googlesheets, through web scraping and via APIs.
+
+## Learning outcomes 
+
+The successful student will be able to:
+
+* use an understanding of what matters in their data import  
+* import plain text and proprietary data formats stored locally and on the web  
+* carry out some simple web scraping  
+* start to appreciate the number of packages available for importing publicly accessible data
+ 
+## Four aspects.
+* Where: stored locally (on your own computer) or remotely (on another computer/server).  
+* Format: various. structured as XML or JSON, in databases or may require harvesting.  
+* How: base R functions; Access to APIs for many forms of specialised data has been made easier with packages e.g., bioconductor.  
+* Result: often dataframes or dataframe-like structures (eg., tibbles), often specialised data structures.  
+
+
+## Locally stored plain text (or similar).
+
+This should be revision.
+
+* Essentially plain text (can be opened in notepad and make sense).  
+* Columns usually ‘delimited’ by a particular character (but fixed width does occur).  
+* Read in with the `read.table()` methods.  
+* `read.csv()`, `read.delim()` are just wrappers for `read.table()`.
+* `read.table(file)` is the minimum needed, other arguments have defaults.  
+* Remember that relative file location matters.  
+
+### Example 1
+
+Data file: [structurepred.txt](../data/structurepred.txt)
+
+```{r}
+file <- here::here("data", "structurepred.txt")
+mydata <- read.table(file)
+str(mydata)
+```
+
+<font size="5"> `r emo::ji("unhappy")`</font> The command runs but the result looks wrong.
+
+All the variables have been made factors even though the first should be numeric. This is because the first line in the file contains strings. These strings are the column names rather than the data themselves. We can tell R the file includes headers.
+
+
+```{r}
+mydata <- read.table(file, header = TRUE)
+str(mydata)
+```
+
+<font size="5"> `r emo::ji("happy")`</font> Now it looks better!
+
+* There are several arguments that can be set.
+* Arguments depend on data format.
+* Check manual for defaults.
+
+### Example 2
+
+Data file: [Icd10Code.csv](../data/Icd10Code.csv)
+
+```{r error = TRUE}
+file <- here::here("data", "Icd10Code.csv")
+mydata <- read.table(file, header = TRUE)
+```
+
+<font size="5"> `r emo::ji("unhappy")`</font> The command won't run at all.
+
+* This is common error when the separator is not the default.
+* Troubleshoot by reading in one line.
+
+Read in the first line only:
+```{r}
+read.table(file, header = FALSE, nrows = 1)
+```
+Or you could use `readLines()`:
+```{r}
+readLines(file, n = 5)
+```
+
+
+These look like they might be two column names but they have been read into one column. That is, the comma is not recognised as the separator.
+
+
+Read in the third line only:
+```{r}
+read.table(file, header = FALSE, nrows = 1, skip = 2)
+```
+
+It's splitting on white space because that is the default so there are many columns in some rows - "more columns than column names". The actual separator is a comma.
+
+```{r}
+mydata <- read.table(file, header = TRUE, sep = ",")
+```
+
+## Locally stored special formats.
+
+* Cannot usually be opened in notepad.  
+* Often specific to proprietary software, e.g., SPSS, STATA, Matlab.  
+* If you have that software you may be able to export in plain text format.  
+* But usually there is a package or function that allows you to script the steps. Favourites of mine are:  
+  * `haven` [@haven] for SPSS, STATA, SAS  
+  * `readxl` for excel files  
+  * `jsonlite` for [JSON](https://en.wikipedia.org/wiki/JSON) 
+* Google is your friend.  
+
+### SPSS example using `haven`
+
+Data file: [prac9a.sav](../data/prac9a.sav)
+
+```{r}
+library(haven)
+file <- here::here("data", "prac9a.sav")
+mydata <- read_sav(file)
+str(mydata)
+```
+
+Note that a "tibble" is essentially a dataframe.
+
+There are `read_dta()` and `read_sas()` functions for STATA and SAS files respectively.
+
+## Files on the internet
+
+Simply use the URL rather than the local file path. Your options for import functions and arguments are the same as for local files.
+
+For example, these data are from a buoy (buoy #44025) off the coast of New Jersey at
+http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&dir=data/historical/stdmet/
+
+```{r}
+file <- file <- "http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&dir=data/historical/stdmet/"
+
+# use readLines() data format: look on the web or use:
+readLines(file, n = 5)
+
+```
+
+The first two lines give the column name and units; the data start on line 3
+
+```{r}
+mydata <- read.table(file, header = F, skip = 2)
+
+```
+
+* It is better to read from the internet than download the file if the data are likely to be updated.
+
+### From googlesheets
+
+This can be done with the `googlesheets` package [@bryan_zhao] and requires two steps: registering the sheet for use (you will need to 'authenticate') and reading it in.
+
+Assuming your google sheet has the name "colours (Responses)":
+```{r}
+library(googlesheets)
+# Register the sheet for use with gs_title()
+colours <- gs_title("colours (Responses)")
+```
+
+This will open a browser to ask you to allow the googlesheets package access your googlesheets. Choose Allow.
+
+Read in data:
+```{r}
+coloursurvey <- gs_read(colours)
+```
+
+
+## Web scraping
+
+What if data are not in a file but on webpage? One solution is to  to 'scrape' the data using package rvest. This is just one small example of a big topic.
+
+We are going to get the information from a Wikipedia page on [Global biodiversity](https://en.wikipedia.org/wiki/Global_biodiversity). We will need to retrieve the html (i.e., the page source) and find the the part of the source which contains the table information.
+
+* Go to the web page: https://en.wikipedia.org/wiki/Global_biodiversity 
+* Find the table for the population to extract.
+* Right-click the table and choose Inspect
+* A complicated looking box will appear on the right.
+* You need to right-click the table element then choose Copy and Copy Xpath
+
+
+```{r}
+library(rvest)
+
+url <- "https://en.wikipedia.org/wiki/Global_biodiversity"
+test <- read_html(url) %>%
+  html_nodes(xpath = '//*[@id="mw-content-text"]/div/table') %>%
+  html_table() %>% 
+  .[[1]]
+```
+
+You'd need to tidy the resulting dataframe.
+
+## Data from databases
+
+There are many packages: 
+
+* For relational databases (Oracle, MSSQL, MySQL):  
+  * RMySQL, RODBC  
+* For non- relational databases (MongoDB, Hadoop):  
+  * rmongodb, rhbase  
+
+## Data from APIs
+Many organisations provide an API (application program interface) to access their data. This means you don't have to scrape web pages of search results because there is a defined set of tools or protocols which allow access so you don't need to understand the underlying structure of the information.
+
+Many packages have been written that make use of APIs and make your life much easier.
+
+[Bioconductor](https://www.bioconductor.org/) is a whole ecosystem of R tools to analyse high-throughput genomic data and access public repositories. They are available from Bioconductor rather than CRAN. To install Bioconductor packages on your own computer you will need to install `BiocManager` from CRAN then use `BiocManager::install("packagename")`.
+ 
+[ropensci](https://ropensci.org/) is a curated set of R packages that provide programmatic access to a variety of scientific data,  full-text of journal articles, and metrics of scholarly impact.
+
+Not every API will have an available package but may be JSON-based APIs meaning they return data in JSON format. One example is Twitter. The `jsonlite` package is very useful to deal with such data. [Examples, including Twitter](https://cran.r-project.org/web/packages/jsonlite/vignettes/json-apis.html).
+
+# Exercises
+
+1. Local files. You may feel confident enough to skip this exercise but otherwise save these files below to your 'data' directory and read them in. Use the manual for `read.table()` to see all the options.  
+
+    * [Mammal_abundance_indices.txt](../data/Mammal_abundance_indices.txt)
+
+```{r  include=FALSE, error=TRUE}
+#============== Data Import problem ==============#
+file <- here::here("data", "Mammal_abundance_indices.txt")
+# you might try first attempt
+# mydata <- read.table(file)
+# gives an error. Let's try using readLines() to look at the first line
+readLines(file, n = 1)
+# aha, the seperator is a tab \t
+# specify the sep
+mydata <- read.table(file, 
+                     header = T, 
+                     sep = "\t")
+str(mydata) # that looks ok
+``` 
+
+    * [periwinkle.txt](../data/periwinkle.txt)
+
+```{r  include=FALSE, error=TRUE}
+#============== Data Import problem ==============#
+# you might try first attempt
+file <- here::here("data", "periwinkle.txt")
+mydata <- read.table(file, header = T)
+str(mydata)
+# no error but the dataframe is nonsense. Let's try using readLines() to look at the first line
+readLines(file, n = 1)
+# aha, the seperator is /
+# specify the sep
+mydata <- read.table(file, header = T, sep = "/")
+str(mydata) # that looks ok
+``` 
+
+    * [structurepred.csv](../data/structurepred.csv)
+
+```{r include=FALSE, error=TRUE}
+#============== Data Import problem ==============#
+# first attempts
+file <- here::here("data", "structurepred.csv")
+# mydata <- read.table(file, header = T)
+# no error but dataframe looks wrong
+# mydata <- read.csv(file)
+# gives an error
+
+#Let's try using readLines() to look at the first line
+readLines(file, n = 1)
+# still not sure. sep seems to be a semi-colon despite it being called csv. 
+# let's read a few more lines in
+readLines(file, n = 10)
+# aha, the seperator is ; and the decimal is ,
+# specify and use read.table or realise this is European csv format
+mydata <- read.table(file, 
+                     header = T,
+                     sep = ";", 
+                     dec = ",")
+# or
+mydata <- read.csv2(file)
+str(mydata) # that looks ok
+``` 
+
+    * [csativa.txt](../data/csativa.txt)
+
+```{r include=FALSE, error=TRUE}
+#============== Data Import problem ==============#
+# first attempts
+file <- here::here("data", "csativa.txt")
+# mydata <- read.table(file, header = T)
+# gives an error: more columns than column names
+# let's read a few lines in
+readLines(file, n = 10)
+# there is some text at the top which isn't data
+mydata <- read.table(file, skip = 5, header = T)
+str(mydata) # that looks ok
+``` 
+
+    * [carsdata.dta](../data/carsdata.dta)
+
+```{r include=FALSE, error=TRUE}
+#============== Data Import problem ==============#
+# we ne8ed to read a STATA file in - there's a function for it in haven
+file <- here::here("data", "carsdata.dta")
+mydata <- read_dta(file)
+str(mydata) # that looks ok
+``` 
+
+2. This is tidying exercise. Can you read in the buoy data with appropriate columns names? I suggest:  
+    * reading the first line of the file
+    * processing that line using similar methods to those used in the [case study](http://www-users.york.ac.uk/~er13/58M_BDS_2019/workshops/02_tidying_data.html#case_study_covering_some_typical_tasks) of Workshop 2: Tidying data, tidy data and the tidyverse.
+```{r include=FALSE, error=TRUE}
+file <- file <- "http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&dir=data/historical/stdmet/"
+
+vars <- readLines(file, n = 1)
+vars <- vars %>% 
+  strsplit(., split = "\\s+", fixed = FALSE) %>% 
+  unlist()
+
+mydata <- read.table(file, header = F,
+                     skip = 2, 
+                     col.names = vars)
+
+```
+
+
+3. Below is a file containing flowcyometry data. Your task is to use google to find out how to read it in and develop understanding of the resulting data structure by examining its components. You should find any packages to need are already installed but you will still need to identify and 'library' them.
+What kind object results? Where is the data itself? What is the other information? Can you plot any of the actual data - for example do the classic forward vs side scatter plot?
+
+The data: [Specimen_001_Tube_001_001.fcs](../data/Specimen_001_Tube_001_001.fcs)
+
+```{r include=FALSE, error=TRUE}
+# I suggest flowCore which is Bioconductor package which is installed.
+library(flowCore)
+# my file: file must have extension ".FCS"
+file <- here::here("data", "Specimen_001_Tube_001_001.fcs" )
+# import
+flowdata <- read.FCS(file, alter.names = TRUE)
+flowdata
+flowdata@exprs[1,1]
+str(flowdata@exprs)
+
+# put forward and side scatter in a dataframe
+expdat <- data.frame(flowdata@exprs[,1:4])
+ggplot(data = expdat, aes(x = FSC.A, y = SSC.A)) +
+  geom_point(size = 0.5, colour = "gray")
+```
+4. Can you work out how to read in all the files of the same format in a particular directory? You could try to read them into separate dataframes or a single dataframe. A collection of suitable files is [specdata.zip](../data/specdata.zip) which you could download and unzip. 
+
+If you're stuck, here is one function I wrote:  [em_read_list.R](../functions/em_read_list.R). Work out how to use it from the code in that file.
+
+
+5. Browse the [Bioconductor Workflow Packages](https://www.bioconductor.org/packages/release/workflows/). These are analysis packages which include a detailed example workflow.
+
+# The Rmd file
+
+[Rmd file](03_advanced_data_import.Rmd)
+
+
+
+![](`r here::here("pics", "58Mend.png")`)
+
+

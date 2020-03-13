@@ -1,0 +1,110 @@
+---
+title: "An Introduction to Reproducible Analyses in R: With previous experience."
+subtitle: "White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology"
+author: "Emma Rand"
+institute: "University of York, UK"
+date: "2020-19-03"
+output:
+  xaringan::moon_reader:
+    css: [default, ../css_files/emma.css, ../css_files/emma-fonts.css]
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE,	
+                      warning = FALSE)
+options(htmltools.dir.version = FALSE)
+```
+
+```{r packages, include=FALSE}
+library(RefManageR)
+library(kableExtra)
+library(tidyverse)
+```
+
+
+```{r, load-refs, include=FALSE, cache=FALSE}
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = TRUE,
+           dashed = FALSE,
+           longnamesfirst = FALSE,
+           max.names = 2)
+myBib <- ReadBib("../refs.bib", check = FALSE)
+```
+
+
+class: inverse
+
+# Introduction to Reproducibility in R 
+
+## For those with previous experience.
+
+### Emma Rand 
+
+### University of York: 2020-03-19
+
+.footnote[
+Made with xaringan `r Cite(myBib, "xaringan")`  
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+]
+
+
+---
+background-image: url(../pics/tidyverse_logo.png)
+background-position: 100% 0%
+background-size: 180px
+
+# Overview
+
+There are four sections. Those with least experience should start with the first but more experienced users might start at 3 or 4.
+
+1. [Using RStudio projects](experience_rs_projects.html). How to organise your work in a logical, consistent and reproducible way using RStudio Projects, appropriate directory structures and portable code. It will set you up for later sections.
+
+2. [Tidying data and the tidyverse including the pipe.]()
+
+3. [Advanced Data Import]()
+
+3. [Formatting figures]()
+---
+# References
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(myBib)
+```
+
+
+
+---
+
+class: inverse
+
+Emma Rand 
+
+emma.rand@york.ac.uk
+
+Twitter: [@er13_r](https://twitter.com/er13_r) 
+
+github: [3mmaRand](https://github.com/3mmaRand)
+
+blog: https://buzzrbeeline.blog/
+<br>
+
+.footnote[
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+]
+
+
+
+
+
+

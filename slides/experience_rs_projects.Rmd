@@ -1,0 +1,293 @@
+---
+title: "An Introduction to Reproducible Analyses in R: With previous experience."
+subtitle: "White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology"
+author: "Emma Rand"
+institute: "University of York, UK"
+date: "2020-19-03"
+output:
+  xaringan::moon_reader:
+    css: [default, ../css_files/emma.css, ../css_files/emma-fonts.css]
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE,	
+                      warning = FALSE)
+options(htmltools.dir.version = FALSE)
+```
+
+```{r packages, include=FALSE}
+library(RefManageR)
+library(kableExtra)
+library(tidyverse)
+```
+
+
+```{r, load-refs, include=FALSE, cache=FALSE}
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = TRUE,
+           dashed = FALSE,
+           longnamesfirst = FALSE,
+           max.names = 2)
+myBib <- ReadBib("../refs.bib", check = FALSE)
+```
+
+
+class: inverse
+
+# Introduction to Reproducibility in R 
+
+## For those with previous experience: RStudio Projects.
+
+### Emma Rand 
+
+### University of York: 2020-03-19
+
+.footnote[
+Made with xaringan `r Cite(myBib, "xaringan")`  
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+]
+
+
+---
+# Introduction
+
+## Aims
+
+The aim of this section is to show you how to organise your work in a logical, consistent and reproducible way using RStudio Projects, appropriate directory structures and portable code. It will set you up for the [Tidying data and the tidyverse including the pipe]() and [Advanced Data Import]() sections.
+
+## Learning outcomes 
+
+The successful student will be able to:
+
+* use RStudio projects to appropriately organise a piece of work  
+* write code with relative paths given appropriate to your project organisation  
+* write dataframes and figures to file  
+
+### `r emo::ji("clapper")` An instruction to do something!!
+
+---
+# What is a path?
+
+A path gives the location of a filesystem object (i.e., a file, directory or link).
+
+* An *Absolute* path is given from the root directory of the object, for example the absolute path for a file, `beewing.txt` is:  
+  * windows: `M:/web/58M_BDS_2019/data/beewing.txt`  
+  * unix systems: `/users/er13/web/58M_BDS_2019/data/beewing.txt`  
+  * web: `http://www-users.york.ac.uk/~er13/58M_BDS_2019/data/beewing.txt`  
+
+* A *Relative* path gives the location of a filesystem object relative to the working directory, for example when `beewing.txt` is in:  
+  * the working directory (wd):  `beewing.txt`  
+  * a directory called 'data' which is in the wd: `data/beewing.txt`  
+  * the directory above the wd: `../beewing.txt`  
+  * a directory called 'data' which is in the directory above the wd: `../data/beewing.txt`  
+
+More if you need it: [What do we mean by paths?](https://youtu.be/oZblx36rqq0) 
+
+---
+# Using RStudio projects
+
+An [RStudio project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) is associated with a directory. 
+
+Using a project helps you manage file paths. The working directory is the project directory (i.e., the location of the .Rproj file). Read both of these instructions and the view the next slides before doing anything.
+
+`r emo::ji("clapper")` Create a new project with File | New Project and chose New directory and then New project.I suggest naming it `wr_analytics` or similar.
+
+`r emo::ji("clapper")` Be purposeful about where you create it by using the Browse button. Don't have `~` in the lower box! See next! 
+
+---
+# Using RStudio projects
+
+## Don't have `~` in the lower box!
+.pull-left[
+....by navigating to your file store though the actual links starting `(\\userfs)(M:)` or similar not the shortcuts starting `This PC`:
+]
+.pull-right[
+![screen short of windows explorer with actual links highlighted](../pics/noshortcut.png)
+]
+
+---
+# Using RStudio projects
+
+Creating a new project will:
+
+1. Create a directory (folder) called `wr_analytics`
+2. Restart RStudio in that directory and set your working directory to `wr_analytics` (i.e., it loads the project)
+3. Create a `wr_analytics.Rproj` file within the project directory. This file contains various project options.  
+4. Create a hidden directory (named .Rproj.user) where project-specific temporary files are stored.  
+
+--
+
+Note that `getwd()` will return `wr_analytics`
+
+--
+
+Suggested reading [Chapter 2 Project-oriented workflow](https://whattheyforgot.org/project-oriented-workflow.html) of What they forgot to teach you about R `r Cite(myBib, "Bryan-Hester")`
+
+---
+# Directory structure
+
+`r emo::ji("clapper")` Create folders in `wr_analytics` called `raw_data`, `processed_data` and `figures`.
+
+`r emo::ji("clapper")` Start new scripts called `tidy.R`, `import.R` and `figures.R`
+
+`r emo::ji("clapper")` Load the tidyverse set of packages.
+```{r eval=FALSE}
+library(tidyverse)
+```
+
+
+---
+# Writing files
+
+Often we want to write to files. My main reasons for doing so are to save copies of data that have been processed and to save graphics. 
+
+You will import a simple data file, reshape the data and write it to file. You will also produce a simple figure and save that to file.
+
+`r emo::ji("clapper")` Save a copy of [pigeon.txt](../data/pigeon.txt) to your `raw_data` folder. These data give the interorbital distances for two populations of domestic pigeons.
+
+
+`r emo::ji("clapper")` Using your `import.R` script, read in the file:
+
+```{r}
+pigeon <- read.table("raw_data/pigeon.txt", header = TRUE)
+```
+
+---
+# Writing files
+
+This dataset has two observations in a row - it is not 'tidy'. 
+
+`r emo::ji("clapper")` Reshape the data using:
+
+```{r}
+pigeon <- pigeon %>% 
+  gather(key = population, value = distance)
+```
+
+We will cover the pipe, ` %>% ` in the next section, [Tidying data and the tidyverse including the pipe]()
+
+
+`r emo::ji("clapper")` Write your dataframe called `pigeon` to a plain text file you will name `pigeon_long.txt` in your `processed_data` folder:
+```{r}
+file <- "processed_data/pigeon_long.txt"
+write.table(pigeon, file)
+```
+
+---
+# Writing files
+
+## Create a plot to save
+
+`r emo::ji("clapper")` Create a simple plot of this data:
+.pull-left[
+```{r fig.height=5, fig.width=5} 
+fig1 <- ggplot(data = pigeon, 
+               aes(x = population, y = distance)) + 
+  geom_boxplot() +                            
+  scale_x_discrete(name = "Population") +
+  scale_y_continuous(name = "Interorbital distance (mm)",
+                     expand = c(0, 0),
+                     limits = c(0, 15)) +
+  theme_classic()
+```
+]
+.pull-right[
+```{r fig.height=5, fig.width=5, echo=FALSE} 
+fig1
+```
+
+]
+
+---
+# Writing files
+
+## Saving `ggplot` figures
+
+A useful function for save figures is `ggsave()`. 
+
+It has arguments for the size, resolution and device for the image. See the [`ggsave()` reference page](https://ggplot2.tidyverse.org/reference/ggsave.html). 
+
+Since I often make more than one figure, I might set these arguments first.
+
+`r emo::ji("clapper")` Assign `ggsave` argument values to variables:
+
+```{r}
+# figure saving settings
+units = "in"  
+fig_w <- 3.2
+fig_h <- fig_w
+dpi <- 300
+device <- "tiff" 
+```
+"tiff" is a format often required by journals; you may want png or jpg.
+
+---
+# Writing files
+
+## Saving `ggplot` figures
+
+`r emo::ji("clapper")` Save the `figure` in your figures directory:
+
+```{r eva}
+ggsave("figures/fig1.tiff",
+       plot = fig1,
+       device = device,
+       width = fig_w,
+       height = fig_w,
+       units = units,
+       dpi = dpi)
+```
+
+
+
+
+
+---
+# References
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(myBib)
+```
+
+
+
+---
+background-image: url(pics/Royal_Society_of_Biology.png)
+background-position: 0.5% 0.5%
+background-size: 350px
+
+class: inverse
+
+# Congratulations! Keep practising!
+
+Emma Rand 
+
+emma.rand@york.ac.uk
+
+Twitter: [@er13_r](https://twitter.com/er13_r) 
+
+github: [3mmaRand](https://github.com/3mmaRand)
+
+blog: https://buzzrbeeline.blog/
+<br>
+
+.footnote[
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+]
+
+
+
+
+
+

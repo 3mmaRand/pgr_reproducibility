@@ -1,0 +1,318 @@
+---
+title: "Workshop 2: Tidying data, tidy data and the tidyverse."
+author: "Emma Rand"
+output:
+  html_document:
+    toc: true
+    depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    theme: spacelab
+  word_document: default
+bibliography: '`r here::here("refs", "references.bib")`'
+---
+
+
+![](`r here::here("pics", "58M.png")`)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+```{r pkgs, include=FALSE}
+library(tidyverse)
+
+```
+
+
+# Introduction
+
+## Aims
+
+The aim of this session is to strengthen your understanding of the concept of tidy data [@Wickham2014-nl], introduce you to the tidyverse [@R-tidyverse] and some commonly applied data tidying operations. We are covering data tidying before data import because some of the import methods will make use of tidyverse methods and generate tidy data structures.
+
+## Learning outcomes 
+
+The successful student will be able to:
+
+* explain what is meant by ‘tidy data’.  
+* use pipes to link operations together.  
+* carry out some common data tidying tasks.  
+ 
+
+# Topics
+
+## What is tidy data?
+
+Tidy data adhere to a consistent structure which makes it easier to manipulate, model and visualize them. The structure is defined by:  
+
+1. Each variable has its own column.  
+2. Each observation has its own row.  
+3. Each value has its own cell.  
+
+It is a concept long recognised by data practioners and is closely allied to the relational algebra of relational databases [@Codd1990-th]. It underlies the enforced rectangular formating of, for example, SPSS and STATA datafiles and R's dataframe. However, the term 'tidy data' was popularised by Hadley Wickham [-@Wickham2014-nl] and has led to a common language for data tasks and framework for tools.
+
+There may be more than one potential tidy structure for a given data set depending on the particular analysis or visualisation you want to apply.
+
+## Data tidying tasks
+
+Tidying data includes getting it into 'tidy' format but also other tasks such as:
+
+* renaming variables for consistency  
+* checking, redefining or recoding variable types  
+* cleaning content for consistency with respect to valid values, missing values and NA  
+
+Important:
+
+* Keep the raw data exactly as it came to you and do not alter/edit.
+* Script and document all tidying tasks.
+
+## Tidyverse
+
+The [tidyverse](https://www.tidyverse.org/) [@R-tidyverse] is "an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures." `ggplot` is one of these packages. You can install and load all of them with:
+
+Do not do this is working on a Biology PC - it's already installed.
+```{r eval=FALSE}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+## The pipe `%>%`
+The `magrittr` package [@magrittr] is part of the tidyverse and includes the pipe operater which can improve code readability by:
+
+* structuring sequences of data operations left-to-right (as opposed to from the inside and out),
+* minimizing the need for intermediates, 
+* making it easy to add steps anywhere in the sequence of operations.
+
+For example, to apply a log-squareroot transformation you might use:
+```{r}
+# generate some numbers
+nums <- sample(1:100, size = 10, replace = FALSE)
+
+# transformation either:
+# a) nested functions
+tnums <- log(sqrt(nums))
+# b) intermediates
+sqrtnums <- sqrt(nums)
+tnums <- log(sqrtnums)
+```
+
+Nesting the functions means you have to read inside out and creating intermediates can be cluttered. 
+The pipe allows you to avoid these by taking the output of one operation as the input of the next. The pipe has long been used by Unix operating systems (where the pipe operator is |). The R pipe operator is `%>%`, a short cut for which is ctrl-shift-M. 
+
+```{r}
+tnums <- nums %>% 
+  sqrt() %>% 
+  log()
+```
+
+This is short for 
+```{r}
+tnums <- nums %>% 
+  sqrt(.) %>% 
+  log(.)
+```
+
+Where `.` stands for the object being passed in. In most cases, you don't need to include it but some functions require you to (for example when arguments are optional or there is ambiguity over which argument is meant).
+
+A additional benefit of using the pipe is that solving problems step-by-step is made easier.
+
+## Converting "wide" to "long"
+
+Data commonly need to be reshaped in this way. The data are given in [biomass.txt](../data/biomass.txt) are taken from an experiment in which the insect pest biomass (g) was measured on plots sprayed  with water (control) or one of five different insecticides. Also in the data file are variables indicating the replicate number and the identity of the tray in which the plant was grown.
+```{r echo=FALSE}
+file <- here::here("data", "biomass.txt")
+biomass <- read.table(file, header = T)
+to_gather <- names(biomass)[1:6]
+```
+
+
+These data are in "wide" format and can be converting to "long" format using the `dplyr` package function `gather()`. By default it collects all the values into a single column and create a column of the column names, called the key, to indicate which column the value is derived from. We want to gather these columns: `r to_gather`. We don't want to gather the `rep_tray` column but instead want the contents to be repeated.
+
+```{r}
+biomass2 <- biomass %>% 
+  gather(key = spray, 
+         value = mass,
+         -rep_tray)
+file <- here::here("data", "processed", "biomass2.txt")
+write.table(biomass2, file = file)
+```
+
+You can see the resulting file here:  [biomass2.txt](../data/processed/biomass2.txt) 
+
+## Splitting column contents
+We sometimes have single columns which contain more than one type of encoded information. UK Car number plates are an example - some parts of the number plate encode a year which you might want in an additional column for analyses by year. Or birthdates.
+For the `biomass2` data we could separate the replicate number from the tray identity and put them in two separte columns. 
+
+We can do this with a 'regular expression` or [regex](https://en.wikipedia.org/wiki/Regular_expression). A regex defines a pattern for matching text. It's a big topic and there are many tutorials. I remember a few bits and google "how to match #### regex". [A quick reference](https://www.rexegg.com/regex-quickstart.html)
+
+We give the names of the new coulmns we want to create and the patterns matching the part of the `rep_tray` value we want to go in each column.
+
+```{r}
+biomass3 <- biomass2 %>% 
+  extract(rep_tray, 
+          c("replicate_number", "tray_id"),
+          "([0-9]{1,2})\\_([a-z])")
+file <- here::here("data", "processed", "biomass3.txt")
+write.table(biomass3, file = file)
+```
+
+* The patterns to save into columns are inside `( )`.  
+* The pattern going into `replicate_number` is anything matching 1 or 2 numbers.  
+* The pattern going into `tray_id` is anything matching exactly one lowercase letter.
+* the bit between the two `( )` is a pattern that matches what is in `rep_tray` but is not to be saved. 
+
+You can see the resulting file here:  [biomass3.txt](../data/processed/biomass2.txt) 
+
+## Case study covering some typical tasks
+
+The data in [Y101_Y102_Y201_Y202_Y101-5.csv](../data/Y101_Y102_Y201_Y202_Y101-5.csv) are proteomic data of soluble proteins from five immortalised mesenchymal stromal cell (MSC) lines. 
+
+Column names are spreadover three rows but are primarily in the third row.
+We can read in from the third row by skipping the first two. We can also use the `clean()` function from the `janitor` package to improve the column names.
+
+```{r}
+# define file name
+library(janitor)
+filesol <- here::here("data", "Y101_Y102_Y201_Y202_Y101-5.csv")
+
+# skip first two lines
+sol <- read.csv(filesol, skip = 2, stringsAsFactors = FALSE) %>% 
+  clean_names()
+```
+
+`stringsAsFactors = FALSE` means strings are treated as character variables. Whilst analysis and visualisation often require factor variables, any processing of strings is made much easier if they are characters.
+
+This dataset includes bovine serum proteins from the medium on which the cells were grown and proteins for which fewer than 2 peptides were detected. All such lines need to be filtered out. We can achieve this in the tidyverse way like this:
+
+```{r}
+library(data.table)
+sol <- sol %>% 
+  filter(description %like% "OS=Homo sapiens") %>% 
+  filter(x_1pep == "x")
+```
+
+The `%like%` operator from the `data.table` package will return any rows which include that pattern.
+
+
+It would be good to add a column for the genename by processing the contents of the description.
+One entry from the description column looks like this:
+
+```{r}
+glimpse(sol$description)
+```
+The genename is after `GN=`. We need to extract the part of the string with the genename and put it in a new column. The way to problem-solve your way through this is work with one value carrying out one operation at a time until you've worked out what to do before implementing on an entire dataset.
+```{r}
+# extract the first value of the description to work with
+one_description <- sol$description[1]
+```
+We need to extract the part of the string after `GN=`. We can do this with a regex:
+
+```{r}
+# extract the part of the string
+one_genename <- one_description %>%
+  str_extract("GN=[^\\s]+")
+one_genename
+```
+* `[ ]` means some characters
+* `^` means 'not' when inside `[ ]`
+* `\s` is white space  
+* the `\` before is an escape character to indicate that the next character should not be taken literally (because it's part of `\s`)  
+* `+` means one of more  
+
+So `GN=[^\\s]+` means `GN=` followed by one or more characters that are not whitespace. This means the pattern stops matching at the first white space after "GN=".
+
+We're close. Now we will drop the `GN` part by spliting the string on the `=`:
+
+```{r}
+# extract the part of the string
+one_genename <- one_description %>%
+  str_extract("GN=[^\\s]+") %>% 
+  strsplit(., "=", fixed = TRUE)
+one_genename
+```
+
+Note we need to use `.` to represent the object being passed in, "GN=AHNAK" in this case. This is because the function definition of [`strsplit()`(https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/strsplit]. The `split` argument would be mistaken for the `x` argument.
+
+The output value of `strsplit()` is a two element list of the strings before and after the "=". We want the second element of the list. An often easier way to access lists where each item in the list is a single string is to turn it into a character vector. The `unlist()` function achieves this:
+
+```{r}
+# extract the part of the string
+one_genename <- one_description %>%
+  str_extract("GN=[^\\s]+") %>% 
+  strsplit(., "=", fixed = TRUE) %>% 
+  unlist() 
+one_genename
+```
+The to access the second element of the the character vector we need to use the `.` again:
+```{r}
+# extract the part of the string
+one_genename <- one_description %>%
+  str_extract("GN=[^\\s]+") %>% 
+  strsplit(., "=", fixed = TRUE) %>% 
+  unlist()  %>% 
+  .[2]
+one_genename
+```
+
+We know how to get the genename for a single value and now need to apply this to every value in the column. This can be achieved with a `for` loop:
+
+```{r}
+# add column for genename
+for (i in 1:length(sol$description)) { 
+  sol$genename[i] <- sol$description[i]  %>%
+    str_extract("GN=[^\\s]+")  %>% 
+    strsplit(., "=", fixed = TRUE)  %>%
+    unlist()   %>% 
+    .[2]}
+```
+
+
+# Exercises
+1. Can you add a column for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. I suggest splitting on the semi-colon, then the double colon. Develop the solution by using a suitable entry from the accession column (i.e., not the first one as it only has one entry).
+
+```{r echo=FALSE}
+# add column for top protein identifier.
+# 
+for (i in 1:length(sol$accession)) {
+  sol$uniprotid[i] <- sol$accession[i] %>%
+    strsplit(., ";", fixed = TRUE)  %>%
+    unlist()   %>% 
+    .[1] %>%
+    strsplit(., "::", fixed = TRUE)  %>%
+    unlist()   %>%
+    .[2]}
+```
+
+2. Can you create a second dataframe, `sol2` in which the protein abundances are in a single column and the cell lineage is indicated in another. All the other variables should also be in the new data frame.
+```{r echo=FALSE}
+# you may have list the columns you did not wanted to gather
+# but here's another trick
+to_gather <- colnames(sol)[(colnames(sol) %like% "y")]
+to_gather
+sol2 <- sol %>% gather(key = lineage,
+                       value = abundance,
+                       to_gather)
+
+
+```
+3. Can you create separate columns in `sol2` for the cell line and the replicate?
+
+```{r echo=FALSE}
+sol2 <- sol2 %>% 
+  extract(lineage, 
+          c("line", "rep"),
+          "(y[0-9]{3,4})\\_([a-c])")
+```
+
+# The Rmd file
+
+[Rmd file](02_tidying_data.Rmd)
+
+
+![](`r here::here("pics", "58Mend.png")`)
+
+
