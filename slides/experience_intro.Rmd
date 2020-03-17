@@ -60,8 +60,8 @@ Made with xaringan `r Cite(myBib, "xaringan")`
 
 
 ---
-background-image: url(../pics/tidyverse_logo.png)
-background-position: 100% 0%
+background-image: url(../pics/tidyverse.png)
+background-position: 95% 95%
 background-size: 180px
 
 # Overview
@@ -70,7 +70,7 @@ There are four sections. Those with least experience should start with the first
 
 1. [Using RStudio projects](experience_rs_projects.html). How to organise your work in a logical, consistent and reproducible way using RStudio Projects, appropriate directory structures and portable code. It will set you up for later sections.
 
-2. [Tidying data and the tidyverse including the pipe.]()
+2. [Tidying data and the tidyverse including the pipe.](experience_data_tidying.html)
 
 3. [Advanced Data Import]()
 

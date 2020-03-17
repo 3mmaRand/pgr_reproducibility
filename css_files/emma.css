@@ -115,12 +115,25 @@ position: absolute;
   display: none;
 }
 
+.remark-code-line-highlighted     { background-color: #c6e3ed; }
+
 .remark-inline-code {
   background: #F5F5F5; /* lighter */
   /* background: #e7e8e2; /* darker */
   border-radius: 3px;
   padding: 4px;
 }
+
+.scroll-output-height {
+  height: 60%;
+  overflow-y: scroll;
+}
+
+.scroll-output-width {
+  width: 100%;
+  overflow-y: scroll;
+}
+
 
 .code10 .remark-code {
   font-size: 10%;
