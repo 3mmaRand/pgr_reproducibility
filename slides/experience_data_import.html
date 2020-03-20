@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>An Introduction to Reproducible Analyses in R: Advanced data import.</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Emma Rand" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="..\css_files\emma.css" type="text/css" />
+    <link rel="stylesheet" href="..\css_files\emma-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+
+
+
+class: inverse
+
+# Introduction to Reproducibility in R 
+
+## For those with previous experience: Advanced data import.
+
+### Emma Rand 
+
+### University of York: 2020-03-19
+
+.footnote[
+Made with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan))  
+
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+]
+
+
+---
+# Introduction
+
+## Aims
+The aim of this session is to strength your ability to import your own data files regardless of the formatting and to introduce you to some of the other ways to import data such as through web scraping and via APIs.
+
+
+## Learning outcomes 
+
+The successful student will be able to:
+
+* use an understanding of what matters in their data import  
+* import plain text and proprietary data formats stored locally and on the web  
+* carry out some simple web scraping  
+* start to appreciate the number of packages available for importing publicly accessible data
+ 
+
+### 🎬 An instruction to do something!!
+
+---
+# Four Aspects
+
+There are four main considerations for data import:
+
+1. Where are the data? Are they stored locally (on your own computer) or remotely (on another computer/server). Are they distributed rather than in a single repository or file?
+
+--
+
+2. What format are they in? Are they plain text format, structured text like as XML or JSON, or in proprietary software format . 
+
+--
+
+3. How: base R functions; Access to APIs for many forms of specialised data has been made easier with packages e.g., bioconductor.
+
+--
+
+4. What data structure will be created in R? Often this will be dataframes or dataframe-like structures (eg., tibbles) but there are many specialised data struction often specialised data structures.
+
+---
+# Locally stored text files
+
+## Overivew
+
+This section may be familiar and you may want to skip ahead.
+
+* Plain text files can be opened in notepad or other text editor and make sense (contrast with for examples xlsx, doc, sav, png)  
+* Columns usually 'delimited' by a particular character (but fixed width does occur).  
+* Can be read in with the base packages `read.table()` methods.  
+* Or with the `readr` package methods such as `read.table()`, `read_csv()`, `read_delim()` which is ususally my preference because they are a little faster and output tibbles.  
+* Or with the even faster `fread()` from the `data.table` package &lt;a name=cite-Dowle_Srinivasan_2019&gt;&lt;/a&gt;([Dowle and Srinivasan, 2019](#bib-Dowle_Srinivasan_2019)).  
+
+---
+# Locally stored text files
+
+## Exercise 1
+
+Data file: [structurepred.txt](raw_data/structurepred.txt)
+
+These data are root mean square deviations (RMSD) in `\(\unicode{x212B}\)`ngstrom ($\unicode{x212B}$) between predicted and actual protein structures. Three programs were used to make predictions for 30 proteins.
+
+🎬 Save a copy of the file to your `raw_data` folder and read it in with:
+
+```r
+file &lt;- "raw_data/structurepred.txt"
+mydata &lt;- read_table(file)
+glimpse(mydata)
+```
+
+```
+## Observations: 90
+## Variables: 1
+## $ `rmsd prog prot` &lt;chr&gt; "9.038 Abstruct 1", "14.952 Abstruct 2", "17....
+```
+
+😒The command runs but the result looks wrong.
+
+All the variables have been read into one column.
+
+---
+# Locally stored text files
+
+## Exercise 1
+🎬 Look up `read_table()` and work out how to read the three variables in to three columns.
+
+```
+## Observations: 90
+## Variables: 3
+## $ rmsd &lt;dbl&gt; 9.038, 14.952, 17.734, 3.117, 11.284, 12.761, 9.759, 9.71...
+## $ prog &lt;chr&gt; "Abstruct", "Abstruct", "Abstruct", "Abstruct", "Abstruct...
+## $ prot &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17...
+```
+
+A function that can save you having to open a text file to look or wait along time to discover an import failure is `readLines()`:
+
+
+```r
+readLines(file, n = 5)
+```
+
+```
+## [1] "rmsd prog prot"    "9.038 Abstruct 1"  "14.952 Abstruct 2"
+## [4] "17.734 Abstruct 3" "3.117 Abstruct 4"
+```
+
+Reading in the first few (5) lines would help you identify that each line is not the same length.
+
+--
+
+`readLines()` is useful when the file is very big and takes ages to open or import.
+
+---
+# Locally stored text files
+
+# Exercise 2
+
+Data file: [Icd10Code.csv](raw_data/Icd10Code.csv)
+
+ICD-10 codes are alphanumeric codes used by doctors, health insurance companies, and public health agencies across the world to represent diagnoses. This file contains a list of the codes and diseases they represent.
+
+🎬 Save a copy of the file to your `raw_data` folder and read it with the most appropriate `readr` function:
+
+```r
+file &lt;- "raw_data/Icd10Code.csv"
+mydata &lt;- read_table2(file)
+```
+
+---
+# Locally stored text files
+
+# Exercise 2
+
+You may have quite naturally assumed that file with a .csv extension would contain comma separated values and use `read_csv()`. 
+
+The use of `readLines()` reveals it is actually tab separated.
+
+```r
+readLines(file, n = 2)
+```
+
+```
+## [1] "Code\tDescription" "A00\t\"Cholera\""
+```
+
+It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵️‍♂️
+
+
+---
+# References
+
+&lt;a name=bib-Dowle_Srinivasan_2019&gt;&lt;/a&gt;[Dowle, M. and A.
+Srinivasan](#cite-Dowle_Srinivasan_2019) (2019). _data.table:
+Extension of `data.frame`_. R package version 1.12.6. URL:
+[https://CRAN.R-project.org/package=data.table](https://CRAN.R-project.org/package=data.table).
+
+&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019).
+_xaringan: Presentation Ninja_. R package version 0.12. URL:
+[https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
+
+
+
+---
+class: inverse
+
+# Congratulations! Keep practising!
+
+Emma Rand 
+
+emma.rand@york.ac.uk
+
+Twitter: [@er13_r](https://twitter.com/er13_r) 
+
+github: [3mmaRand](https://github.com/3mmaRand)
+
+blog: https://buzzrbeeline.blog/
+&lt;br&gt;
+
+.footnote[
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
