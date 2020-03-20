@@ -492,10 +492,7 @@ one_description <- sol$description[1]
 
 `r emo::ji("clapper")` Extract the part of the string after `GN=` using a regex:
 ```{r}
-
-one_genename <- one_description %>%
-  str_extract("GN=[^\\s]+")
-one_genename
+str_extract(one_description,"GN=[^\\s]+")
 ```
 
 Explanation on next slide.
@@ -525,90 +522,71 @@ So `GN=[^\\s]+` means `GN=` followed by one or more characters that are not whit
 
 ### One step at a time on one value
 
-We're close. Now we will drop the `GN` part by spliting the string on the `=`:
+We're close. Now we will drop the `GN=` part by replacing it with nothing:
 
+`r emo::ji("clapper")` Add replacing `GN=` with an empty string, `""`, to the pipeline:
 ```{r}
-# extract the part of the string
-one_genename <- one_description %>%
-  str_extract("GN=[^\\s]+") %>% 
-  strsplit(., "=", fixed = TRUE)
-one_genename
+str_extract(one_description, "GN=[^\\s]+") %>% 
+  str_replace("GN=", "")
 ```
 
-Note we need to use `.` to represent the object being passed in, "GN=AHNAK" in this case. This is because the function definition of [`strsplit()`(https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/strsplit]. The `split` argument would be mistaken for the `x` argument.
+--
+## `r emo::ji("party")`
 
-The output value of `strsplit()` is a two element list of the strings before and after the "=". We want the second element of the list. An often easier way to access lists where each item in the list is a single string is to turn it into a character vector. The `unlist()` function achieves this:
+---
+# Case study
 
+## Processing cells contents
+
+### Creating a new column
+
+`mutate()` is the `dplyr` function that adds new variables and preserves existing ones. It takes `name` = `value` pairs of expressions where `name` is the name for the new variable and `value` is the value it takes which maybe be an expression. 
+
+`r emo::ji("clapper")` Add a variable `genename` which contains the processed string from the `description` variable:
 ```{r}
-# extract the part of the string
-one_genename <- one_description %>%
-  str_extract("GN=[^\\s]+") %>% 
-  strsplit(., "=", fixed = TRUE) %>% 
-  unlist() 
-one_genename
-```
-The to access the second element of the the character vector we need to use the `.` again:
-```{r}
-# extract the part of the string
-one_genename <- one_description %>%
-  str_extract("GN=[^\\s]+") %>% 
-  strsplit(., "=", fixed = TRUE) %>% 
-  unlist()  %>% 
-  .[2]
-one_genename
+sol <- sol %>%
+  mutate(genename =  str_extract(description,"GN=[^\\s]+") %>% 
+           str_replace("GN=", ""))
+
 ```
 
-We know how to get the genename for a single value and now need to apply this to every value in the column. This can be achieved with a `for` loop:
+---
+# Case study
 
-```{r}
-# add column for genename
-for (i in 1:length(sol$description)) { 
-  sol$genename[i] <- sol$description[i]  %>%
-    str_extract("GN=[^\\s]+")  %>% 
-    strsplit(., "=", fixed = TRUE)  %>%
-    unlist()   %>% 
-    .[2]}
-```
-
-
-# Exercises
-1. Can you add a column for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. I suggest splitting on the semi-colon, then the double colon. Develop the solution by using a suitable entry from the accession column (i.e., not the first one as it only has one entry).
+## Exercises
+`r emo::ji("clapper")` Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
 
 ```{r echo=FALSE}
-# add column for top protein identifier.
-# 
-for (i in 1:length(sol$accession)) {
-  sol$uniprotid[i] <- sol$accession[i] %>%
-    strsplit(., ";", fixed = TRUE)  %>%
-    unlist()   %>% 
-    .[1] %>%
-    strsplit(., "::", fixed = TRUE)  %>%
-    unlist()   %>%
-    .[2]}
+# trying it out on one value
+accession <- sol$accession[2]
+str_extract(accession, "1::[^;]+") %>% 
+  str_replace("1::", "")
+
+# adding a new column 
+sol <- sol %>%
+  mutate(protid =  str_extract(accession, "1::[^;]+") %>% 
+           str_replace("1::", ""))
+
+            
 ```
 
-2. Can you create a second dataframe, `sol2` in which the protein abundances are in a single column and the cell lineage is indicated in another. All the other variables should also be in the new data frame.
+`r emo::ji("clapper")` Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. You might find [`starts_with()`](https://www.rdocumentation.org/packages/tidyselect/versions/1.0.0/topics/select_helpers) useful.
 ```{r echo=FALSE}
-# # you may have list the columns you did not wanted to gather
-# # but here's another trick
-# to_gather <- colnames(sol)[(colnames(sol) %like% "y")]
-# to_gather
-# sol2 <- sol %>% gather(key = lineage,
-#                        value = abundance,
-#                        to_gather)
+sol2 <- sol %>% pivot_longer(names_to = "lineage_rep",
+                             values_to = "abundance",
+                             cols = starts_with("y"))
 
 
 ```
-3. Can you create separate columns in `sol2` for the cell line and the replicate?
+
+`r emo::ji("clapper")` Create separate columns in `sol2` for the cell lineage and the replicate.
 
 ```{r echo=FALSE}
-# sol2 <- sol2 %>% 
-#   extract(lineage, 
-#           c("line", "rep"),
-#           "(y[0-9]{3,4})\\_([a-c])")
+sol2 <- sol2 %>%
+  extract(lineage_rep,
+          c("line", "rep"),
+          "(y[0-9]{3,4})\\_([a-c])")
 ```
-
-
 
 
 ---

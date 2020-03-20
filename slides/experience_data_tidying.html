@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>An Introduction to Reproducible Analyses in R: Tidying data and the tidyverse including the pipe.</title>
     <meta charset="utf-8" />
@@ -605,9 +605,7 @@ one_description &lt;- sol$description[1]
 🎬 Extract the part of the string after `GN=` using a regex:
 
 ```r
-one_genename &lt;- one_description %&gt;%
-  str_extract("GN=[^\\s]+")
-one_genename
+str_extract(one_description,"GN=[^\\s]+")
 ```
 
 ```
@@ -641,79 +639,54 @@ So `GN=[^\\s]+` means `GN=` followed by one or more characters that are not whit
 
 ### One step at a time on one value
 
-We're close. Now we will drop the `GN` part by spliting the string on the `=`:
+We're close. Now we will drop the `GN=` part by replacing it with nothing:
 
-
-```r
-# extract the part of the string
-one_genename &lt;- one_description %&gt;%
-  str_extract("GN=[^\\s]+") %&gt;% 
-  strsplit(., "=", fixed = TRUE)
-one_genename
-```
-
-```
-## [[1]]
-## [1] "GN"    "AHNAK"
-```
-
-Note we need to use `.` to represent the object being passed in, "GN=AHNAK" in this case. This is because the function definition of [`strsplit()`(https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/strsplit]. The `split` argument would be mistaken for the `x` argument.
-
-The output value of `strsplit()` is a two element list of the strings before and after the "=". We want the second element of the list. An often easier way to access lists where each item in the list is a single string is to turn it into a character vector. The `unlist()` function achieves this:
-
+🎬 Add replacing `GN=` with an empty string, `""`, to the pipeline:
 
 ```r
-# extract the part of the string
-one_genename &lt;- one_description %&gt;%
-  str_extract("GN=[^\\s]+") %&gt;% 
-  strsplit(., "=", fixed = TRUE) %&gt;% 
-  unlist() 
-one_genename
-```
-
-```
-## [1] "GN"    "AHNAK"
-```
-The to access the second element of the the character vector we need to use the `.` again:
-
-```r
-# extract the part of the string
-one_genename &lt;- one_description %&gt;%
-  str_extract("GN=[^\\s]+") %&gt;% 
-  strsplit(., "=", fixed = TRUE) %&gt;% 
-  unlist()  %&gt;% 
-  .[2]
-one_genename
+str_extract(one_description, "GN=[^\\s]+") %&gt;% 
+  str_replace("GN=", "")
 ```
 
 ```
 ## [1] "AHNAK"
 ```
 
-We know how to get the genename for a single value and now need to apply this to every value in the column. This can be achieved with a `for` loop:
+--
+## 🎉
 
+---
+# Case study
+
+## Processing cells contents
+
+### Creating a new column
+
+`mutate()` is the `dplyr` function that adds new variables and preserves existing ones. It takes `name` = `value` pairs of expressions where `name` is the name for the new variable and `value` is the value it takes which maybe be an expression. 
+
+🎬 Add a variable `genename` which contains the processed string from the `description` variable:
 
 ```r
-# add column for genename
-for (i in 1:length(sol$description)) { 
-  sol$genename[i] &lt;- sol$description[i]  %&gt;%
-    str_extract("GN=[^\\s]+")  %&gt;% 
-    strsplit(., "=", fixed = TRUE)  %&gt;%
-    unlist()   %&gt;% 
-    .[2]}
+sol &lt;- sol %&gt;%
+  mutate(genename =  str_extract(description,"GN=[^\\s]+") %&gt;% 
+           str_replace("GN=", ""))
 ```
 
+---
+# Case study
 
-# Exercises
-1. Can you add a column for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. I suggest splitting on the semi-colon, then the double colon. Develop the solution by using a suitable entry from the accession column (i.e., not the first one as it only has one entry).
-
-
-
-2. Can you create a second dataframe, `sol2` in which the protein abundances are in a single column and the cell lineage is indicated in another. All the other variables should also be in the new data frame.
-
-3. Can you create separate columns in `sol2` for the cell line and the replicate?
+## Exercises
+🎬 Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
 
 
+```
+## [1] "Q15149"
+```
+
+🎬 Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. You might find [`starts_with()`](https://www.rdocumentation.org/packages/tidyselect/versions/1.0.0/topics/select_helpers) useful.
+
+
+🎬 Create separate columns in `sol2` for the cell lineage and the replicate.
 
 
 
@@ -721,22 +694,22 @@ for (i in 1:length(sol$description)) {
 ---
 # References
 
-&lt;a name=bib-magrittr&gt;&lt;/a&gt;[Bache, S. M. and H.
-Wickham](#cite-magrittr) (2014b). _magrittr: A Forward-Pipe
-Operator for R_. R package version 1.5. URL:
+&lt;a name=bib-magrittr&gt;&lt;/a&gt;[Bache, S. M. and H. Wickham](#cite-magrittr)
+(2014b). _magrittr: A Forward-Pipe Operator for R_. R package version
+1.5. URL:
 [https://CRAN.R-project.org/package=magrittr](https://CRAN.R-project.org/package=magrittr).
 
-&lt;a name=bib-R-tidyverse&gt;&lt;/a&gt;[Wickham, H.](#cite-R-tidyverse)
-(2017). _tidyverse: Easily Install and Load the 'Tidyverse'_. R
-package version 1.2.1. URL:
+&lt;a name=bib-R-tidyverse&gt;&lt;/a&gt;[Wickham, H.](#cite-R-tidyverse) (2017).
+_tidyverse: Easily Install and Load the 'Tidyverse'_. R package version
+1.2.1. URL:
 [https://CRAN.R-project.org/package=tidyverse](https://CRAN.R-project.org/package=tidyverse).
 
 &lt;a name=bib-Wickham2019-ml&gt;&lt;/a&gt;[Wickham, H, M. Averick, et
 al.](#cite-Wickham2019-ml) (2019). "Welcome to the Tidyverse". In:
 _JOSS_ 4.43, p. 1686.
 
-&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019).
-_xaringan: Presentation Ninja_. R package version 0.12. URL:
+&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan:
+Presentation Ninja_. R package version 0.12. URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
 
 
@@ -806,7 +779,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {
