@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>An Introduction to Reproducible Analyses in R: Advanced data import.</title>
     <meta charset="utf-8" />
@@ -73,7 +73,7 @@ There are four main considerations for data import:
 
 --
 
-4. What data structure will be created in R? Often this will be dataframes or dataframe-like structures (eg., tibbles) but there are many specialised data struction often specialised data structures.
+4. What data structure will be created in R? Often this will be dataframes or dataframe-like structures (eg., tibbles) but there are many specialised data structures often specialised data structures.
 
 ---
 # Locally stored text files
@@ -83,9 +83,21 @@ There are four main considerations for data import:
 This section may be familiar and you may want to skip ahead.
 
 * Plain text files can be opened in notepad or other text editor and make sense (contrast with for examples xlsx, doc, sav, png)  
+
+--
+
 * Columns usually 'delimited' by a particular character (but fixed width does occur).  
+
+--
+
 * Can be read in with the base packages `read.table()` methods.  
-* Or with the `readr` package methods such as `read.table()`, `read_csv()`, `read_delim()` which is ususally my preference because they are a little faster and output tibbles.  
+
+--
+
+* Or with the `readr` package methods such as `read.table()`, `read_csv()`, `read_delim()` which is usually my preference because they are a little faster and output tibbles.  
+
+--
+
 * Or with the even faster `fread()` from the `data.table` package &lt;a name=cite-Dowle_Srinivasan_2019&gt;&lt;/a&gt;([Dowle and Srinivasan, 2019](#bib-Dowle_Srinivasan_2019)).  
 
 ---
@@ -95,23 +107,39 @@ This section may be familiar and you may want to skip ahead.
 
 Data file: [structurepred.txt](raw_data/structurepred.txt)
 
-These data are root mean square deviations (RMSD) in `\(\unicode{x212B}\)`ngstrom ($\unicode{x212B}$) between predicted and actual protein structures. Three programs were used to make predictions for 30 proteins.
+These data are root mean square deviations (RMSD) in `\(\unicode{x212B}\)`ngstrom ( `\(\unicode{x212B}\)` ) between predicted and actual protein structures. Three programs were used to make predictions for 30 proteins.
+
+--
 
 🎬 Save a copy of the file to your `raw_data` folder and read it in with:
 
 ```r
 file &lt;- "raw_data/structurepred.txt"
-mydata &lt;- read_table(file)
-glimpse(mydata)
+protein_struc &lt;- read_table(file)
 ```
+
+--
+
+🎬 Examine the result:
+
+```r
+glimpse(protein_struc)
+```
+
+---
+# Locally stored text files
+
+## Exercise 1
+
 
 ```
 ## Observations: 90
 ## Variables: 1
-## $ `rmsd prog prot` &lt;chr&gt; "9.038 Abstruct 1", "14.952 Abstruct 2", "17....
+## $ `rmsd prog prot` &lt;chr&gt; "9.038 Abstruct 1", "14.952 Abstruct 2", "17.734 A...
 ```
 
-😒The command runs but the result looks wrong.
+
+😒 The command runs but the result looks wrong. 
 
 All the variables have been read into one column.
 
@@ -121,13 +149,8 @@ All the variables have been read into one column.
 ## Exercise 1
 🎬 Look up `read_table()` and work out how to read the three variables in to three columns.
 
-```
-## Observations: 90
-## Variables: 3
-## $ rmsd &lt;dbl&gt; 9.038, 14.952, 17.734, 3.117, 11.284, 12.761, 9.759, 9.71...
-## $ prog &lt;chr&gt; "Abstruct", "Abstruct", "Abstruct", "Abstruct", "Abstruct...
-## $ prot &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17...
-```
+
+--
 
 A function that can save you having to open a text file to look or wait along time to discover an import failure is `readLines()`:
 
@@ -141,34 +164,43 @@ readLines(file, n = 5)
 ## [4] "17.734 Abstruct 3" "3.117 Abstruct 4"
 ```
 
-Reading in the first few (5) lines would help you identify that each line is not the same length.
+---
+# Locally stored text files
+
+## Exercise 1
+
+The helps you identify that each line is not the same length (i.e., it is not a fixed width file) which is one of the requirements of `read_table()`.
 
 --
 
-`readLines()` is useful when the file is very big and takes ages to open or import.
+`read_table2()` is the function you needed.
+
+--
+
+`readLines()` is especially useful when the file is very big and takes ages to open or import.
 
 ---
 # Locally stored text files
 
-# Exercise 2
+## Exercise 2
 
 Data file: [Icd10Code.csv](raw_data/Icd10Code.csv)
 
 ICD-10 codes are alphanumeric codes used by doctors, health insurance companies, and public health agencies across the world to represent diagnoses. This file contains a list of the codes and diseases they represent.
 
-🎬 Save a copy of the file to your `raw_data` folder and read it with the most appropriate `readr` function:
+--
 
-```r
-file &lt;- "raw_data/Icd10Code.csv"
-mydata &lt;- read_table2(file)
-```
+🎬 Save a copy of the file to your `raw_data` folder and read it with the most appropriate `readr` function.
+
 
 ---
 # Locally stored text files
 
-# Exercise 2
+## Exercise 2
 
-You may have quite naturally assumed that file with a .csv extension would contain comma separated values and use `read_csv()`. 
+You may have quite naturally assumed that file with a .csv extension would contain comma separated values and used `read_csv()`. 
+
+--
 
 The use of `readLines()` reveals it is actually tab separated.
 
@@ -180,19 +212,301 @@ readLines(file, n = 2)
 ## [1] "Code\tDescription" "A00\t\"Cholera\""
 ```
 
-It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵️‍♂️
+It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵️‍♀️
+
+---
+# Locally stored special formats.
+
+## Overview
+
+* Cannot usually be opened in notepad.  
+
+--
+
+* Often specific to proprietary software, e.g., SPSS, STATA, Matlab.  
+
+--
+
+* If you have that software you may be able to export in plain text format.  
+
+--
+
+* But usually there is a package or function that allows you to script the steps. Favourites of mine are:  
+  * `haven` &lt;a name=cite-haven&gt;&lt;/a&gt;([Wickham and Miller, 2018](#bib-haven)) for importing and exporting SPSS, STATA and SAS files  
+  * `readxl` &lt;a name=cite-readxl&gt;&lt;/a&gt;([Wickham and Bryan, 2019](#bib-readxl))for excel files  
+
+--
+
+* Google is your friend.  
+
+---
+# Locally stored special formats.
+
+## SPSS example using `haven`
+
+Data file: [periwinkle.sav](raw_data/periwinkle.sav).
+
+These data give a measure of the gut parasite load in two species of rough periwinkle in the Spring and Summer.
+
+🎬 Save a copy of the file to your `raw_data` folder and read it with:
+
+```r
+library(haven)
+file &lt;- "raw_data/periwinkle.sav"
+periwinkle &lt;- read_sav(file)
+```
+---
+# Locally stored special formats.
+
+## SPSS example using `haven`
+
+.scroll-output-height[
+🎬 Examine the result.
+
+```r
+str(periwinkle)
+```
+
+```
+## Classes 'tbl_df', 'tbl' and 'data.frame':	100 obs. of  3 variables:
+##  $ para   : num  58 51 54 39 65 67 60 54 47 66 ...
+##   ..- attr(*, "label")= chr "Number of Parasites"
+##   ..- attr(*, "format.spss")= chr "F8.0"
+##  $ season : 'haven_labelled' num  1 1 1 1 1 1 1 1 1 1 ...
+##   ..- attr(*, "label")= chr "Season"
+##   ..- attr(*, "format.spss")= chr "F8.0"
+##   ..- attr(*, "labels")= Named num  1 2
+##   .. ..- attr(*, "names")= chr  "Spring" "Summer"
+##  $ species: 'haven_labelled' num  1 1 1 1 1 1 1 1 1 1 ...
+##   ..- attr(*, "label")= chr "Species"
+##   ..- attr(*, "format.spss")= chr "F8.0"
+##   ..- attr(*, "display_width")= int 14
+##   ..- attr(*, "labels")= Named num  1 2
+##   .. ..- attr(*, "names")= chr  "Littorina saxatilis" "Littorina nigrolineata"
+```
+]
+
+---
+# Locally stored special formats.
+
+## SPSS example using `haven`
+
+The SPSS variables `season` and `species` are labelled integers, i.e., the actual values are integers, which is a common data structure in other statistical environments.
+
+`read_sav()` has made them variables of type "haven_labelled". 
+
+--
+
+The labels of these can be viewed in R using:
+
+```r
+attr(periwinkle$season, "labels")
+```
+
+```
+## Spring Summer 
+##      1      2
+```
+
+```r
+attr(periwinkle$species, "labels")
+```
+
+```
+##    Littorina saxatilis Littorina nigrolineata 
+##                      1                      2
+```
+
+---
+# Locally stored special formats.
+
+## SPSS example using `haven`
+
+🎬 Turn the variables of type "haven_labelled" in to factors with:
+
+
+```r
+periwinkle &lt;- periwinkle %&gt;% 
+  mutate(season = as_factor(season),
+         species = as_factor(species))
+```
+
+--
+
+🎬 Write the dataframe to a plain text format file in your `processed_data` folder.
+
+
+--
+
+👀 There are `read_dta()` and `read_sas()` functions for STATA and SAS files respectively.
+
+---
+# Files on the internet
+
+## Overview
+
+It may be preferable to read data files from the internet rather than download the file if the data are likely to be updated.
+
+--
+
+We simply use the URL rather than the local file path. Your options for import functions and arguments are the same as for local files.
+
+For example, these data are from a buoy (buoy #44025) off the coast of New Jersey at
+http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&amp;dir=data/historical/stdmet/
+
+--
+
+🎬 Use `readLines()` to examine the data format.
+
+
+--
+
+The first line gives the column name, the second line gives units and the data themselves begin on line 3
+
+---
+# Files on the internet
+
+🎬 Read in the data.
+
+
+--
+
+🎬 Use `scan()` to read in the appropriate lines then [tidy](experience_data_tidying.html) the results and name the columns measure_units, for example
+
+---
+# Web scraping
+
+## Overview
+
+What if data are not in a file but on web page? One solution is to  'scrape' the data using package `rvest` &lt;a name=cite-rvest&gt;&lt;/a&gt;([Wickham, 2019b](#bib-rvest)).
+
+Do you see what they did there? 😜
+
+--
+
+This is possible because the two core standards for building web pages, HTML (Hypertext Markup Language) and CSS (Cascading Style Sheets) are just text files which describe the structure of a page and its appearance.
+
+--
+
+HTML describes the structure of pages using markup: pieces of content are labelled such as “paragraph,” “list,” “table,” and so on.
+
+We will do just one small example of a big topic: getting the information from a Wikipedia page on [Global biodiversity](https://en.wikipedia.org/wiki/Global_biodiversity)
+
+---
+# Web scraping
+
+## Process
+
+There are several steps
+
+1. download and parse the html file using `read_html`  
+
+--
+
+2. determine which css selector marks the data in the page you want  
+
+--
+
+3. find that selector in the parsed html and extract the text using `html_nodes()`.  
+
+--
+
+4. process the text in to an R data structure for example using `html_table()` or `html_text()`.  
+
+--
+
+5. Do any any additional processing to the data in the R object.  
+
+--
+
+🎬 Go to the web page: https://en.wikipedia.org/wiki/Global_biodiversity 
+
+---
+# Web scraping
+
+## Process
+
+🎬 Load the `rvest` package and assign the web address to a variable:
+
+```r
+library(rvest)
+url &lt;- "https://en.wikipedia.org/wiki/Global_biodiversity"
+```
+
+--
+
+🎬 Scroll down the Global biodiversity page until you see the table. Right click on the page and choose Inspect.
+
+A box will appear on the right including the full page source. 
+
+--
+
+🎬 In the Elements window, click on the element that highlights the information you want - in this case `&lt;table class="wikitable"&gt;`
+
+🎬 Right click on that element and choose Copy | Copy selector.
+
+---
+# Web scraping
+
+## Process
+
+🎬 Now download and parse the html file using `read_html`, extract the text at the copied selector using `html_nodes()`, process the text in to a list using `html_table()` and get the dataframe which is the first(and only) element of that list:
+
+
+```r
+test &lt;- read_html(url) %&gt;%
+  html_nodes(css = '#mw-content-text &gt; div &gt; table') %&gt;%
+  html_table() %&gt;% 
+  .[[1]]
+```
+
+--
+
+🎬 Examine the resulting dataframe. 
+
+--
+
+🎬 Use methods given in [Tidying data and the tidyverse including the pipe]("experience_data_tidying.html") to process the contents of the dataframe.
+
+
+---
+# Reading multiple files
+
+## loops
+
+## readxl sheets
+
+---
+# APIs
+
+## jasonlite
+
+## packages
 
 
 ---
 # References
 
 &lt;a name=bib-Dowle_Srinivasan_2019&gt;&lt;/a&gt;[Dowle, M. and A.
-Srinivasan](#cite-Dowle_Srinivasan_2019) (2019). _data.table:
-Extension of `data.frame`_. R package version 1.12.6. URL:
+Srinivasan](#cite-Dowle_Srinivasan_2019) (2019). _data.table: Extension
+of `data.frame`_. R package version 1.12.6. URL:
 [https://CRAN.R-project.org/package=data.table](https://CRAN.R-project.org/package=data.table).
 
-&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019).
-_xaringan: Presentation Ninja_. R package version 0.12. URL:
+&lt;a name=bib-rvest&gt;&lt;/a&gt;[Wickham, H.](#cite-rvest) (2019b). _rvest:
+Easily Harvest (Scrape) Web Pages_. R package version 0.3.5. URL:
+[https://CRAN.R-project.org/package=rvest](https://CRAN.R-project.org/package=rvest).
+
+&lt;a name=bib-readxl&gt;&lt;/a&gt;[Wickham, H. and J. Bryan](#cite-readxl) (2019).
+_readxl: Read Excel Files_. R package version 1.3.1. URL:
+[https://CRAN.R-project.org/package=readxl](https://CRAN.R-project.org/package=readxl).
+
+&lt;a name=bib-haven&gt;&lt;/a&gt;[Wickham, H. and E. Miller](#cite-haven) (2018).
+_haven: Import and Export 'SPSS', 'Stata' and 'SAS' Files_. R package
+version 1.1.2. URL:
+[https://CRAN.R-project.org/package=haven](https://CRAN.R-project.org/package=haven).
+
+&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan:
+Presentation Ninja_. R package version 0.12. URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
 
 
@@ -262,7 +576,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {
