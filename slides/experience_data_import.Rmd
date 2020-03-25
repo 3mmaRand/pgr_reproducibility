@@ -480,7 +480,255 @@ test <- read_html(url) %>%
 ---
 # APIs
 
-## jasonlite
+## Overview
+
+There are many data repositories online and you may have used a search page to retrieve data for download.   
+That search page is designed for humans to interface with the data repository.
+
+--
+
+An Applications Programming Interface (API) allows a data repository or program to be accessed programmatically.  
+
+This is especially useful when your data updates frequently.
+
+--
+
+## Packages
+
+Many packages have been written that simplify your use of an API<sup>1</sup>. You may have used these without knowing. Using an API that has an already has a package is relatively simple.
+
+
+.footnote[
+1. Searching for API on this [list of CRAN packages](https://cran.r-project.org/web/packages/available_packages_by_name.html) will give you an idea.
+]
+
+---
+# APIs
+
+## Packages
+
+Just a few examples are:
+
+* `RGoogleAnalytics` for the the Google Analytics API
+* `rentrez` for the NCBI's 'EUtils' API, allowing users to search databases like 'GenBank'
+*  `aRxiv`	Interface to the arXiv API allowing you to seach the preprints database.
+* `CytobankAPI`	to access the Cytobank API
+* Many packages on [Bioconductor](https://www.bioconductor.org/) and [ROpenSci](https://ropensci.org/)
+
+--
+
+`r emo::ji("eyes")` Search for an existing package to access an API before you start with the methods shown on the next few slides!  
+
+--
+
+This is a example of how to connect to an API to get data when the API doesn't have a package for R. It is a brief introduction but if is it something you want to do you will undoubtedly need to learn more.
+---
+# APIs
+
+## Terminology
+
+Interaction with an API comprises a request (what you send) and a response.  
+
+--
+
+The most common type of request is carried out with the GET HTTP method<sup>1</sup>  
+
+.footnote[
+1. Other HTTP methods can be used for requests such as POST, PUT, DELETE
+]
+
+--
+
+In R `httr` is one package that allows you create requests
+
+---
+# APIs
+
+## Terminology
+
+An API requests consists of:
+  
+* a URL  
+  `r kableExtra::text_spec("http://gtr.rcuk.ac.uk/search/", background = "#D0DEE6",     )`project?term=virus&page=1&fetchSize=100
+
+--
+
+* an 'endpoint' following by a `?`. An endpoint is a dataset provided by the API.  
+  http://gtr.rcuk.ac.uk/search/`r kableExtra::text_spec("project", background = "#D0DEE6")`?term=virus&page=1&fetchSize=100
+
+--
+  
+  Many APIs have multiple endpoints.  
+
+--
+
+* Endpoints are queried with 'parameters' separtated by `&` which are defined in the API documentation  
+  http://gtr.rcuk.ac.uk/search/project?`r kableExtra::text_spec("term=virus&page=1&fetchSize=100", background = "#D0DEE6")`
+
+--
+
+JavaScript Object Notification (JSON) and Extensible Markup Language (XML) are the most common answer formats.
+
+JSON data is often handled with the `jsonlite` package
+
+
+---
+# APIs
+
+## Example
+
+
+We are going to query the [UK Research and Innovation](https://www.ukri.org/) [Gateway to Research](https://gtr.ukri.org/)  which enables users to search and analyse information about publicly funded research. 
+
+--
+
+We will retrieve BBSRC research grants that will start in 2020 about viruses.
+
+--
+
+The funding council, type of grant, start year and topic are all parameters we will need to send in the request.
+
+--
+
+
+`r emo::ji("clapper")` Load the packages
+
+```{r}
+library(httr)
+library(jsonlite)
+```
+
+--
+
+We need to:  
+1. Make a "GET" request to the API to pull raw data into R  
+2. Parse that data from its raw form (JSON) into a usable format
+
+---
+# APIs
+
+## Constructing the query
+
+`r emo::ji("clapper")` Create variables for the URL, the endpoint and the parameters:
+
+```{r}
+base <- "http://gtr.rcuk.ac.uk/search/"
+endpoint <- "project"
+page <- 1
+fetchsize <- 100
+term <- "virus"
+```
+
+--
+
+We are searching the `project` data resource; other possible endpoints include person and publication.
+
+`fetchSize` and `page` give the number of results per page returned and which page should be returned. Typically, we need to write a loop to retrieve all the results. 
+
+--
+
+For simplicity, I have used a search that returns less that a one page of results.
+
+---
+# APIs
+
+## Constructing the query
+
+Specifying the funding council, type of grant and year is by passing id codes to the `selectedFacets` parameter. 
+
+--
+
+The id codes are obtained from the documentation or by running a simple query and examining the resulting object.
+
+--
+
+`r emo::ji("clapper")` Create variables for the variables for appropriate `selectedFacets` id codes:
+```{r}
+# these are the id codes that filter the results by:
+# "Project category", 
+research <- "Y2F0fFJlc2VhcmNoIEdyYW50fHN0cmluZw=="
+# "Funder" and
+bbsrc <- "ZnVuZGVyfEJCU1JDfHN0cmluZw=="
+# "Start year
+y2020 <- "c3RhcnR8MTU3NzgzNjgwMDAwMF8xNjA5NDU5MTk5MDU5fHJhbmdl"
+
+```
+
+---
+# APIs
+
+## Constructing the query
+
+The id code include some special characters that encoded as % plus a two-digit hexadecimal representation (known as percent coding). You may have seen browsers replace spaces with `%20` - this one example. 
+
+--
+
+The ids must be in a list separted by commas, and then encoded.
+
+--
+
+`r emo::ji("clapper")` Create a variable for the selectedFacets paramter by pasting the codes together separated by a comma, then encoding:
+```{r}
+selectedFacets <- URLencode(paste(research,
+                                  bbsrc, 
+                                  y2020, 
+                                  sep=","),
+                            reserved = TRUE)
+```
+
+---
+# APIs
+
+## Constructing the query
+
+`r emo::ji("clapper")` Paste all parts into the same query, adding `?` and `&` where required:
+```{r}
+call1 <- paste(base,endpoint,"?",
+               "term=", term,"&",
+               "page=", page,"&",
+               "fetchSize=", fetchsize,"&",
+               "selectedFacets=", selectedFacets,
+               sep="")
+```
+
+--
+
+
+`r emo::ji("clapper")` Check the result:
+.scroll-output-width[
+```{r}
+call1
+```
+]
+---
+# APIs
+
+## Running the query
+```{r}
+# httr::GET makes the request
+results <- GET(call1)
+```
+
+check the request was successful
+
+```{r}
+results$status_code
+```
+
+```{r}
+data <- results %>% content("text") %>% fromJSON()
+```
+
+
+```{r}
+data$searchResult$resourceHitCount
+
+```
+
+not covered: authentication. done in the get
+Making a get request
+typically you need an API password, an API username or both
+
 
 ## packages
 
