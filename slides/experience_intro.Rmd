@@ -72,7 +72,7 @@ There are four sections. Those with least experience should start with the first
 
 2. [Tidying data and the tidyverse including the pipe.](experience_data_tidying.html)
 
-3. [Advanced Data Import]()
+3. [Advanced Data Import](experience_data_import.html)
 
 3. [Formatting figures]()
 ---

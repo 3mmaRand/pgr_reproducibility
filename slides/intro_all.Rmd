@@ -109,7 +109,7 @@ Made with xaringan `r Cite(myBib, "xaringan")`
 * Understanding the manual  
 ]
 .pull-right[
-[For those with experience in R]()  
+[For those with experience in R](experience_intro.html)  
 * RStudio projects and writing files.  
 * Advanced data tidying  
 * Advanced data import  

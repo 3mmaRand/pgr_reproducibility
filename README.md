@@ -3,7 +3,7 @@
 
 # Introduction to Reproducibility in R
 
-One-day workshop for first year bioscience PhD students at the White Rose Universities (York, Sheffield, Leeds)
+One-day workshop (or equivalent) for first year bioscience PhD students at the White Rose Universities (York, Sheffield, Leeds).
 
 ## Overview
 
@@ -40,8 +40,11 @@ After this workshop the successful learner will be able to:
 
 ### Precourse survey
 
+Was sent in March
 
 ### Computing requirements
+
+For the one-day workshop
 There are computers at the venue and you will be given an IT account if you do not have a york.ac.uk account already.
 
 ## Materials
