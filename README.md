@@ -52,6 +52,7 @@ Laptops should have the following installed **prior** to attending the workshop:
 
 - R version 3.6 or higher
 - RStudio (1.2)
+- these packages: tidyverse, janitor, rticles
 
 ### Installing R
 
@@ -80,9 +81,13 @@ You can accept all the defaults.
 Download the `.zip` source archive under "Zip/Tarballs". Extract the files to a folder where you have write access, e.g. `C:\Users\username\RStudio`. In this folder, open the `bin` directory and find the RStudio program: it is named `rstudio.exe`, but the file extension will typically be hidden, so look for `rstudio`. Right-click this executable to create a desktop shortcut. Double-click the executable or use the shortcut to open.
 
 
+### Installing packages
+
+Once you have installed R and RStudio, start RStudio up and go to the Packages tab in the bottom right pane; click Install and type the name of the package you want to install in the box that appears. Then wait until you get the cursor (>) back in the console window.
+
 ## Issues 
 
-Typically R and Rstudio are painless to install. However, if you encounter problems there will be Zoom office hours on May 18, 1400-1530 assist with set up.  
+Typically R, Rstudio and R packages are painless to install. However, if you encounter problems there will be Zoom office hours on May 18, 1400-1530 assist with set up.  
 
 
  

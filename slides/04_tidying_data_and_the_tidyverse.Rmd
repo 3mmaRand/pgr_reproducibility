@@ -249,7 +249,7 @@ These data are in "wide" format and can be converting to "long" format using the
 
 --
 
-By default `pivot_longer()` collects *all* the values into a single column (values_to) and creates a column to indicate the group (names_to). 
+`pivot_longer()` collects the values from specified columns (cols) into a single column (values_to) and creates a column to indicate the group (names_to). 
 
 --
 

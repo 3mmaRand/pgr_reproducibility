@@ -16,7 +16,10 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       message = FALSE,	
-                      warning = FALSE)
+                      warning = FALSE,
+                      fig.width=4, 
+                      fig.height=4, 
+                      fig.retina=3)
 options(htmltools.dir.version = FALSE)
 ```
 
@@ -41,31 +44,24 @@ myBib <- ReadBib("../refs.bib", check = FALSE)
 
 
 background-image: url(../pics/tidyverse_logo.png)
-background-position: 100% 0%
+background-position: 100% 80%
 background-size: 180px
 
 # Overview
-
-## Introduction 1030 - 1115
-
+.font140[
 * Finding your way round RStudio  
 * Typing in data, doing some calculations on it, plotting it
 * Understanding the manual  
-
-## Working with Data 1135 - 1230  
-
-* Importing data: working directories and paths  
-* Summarising and visualising with the [`tidyverse`](https://www.tidyverse.org/)  
+* Working with a data  
+  * Importing data: working directories and paths  
+  * Summarising and visualising with the [`tidyverse`](https://www.tidyverse.org/)  
 * Installing and loading packages
-
+]
 ---
-class: inverse,
-# Introduction 
 
-## Finding your way round RStudio  
-## Typing in data, doing some calculations on it, plotting it
-## Understanding the manual
+class: inverse
 
+#  Finding your way round RStudio
 ---
 
 # Finding your way round RStudio
@@ -88,7 +84,7 @@ There is an [RStudio cheatsheet](http://www-users.york.ac.uk/~er13/rstudio-ide.p
 ## Live demonstration
 
 * the panels
-* making yourself comforatable
+* making yourself comfortable
 * typing in the console sending commands
 * using R as a calculator
 * assigning values
@@ -103,7 +99,7 @@ There is an [RStudio cheatsheet](http://www-users.york.ac.uk/~er13/rstudio-ide.p
 ---
 # Finding your way round RStudio
 
-## Summary of live demonstration: <mark style="background-color: #e6f0ff">The panels</mark>
+## Summary of live demonstration: <mark style="background-color: #b0cdef">The panels</mark>
 
 .pull-left[
 Top left
@@ -129,7 +125,7 @@ Bottom right
 ---
 # Finding your way round RStudio
 
-## Summary of Live demonstration: <mark style="background-color: #e6f0ff">Types of R files</mark>
+## Summary of Live demonstration: <mark style="background-color: #b0cdef">Types of R files</mark>
 
 * .R 
   a script file:  code (to save) and comments
@@ -145,7 +141,7 @@ Bottom right
 ---
 # Finding your way round RStudio
 
-## Summary of Live demonstration: <mark style="background-color: #e6f0ff">Data types and structures</mark>
+## Summary of Live demonstration: <mark style="background-color: #b0cdef">Data types and structures</mark>
 
 These are the most commonly needed but there are others
 .pull-left[
@@ -161,6 +157,12 @@ Structures
 * factors
 * dataframes
 ]
+
+---
+
+class: inverse
+
+# Typing in data, doing some calculations on it, plotting it
 
 ---
 # Typing in data, calcs, plots
@@ -185,7 +187,7 @@ knitr::kable(df,
 ... and make a plot
 
 
-```{r , echo=FALSE,fig.width=5,fig.height=5}
+```{r , echo=FALSE}
 nest_data <- data.frame(n = factor(n), freq)
 ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(colour = "black", fill = "white", width = 1) +
@@ -390,7 +392,7 @@ background-size: 200px
 
 ## Plotting using `ggplot2`
 
-`tidyverse` is already installed in on these computers but we need to load it (add it to our library) before we can use it in a session.
+You should have already installed `tidyverse` but we need to load it (add it to our library) before we can use it in a session.
 
 ```{r eval=FALSE}
 library(tidyverse)
@@ -440,7 +442,7 @@ Click on `nest_data` in the Environment pane to see a spreadsheet-like view of i
 
 Create a simple barplot using `ggplot` like this:
 
-```{r fig.width=4,fig.height=4}
+```{r}
 ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col()
 
@@ -470,6 +472,11 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 `geom_col` A 'Geom' (Geometric object) gives the visual representations of the data: points, lines, bars, boxplots etc.
 
+---
+
+class: inverse
+
+# Using the help manual
 
 ---
 # Using the help manual
@@ -491,6 +498,7 @@ Open the manual page using:
 ?geom_col()
 ```
 
+## demonstration
 ---
 # Using the help manual
 
@@ -517,16 +525,13 @@ Open the manual page using:
 ## Altering a ggplot
 
 We can change the fill of the bars using `fill`:
-```{r eval=FALSE}
+```{r plot-last, fig.show = 'hide'}
 ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(fill = "lightblue")
 
 ```
 .pull-left[
-```{r fig.width=4,fig.height=4, echo=FALSE}
-ggplot(data = nest_data, aes(x = n, y = freq)) +
-  geom_col(fill = "lightblue")
-
+```{r ref.label = 'plot-last', echo = FALSE}
 ```
 ]
 --
@@ -574,10 +579,10 @@ Mapping fill to variable means the colour is variable - you get a different colo
 Can you use the manual to put the bars next to each other?
 .pull-right[
 .footnote[
-`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Can you use the manual to change to colour of the lines around each bar to black?]]
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#f6fafd", bold = TRUE)`  Can you use the manual to change to colour of the lines around each bar to black?]]
 --
 
-```{r ,fig.width=4,fig.height=4}
+```{r}
 ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(fill = "lightblue", width = 1)
 ```
@@ -585,15 +590,15 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 ---
 
-# Typing in data, calcs, plots
+# Using the help manual
 
-## Plotting
+## Altering a ggplot
 
 
-`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Can you use the manual to change to colour of the lines around each bar to black?
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#f6fafd", bold = TRUE)`  Can you use the manual to change to colour of the lines around each bar to black?
 
 .pull-left[
-```{r ,fig.width=4,fig.height=4, eval=FALSE}
+```{r plot-last2, fig.show="hide"}
 ggplot(data = nest_data,
        aes(x = n, y = freq)) +
   geom_col(fill = "lightblue", 
@@ -603,19 +608,14 @@ ggplot(data = nest_data,
 ]
 
 .pull-right[
-```{r ,fig.width=4,fig.height=4, echo=FALSE}
-ggplot(data = nest_data,
-       aes(x = n, y = freq)) +
-  geom_col(fill = "lightblue", 
-           width = 1, 
-           colour = "black")
+```{r ref.label = 'plot-last2', echo = FALSE}
 ```
 ]
 ---
 # Top Tip
 
 <style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+div.blue { background-color:#b0cdef; border-radius: 5px; padding: 20px;}
 div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
 </style>
 
@@ -637,7 +637,7 @@ Changes to a discrete x axis can be made by adding a `scale_x_discrete()`.
 
 Changes to a continuous y axis can be made by adding a `scale_y_continuous()`.
 
-ggplot automatically extends the axes slightly to make sure there is room for points to plot. 
+`ggplot` automatically extends the axes slightly to make sure there is room for points to plot. 
 You can turn this behaviour off with the expand argument.
 
 --
@@ -647,7 +647,7 @@ Each 'layer' is added to the ggplot() command with a `+`
 ---
 # Plotting using ggplot2
 
-```{r fig.width=4,fig.height=4}
+```{r}
 ggplot(data = nest_data,
        aes(x = n, y = freq)) +
   geom_col(fill = "lightblue", 
@@ -659,13 +659,13 @@ ggplot(data = nest_data,
 
 .pull-right[
 .footnote[
-`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Look up `scale_x_discrete` in the manual and work out how to change "n" to "Number of Males"]
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Look up `scale_x_discrete` in the manual and work out how to change "n" to "Number of Males"]
 ]
 
 ---
 # Plotting using ggplot2
 
-```{r fig.width=4,fig.height=4}
+```{r}
 ggplot(data = nest_data,
        aes(x = n, y = freq)) +
   geom_col(fill = "lightblue", 
@@ -680,11 +680,9 @@ ggplot(data = nest_data,
 
 ---
 
-class: inverse,
+class: inverse
 
 # Working with Data
-
-### 1135 - 1230 
 
 
 ---
@@ -713,7 +711,7 @@ sumpig %>%
 
 ```
 
-```{r fig.width=5, fig.height=4,echo=FALSE}
+```{r echo=FALSE}
 ggplot(data = pigeon2, aes(x = distance, fill = population))  +
   geom_density(col = "black", alpha = 0.3) +
   xlab("Interorbital distance (mm)") +
@@ -745,7 +743,7 @@ This section will teach you about three concepts:
 
 --
 
-We will work with the interorbital distances of domestion pigeons in two different populations: A and B
+We will work with the interorbital distances of domestic pigeons in two different populations: A and B
 
 ---
 background-image: url(../pics/interorbital.png)
@@ -768,7 +766,7 @@ background-size: 180px
 
 # Working with Data 
 ## Importing
-
+<br>
 Make a folder in your Project directory (this is also your working directory) called 'data'
 
 The easiest way to do this is in RStudio  - see the bottom right Files panel
@@ -866,7 +864,7 @@ background-size: 180px
 Remember, to refer a column inside a dataframe (a single column data) we need to use the dollar notation: `dataframe$columnname`
 
 --
-
+.pull-left[
 The mean of column $A
 
 ```{r }
@@ -878,7 +876,12 @@ The mean of column $B
 ```{r }
 mean(pigeon$B)
 ```
+]
+.pull-right[
 
+This relies on the groups being in different columns!
+
+]
 ---
 background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
@@ -903,6 +906,11 @@ This format is described as 'tidy' `r Cite(myBib, "Wickham2019-ml")`.
 --
 
 Tidy data has a variable in each column and only one observation (case) per row.
+
+--
+
+The format captures the structure of your data and allows you to specify the role of variables in analyses and visualisations.
+
 
 ---
 background-image: url(../pics/interorbital.png)
@@ -954,28 +962,22 @@ background-size: 180px
 # Working with Data 
 ## Tidy format
 
-We can make the data tidy with `gather()`<sup>1</sup>.
+We can make the data tidy with `pivot_longer()`<sup>1</sup>.
 
-`gather()` needs 3 arguments:
+`pivot_longer()` collects the values from specified columns (`cols`) into a single column (`values_to`) and creates a column to indicate the group (`names_to`). 
 
 .footnote[
-[1] `gather()` is a function from a package called `tidyr` which is one of the `tidyverse` packages.
+[1] `pivot_longer()` is a function from a package called `tidyr` which is one of the `tidyverse` packages.
 ]
 
 --
 
-* the dataframe 
---
-
-* a `key` which will become the name of the grouping variable 
---
-
-* a `value` the measurement variable.
---
-
 ```{r}
 
-pigeon2 <- gather(data = pigeon, key = population, value = distance)
+pigeon2 <- pivot_longer(data = pigeon, 
+                        cols = everything(), 
+                        names_to = "population", 
+                        values_to = "distance")
 str(pigeon2)
 ```
 
@@ -992,10 +994,8 @@ background-size: 180px
 # Working with Data 
 
 ## Summarising multi-group data
-
-Now we have a dataframe in tidy format which will make it 
-
-easier to summarise, analyse and visualise.
+<br>
+Now we have a dataframe in tidy format which *will* make it easier to summarise, analyse and visualise.
 
 --
 
@@ -1027,8 +1027,8 @@ pigeon2 %>%
 
 
 This can be read as:  
-  - take pigeon2 and then  
-  - group it by population and then  
+  - take pigeon2 *and then*  
+  - group it by population *and then*  
   - summarise it by calculating the mean  
 
 i.e., the mean is done for each population.
@@ -1057,9 +1057,9 @@ pigeon2 %>%
 ```
 
 .footnote[
-`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Add a column for the standard devation
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Add a column for the standard devation
 
-`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Add a column for the standard error given by $\frac{s.d.}{\sqrt{n}}$
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Add a column for the standard error given by $\frac{s.d.}{\sqrt{n}}$
 
 ]
 ---
@@ -1089,7 +1089,7 @@ background-size: 180px
 
 ## Plotting multi-group data
 
-```{r fig.height=4, fig.width=4,eval=FALSE}
+```{r plot-last3, fig.show = 'hide'}
 ggplot(data = pigeon2, aes(x = distance)) +
   geom_histogram(bins = 10,               #<<
                  col = "black") +
@@ -1098,15 +1098,11 @@ ggplot(data = pigeon2, aes(x = distance)) +
 ```
 .pull-left[
 
-```{r fig.height=4, fig.width=4,echo=FALSE}
-ggplot(data = pigeon2, aes(x = distance)) +
-  geom_histogram(bins = 10,
-                 col = "black") +
-  scale_x_continuous(name = "Interorbital distance (mm)")
-  
+```{r ref.label = 'plot-last3', echo = FALSE}
 ```
 ]
 
+--
 .pull-right[
 
 The geom we have used this time is a `geom_histogram()`.
@@ -1128,7 +1124,7 @@ background-size: 180px
 
 We can use the `aes()` to 'map' the population variable to the `fill` aesthetic
 
-```{r fig.height=4, fig.width=5}
+```{r}
 ggplot(data = pigeon2, aes(x = distance, fill = population)) + #<<
   geom_histogram(bins = 10, 
                  col = "black") +
@@ -1137,7 +1133,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) + #<<
 ```
 .pull-right[
 .footnote[
-`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Can you remember how to make the axes cross at (0,0)]
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Can you remember how to make the axes cross at (0,0)]
 ]
 ---
 background-image: url(../pics/interorbital.png)
@@ -1146,9 +1142,9 @@ background-size: 180px
 
 # Working with Data 
 
-`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Can you remember how to make the axes cross at (0,0)
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Can you remember how to make the axes cross at (0,0)
 
-```{r fig.height=4, fig.width=5}
+```{r}
 ggplot(data = pigeon2, aes(x = distance, fill = population)) + #<<
   geom_histogram(bins = 10, 
                  col = "black") +
@@ -1172,7 +1168,7 @@ background-size: 180px
 
 `geom_density()` is another `geom` that can be used when `distance` is mapped to `x` and the y axis gives counts.
 
-```{r fig.height=4, fig.width=5}
+```{r}
 ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   geom_density(col = "black") +               #<<
   scale_x_continuous(name = "Interorbital distance (mm)")
@@ -1191,7 +1187,7 @@ background-size: 180px
 We can alter the transparancy using `alpha`
 
 
-```{r fig.height=4, fig.width=5}
+```{r}
 ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   geom_density(col = "black", alpha = 0.3) +    #<<
   scale_x_continuous(name = "Interorbital distance (mm)")
@@ -1220,7 +1216,7 @@ background-size: 180px
 
 ## Plotting multi-group data
 
-```{r fig.height=4, fig.width=5}
+```{r}
 ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   geom_density(col = "black", alpha = 0.3) +
   scale_x_continuous(name = "Interorbital distance (mm)") +
@@ -1240,7 +1236,7 @@ background-size: 180px
 ### A different kind of plot
 
 .pull-left[
-```{r fig.height=5, fig.width=5,echo=FALSE} 
+```{r echo=FALSE} 
 ggplot(data = pigeon2, aes(x = population, y = distance)) + 
   geom_boxplot() +                            
   scale_x_discrete(name = "Population") +
@@ -1262,7 +1258,7 @@ Note: We need to change the `aes()` as well as the `geom` because this figure ha
 
 ## Plotting multi-group data
 
-```{r fig.height=4, fig.width=4,eval=FALSE} 
+```{r plot-last4, fig.show = 'hide'} 
 ggplot(data = pigeon2, aes(x = population, y = distance)) + 
   geom_boxplot() +                            
   scale_x_discrete(name = "Population") +
@@ -1274,20 +1270,12 @@ ggplot(data = pigeon2, aes(x = population, y = distance)) +
 ```
 
 .pull-left[
-```{r fig.height=4, fig.width=4,echo=FALSE} 
-ggplot(data = pigeon2, aes(x = population, y = distance)) + 
-  geom_boxplot() +                        #<<    
-  scale_x_discrete(name = "Population") +
-  scale_y_continuous(name = "Interorbital distance (mm)",
-                   expand = c(0, 0),
-                   limits = c(0, 15)) +
-  theme_classic()
-  
+```{r ref.label = 'plot-last4', echo = FALSE} 
 ```
 ]
 .pull-right[
 .footnote[
-`r kableExtra::text_spec("Extra exercise:", background = "#285169", color = "white", bold = TRUE)`  Can you (gratuitously) colour the boxes by population too?]
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Can you (gratuitously) colour the boxes by population too?]
 ]
 
 ---
@@ -1303,23 +1291,14 @@ PrintBibliography(myBib)
 
 class: inverse
 
-# Congratulations! Keep practising!
+# `r emo::ji("party")` Congratulations! Keep practising! `r emo::ji("party")` 
 
-Emma Rand 
+---
+# Introduction to Reproducibility in R
 
-emma.rand@york.ac.uk
-
-Twitter: [@er13_r](https://twitter.com/er13_r) 
-
-github: [3mmaRand](https://github.com/3mmaRand)
-
-blog: https://buzzrbeeline.blog/
+## Emma Rand <br> [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) <br> Twitter: [@er13_r](https://twitter.com/er13_r) <br> GitHub: [3mmaRand](https://github.com/3mmaRand)  <br> blog: https://buzzrbeeline.blog/
 <br>
-
-.footnote[
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
-]
-
 
 
 
