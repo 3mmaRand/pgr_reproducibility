@@ -1,22 +1,19 @@
 ---
-title: "An Introduction to Reproducible Analyses in R"
-subtitle: "White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology"
+title: "Introduction and Principles of reproducibility."
+subtitle: "White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R."
 author: "Emma Rand"
 institute: "University of York, UK"
-date: "2020-19-03"
+
 output:
   xaringan::moon_reader:
     css: [default, ../css_files/emma.css, ../css_files/emma-fonts.css]
     lib_dir: libs
-    seal: false
+    seal: true
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
 ---
-background-image: url(../logos/whiterose_dtp.png)
-background-position: 7% 50%
-background-size: 300px
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
@@ -45,22 +42,7 @@ myBib <- ReadBib("../refs.bib", check = FALSE)
 ```
 
 
-class: inverse
-
-# Introduction to Reproducibility in R
-
-### Emma Rand 
-
-### University of York: 2020-03-19
-
-.footnote[
-Made with xaringan `r Cite(myBib, "xaringan")`  
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
-]
-
----
-# What this workshop is and is not
+# What this training is and is not
 
 .pull-left[
 
@@ -93,62 +75,49 @@ Made with xaringan `r Cite(myBib, "xaringan")`
 
 
 ---
-# Workshop overview
+# Programme overview
 
-## 1000 Introduction and Principles of reproducibility  
-* Rationale for scripting
-* Why R?
-* Organisation of data  
-* Organisation of analyses
+This programme comprises several modules lasting from 30 minutes to 2 hours. The selection of modules you undertake will depend on your previous experience.
 
-## 1030 Parallel Sessions  
-.pull-left[  
-[For those without experience in R](no_experience_intro.html)  
-* Finding your way round RStudio  
-* Typing in data, doing some calculations on it, plotting it  
-* Understanding the manual  
-]
-.pull-right[
-[For those with experience in R](experience_intro.html)  
-* RStudio projects and writing files.  
-* Advanced data tidying  
-* Advanced data import  
+1. [Introduction and Principles of reproducibility](slides/01_intro_and_principles_of_repro.html)  
+   Expected audience: Everyone
+   * Rationale for scripting
+   * Why R?
+   * Organisation of data  
+   * Organisation of analyses
 
-]
-## 1115 Coffee in the Atrium  
+2. [Introduction to R and working with data](slides/02_intro_to_r_and_working_with_data.html)  
+   Expected audience: Those without previous experience
+   * Finding your way round RStudio  
+   * Typing in data, doing some calculations on it, plotting it  
+   * Understanding the manual  
+   * Importing data: working directories and paths  
+   * Summarising and visualising with the [`tidyverse`](https://www.tidyverse.org/)  
+   * Installing and loading packages
+
 ---
-# Workshop overview
+# Programme overview - continued
 
-## 1135 Parallel Sessions  
-.pull-left[   
-[For those without experience in R](no_experience_intro.html)  
-* Importing data: working directories and paths  
-* Summarising and visualising with the [`tidyverse`](https://www.tidyverse.org/)  
-* Installing and loading packages
 
-]
-.pull-right[ 
-[For those with experience in R]()  
-* Formatting figures for publication  
-]
-## 1230 Lunch in the Atrium  
+3. [RStudio Projects](slides/03_rstudio_projects.html)  
+    Expected audience: Everyone
 
-## 1315 R Markdown for Reproducible Reports  
-[R Markdown fundamentals]()  
-* ...  
-* ...  
+
+
+4. [Tidying data and the tidyverse including the pipe](slides/04_tidying_data_and_the_tidyverse.html)  
+   Expected audience: For those with previous experience of R but little of 'tidy data' and the tidyverse, such as having done "Introduction to R and working with data."
+   * 
+
 ---
-# Workshop overview
-
-## 1445 Coffee in the Atrium  
-
-## 1505 R Markdown for Reproducible Reports
-[More advanced markdown]()  
-* bbb
-* mmm
-* citations, journal templates 
-
-## 1600 Close
+# Programme overview - continued   
+5. [Advanced data import](slides/05_advanced_data_import.html)  
+   Expected audience: For those with previous experience of R such as having done "Introduction to R and working with data" and "Tidying data and the tidyverse including the pipe."
+   * 
+   
+6. [R Markdown for Reproducible Reports](slides/)  
+   Expected audience: For those with previous experience of R such as having done "Introduction to R and working with data"
+   * 
+.
 ---
 background-image: url(../pics/rationale1.png)
 background-position: 50% 35%
@@ -394,5 +363,12 @@ knitr::kable(head(pigeon2[c(1:3,41:43),]),
 ```{r refs, echo=FALSE, results="asis"}
 PrintBibliography(myBib)
 ```
+
+---
+# Introduction to Reproducibility in R
+
+## Emma Rand <br> [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) <br> [@er13_r](https://twitter.com/er13_r)
+<br>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
 

@@ -3,7 +3,7 @@
 
 # Introduction to Reproducibility in R
 
-One-day workshop (or equivalent) for first year bioscience PhD students at the White Rose Universities (York, Sheffield, Leeds).
+Training programme for first year bioscience PhD students at the White Rose Universities (York, Sheffield, Leeds).
 
 ## Overview
 
@@ -11,13 +11,17 @@ Underlying all biological discoveries are data! The ability to generate reliable
 
 R is a free and open source language especially well-suited to data analysis and visualisation and has a relatively inclusive and newbie-friendly community. R caters to users who do not see themselves as programmers, but then allows them to slide gradually into programming.
 
+
+This programme comprises several modules lasting from 30 minutes to 2 hours. The selection of modules you undertake will depend on your previous experience.
+
 ## Prerequisites
-I recognise that students will enter this training with diverse previous experience with R. The aim to ensure all students get something out of the training no matter where they start.
-There will be some parallel sessions for those with and without previous experience. Pre-course instructions for participants are given below.
+
+I recognise that people will enter this training with a diverse range of previous experience in R. This is a challenge to manage but the aim is for everyone to get something out of the training no matter where they start. 
+There will be sessions for those with and without previous experience. Pre-course instructions for participants are given below.
 
 # Philosophy and approach
 
-Impossible to cover everything to you might ever need! Different people will use different methods and tools. Chosen topics are: foundational, widely applicable and transferable conceptually.
+It is impossible to cover everything to you might ever need! Different people will use different methods and tools. Topics have been chosen topics because they are: foundational, widely applicable and transferable conceptually.
 
 
 ## Learning outcomes
@@ -40,18 +44,85 @@ After this workshop the successful learner will be able to:
 
 ### Precourse survey
 
-Was sent in March
+To help me direct you to useful training and manage diversity in previous experience during the sessions, please complete this form to indicate your current level: https://forms.gle/cpSjdcjVa7niz6iq5
 
 ### Computing requirements
 
-For the one-day workshop
-There are computers at the venue and you will be given an IT account if you do not have a york.ac.uk account already.
+Laptops should have the following installed **prior** to attending the workshop:
+
+- R version 3.6 or higher
+- RStudio (1.2)
+
+### Installing R
+
+Download the pre-compiled binary for your OS from https://cloud.r-project.org/ and install. More specifically:
+
+**For Windows**
+
+Click "Download R for Windows", then "base", then "Download R 4.0.0 for Windows". This will download an `.exe` file; once downloaded, open to start the installation. You can accept all the defaults.
+
+**For Mac**
+
+Click "Download R for (Mac) OS X", then "R-4.0.0.pkg" to download the installer.
+Run the installer to complete installation. You can accept all the defaults.
+
+**For Linux**
+
+Click "Download R for Linux". Instructions on installing are given for Debian, Redhat, Suse and Ubuntu distributions. Where there is a choice, install both `r-base` and `r-base-dev`.
+
+### Installing R Studio
+
+Download and install the version for your OS from: https://rstudio.com/products/rstudio/download/#download.
+You can accept all the defaults.
+
+**For Windows with no admin rights**
+
+Download the `.zip` source archive under "Zip/Tarballs". Extract the files to a folder where you have write access, e.g. `C:\Users\username\RStudio`. In this folder, open the `bin` directory and find the RStudio program: it is named `rstudio.exe`, but the file extension will typically be hidden, so look for `rstudio`. Right-click this executable to create a desktop shortcut. Double-click the executable or use the shortcut to open.
+
+
+## Issues 
+
+Typically R and Rstudio are painless to install. However, if you encounter problems there will be Zoom office hours on May 18, 1400-1530 assist with set up.  
+
+
+ 
+## Modules
+
+1. Introduction and Principles of reproducibility  
+   Expected audience: Everyone  
+   May 19 1100 - 1130  
+ 
+
+2. Introduction to R and working with data. 
+   Expected audience: Those without previous experience  
+   May 20 1000-1200  
+ 
+
+3. RStudio Projects.  
+   Expected audience: Everyone  
+   May 21 1300-1330  
+ 
+
+4. Tidying data and the tidyverse including the pipe.  
+   Expected audience: For those with previous experience of R but little of 'tidy data' and the tidyverse, such as having done "Introduction to R and working with data."  
+   May 21 1400-1530  
+ 
+
+5. Advanced data import.  
+   Expected audience: For those with previous experience of R such as having done "Introduction to R and working with data" and "Tidying data and the tidyverse including the pipe."  
+   May 26 1000-1130   
+ 
+
+6. R Markdown for Reproducible Reports
+   Expected audience: For those with previous experience of R such as having done "Introduction to R and working with data" 
+   May 28 1300-1500 
+
 
 ## Materials
 You can obtain all the workshop materials by using the green 'Clone or download' button above
+**Not yet updated for online delivery**
 
-
-## Slides
+## Slide index
 
 [Slides](https://3mmarand.github.io/pgr_reproducibility/index.html)
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>An Introduction to Reproducible Analyses in R</title>
     <meta charset="utf-8" />
@@ -10,35 +10,31 @@
   </head>
   <body>
     <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# An Introduction to Reproducible Analyses in R
+## White Rose BBSRC DTP Training
+### Emma Rand
+### University of York, UK
+
+---
 
 
 
-# Workshop overview
-
-## Introduction and Principles of reproducibility  
-[Introduction and Principles of reproducibility](slides/intro_all.html)
-
-## Parallel Sessions  
-.pull-left[  
-[For those without experience in R](slides/no_experience_intro.html) 
-]
-.pull-right[
-[For those with experience in R](slides/experience_intro.html)  
-
-]
+# Module Index
 
 
-## R Markdown for Reproducible Reports  
-[R Markdown for Reproducible Reports]()  
+1. [Introduction and Principles of reproducibility](slides/01_intro_and_principles_of_repro.html)
+2. [Introduction to R and working with data](slides/02_intro_to_r_and_working_with_data.html) 
+3. [RStudio Projects](slides/03_rstudio_projects.html)  
+4. [Tidying data and the tidyverse including the pipe](slides/04_tidying_data_and_the_tidyverse.html)
+5. [Advanced data import](slides/05_advanced_data_import.html)  
+6. [R Markdown for Reproducible Reports](slides/)  
   
 ---
-class: inverse
-
 # Introduction to Reproducibility in R
 
-## Emma Rand 
-
-### University of York: 2020-03-19
+## Emma Rand &lt;br&gt; [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) &lt;br&gt; [@er13_r](https://twitter.com/er13_r)
 &lt;br&gt;
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
     </textarea>
@@ -87,9 +83,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -98,7 +110,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
   }
 })();
-</script>
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {

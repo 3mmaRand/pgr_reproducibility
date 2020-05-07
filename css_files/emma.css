@@ -1,20 +1,16 @@
 .remark-slide-content {
-  background-color: #FAFAFA;
-  border-top: 80px solid #175b85;
+  background-color: #f6fafd;
+  border-top: 80px solid 	#5e789d;
   font-size: 20px;
   font-weight: 300;
   line-height: 1.5;
   padding: 1em 2em 1em 2em
 }
 
-.title-slide .inverse .remark-slide-content {
-  background-color: #FAFAFA;
-}
-
 .inverse {
-  background-color: #285169;
+  background-color: #5e789d;
   text-shadow: none;
-  color: #FAFAFA;
+  color: 	#f6fafd;
 }
 
 .remark-slide-content > h1 {
@@ -23,7 +19,7 @@
   font-size: 45px;
   margin-top: -95px;
   margin-left: -00px;
-  color: #FAFAFA;
+  color: #f6fafd;
 }
 
 .remark-slide-content > inverse {
@@ -35,13 +31,13 @@ position: absolute;
 
 /* Removes colored bar from top of the slide resulting in a clear slide */
 .clear{
-  border-top: 0px solid #FAFAFA;
+  border-top: 0px solid #f6fafd;
 }
 
 .remark-slide-content > h2, h3, h4 {
   padding-top: -15px;
   padding-bottom: 00px;
-  color: #1A292C;
+  color: #25496b;
   text-shadow: none;
   font-weight: 400;
   text-align: left;
@@ -50,7 +46,7 @@ position: absolute;
 }
 
 .inverse h2 {
-    color: #FAFAFA;
+    color: #f6fafd;
 }
 
 .remark-slide-content > h2, .pull-left > h2, .pull-right > h2 {
@@ -64,12 +60,12 @@ position: absolute;
 
 
 .title-slide {
-  background-color: #FAFAFA;
-  border-top: 80px solid #FAFAFA;
+  background-color: #f6fafd;
+  border-top: 80px solid #f6fafd;
 }
 
 .title-slide > h1  {
-  color: #1A292C;
+  color: #25496b;
   font-size: 40px;
   text-shadow: none;
   font-weight: 400;
@@ -80,7 +76,7 @@ position: absolute;
 .title-slide > h2  {
   margin-top: -25px;
   padding-bottom: -20px;
-  color: #1A292C;
+  color: #25496b;
   text-shadow: none;
   font-weight: 300;
   font-size: 35px;
@@ -88,7 +84,7 @@ position: absolute;
   margin-left: 15px;
 }
 .title-slide > h3  {
-  color: #1A292C;
+  color: #25496b;
   text-shadow: none;
   font-weight: 300;
   font-size: 25px;
@@ -99,14 +95,14 @@ position: absolute;
 
 .remark-slide-number {
   font-size: 13pt;
-  font-family: 'Open Sans';
+  font-family: 'Pangolin';
   color: #272822;
   opacity: 1;
 }
 .inverse .remark-slide-number {
   font-size: 13pt;
-  font-family: 'Open Sans';
-  color: #FAFAFA;
+  font-family: 'Pangolin';
+  color: #f6fafd;
   opacity: 1;
 }
 
@@ -115,11 +111,10 @@ position: absolute;
   display: none;
 }
 
-.remark-code-line-highlighted     { background-color: #c6e3ed; }
+.remark-code-line-highlighted     { background-color: #d3e4f8; }
 
 .remark-inline-code {
-  background: #F5F5F5; /* lighter */
-  /* background: #e7e8e2; /* darker */
+  background: #FDF9F6; /* lighter */
   border-radius: 3px;
   padding: 4px;
 }

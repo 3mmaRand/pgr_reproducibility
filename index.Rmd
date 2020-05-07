@@ -1,14 +1,13 @@
 ---
 title: "An Introduction to Reproducible Analyses in R"
-subtitle: "White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology"
+subtitle: "White Rose BBSRC DTP Training"
 author: "Emma Rand"
 institute: "University of York, UK"
-date: "2020-19-03"
 output:
   xaringan::moon_reader:
     css: [default, css_files/emma.css, css_files/emma-fonts.css]
     lib_dir: libs
-    seal: false
+    seal: true
     nature:
       highlightStyle: github
       highlightLines: true
@@ -22,32 +21,20 @@ knitr::opts_chunk$set(echo = TRUE,
 options(htmltools.dir.version = FALSE)
 ```
 
-# Workshop overview
-
-## Introduction and Principles of reproducibility  
-[Introduction and Principles of reproducibility](slides/intro_all.html)
-
-## Parallel Sessions  
-.pull-left[  
-[For those without experience in R](slides/no_experience_intro.html) 
-]
-.pull-right[
-[For those with experience in R](slides/experience_intro.html)  
-
-]
+# Module Index
 
 
-## R Markdown for Reproducible Reports  
-[R Markdown for Reproducible Reports]()  
+1. [Introduction and Principles of reproducibility](slides/01_intro_and_principles_of_repro.html)
+2. [Introduction to R and working with data](slides/02_intro_to_r_and_working_with_data.html) 
+3. [RStudio Projects](slides/03_rstudio_projects.html)  
+4. [Tidying data and the tidyverse including the pipe](slides/04_tidying_data_and_the_tidyverse.html)
+5. [Advanced data import](slides/05_advanced_data_import.html)  
+6. [R Markdown for Reproducible Reports](slides/)  
   
 ---
-class: inverse
-
 # Introduction to Reproducibility in R
 
-## Emma Rand 
-
-### University of York: 2020-03-19
+## Emma Rand <br> [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) <br> [@er13_r](https://twitter.com/er13_r)
 <br>
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
