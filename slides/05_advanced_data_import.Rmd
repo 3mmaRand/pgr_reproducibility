@@ -1,9 +1,8 @@
 ---
-title: "An Introduction to Reproducible Analyses in R: Advanced data import."
-subtitle: "White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology"
+title: "Advanced data import."
+subtitle: "White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R."
 author: "Emma Rand"
 institute: "University of York, UK"
-date: "2020-19-03"
 output:
   xaringan::moon_reader:
     css: [default, ../css_files/emma.css, ../css_files/emma-fonts.css]

@@ -88,6 +88,8 @@ Typically R and Rstudio are painless to install. However, if you encounter probl
  
 ## Modules
 
+Everyone will be included in all calendar invitations. The invitations and the list below indicate the expected audience and attendance records will be kept.
+
 1. Introduction and Principles of reproducibility  
    Expected audience: Everyone  
    May 19 1100 - 1130  
