@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>RStudio Projects.</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Emma Rand" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="..\css_files\emma.css" type="text/css" />
+    <link rel="stylesheet" href="..\css_files\emma-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# RStudio Projects.
+## White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R.
+### Emma Rand
+### University of York, UK
+
+---
+
+
+
+
+
+
+
+
+
+# Introduction
+
+## Aims
+
+The aim of this section is to show you how to organise your work in a logical, consistent and reproducible way using RStudio Projects, appropriate directory structures and portable code. It will set you up for the [Tidying data and the tidyverse including the pipe](04_tidying_data_and_the_tidyverse.html) and [Advanced Data Import](05_advanced_data_import.html) sections.
+
+## Learning outcomes 
+
+The successful student will be able to:
+
+* understand what absolute and relative paths are
+* use RStudio projects to appropriately organise a piece of work  
+* write code with relative paths given appropriate to your project organisation  
+* write dataframes and figures to file  
+
+### 🎬 An instruction to do something!!
+
+---
+
+class: inverse
+
+#  What is a path?
+
+
+---
+# What is a path?
+
+A path gives the location of a filesystem object (i.e., a file, directory or link).
+
+A path can be **absolute** or **relative**
+
+--
+
+## Absolute paths
+
+An Absolute path is given from the root directory of the object. 
+
+For example the absolute path for a file, `beewing.txt` can be:  
+  * windows: `M:/web/58M_BDS_2019/data/beewing.txt`  
+--
+
+  * unix systems: `/users/er13/web/58M_BDS_2019/data/beewing.txt`  
+--
+
+  * web: `http://www-users.york.ac.uk/~er13/58M_BDS_2019/data/beewing.txt`  
+
+--
+
+## Demonstration
+
+---
+# What is a path?
+
+## Relative paths
+
+A relative path gives the location of a filesystem object relative to the working directory.
+
+A working directory is where a program thinks you are and is returned by `getwd()` in R.
+
+--
+
+For example when `beewing.txt` is in:  
+  * the working directory (wd):  `beewing.txt`  
+--
+
+  * a directory called 'data' which is in the wd: `data/beewing.txt`  
+--
+
+  * the directory above the wd: `../beewing.txt`  
+--
+
+  * a directory called 'data' which is in the directory above the wd: `../data/beewing.txt`  
+
+--
+
+## Demonstration
+
+--
+
+More if you need it: [What do we mean by paths?](https://youtu.be/oZblx36rqq0) 
+
+---
+class: inverse
+
+#  Using RStudio projects
+
+
+---
+# Using RStudio projects
+
+
+Using an [RStudio project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) helps you manage file paths (amongst other things!). 
+
+--
+
+An Rstudio project is a directory with (at least) an .Rproj file in it. 
+
+When you open a Project, the working directory is set to the project directory (i.e., the location of the .Rproj file). 
+
+--
+
+Read both of these instructions and the view the next slides before doing anything.
+
+
+🎬 Create a new project with File | New Project and chose New directory and then New project. I suggest naming it `wr_analytics` or similar.
+
+🎬 Be purposeful about where you create it by using the Browse button. Don't have `~` in the lower box! See next! 
+
+---
+# Using RStudio projects
+
+## Don't have `~` in the lower box!
+.pull-left[
+....by navigating to your file store though the actual links starting `(\\userfs)(M:)` or similar not the shortcuts starting `This PC`:
+]
+.pull-right[
+![screen short of windows explorer with actual links highlighted](../pics/noshortcut.png)
+]
+
+---
+# Using RStudio projects
+
+Creating a new project will:
+
+1. Create a directory (folder) called `wr_analytics`
+--
+
+2. Restart RStudio in that directory and set your working directory to `wr_analytics` (i.e., it loads the project)
+--
+
+3. Create a `wr_analytics.Rproj` file within the project directory. This file contains various project options.  
+--
+
+4. Create a hidden directory (named .Rproj.user) where project-specific temporary files are stored.  
+
+--
+
+Note that `getwd()` will return `wr_analytics`
+
+--
+
+Suggested reading [Chapter 2 Project-oriented workflow](https://whattheyforgot.org/project-oriented-workflow.html) of What they forgot to teach you about R &lt;a name=cite-Bryan-Hester&gt;&lt;/a&gt;([Bryan and Hester, b](#bib-Bryan-Hester))
+
+---
+class: inverse
+
+#  Suggested sensible directory structure
+
+
+---
+# Directory structure
+
+🎬 Create folders in `wr_analytics` called `raw_data`, `processed_data` and `figures`.
+
+--
+
+🎬 Start new scripts called `tidy.R`, `import.R` and `figures.R`
+
+
+---
+class: inverse
+
+#  Writing files
+
+---
+# Writing files
+
+Often we want to write to files. 
+
+My main reasons for doing so are to save copies of data that have been processed and to save manuscripts and graphics. 
+
+--
+
+You will import a simple data file, reshape the data and write it to file. You will also produce a simple figure and save that to file.
+
+--
+
+## Get ready 
+🎬 Load the tidyverse set of packages.
+
+```r
+library(tidyverse)
+```
+
+---
+# Writing files
+
+## Import a datafile
+
+🎬 Save a copy of [pigeon.txt](../data/pigeon.txt) to your `raw_data` folder. These data give the interorbital distances for two populations of domestic pigeons.
+
+--
+
+🎬 Using your `import.R` script, read in the file:
+
+
+```r
+pigeon &lt;- read.table("raw_data/pigeon.txt", header = TRUE)
+```
+
+---
+# Writing files
+
+## Prepare some processed data
+
+This dataset has two observations in a row - it is not 'tidy'. 
+
+🎬 Open your `tidy.R` script and reshape the data using:
+
+
+```r
+pigeon &lt;- pivot_longer(data = pigeon, 
+                       cols = everything(), 
+                       names_to = "population", 
+                       values_to = "distance")
+```
+
+---
+# Writing files
+
+## Write the processed data to file
+
+🎬 Write your dataframe called `pigeon` to a plain text file you will name `pigeon_long.txt` in your `processed_data` folder:
+
+```r
+file &lt;- "processed_data/pigeon_long.txt"
+write.table(pigeon, file)
+```
+
+--
+
+Putting file paths into variables often makes you code easier to read especially when file paths are long or used multiple times.
+
+---
+# Writing files
+
+## Create a plot to save
+
+🎬 Create a simple plot of this data:
+.pull-left[
+
+```r
+fig1 &lt;- ggplot(data = pigeon, 
+               aes(x = population, y = distance)) + 
+  geom_boxplot() +                            
+  scale_x_discrete(name = "Population") +
+  scale_y_continuous(name = "Interorbital distance (mm)",
+                     expand = c(0, 0),
+                     limits = c(0, 15)) +
+  theme_classic()
+```
+]
+.pull-right[
+&lt;img src="03_rstudio_projects_files/figure-html/unnamed-chunk-6-1.png" width="288" /&gt;
+
+]
+
+---
+# Writing files
+
+## Saving `ggplot` figures
+
+A useful function for save figures is `ggsave()`. 
+
+It has arguments for the size, resolution and device for the image. See the [`ggsave()` reference page](https://ggplot2.tidyverse.org/reference/ggsave.html). 
+
+--
+
+Since I often make more than one figure, I might set these arguments first.
+
+🎬 Assign `ggsave` argument values to variables:
+
+
+```r
+# figure saving settings
+units &lt;- "in"  
+fig_w &lt;- 3.2
+fig_h &lt;- fig_w
+dpi &lt;- 300
+device &lt;- "tiff" 
+```
+
+.footnote[
+"tiff" is a format often required by journals; you may want png or jpg.]
+
+---
+# Writing files
+
+## Saving `ggplot` figures
+
+🎬 Save the `figure` in your figures directory:
+
+
+```r
+ggsave("figures/fig1.tiff",
+       plot = fig1,
+       device = device,
+       width = fig_w,
+       height = fig_h,
+       units = units,
+       dpi = dpi)
+```
+
+---
+# Summary
+
+.font150[
+* Organise your work in a logical, consistent and reproducible way using RStudio Projects and appropriate directory structure. 
+
+* Make your code portable by using relative paths.
+
+* Make your analysis comprehensible by breaking it down into different scripts and by using variables for repeatedly used or long values.
+
+* You can write data and figures to file  
+]
+--
+
+This session has set you up for the [Tidying data and the tidyverse including the pipe](04_tidying_data_and_the_tidyverse.html) and [Advanced Data Import](05_advanced_data_import.html) sections.
+
+---
+# References
+
+&lt;a name=bib-Bryan-Hester&gt;&lt;/a&gt;[Bryan, J. and J.
+Hester](#cite-Bryan-Hester) _Chapter 2 Project-oriented workflow | What
+They Forgot to Teach You About R_. &lt;URL:
+https://whattheyforgot.org/project-oriented-workflow.html&gt;. Accessed:
+2019-9-26.
+
+
+
+---
+
+class: inverse
+
+# 🎉 Congratulations! Keep practising! 🎈 
+
+---
+# Introduction to Reproducibility in R
+
+## Emma Rand &lt;br&gt; [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) &lt;br&gt; Twitter: [@er13_r](https://twitter.com/er13_r) &lt;br&gt; GitHub: [3mmaRand](https://github.com/3mmaRand)  &lt;br&gt; blog: https://buzzrbeeline.blog/
+&lt;br&gt;
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
