@@ -120,8 +120,8 @@ Everyone will be included in all calendar invitations. The invitations and the l
    May 26 1000-1130   
  
 
-6. R Markdown for Reproducible Reports
-   Expected audience: For those with previous experience of R such as having done "Introduction to R and working with data" 
+6. R Markdown for Reproducible Reports.  
+   Expected audience: For those with previous experience of R such as having done "Introduction to R and working with data"  
    May 28 1300-1500 
 
 
