@@ -7,17 +7,19 @@ output:
   xaringan::moon_reader:
     css: [default, ../css_files/emma.css, ../css_files/emma-fonts.css]
     lib_dir: libs
-    seal: false
+    seal: true
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       message = FALSE,	
-                      warning = FALSE)
+                      warning = FALSE,
+                      fig.width=4, 
+                      fig.height=4, 
+                      fig.retina=3)
 options(htmltools.dir.version = FALSE)
 ```
 
@@ -41,24 +43,6 @@ myBib <- ReadBib("../refs.bib", check = FALSE)
 ```
 
 
-class: inverse
-
-# Introduction to Reproducibility in R 
-
-## For those with previous experience: Advanced data import.
-
-### Emma Rand 
-
-### University of York: 2020-03-19
-
-.footnote[
-Made with xaringan `r Cite(myBib, "xaringan")`  
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
-]
-
-
----
 # Introduction
 
 ## Aims
@@ -70,6 +54,7 @@ The aim of this session is to strength your ability to import your own data file
 The successful student will be able to:
 
 * use an understanding of what matters in their data import  
+* import multiple files  
 * import plain text and proprietary data formats stored locally and on the web  
 * carry out some simple web scraping  
 * start to appreciate the number of packages available for importing publicly accessible data
@@ -90,18 +75,18 @@ There are four main considerations for data import:
 
 --
 
-3. How: base R functions; Access to APIs for many forms of specialised data has been made easier with packages e.g., bioconductor.
+3. How: with base R functions or a specialised package? Are the data available through an API and if so, is there already a package to make access to it easier?
 
 --
 
-4. What data structure will be created in R? Often this will be dataframes or dataframe-like structures (eg., tibbles) but there are many specialised data structures often specialised data structures.
+4. What data structure will be created in R? Often this will be dataframes or dataframe-like structures (eg., tibbles) but there are many specialised data structures.
 
 ---
 # Locally stored text files
 
 ## Overivew
 
-This section may be familiar and you may want to skip ahead.
+This section may be familiar to those with experience. You may want to skip ahead.
 
 * Plain text files can be opened in notepad or other text editor and make sense (contrast with for examples xlsx, doc, sav, png)  
 
@@ -115,7 +100,7 @@ This section may be familiar and you may want to skip ahead.
 
 --
 
-* Or with the `readr` package methods such as `read.table()`, `read_csv()`, `read_delim()` which is usually my preference because they are a little faster and output tibbles.  
+* Or with the `readr` package methods such as `read_table()`, `read_csv()`, `read_delim()` which is usually my preference because they are a little faster and output tibbles.  
 
 --
 
@@ -134,6 +119,7 @@ These data are root mean square deviations (RMSD) in $\unicode{x212B}$ngstrom ( 
 
 `r emo::ji("clapper")` Save a copy of the file to your `raw_data` folder and read it in with:
 ```{r}
+getwd()
 file <- "raw_data/structurepred.txt"
 protein_struc <- read_table(file)
 
@@ -188,6 +174,11 @@ The helps you identify that each line is not the same length (i.e., it is not a 
 --
 
 `read_table2()` is the function you needed.
+
+```{r}
+protein_struc <- read_table2(file)
+
+```
 
 --
 
@@ -245,7 +236,7 @@ It is not uncommon for people to use file extensions that are misleading so don'
 
 * But usually there is a package or function that allows you to script the steps. Favourites of mine are:  
   * `haven` `r Cite(myBib, "haven")` for importing and exporting SPSS, STATA and SAS files  
-  * `readxl` `r Cite(myBib, "readxl")`for excel files  
+  * `readxl` `r Cite(myBib, "readxl")` for excel files  
 
 --
 
@@ -320,6 +311,70 @@ write.table(periwinkle, "processed_data/periwinkle.txt")
 
 `r emo::ji("eyes")` There are `read_dta()` and `read_sas()` functions for STATA and SAS files respectively.
 
+
+---
+# Reading multiple files
+
+We often have multiple files of the same format to import. Rather than coping and pasting the same data import command and editing the file name, it is better to import in single statement.
+
+--
+
+[specdata.zip](specdata.zip) is a compressed folder csv files containing air quality measures taken from twenty locations. The files all have the same structure of four columns: "Date","sulfate","nitrate" and "ID". "ID" gives the location ID and is the same as in the file name.
+
+--
+
+`r emo::ji("clapper")` Save a copy of [specdata.zip](specdata.zip) and unzip it with:
+
+```{r}
+unzip("specdata.zip")
+```
+
+---
+# Reading multiple files
+
+## Using a for loop in base R
+
+`r emo::ji("clapper")` Create a vector of file names:
+```{r}
+files <- dir("specdata/", pattern = "\\.csv$", full.names = TRUE)
+```
+--
+
+`r emo::ji("clapper")` Pre-allocate a list with a length equal to the number of files.
+
+```{r}
+df_list <- vector("list", length(files))
+```
+
+# Reading multiple files
+
+## Using a for loop in base R
+
+`r emo::ji("clapper")` Iterate through each filename in `files` reading it with read_csv and assigning it to a palce in the list:
+```{r}
+for (i in 1:length(files)) {
+  df_list[[i]] <- read.csv(files[[i]])
+}
+```
+
+--
+`r emo::ji("clapper")` To combine the list of data frames into a single data frame we can use:
+```{r}
+airquality <- do.call(rbind, df_list)
+```
+---
+# Reading multiple files
+
+## Using `purrr` from the tidyverse
+
+
+```{r}
+airquality2 <- files %>% 
+  map(read_csv) %>%
+  bind_rows()
+```
+
+
 ---
 # Files on the internet
 
@@ -330,6 +385,8 @@ It may be preferable to read data files from the internet rather than download t
 --
 
 We simply use the URL rather than the local file path. Your options for import functions and arguments are the same as for local files.
+
+--
 
 For example, these data are from a buoy (buoy #44025) off the coast of New Jersey at
 http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&dir=data/historical/stdmet/
@@ -470,10 +527,10 @@ test <- read_html(url) %>%
 ```
 
 ---
-# Reading multiple files
 
-## loops
 
+
+--
 ## readxl sheets
 
 ---
@@ -654,19 +711,21 @@ y2020 <- "c3RhcnR8MTU3NzgzNjgwMDAwMF8xNjA5NDU5MTk5MDU5fHJhbmdl"
 ```
 
 ---
-# APIs
+# APIs TO BE COMPLETED
 
 ## Constructing the query
 
+
+ *Incomplete!*
 The id code include some special characters that encoded as % plus a two-digit hexadecimal representation (known as percent coding). You may have seen browsers replace spaces with `%20` - this one example. 
 
 --
 
-The ids must be in a list separted by commas, and then encoded.
+The ids must be in a list separated by commas, and then encoded.
 
 --
 
-`r emo::ji("clapper")` Create a variable for the selectedFacets paramter by pasting the codes together separated by a comma, then encoding:
+`r emo::ji("clapper")` Create a variable for the selectedFacets parameter by pasting the codes together separated by a comma, then encoding:
 ```{r}
 selectedFacets <- URLencode(paste(research,
                                   bbsrc, 
@@ -718,6 +777,8 @@ results$status_code
 data <- results %>% content("text") %>% fromJSON()
 ```
 
+---
+# APIs
 
 ```{r}
 data$searchResult$resourceHitCount
@@ -742,24 +803,17 @@ PrintBibliography(myBib)
 
 
 ---
+
 class: inverse
 
-# Congratulations! Keep practising!
+# `r emo::ji("party")` Congratulations! Keep practising! `r emo::ji("party")` 
 
-Emma Rand 
+---
+# Introduction to Reproducibility in R
 
-emma.rand@york.ac.uk
-
-Twitter: [@er13_r](https://twitter.com/er13_r) 
-
-github: [3mmaRand](https://github.com/3mmaRand)
-
-blog: https://buzzrbeeline.blog/
+## Emma Rand <br> [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) <br> Twitter: [@er13_r](https://twitter.com/er13_r) <br> GitHub: [3mmaRand](https://github.com/3mmaRand)  <br> blog: https://buzzrbeeline.blog/
 <br>
-
-.footnote[
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
-]
 
 
 

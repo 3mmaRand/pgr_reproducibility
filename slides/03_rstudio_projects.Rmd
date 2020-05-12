@@ -231,7 +231,7 @@ library(tidyverse)
 
 ## Import a datafile
 
-`r emo::ji("clapper")` Save a copy of [pigeon.txt](../data/pigeon.txt) to your `raw_data` folder. These data give the interorbital distances for two populations of domestic pigeons.
+`r emo::ji("clapper")` Save a copy of [pigeon.txt](raw_data/pigeon.txt) to your `raw_data` folder. These data give the interorbital distances for two populations of domestic pigeons.
 
 --
 

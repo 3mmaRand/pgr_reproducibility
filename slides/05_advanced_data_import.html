@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Advanced data import.</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Emma Rand" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="..\css_files\emma.css" type="text/css" />
+    <link rel="stylesheet" href="..\css_files\emma-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Advanced data import.
+## White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R.
+### Emma Rand
+### University of York, UK
+
+---
+
+
+
+
+
+
+
+
+
+# Introduction
+
+## Aims
+The aim of this session is to strength your ability to import your own data files regardless of the formatting and to introduce you to some of the other ways to import data such as through web scraping and via APIs.
+
+
+## Learning outcomes 
+
+The successful student will be able to:
+
+* use an understanding of what matters in their data import  
+* import multiple files  
+* import plain text and proprietary data formats stored locally and on the web  
+* carry out some simple web scraping  
+* start to appreciate the number of packages available for importing publicly accessible data
+ 
+
+### 🎬 An instruction to do something!!
+
+---
+# Four Aspects
+
+There are four main considerations for data import:
+
+1. Where are the data? Are they stored locally (on your own computer) or remotely (on another computer/server). Are they distributed rather than in a single repository or file?
+
+--
+
+2. What format are they in? Are they plain text format, structured text like as XML or JSON, or in proprietary software format . 
+
+--
+
+3. How: with base R functions or a specialised package? Are the data available through an API and if so, is there already a package to make access to it easier?
+
+--
+
+4. What data structure will be created in R? Often this will be dataframes or dataframe-like structures (eg., tibbles) but there are many specialised data structures.
+
+---
+# Locally stored text files
+
+## Overivew
+
+This section may be familiar to those with experience. You may want to skip ahead.
+
+* Plain text files can be opened in notepad or other text editor and make sense (contrast with for examples xlsx, doc, sav, png)  
+
+--
+
+* Columns usually 'delimited' by a particular character (but fixed width does occur).  
+
+--
+
+* Can be read in with the base packages `read.table()` methods.  
+
+--
+
+* Or with the `readr` package methods such as `read_table()`, `read_csv()`, `read_delim()` which is usually my preference because they are a little faster and output tibbles.  
+
+--
+
+* Or with the even faster `fread()` from the `data.table` package &lt;a name=cite-Dowle_Srinivasan_2019&gt;&lt;/a&gt;([Dowle and Srinivasan, 2019](#bib-Dowle_Srinivasan_2019)).  
+
+---
+# Locally stored text files
+
+## Exercise 1
+
+Data file: [structurepred.txt](raw_data/structurepred.txt)
+
+These data are root mean square deviations (RMSD) in `\(\unicode{x212B}\)`ngstrom ( `\(\unicode{x212B}\)` ) between predicted and actual protein structures. Three programs were used to make predictions for 30 proteins.
+
+--
+
+🎬 Save a copy of the file to your `raw_data` folder and read it in with:
+
+```r
+getwd()
+```
+
+```
+## [1] "C:/Users/Emma Rand/Desktop/pgr_reproducibility/slides"
+```
+
+```r
+file &lt;- "raw_data/structurepred.txt"
+protein_struc &lt;- read_table(file)
+```
+
+--
+
+🎬 Examine the result:
+
+```r
+glimpse(protein_struc)
+```
+
+---
+# Locally stored text files
+
+## Exercise 1
+
+
+```
+## Rows: 90
+## Columns: 1
+## $ `rmsd prog prot` &lt;chr&gt; "9.038 Abstruct 1", "14.952 Abstruct 2", "17.734 A...
+```
+
+
+😒 The command runs but the result looks wrong. 
+
+All the variables have been read into one column.
+
+---
+# Locally stored text files
+
+## Exercise 1
+🎬 Look up `read_table()` and work out how to read the three variables in to three columns.
+
+
+--
+
+A function that can save you having to open a text file to look or wait along time to discover an import failure is `readLines()`:
+
+
+```r
+readLines(file, n = 5)
+```
+
+```
+## [1] "rmsd prog prot"    "9.038 Abstruct 1"  "14.952 Abstruct 2"
+## [4] "17.734 Abstruct 3" "3.117 Abstruct 4"
+```
+
+---
+# Locally stored text files
+
+## Exercise 1
+
+The helps you identify that each line is not the same length (i.e., it is not a fixed width file) which is one of the requirements of `read_table()`.
+
+--
+
+`read_table2()` is the function you needed.
+
+
+```r
+protein_struc &lt;- read_table2(file)
+```
+
+--
+
+`readLines()` is especially useful when the file is very big and takes ages to open or import.
+
+---
+# Locally stored text files
+
+## Exercise 2
+
+Data file: [Icd10Code.csv](raw_data/Icd10Code.csv)
+
+ICD-10 codes are alphanumeric codes used by doctors, health insurance companies, and public health agencies across the world to represent diagnoses. This file contains a list of the codes and diseases they represent.
+
+--
+
+🎬 Save a copy of the file to your `raw_data` folder and read it with the most appropriate `readr` function.
+
+
+---
+# Locally stored text files
+
+## Exercise 2
+
+You may have quite naturally assumed that file with a .csv extension would contain comma separated values and used `read_csv()`. 
+
+--
+
+The use of `readLines()` reveals it is actually tab separated.
+
+```r
+readLines(file, n = 2)
+```
+
+```
+## [1] "Code\tDescription" "A00\t\"Cholera\""
+```
+
+It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵️‍♀️
+
+---
+# Locally stored special formats.
+
+## Overview
+
+* Cannot usually be opened in notepad.  
+
+--
+
+* Often specific to proprietary software, e.g., SPSS, STATA, Matlab.  
+
+--
+
+* If you have that software you may be able to export in plain text format.  
+
+--
+
+* But usually there is a package or function that allows you to script the steps. Favourites of mine are:  
+  * `haven` &lt;a name=cite-haven&gt;&lt;/a&gt;([Wickham and Miller, 2018](#bib-haven)) for importing and exporting SPSS, STATA and SAS files  
+  * `readxl` &lt;a name=cite-readxl&gt;&lt;/a&gt;([Wickham and Bryan, 2019](#bib-readxl)) for excel files  
+
+--
+
+* Google is your friend.  
+
+---
+# Locally stored special formats.
+
+## SPSS example using `haven`
+
+Data file: [periwinkle.sav](raw_data/periwinkle.sav).
+
+These data give a measure of the gut parasite load in two species of rough periwinkle in the Spring and Summer.
+
+🎬 Save a copy of the file to your `raw_data` folder and read it with:
+
+```r
+library(haven)
+file &lt;- "raw_data/periwinkle.sav"
+periwinkle &lt;- read_sav(file)
+```
+---
+# Locally stored special formats.
+
+## SPSS example using `haven`
+
+.scroll-output-height[
+🎬 Examine the result.
+
+```r
+str(periwinkle)
+```
+
+```
+## tibble [100 x 3] (S3: tbl_df/tbl/data.frame)
+##  $ para   : num [1:100] 58 51 54 39 65 67 60 54 47 66 ...
+##   ..- attr(*, "label")= chr "Number of Parasites"
+##   ..- attr(*, "format.spss")= chr "F8.0"
+##  $ season : 'haven_labelled' num [1:100] 1 1 1 1 1 1 1 1 1 1 ...
+##   ..- attr(*, "label")= chr "Season"
+##   ..- attr(*, "format.spss")= chr "F8.0"
+##   ..- attr(*, "labels")= Named num [1:2] 1 2
+##   .. ..- attr(*, "names")= chr [1:2] "Spring" "Summer"
+##  $ species: 'haven_labelled' num [1:100] 1 1 1 1 1 1 1 1 1 1 ...
+##   ..- attr(*, "label")= chr "Species"
+##   ..- attr(*, "format.spss")= chr "F8.0"
+##   ..- attr(*, "display_width")= int 14
+##   ..- attr(*, "labels")= Named num [1:2] 1 2
+##   .. ..- attr(*, "names")= chr [1:2] "Littorina saxatilis" "Littorina nigrolineata"
+```
+]
+
+---
+# Locally stored special formats.
+
+## SPSS example using `haven`
+
+The SPSS variables `season` and `species` are labelled integers, i.e., the actual values are integers, which is a common data structure in other statistical environments.
+
+`read_sav()` has made them variables of type "haven_labelled". 
+
+--
+
+The labels of these can be viewed in R using:
+
+```r
+attr(periwinkle$season, "labels")
+```
+
+```
+## Spring Summer 
+##      1      2
+```
+
+```r
+attr(periwinkle$species, "labels")
+```
+
+```
+##    Littorina saxatilis Littorina nigrolineata 
+##                      1                      2
+```
+
+---
+# Locally stored special formats.
+
+## SPSS example using `haven`
+
+🎬 Turn the variables of type "haven_labelled" in to factors with:
+
+
+```r
+periwinkle &lt;- periwinkle %&gt;% 
+  mutate(season = as_factor(season),
+         species = as_factor(species))
+```
+
+--
+
+🎬 Write the dataframe to a plain text format file in your `processed_data` folder.
+
+
+--
+
+👀 There are `read_dta()` and `read_sas()` functions for STATA and SAS files respectively.
+
+
+---
+# Reading multiple files
+
+We often have multiple files of the same format to import. Rather than coping and pasting the same data import command and editing the file name, it is better to import in single statement.
+
+--
+
+[specdata.zip](specdata.zip) is a compressed folder csv files containing air quality measures taken from twenty locations. The files all have the same structure of four columns: "Date","sulfate","nitrate" and "ID". "ID" gives the location ID and is the same as in the file name.
+
+--
+
+🎬 Save a copy of [specdata.zip](specdata.zip) and unzip it with:
+
+
+```r
+unzip("specdata.zip")
+```
+
+---
+# Reading multiple files
+
+## Using a for loop in base R
+
+🎬 Create a vector of file names:
+
+```r
+files &lt;- dir("specdata/", pattern = "\\.csv$", full.names = TRUE)
+```
+--
+
+🎬 Pre-allocate a list with a length equal to the number of files.
+
+
+```r
+df_list &lt;- vector("list", length(files))
+```
+
+# Reading multiple files
+
+## Using a for loop in base R
+
+🎬 Iterate through each filename in `files` reading it with read_csv and assigning it to a palce in the list:
+
+```r
+for (i in 1:length(files)) {
+  df_list[[i]] &lt;- read.csv(files[[i]])
+}
+```
+
+--
+🎬 To combine the list of data frames into a single data frame we can use:
+
+```r
+airquality &lt;- do.call(rbind, df_list)
+```
+---
+# Reading multiple files
+
+## Using `purrr` from the tidyverse
+
+
+
+```r
+airquality2 &lt;- files %&gt;% 
+  map(read_csv) %&gt;%
+  bind_rows()
+```
+
+
+---
+# Files on the internet
+
+## Overview
+
+It may be preferable to read data files from the internet rather than download the file if the data are likely to be updated.
+
+--
+
+We simply use the URL rather than the local file path. Your options for import functions and arguments are the same as for local files.
+
+--
+
+For example, these data are from a buoy (buoy #44025) off the coast of New Jersey at
+http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&amp;dir=data/historical/stdmet/
+
+--
+
+🎬 Use `readLines()` to examine the data format.
+
+
+--
+
+The first line gives the column name, the second line gives units and the data themselves begin on line 3
+
+---
+# Files on the internet
+
+🎬 Read in the data.
+
+
+--
+
+🎬 Use `scan()` to read in the appropriate lines then [tidy](experience_data_tidying.html) the results and name the columns measure_units, for example
+
+---
+# Web scraping
+
+## Overview
+
+What if data are not in a file but on web page? One solution is to  'scrape' the data using package `rvest` &lt;a name=cite-rvest&gt;&lt;/a&gt;([Wickham, 2019b](#bib-rvest)).
+
+Do you see what they did there? 😜
+
+--
+
+This is possible because the two core standards for building web pages, HTML (Hypertext Markup Language) and CSS (Cascading Style Sheets) are just text files which describe the structure of a page and its appearance.
+
+--
+
+HTML describes the structure of pages using markup: pieces of content are labelled such as “paragraph,” “list,” “table,” and so on.
+
+We will do just one small example of a big topic: getting the information from a Wikipedia page on [Global biodiversity](https://en.wikipedia.org/wiki/Global_biodiversity)
+
+---
+# Web scraping
+
+## Process
+
+There are several steps
+
+1. download and parse the html file using `read_html`  
+
+--
+
+2. determine which css selector marks the data in the page you want  
+
+--
+
+3. find that selector in the parsed html and extract the text using `html_nodes()`.  
+
+--
+
+4. process the text in to an R data structure for example using `html_table()` or `html_text()`.  
+
+--
+
+5. Do any any additional processing to the data in the R object.  
+
+--
+
+🎬 Go to the web page: https://en.wikipedia.org/wiki/Global_biodiversity 
+
+---
+# Web scraping
+
+## Process
+
+🎬 Load the `rvest` package and assign the web address to a variable:
+
+```r
+library(rvest)
+url &lt;- "https://en.wikipedia.org/wiki/Global_biodiversity"
+```
+
+--
+
+🎬 Scroll down the Global biodiversity page until you see the table. Right click on the page and choose Inspect.
+
+A box will appear on the right including the full page source. 
+
+--
+
+🎬 In the Elements window, click on the element that highlights the information you want - in this case `&lt;table class="wikitable"&gt;`
+
+🎬 Right click on that element and choose Copy | Copy selector.
+
+---
+# Web scraping
+
+## Process
+
+🎬 Now download and parse the html file using `read_html`, extract the text at the copied selector using `html_nodes()`, process the text in to a list using `html_table()` and get the dataframe which is the first(and only) element of that list:
+
+
+```r
+test &lt;- read_html(url) %&gt;%
+  html_nodes(css = '#mw-content-text &gt; div &gt; table') %&gt;%
+  html_table() %&gt;% 
+  .[[1]]
+```
+
+--
+
+🎬 Examine the resulting dataframe. 
+
+--
+
+🎬 Use methods given in [Tidying data and the tidyverse including the pipe]("experience_data_tidying.html") to process the contents of the dataframe.
+
+
+---
+
+
+
+--
+## readxl sheets
+
+---
+# APIs
+
+## Overview
+
+There are many data repositories online and you may have used a search page to retrieve data for download.   
+That search page is designed for humans to interface with the data repository.
+
+--
+
+An Applications Programming Interface (API) allows a data repository or program to be accessed programmatically.  
+
+This is especially useful when your data updates frequently.
+
+--
+
+## Packages
+
+Many packages have been written that simplify your use of an API&lt;sup&gt;1&lt;/sup&gt;. You may have used these without knowing. Using an API that has an already has a package is relatively simple.
+
+
+.footnote[
+1. Searching for API on this [list of CRAN packages](https://cran.r-project.org/web/packages/available_packages_by_name.html) will give you an idea.
+]
+
+---
+# APIs
+
+## Packages
+
+Just a few examples are:
+
+* `RGoogleAnalytics` for the the Google Analytics API
+* `rentrez` for the NCBI's 'EUtils' API, allowing users to search databases like 'GenBank'
+*  `aRxiv`	Interface to the arXiv API allowing you to seach the preprints database.
+* `CytobankAPI`	to access the Cytobank API
+* Many packages on [Bioconductor](https://www.bioconductor.org/) and [ROpenSci](https://ropensci.org/)
+
+--
+
+👀 Search for an existing package to access an API before you start with the methods shown on the next few slides!  
+
+--
+
+This is a example of how to connect to an API to get data when the API doesn't have a package for R. It is a brief introduction but if is it something you want to do you will undoubtedly need to learn more.
+---
+# APIs
+
+## Terminology
+
+Interaction with an API comprises a request (what you send) and a response.  
+
+--
+
+The most common type of request is carried out with the GET HTTP method&lt;sup&gt;1&lt;/sup&gt;  
+
+.footnote[
+1. Other HTTP methods can be used for requests such as POST, PUT, DELETE
+]
+
+--
+
+In R `httr` is one package that allows you create requests
+
+---
+# APIs
+
+## Terminology
+
+An API requests consists of:
+  
+* a URL  
+  &lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;http://gtr.rcuk.ac.uk/search/&lt;/span&gt;project?term=virus&amp;page=1&amp;fetchSize=100
+
+--
+
+* an 'endpoint' following by a `?`. An endpoint is a dataset provided by the API.  
+  http://gtr.rcuk.ac.uk/search/&lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;project&lt;/span&gt;?term=virus&amp;page=1&amp;fetchSize=100
+
+--
+  
+  Many APIs have multiple endpoints.  
+
+--
+
+* Endpoints are queried with 'parameters' separtated by `&amp;` which are defined in the API documentation  
+  http://gtr.rcuk.ac.uk/search/project?&lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;term=virus&amp;amp;page=1&amp;amp;fetchSize=100&lt;/span&gt;
+
+--
+
+JavaScript Object Notification (JSON) and Extensible Markup Language (XML) are the most common answer formats.
+
+JSON data is often handled with the `jsonlite` package
+
+
+---
+# APIs
+
+## Example
+
+
+We are going to query the [UK Research and Innovation](https://www.ukri.org/) [Gateway to Research](https://gtr.ukri.org/)  which enables users to search and analyse information about publicly funded research. 
+
+--
+
+We will retrieve BBSRC research grants that will start in 2020 about viruses.
+
+--
+
+The funding council, type of grant, start year and topic are all parameters we will need to send in the request.
+
+--
+
+
+🎬 Load the packages
+
+
+```r
+library(httr)
+library(jsonlite)
+```
+
+--
+
+We need to:  
+1. Make a "GET" request to the API to pull raw data into R  
+2. Parse that data from its raw form (JSON) into a usable format
+
+---
+# APIs
+
+## Constructing the query
+
+🎬 Create variables for the URL, the endpoint and the parameters:
+
+
+```r
+base &lt;- "http://gtr.rcuk.ac.uk/search/"
+endpoint &lt;- "project"
+page &lt;- 1
+fetchsize &lt;- 100
+term &lt;- "virus"
+```
+
+--
+
+We are searching the `project` data resource; other possible endpoints include person and publication.
+
+`fetchSize` and `page` give the number of results per page returned and which page should be returned. Typically, we need to write a loop to retrieve all the results. 
+
+--
+
+For simplicity, I have used a search that returns less that a one page of results.
+
+---
+# APIs
+
+## Constructing the query
+
+Specifying the funding council, type of grant and year is by passing id codes to the `selectedFacets` parameter. 
+
+--
+
+The id codes are obtained from the documentation or by running a simple query and examining the resulting object.
+
+--
+
+🎬 Create variables for the variables for appropriate `selectedFacets` id codes:
+
+```r
+# these are the id codes that filter the results by:
+# "Project category", 
+research &lt;- "Y2F0fFJlc2VhcmNoIEdyYW50fHN0cmluZw=="
+# "Funder" and
+bbsrc &lt;- "ZnVuZGVyfEJCU1JDfHN0cmluZw=="
+# "Start year
+y2020 &lt;- "c3RhcnR8MTU3NzgzNjgwMDAwMF8xNjA5NDU5MTk5MDU5fHJhbmdl"
+```
+
+---
+# APIs TO BE COMPLETED
+
+## Constructing the query
+
+
+ *Incomplete!*
+The id code include some special characters that encoded as % plus a two-digit hexadecimal representation (known as percent coding). You may have seen browsers replace spaces with `%20` - this one example. 
+
+--
+
+The ids must be in a list separated by commas, and then encoded.
+
+--
+
+🎬 Create a variable for the selectedFacets parameter by pasting the codes together separated by a comma, then encoding:
+
+```r
+selectedFacets &lt;- URLencode(paste(research,
+                                  bbsrc, 
+                                  y2020, 
+                                  sep=","),
+                            reserved = TRUE)
+```
+
+---
+# APIs
+
+## Constructing the query
+
+🎬 Paste all parts into the same query, adding `?` and `&amp;` where required:
+
+```r
+call1 &lt;- paste(base,endpoint,"?",
+               "term=", term,"&amp;",
+               "page=", page,"&amp;",
+               "fetchSize=", fetchsize,"&amp;",
+               "selectedFacets=", selectedFacets,
+               sep="")
+```
+
+--
+
+
+🎬 Check the result:
+.scroll-output-width[
+
+```r
+call1
+```
+
+```
+## [1] "http://gtr.rcuk.ac.uk/search/project?term=virus&amp;page=1&amp;fetchSize=100&amp;selectedFacets=Y2F0fFJlc2VhcmNoIEdyYW50fHN0cmluZw%3D%3D%2CZnVuZGVyfEJCU1JDfHN0cmluZw%3D%3D%2Cc3RhcnR8MTU3NzgzNjgwMDAwMF8xNjA5NDU5MTk5MDU5fHJhbmdl"
+```
+]
+---
+# APIs
+
+## Running the query
+
+```r
+# httr::GET makes the request
+results &lt;- GET(call1)
+```
+
+check the request was successful
+
+
+```r
+results$status_code
+```
+
+```
+## [1] 200
+```
+
+
+```r
+data &lt;- results %&gt;% content("text") %&gt;% fromJSON()
+```
+
+---
+# APIs
+
+
+```r
+data$searchResult$resourceHitCount
+```
+
+```
+##       resource count
+## 1      project    27
+## 2 organisation     2
+## 3     outcomes  4723
+## 4       person  2420
+## 5  publication  6617
+```
+
+not covered: authentication. done in the get
+Making a get request
+typically you need an API password, an API username or both
+
+
+## packages
+
+
+---
+# References
+
+&lt;a name=bib-Dowle_Srinivasan_2019&gt;&lt;/a&gt;[Dowle, M. and A.
+Srinivasan](#cite-Dowle_Srinivasan_2019) (2019). _data.table: Extension
+of `data.frame`_. R package version 1.12.6. URL:
+[https://CRAN.R-project.org/package=data.table](https://CRAN.R-project.org/package=data.table).
+
+&lt;a name=bib-rvest&gt;&lt;/a&gt;[Wickham, H.](#cite-rvest) (2019b). _rvest:
+Easily Harvest (Scrape) Web Pages_. R package version 0.3.5. URL:
+[https://CRAN.R-project.org/package=rvest](https://CRAN.R-project.org/package=rvest).
+
+&lt;a name=bib-readxl&gt;&lt;/a&gt;[Wickham, H. and J. Bryan](#cite-readxl) (2019).
+_readxl: Read Excel Files_. R package version 1.3.1. URL:
+[https://CRAN.R-project.org/package=readxl](https://CRAN.R-project.org/package=readxl).
+
+&lt;a name=bib-haven&gt;&lt;/a&gt;[Wickham, H. and E. Miller](#cite-haven) (2018).
+_haven: Import and Export 'SPSS', 'Stata' and 'SAS' Files_. R package
+version 1.1.2. URL:
+[https://CRAN.R-project.org/package=haven](https://CRAN.R-project.org/package=haven).
+
+
+
+---
+
+class: inverse
+
+# 🥳 Congratulations! Keep practising! 🎂 
+
+---
+# Introduction to Reproducibility in R
+
+## Emma Rand &lt;br&gt; [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) &lt;br&gt; Twitter: [@er13_r](https://twitter.com/er13_r) &lt;br&gt; GitHub: [3mmaRand](https://github.com/3mmaRand)  &lt;br&gt; blog: https://buzzrbeeline.blog/
+&lt;br&gt;
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
