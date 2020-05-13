@@ -1057,7 +1057,7 @@ pigeon2 %>%
 ```
 
 .footnote[
-`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Add a column for the standard devation
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Add a column for the standard deviation
 
 `r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Add a column for the standard error given by $\frac{s.d.}{\sqrt{n}}$
 

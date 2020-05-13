@@ -116,19 +116,16 @@ file &lt;- "raw_data/structurepred.txt"
 protein_struc &lt;- read_table(file)
 ```
 
---
+---
+# Locally stored text files
+
+## Exercise 1
 
 🎬 Examine the result:
 
 ```r
 glimpse(protein_struc)
 ```
-
----
-# Locally stored text files
-
-## Exercise 1
-
 
 ```
 ## Rows: 90
@@ -145,9 +142,12 @@ All the variables have been read into one column.
 # Locally stored text files
 
 ## Exercise 1
-🎬 Look up `read_table()` and work out how to read the three variables in to three columns.
+🎬 Look up `read_table()`, Can you work out how to read the three variables in to three columns?
 
 
+.footnote[
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out.......
+]
 --
 
 A function that can save you having to open a text file to look or wait along time to discover an import failure is `readLines()`:
@@ -196,6 +196,9 @@ ICD-10 codes are alphanumeric codes used by doctors, health insurance companies,
 🎬 Save a copy of the file to your `raw_data` folder and read it with the most appropriate `readr` function.
 
 
+.footnote[
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out.......
+]
 ---
 # Locally stored text files
 
@@ -215,26 +218,28 @@ readLines(file, n = 2)
 ## [1] "Code\tDescription" "A00\t\"Cholera\""
 ```
 
-It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵️‍♀️
+It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵
 
 ---
 # Locally stored special formats.
 
 ## Overview
 
+File in some special format:
+
 * Cannot usually be opened in notepad.  
 
 --
 
-* Often specific to proprietary software, e.g., SPSS, STATA, Matlab.  
+* Are often specific to proprietary software, e.g., SPSS, STATA, Matlab.  
 
 --
 
-* If you have that software you may be able to export in plain text format.  
+If you have that software you may be able to export in plain text format.  
 
 --
 
-* But usually there is a package or function that allows you to script the steps. Favourites of mine are:  
+But usually there is a package or function that allows you to script the steps. Favourites of mine are:  
   * `haven` &lt;a name=cite-haven&gt;&lt;/a&gt;([Wickham and Miller, 2018](#bib-haven)) for importing and exporting SPSS, STATA and SAS files  
   * `readxl` &lt;a name=cite-readxl&gt;&lt;/a&gt;([Wickham and Bryan, 2019](#bib-readxl)) for excel files  
 
@@ -339,6 +344,9 @@ periwinkle &lt;- periwinkle %&gt;%
 🎬 Write the dataframe to a plain text format file in your `processed_data` folder.
 
 
+.footnote[
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out.......
+]
 --
 
 👀 There are `read_dta()` and `read_sas()` functions for STATA and SAS files respectively.
@@ -351,7 +359,31 @@ We often have multiple files of the same format to import. Rather than coping an
 
 --
 
+## Two methods
+
+I will demonstrate two ways you can import multiple files.
+--
+
+1. Using a `for` loop in base R
+   * create a list with a length equal to the number of files.  
+   * use a `for` loop to iterate through each filename, reading it in to a dataframe which occupies a place in the list  
+   * combine the list of dataframes into a single dataframe using `rbind()`.  
+--
+
+2. Using `purrr` from the `tidyverse`
+   * use `map()` to apply an import function to each element of a vector  
+   * pipe the output into `bind_rows()` to combine the list of dataframes into a single dataframe.  
+
+
+---
+# Reading multiple files
+
+## The data
 [specdata.zip](specdata.zip) is a compressed folder csv files containing air quality measures taken from twenty locations. The files all have the same structure of four columns: "Date","sulfate","nitrate" and "ID". "ID" gives the location ID and is the same as in the file name.
+
+--
+
+👀 Both methods require us to download the data and create a vector of file names.
 
 --
 
@@ -362,17 +394,33 @@ We often have multiple files of the same format to import. Rather than coping an
 unzip("specdata.zip")
 ```
 
+--
+
+Examine the results in the Files pane
+
+---
+# Reading multiple files
+
+
+🎬 Create a vector of file names:
+
+```r
+files &lt;- dir("specdata/", pattern = ".csv", full.names = TRUE)
+```
+
+--
+
+`dir()` returns a character vector containing the names of the files in the specified directory which match a regex pattern (".csv" in this case).
+
+--
+
+`full.names = TRUE` means the directory path is prepended to the file names to give a relative file path
+
 ---
 # Reading multiple files
 
 ## Using a for loop in base R
 
-🎬 Create a vector of file names:
-
-```r
-files &lt;- dir("specdata/", pattern = "\\.csv$", full.names = TRUE)
-```
---
 
 🎬 Pre-allocate a list with a length equal to the number of files.
 
@@ -381,11 +429,9 @@ files &lt;- dir("specdata/", pattern = "\\.csv$", full.names = TRUE)
 df_list &lt;- vector("list", length(files))
 ```
 
-# Reading multiple files
+--
 
-## Using a for loop in base R
-
-🎬 Iterate through each filename in `files` reading it with read_csv and assigning it to a palce in the list:
+🎬 Iterate through each filename in `files` reading it with read_csv and assigning it to a place in the list:
 
 ```r
 for (i in 1:length(files)) {
@@ -393,17 +439,33 @@ for (i in 1:length(files)) {
 }
 ```
 
---
+---
+# Reading multiple files
+
+## Using a for loop in base R
+
 🎬 To combine the list of data frames into a single data frame we can use:
 
 ```r
 airquality &lt;- do.call(rbind, df_list)
 ```
+
+--
+
+`do.call()` applies `rbind()` to all the dataframes in the list.
+
+--
+
+🙋 You now have a dataframe containing all the data in the twenty files.
+
 ---
 # Reading multiple files
 
 ## Using `purrr` from the tidyverse
 
+The two main differences in this method are that `map()` dispenses with the need for a `for` loop (and for a pre-allocated vector) and we can use the pipe to link operations.
+
+--
 
 
 ```r
@@ -412,6 +474,8 @@ airquality2 &lt;- files %&gt;%
   bind_rows()
 ```
 
+--
+I replaced the base R functions `read.csv` and `do.call(rbind())` with tidyverse functions in addition.
 
 ---
 # Files on the internet
@@ -429,10 +493,26 @@ We simply use the URL rather than the local file path. Your options for import f
 For example, these data are from a buoy (buoy #44025) off the coast of New Jersey at
 http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&amp;dir=data/historical/stdmet/
 
---
+---
+# Files on the internet
+
+## Example
 
 🎬 Use `readLines()` to examine the data format.
 
+```r
+file &lt;- "http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&amp;dir=data/historical/stdmet/"
+
+# use readLines() data format: 
+readLines(file, n = 4)
+```
+
+```
+## [1] "#YY  MM DD hh mm WDIR WSPD GST  WVHT   DPD   APD MWD   PRES  ATMP  WTMP  DEWP  VIS  TIDE"
+## [2] "#yr  mo dy hr mn degT m/s  m/s     m   sec   sec degT   hPa  degC  degC  degC   mi    ft"
+## [3] "2010 12 31 23 50 222  7.2  8.5  0.75  4.55  3.72 203 1022.2   6.9   6.7   3.5 99.0 99.00"
+## [4] "2011 01 01 00 50 233  6.0  6.8  0.76  4.76  3.77 196 1022.2   6.7   6.7   3.7 99.0 99.00"
+```
 
 --
 
@@ -441,12 +521,16 @@ The first line gives the column name, the second line gives units and the data t
 ---
 # Files on the internet
 
+## Example
 🎬 Read in the data.
 
+```r
+buoy44025 &lt;- read_table(file, col_names = FALSE, skip = 2)
+```
 
 --
 
-🎬 Use `scan()` to read in the appropriate lines then [tidy](experience_data_tidying.html) the results and name the columns measure_units, for example
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Use `scan()` to read in the appropriate lines then [tidy](04_tidying_data_and_the_tidyverse.html) the results and name the columns measure_units, for example
 
 ---
 # Web scraping
@@ -541,15 +625,10 @@ test &lt;- read_html(url) %&gt;%
 
 --
 
-🎬 Use methods given in [Tidying data and the tidyverse including the pipe]("experience_data_tidying.html") to process the contents of the dataframe.
-
-
----
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Use methods given in [Tidying data and the tidyverse including the pipe](04_tidying_data_and_the_tidyverse.html) to process the contents of the dataframe.
 
 
 
---
-## readxl sheets
 
 ---
 # APIs
@@ -601,7 +680,7 @@ This is a example of how to connect to an API to get data when the API doesn't h
 
 ## Terminology
 
-Interaction with an API comprises a request (what you send) and a response.  
+Interaction with an API comprises a **request** (what you send) and a **response**.  
 
 --
 
@@ -618,7 +697,7 @@ In R `httr` is one package that allows you create requests
 ---
 # APIs
 
-## Terminology
+## Terminology: Requests
 
 An API requests consists of:
   
@@ -627,7 +706,7 @@ An API requests consists of:
 
 --
 
-* an 'endpoint' following by a `?`. An endpoint is a dataset provided by the API.  
+* an 'endpoint' followed by a `?`. An endpoint is a dataset provided by the API.  
   http://gtr.rcuk.ac.uk/search/&lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;project&lt;/span&gt;?term=virus&amp;page=1&amp;fetchSize=100
 
 --
@@ -639,12 +718,24 @@ An API requests consists of:
 * Endpoints are queried with 'parameters' separtated by `&amp;` which are defined in the API documentation  
   http://gtr.rcuk.ac.uk/search/project?&lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;term=virus&amp;amp;page=1&amp;amp;fetchSize=100&lt;/span&gt;
 
+---
+# APIs
+
+## Terminology: Responses
+
+An API response is usually returned in either:
+
+1. JavaScript Object Notification (JSON) 
+
 --
 
-JavaScript Object Notification (JSON) and Extensible Markup Language (XML) are the most common answer formats.
+2. Extensible Markup Language (XML) are the most common answer formats.
+
+--
+
+These formats are plain text but need processing. 
 
 JSON data is often handled with the `jsonlite` package
-
 
 ---
 # APIs
@@ -673,10 +764,16 @@ library(httr)
 library(jsonlite)
 ```
 
---
+---
+# APIs
+
+## Example
 
 We need to:  
 1. Make a "GET" request to the API to pull raw data into R  
+
+--
+
 2. Parse that data from its raw form (JSON) into a usable format
 
 ---
@@ -697,12 +794,13 @@ term &lt;- "virus"
 
 --
 
-We are searching the `project` data resource; other possible endpoints include person and publication.
+We are searching the `project` data resource; other possible endpoints include `person` and `publication`.
 
-`fetchSize` and `page` give the number of results per page returned and which page should be returned. Typically, we need to write a loop to retrieve all the results. 
+`fetchSize` and `page` give the number of results per page returned and which page should be returned. 
 
 --
 
+Typically, we need to write a loop to retrieve all the results. 
 For simplicity, I have used a search that returns less that a one page of results.
 
 ---
@@ -710,11 +808,78 @@ For simplicity, I have used a search that returns less that a one page of result
 
 ## Constructing the query
 
-Specifying the funding council, type of grant and year is by passing id codes to the `selectedFacets` parameter. 
+Specifying the funding council, type of grant and year is done by passing **id codes** to the `selectedFacets` parameter. 
 
 --
 
-The id codes are obtained from the documentation or by running a simple query and examining the resulting object.
+This is information obtained from the API documentation.
+
+--
+
+But you can often examine the response to an exploratory request to obtain such information
+
+---
+# APIs
+
+## Constructing the query
+
+### An exploratory query to determine additional search parameters
+
+🎬 Construct the query:
+
+
+```r
+explore &lt;- paste(base,endpoint, "?",
+               "term=", term, "&amp;",
+               "page=", page, "&amp;",
+               "fetchSize=", fetchsize,
+               sep = "")
+explore
+```
+
+```
+## [1] "http://gtr.rcuk.ac.uk/search/project?term=virus&amp;page=1&amp;fetchSize=100"
+```
+---
+# APIs
+
+## Constructing the query
+
+### An exploratory query to determine additional search parameters
+
+🎬 Make the request using the query:
+
+```r
+# httr::GET makes the request
+results &lt;- GET(explore)
+```
+
+🎬 Process the JSON response into an R data structure:
+
+```r
+# httr::GET makes the request
+data &lt;- results %&gt;%
+  content("text") %&gt;%
+  fromJSON()
+```
+
+---
+# APIs
+
+## Constructing the query
+
+### An exploratory query to determine additional search parameters
+
+---
+# APIs
+
+## Constructing the query
+
+🎬 Examine the `data` list.
+
+--
+
+Having worked out what the id codes are for research grants, the BBSRC and 2020 we will want to add those to our query.
 
 --
 
@@ -731,13 +896,15 @@ y2020 &lt;- "c3RhcnR8MTU3NzgzNjgwMDAwMF8xNjA5NDU5MTk5MDU5fHJhbmdl"
 ```
 
 ---
-# APIs TO BE COMPLETED
+# APIs
 
 ## Constructing the query
 
+The id codes include some special characters that must be encoded as `%` plus a two-digit hexadecimal representation (known as percent coding). 
 
- *Incomplete!*
-The id code include some special characters that encoded as % plus a two-digit hexadecimal representation (known as percent coding). You may have seen browsers replace spaces with `%20` - this one example. 
+--
+
+You may have seen browsers replace spaces with `%20` - this is just one example. 
 
 --
 
@@ -763,14 +930,14 @@ selectedFacets &lt;- URLencode(paste(research,
 🎬 Paste all parts into the same query, adding `?` and `&amp;` where required:
 
 ```r
-call1 &lt;- paste(base,endpoint,"?",
-               "term=", term,"&amp;",
-               "page=", page,"&amp;",
-               "fetchSize=", fetchsize,"&amp;",
+call1 &lt;- paste(base, endpoint,"?",
+               "term=", term, "&amp;",
+               "page=", page, "&amp;",
+               "fetchSize=", fetchsize, "&amp;",
                "selectedFacets=", selectedFacets,
                sep="")
 ```
-
+https://gtr.ukri.org/search/project?term=virus&amp;fetchSize=25&amp;selectedSortableField=&amp;selectedSortOrder=&amp;fields=&amp;type=&amp;selectedFacets=Y2F0fFJlc2VhcmNoIEdyYW50fHN0cmluZw%3D%3D%2CZnVuZGVyfEJCU1JDfHN0cmluZw%3D%3D%2Cc3RhcnR8MTU3NzgzNjgwMDAwMF8xNjA5NDU5MTk5MDU5fHJhbmdl
 --
 
 
@@ -790,12 +957,16 @@ call1
 
 ## Running the query
 
+🎬 We use the GET function in the same way as for our exploratory query:
+
 ```r
 # httr::GET makes the request
 results &lt;- GET(call1)
 ```
 
-check the request was successful
+--
+
+🎬 We can check the request was successful using:
 
 
 ```r
@@ -806,14 +977,21 @@ results$status_code
 ## [1] 200
 ```
 
+--
+
+🎬 Extract the content of the response and parse it from JSON to an R structure.
+
 
 ```r
-data &lt;- results %&gt;% content("text") %&gt;% fromJSON()
+data &lt;- results %&gt;% 
+  content("text") %&gt;%
+  fromJSON()
 ```
 
 ---
 # APIs
 
+🎬 Examine your results:
 
 ```r
 data$searchResult$resourceHitCount
@@ -828,12 +1006,10 @@ data$searchResult$resourceHitCount
 ## 5  publication  6617
 ```
 
-not covered: authentication. done in the get
-Making a get request
-typically you need an API password, an API username or both
+---
+# Summary
 
 
-## packages
 
 
 ---
@@ -863,7 +1039,7 @@ version 1.1.2. URL:
 
 class: inverse
 
-# 🥳 Congratulations! Keep practising! 🎂 
+# 🥳 Congratulations! Keep practising! 🥳 
 
 ---
 # Introduction to Reproducibility in R
