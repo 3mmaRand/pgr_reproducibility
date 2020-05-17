@@ -21,7 +21,7 @@ There will be sessions for those with and without previous experience. Pre-cours
 
 # Philosophy and approach
 
-It is impossible to cover everything to you might ever need! Different people will use different methods and tools. Topics have been chosen topics because they are: foundational, widely applicable and transferable conceptually.
+It is impossible to cover everything to you might ever need! Different people will use different methods and tools. Topics have been chosen because they are: foundational, widely applicable and transferable conceptually.
 
 
 ## Learning outcomes
@@ -47,6 +47,8 @@ After this workshop the successful learner will be able to:
 To help me direct you to useful training and manage diversity in previous experience during the sessions, please complete this form to indicate your current level: https://forms.gle/cpSjdcjVa7niz6iq5
 
 ### Computing requirements
+
+I recommend you install Zoom rather than using the browser.
 
 Laptops should have the following installed **prior** to attending the workshop:
 
@@ -106,7 +108,7 @@ Everyone will be included in all calendar invitations. The invitations and the l
  
 
 3. RStudio Projects.  
-   Expected audience: Everyone  
+   Expected audience: Those without experience of RStudio projects  
    May 21 1300-1330  
  
 
@@ -126,8 +128,10 @@ Everyone will be included in all calendar invitations. The invitations and the l
 
 
 ## Materials
-You can obtain all the workshop materials by using the green 'Clone or download' button above
+You can obtain all the workshop materials by using the green 'Clone or download' button above.
 **Not yet updated for online delivery**
+
+The calendar events include links to the slides for that session, a collaborative document for that session and this page.
 
 ## Slide index
 

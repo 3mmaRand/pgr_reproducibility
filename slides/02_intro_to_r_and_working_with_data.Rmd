@@ -112,7 +112,7 @@ Bottom left
 
 .pull-right[
 Top right
-* Environment - where to see your ojects  
+* Environment - where to see your objects  
 * History - a list of every command you sent  
 --- 
 Bottom right  
@@ -1279,10 +1279,29 @@ ggplot(data = pigeon2, aes(x = population, y = distance)) +
 ]
 
 ---
+# Summary
+
+
+* write commands in a script, edit when incorrect  
+* comment your scripts  
+* use white space and newlines  
+* the assignment operator is `<-` (alt-minus)  
+* the pipe operator is ` %>%` (ctl-shift-m)  
+* objects you're created can be seen in the Environment window  
+* data is read in to R from files into dataframes  
+* the dataframe is the most commonly used data structure in analysis  
+* you'll eventually get used to the manual  
+* a `ggplot` has a `data` argument and an `aesthetic` argument; layers are added with a `+`; `geoms`dtermine how the data are plotted  
+* `ggplot` makes it easy to transition between plot types  
+* Use RStudio projects and organise your analysis into separate folders (more tomorrow)  
+* use relative paths (more tomorrow)  
+
+
+---
 # References
 
 ```{r refs, echo=FALSE, results="asis"}
-PrintBibliography(myBib)
+PrintBibliography(myBib)  
 ```
 
 

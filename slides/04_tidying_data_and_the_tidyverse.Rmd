@@ -309,9 +309,17 @@ The values will be in a column called `mass`, the treatments in a column called 
 
 `r emo::ji("clapper")` Write this dataframe to file to your `processed_data` folder.
 
---
 
-```{r echo=FALSE}
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Tidy the data given in [Human development index.csv](raw_data/Human development index.csv) so that all the indices are in a single column with other columns giving the rank, country and year.
+
+
+---
+# Converting "wide" to "long"
+
+`r emo::ji("clapper")` Write this dataframe to file to your `processed_data` folder.
+
+
+```{r echo=TRUE}
 file <- "processed_data/biomass2.txt"
 write.table(biomass2, file = file, row.names = FALSE, quote = FALSE)
 
@@ -594,10 +602,25 @@ sol <- sol %>%
 ---
 # Case study
 
-## Exercises
-`r emo::ji("clapper")` Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
 
-```{r echo=FALSE, include=FALSE}
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
+
+
+
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. You might find [`starts_with()`](https://www.rdocumentation.org/packages/tidyselect/versions/1.0.0/topics/select_helpers) useful.
+
+
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Create separate columns in `sol2` for the cell lineage and the replicate.
+
+
+
+---
+# Case study
+
+## Answers
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
+
+```{r}
 # trying it out on one value
 accession <- sol$accession[2]
 str_extract(accession, "1::[^;]+") %>% 
@@ -611,8 +634,13 @@ sol <- sol %>%
             
 ```
 
-`r emo::ji("clapper")` Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. You might find [`starts_with()`](https://www.rdocumentation.org/packages/tidyselect/versions/1.0.0/topics/select_helpers) useful.
-```{r echo=FALSE}
+---
+# Case study
+
+## Answers
+
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. 
+```{r }
 sol2 <- sol %>% pivot_longer(names_to = "lineage_rep",
                              values_to = "abundance",
                              cols = starts_with("y"))
@@ -620,15 +648,40 @@ sol2 <- sol %>% pivot_longer(names_to = "lineage_rep",
 
 ```
 
-`r emo::ji("clapper")` Create separate columns in `sol2` for the cell lineage and the replicate.
+---
+# Case study
 
-```{r echo=FALSE}
+## Answers
+
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Create separate columns in `sol2` for the cell lineage and the replicate.
+
+```{r}
 sol2 <- sol2 %>%
   extract(lineage_rep,
           c("line", "rep"),
           "(y[0-9]{3,4})\\_([a-c])")
 ```
 
+
+
+
+---
+# Summary
+
+.font110[
+
+* `tidyverse` is a collection of packages with a common design; many excellent packages are not part of it  
+* `library(tidyverse)` loads the core packages; other `tidyverse` packages need their own `library()` call  
+* the pipe `%>%` is key to connecting `tidyverse` tools together to create highly readable code  
+* reshaping data from wide to long format is common: `pivot_longer()`  
+* splitting cell contents is common: `extract()` 
+* regular expressions allow you to match text patterns; expect to have to google and do a lot of trial and error  
+* `clean_names()`  
+* `::` gives you access to a package's functions without using `library()`  
+* use particular rows `filter()`  
+* use particular columns `select()`  
+
+]
 
 ---
 # References

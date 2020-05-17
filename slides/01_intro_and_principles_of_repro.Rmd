@@ -96,7 +96,7 @@ Expected audience: Those without previous experience
 ---
 # Programme overview - continued
 [3. RStudio Projects](03_rstudio_projects.html)  
-Expected audience: Everyone
+Expected audience: Those without experience of RStudio projects
 * Organising your work in a logical, consistent and reproducible way using RStudio Projects  
 * Writing code with relative paths given appropriate to your project organisation  
 * Writing dataframes and figures to file  
@@ -358,6 +358,22 @@ knitr::kable(head(pigeon2[c(1:3,41:43),]),
 * "Best practices for scientific computing" `r Cite(myBib, "Wilson2014-ij")`  
 * "Good enough practices in scientific computing" `r Cite(myBib, "Wilson2017-cp")`  
 * "Excuse Me, Do You Have a Moment to Talk About Version Control?" `r Cite(myBib, "Bryan2018-hl")`  
+
+---
+# Summary
+
+.font150[
+* The course is:
+  * an introduction to reproducible analyses rather than statistics  
+  * not enough, you need to practice!  
+  * comprised of modules so you can opt out where you already have the skills  
+* Scripting makes your work reproducible  
+* Focus is on R but principles are widely applicable; use Python if you prefer  
+* Recognising structure in your data and organising in 'tidy' format will pay dividends  
+* The structured, systematic and consistent organisation of analyses will pay dividends
+
+]
+
 ---
 # References
 

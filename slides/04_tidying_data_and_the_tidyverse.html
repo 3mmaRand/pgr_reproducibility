@@ -305,9 +305,21 @@ The values will be in a column called `mass`, the treatments in a column called 
 
 🎬 Write this dataframe to file to your `processed_data` folder.
 
---
+
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Tidy the data given in [Human development index.csv](raw_data/Human development index.csv) so that all the indices are in a single column with other columns giving the rank, country and year.
 
 
+---
+# Converting "wide" to "long"
+
+🎬 Write this dataframe to file to your `processed_data` folder.
+
+
+
+```r
+file &lt;- "processed_data/biomass2.txt"
+write.table(biomass2, file = file, row.names = FALSE, quote = FALSE)
+```
 
 You can see the resulting file here:  [biomass2.txt](processed_data/biomass2.txt) 
 
@@ -698,7 +710,7 @@ str_extract(one_description, "GN=[^\\s]+") %&gt;%
 ```
 
 --
-## 🎉
+## 🥳
 
 ---
 # Case study
@@ -722,18 +734,91 @@ sol &lt;- sol %&gt;%
 ---
 # Case study
 
-## Exercises
-🎬 Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
+
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
 
 
 
-🎬 Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. You might find [`starts_with()`](https://www.rdocumentation.org/packages/tidyselect/versions/1.0.0/topics/select_helpers) useful.
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. You might find [`starts_with()`](https://www.rdocumentation.org/packages/tidyselect/versions/1.0.0/topics/select_helpers) useful.
 
 
-🎬 Create separate columns in `sol2` for the cell lineage and the replicate.
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Create separate columns in `sol2` for the cell lineage and the replicate.
 
 
 
+---
+# Case study
+
+## Answers
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
+
+
+```r
+# trying it out on one value
+accession &lt;- sol$accession[2]
+str_extract(accession, "1::[^;]+") %&gt;% 
+  str_replace("1::", "")
+```
+
+```
+## [1] "Q15149"
+```
+
+```r
+# adding a new column 
+sol &lt;- sol %&gt;%
+  mutate(protid =  str_extract(accession, "1::[^;]+") %&gt;% 
+           str_replace("1::", ""))
+```
+
+---
+# Case study
+
+## Answers
+
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. 
+
+```r
+sol2 &lt;- sol %&gt;% pivot_longer(names_to = "lineage_rep",
+                             values_to = "abundance",
+                             cols = starts_with("y"))
+```
+
+---
+# Case study
+
+## Answers
+
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Create separate columns in `sol2` for the cell lineage and the replicate.
+
+
+```r
+sol2 &lt;- sol2 %&gt;%
+  extract(lineage_rep,
+          c("line", "rep"),
+          "(y[0-9]{3,4})\\_([a-c])")
+```
+
+
+
+
+---
+# Summary
+
+.font110[
+
+* `tidyverse` is a collection of packages with a common design; many excellent packages are not part of it  
+* `library(tidyverse)` loads the core packages; other `tidyverse` packages need their own `library()` call  
+* the pipe `%&gt;%` is key to connecting `tidyverse` tools together to create highly readable code  
+* reshaping data from wide to long format is common: `pivot_longer()`  
+* splitting cell contents is common: `extract()` 
+* regular expressions allow you to match text patterns; expect to have to google and do a lot of trial and error  
+* `clean_names()`  
+* `::` gives you access to a package's functions without using `library()`  
+* use particular rows `filter()`  
+* use particular columns `select()`  
+
+]
 
 ---
 # References
@@ -758,7 +843,7 @@ _JOSS_ 4.43, p. 1686.
 
 class: inverse
 
-# 🎂 Congratulations! Keep practising! 🎉 
+# 🎈 Congratulations! Keep practising! 🎉 
 
 ---
 # Introduction to Reproducibility in R
