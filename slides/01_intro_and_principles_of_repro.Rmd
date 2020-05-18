@@ -376,9 +376,20 @@ knitr::kable(head(pigeon2[c(1:3,41:43),]),
 
 ---
 # References
+.footnote[
+Slides made with with xaringan `r Cite(myBib, "xaringan")`
 
+]
 ```{r refs, echo=FALSE, results="asis"}
-PrintBibliography(myBib)
+PrintBibliography(myBib, start = 1, end = 5)
+```
+
+...continued
+---
+# References
+
+```{r refs2, echo=FALSE, results="asis"}
+PrintBibliography(myBib, start = 6, end = 7)
 ```
 
 ---

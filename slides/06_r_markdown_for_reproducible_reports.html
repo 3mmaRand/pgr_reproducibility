@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>R Markdown for Reproducible Reports.</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Emma Rand" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="..\css_files\emma.css" type="text/css" />
+    <link rel="stylesheet" href="..\css_files\emma-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# R Markdown for Reproducible Reports.
+## White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R.
+### Emma Rand
+### University of York, UK
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+# Introduction
+
+## Aims
+
+unfinished draft
+
+## Learning outcomes 
+
+The successful student will be able to:
+
+* 
+
+### 🎬 An instruction to do something!!
+
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Tidy the data given in [Human development index.csv](raw_data/Human development index.csv) so that all the indices are in a single column with other columns giving the rank, country and year.
+
+
+---
+# Goal!
+
+By the end of today you'll be able to do something like this:
+&lt;!-- standard markdown report in pdf, word or html --&gt;
+&lt;!-- include a table, inline code, a figure,  --&gt;
+
+## demo.....
+
+
+---
+# What this workshop is and is not
+
+.pull-left[
+
+Is an introduction to
+* R Markdown
+
+]
+
+--
+
+.pull-right[
+
+It is not
+* An introduction to statistics&lt;sup&gt;1&lt;/sup&gt;  
+* Magic  
+
+&amp;nbsp;  
+&amp;nbsp;  
+&amp;nbsp;  
+&amp;nbsp;  
+
+]
+
+
+---
+# Workshop overview
+
+
+---
+# A little survey
+
+&lt;iframe src="https://forms.gle/EqQKx4nLQQemQZWb8" width="500" height="700" frameborder="0" marginheight="0" marginwidth="0"&gt;Loading...&lt;/iframe&gt;
+
+---
+# Reproducible Reports: R Markdown
+
+## How do you work?
+
+* What program do you analyse your data in?  
+
+
+* What program do you plot your data in?  
+
+
+* What program do you use to write up the results to submit to a journal (or similar)?  
+
+
+* What is your process for getting your summary data, statistical results, tables and figures in to your report?  
+
+
+--
+
+* What do you do when you get additional data that increases your sample sizes?  
+
+--
+
+* What do you do if you wrote in Word formated for one journal and now have to submit in PDF formated for another?
+
+---
+# Reproducible Reports: R Markdown
+
+## How do you work?
+
+Typically people analyse, plot and write up in different programs. 
+
+Graphs are saved to files and copied and pasted into the final report. 
+
+This process relies on manual labour. 
+
+If the data changes, the author must repeat the entire process to update the report.
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 90% 90%
+background-size: 200px
+
+# Reproducible Reports: R Markdown
+
+The brilliance of R Markdown &lt;a name=cite-markdown1&gt;&lt;/a&gt;&lt;a name=cite-markdown2&gt;&lt;/a&gt;([Allaire, et al., 2019a](#bib-markdown1); [Xie, et al., 2018a](#bib-markdown2)) is that you can use a **single R Markdown file** to:
+
+* save and execute code  
+
+* do all your data processing, analysis and plotting
+
+* generate high quality reports that can be shared with an audience
+
+
+This is a time-efficient and reproducible way to write!
+
+![cool-emoji](pics/cool.png)
+
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Many output formats are supported!
+
+.pull-left[
+![picture of some of the formats](pics/rmarkdownoutputformats.png)
+]
+.pull-right[
+* Word
+* Webpages - many styles and themes
+* PDF
+* journal article formats for many journals
+* webslides
+* powerpoint
+* books
+* blogs
+* posters
+* web applications including interactive
+
+]
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Let's get started
+
+### Organising your work
+
+You are going to work with some made-up data on the myoglobin content in the skeletal muscle of three species of seal
+
+--
+
+Create a new project called 'seals'
+
+--
+
+Inside 'seals', make folders called 'raw_data' and 'processed_data'
+
+--
+
+
+I strongly recommend avoiding spaces in names of files, folders and variable names.
+
+R can cope with them....  but they can often confuse humans!
+
+--
+
+Save a copy of [seal.txt](seals/raw_data/seal.txt) to the 'raw_data' folder
+
+
+---
+
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Live demo
+
+Just watch for a while....
+
+---
+
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Key points from the demo
+
+
+* mixes text and code  
+* human readable  
+* YAML header between the  \-\-\-
+* code chunk options control whether the code and its output end up in your 'knitted' document  
+* comments   
+  * in a code chunk the \# is still used for comments  
+  * in the text a comment is written like this  &lt;!\-\- a comment \-\-&gt;
+  * but use Ctrl+Shift+C  
+* \# in the text indicate headings  
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Your own R markdown file
+
+File | New File | R Markdown
+
+--
+
+Delete everything except the YAML header the first code chunk
+
+--
+
+Add your name, and a title 
+
+You could copy and paste a title from [paper.html](seals/paper.html)
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Your own R markdown file
+
+### Default code chunk behaviour.
+
+Set some **default** code chunk options. I recommend these:
+
+
+````
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE,
+                      message = FALSE)
+```
+````
+
+`echo = FALSE` means the code will not be included by default - this is normally what you want in a report.
+
+Any output is included by default.
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Your own R markdown file
+
+### References
+
+References and citations can be added by creating a .bib file containing references in BibTeX format and another line to the YAML header.  
+
+--
+
+`bibliography: mybibfile.bib` must be added to the YAML header
+
+--
+
+Citations are added using:
+  *  blah blah blah `[@xaringan]` for blah blah blah &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan)).    
+  *  Xie `[-@xaringan]` said blah blah blah for [Xie (2019)](#bib-xaringan) said blah blah blah.  
+
+--
+
+Every citation used results in the reference being added to a list at the bottom of the output.
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Your own R markdown file
+
+### References
+
+#### Make a .bib file
+
+Do File | New file | Text file
+
+Save as `mybibfile.bib`
+
+#### Add BibTeX entries
+
+`citation("package")` in the console will give packages references in BibTeX format.  
+
+BibTeX format is also available through most referencing software (e.g., PaperPile).
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a section of text
+
+### Introduction
+
+Add a header for the introductions and text - again you could copy and paste.
+
+```
+# Introduction
+Aquatic and marine mammals are able to dive
+underwater.................................
+...investigated whether the concentration of
+myoglobin differed between  species.
+
+```
+--
+
+
+Save your file.
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a code chunk
+
+### Packages
+
+The first two code chunks are usually for the default code chunk options (which I tend to call `setup`) and for package loading.Use Insert | R to add a code chunk
+
+Load the tidyverse
+
+.pull-left[
+````
+```{r packages}
+library(tidyverse)
+
+```
+````
+]
+.pull-right[
+* `r`indicates it is an R code chunk
+* `packages` is just a name for the chunk. Naming chunks makes debugging easier.
+
+]
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a section of text
+
+### Methods
+
+Add a heading for the Methods section including a reference to R.
+
+```
+# Methods
+We used R [@R-core] with tidyverse packages [@tidyverse] for all analyses.
+
+```
+--
+Hit Knit!
+
+This should render as:
+
+We used R (R Core Team 2019) with tidyverse packages (Wickham 2017) for all analyses.
+
+
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a code chunk
+
+### Importing data
+
+Insert a code chunk for importing the data
+
+
+````
+```{r import}
+# Data import
+# the data are organised in to three columns, one for each species. 
+seal &lt;- read.table("raw_data/seal.txt", header = TRUE)
+```
+````
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Run a code chunk
+
+### Interactively..
+
+Note you can run the code interactively to check your progress and the output will be shown in the Rmd document.
+
+
+````
+```{r import}
+# Data import
+# the data are organised in to three columns, one for each species. 
+seal &lt;- read.table("raw_data/seal.txt", header = TRUE)
+str(seal)
+```
+````
+
+````
+'data.frame':	30 obs. of  3 variables:
+ $ Harbour    : num  49.7 51 41.6 45.6 39.4 ...
+ $ Weddell    : num  55.4 40.1 46.3 29.8 52.5 ...
+ $ Bladdernose: num  56.2 48.4 37.8 42.8 27 ...
+```` 
+
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a code chunk
+
+### Tidying data
+
+Insert a code chunk for tidying the data and writing it out to a file
+
+````
+```{r tidy}
+# put the data in tidy format
+seal2 &lt;- gather(data = seal, key = species, value = myoglobin)
+
+# write tidy data to processed
+write.table(seal2, 
+            "processed_data/seal2.txt",
+            row.names = FALSE)
+```
+````
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a code chunk
+
+### Summarising data
+
+Insert a code chunk for summarising the data
+
+# Reproducible Reports: R Markdown
+
+## Add a code chunk
+
+### Summarising data
+
+````
+```{r summarise}
+sealsummary &lt;- seal %&gt;% 
+  group_by(species) %&gt;% 
+  summarise(mean = mean(myoglobin),
+            std = sd(myoglobin),
+            n = length(myoglobin),
+            se = std/sqrt(n))
+```
+````
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## What is in `sealsummary`?
+
+### Select a section of code
+
+And run (ctrl-enter)
+
+
+--
+
+Knit your file
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Inline code
+
+### Example
+
+Code results can be inserted directly into the text of a .Rmd file using inline code.
+
+Inline code goes between ` `r` and ` ` ` . 
+
+For example by writing: 
+
+The squareroot of 2 is ` `r`  `sqrt(2)` ` ` ` 
+
+you will get 
+
+The squareroot of 2 is  1.4142136
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Inline code
+
+### Discuss the highest mean
+
+We could add
+
+The highest mean is ` `r`  `max(sealsummary$mean)` ` ` `
+
+to our text. 
+
+When we knit the document we would get
+
+The highest mean is 49.01033
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Insert a code chunk
+
+### To access object contents more easily
+
+Insert a code chunk extracting values to make inline reporting easier
+
+Don't worry too much about completely understanding the code
+
+````
+```{r extract}
+# extract values for inline reporting
+
+highestmean &lt;- max(sealsummary$mean)
+highestse &lt;- sealsummary$se[sealsummary$mean == highestmean]
+highestspp &lt;- sealsummary$species[sealsummary$mean == highestmean]
+lowestmean &lt;- min(sealsummary$mean)
+lowestse &lt;- sealsummary$se[sealsummary$mean == lowestmean]
+lowestspp &lt;- sealsummary$species[sealsummary$mean == lowestmean]
+
+```
+````
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Your turn.
+
+### Add a results section
+
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Adding text
+
+### Special characters
+
+You can include special characters in a markdown document using LaTeX markup. This has \$ signs on the outside and uses backslashes and curly braces to indicate that what follows should be interpreted as a special character of special formatting.
+
+For example, to get `\(\bar{x} \pm s.e.\)` you write `$\bar{x} \pm s.e.$`
+
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+
+Go to live demo of document
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# R Markdown Resources
+
+## R Markdown cheatsheet
+
+https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
+
+## R Markdown: The Definitive Guide
+
+Yihui Xie, J. J. Allaire, Garrett Grolemund
+
+https://bookdown.org/yihui/rmarkdown/
+
+## RStudio’s guide
+http://rmarkdown.rstudio.com/index.html
+
+
+
+
+---
+# Summary
+
+.font110[
+
+ 
+
+]
+
+---
+# References
+.footnote[
+Slides made with with xaringan ([Xie, 2019](#bib-xaringan))
+
+]
+
+&lt;a name=bib-markdown1&gt;&lt;/a&gt;[Allaire, J, Y. Xie, et al.](#cite-markdown1)
+(2019a). _rmarkdown: Dynamic Documents for R_. R package version 1.16.
+URL:
+[https://github.com/rstudio/rmarkdown](https://github.com/rstudio/rmarkdown).
+
+&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan:
+Presentation Ninja_. R package version 0.12. URL:
+[https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
+
+&lt;a name=bib-markdown2&gt;&lt;/a&gt;[Xie, Y, J. Allaire, et al.](#cite-markdown2)
+(2018a). _R Markdown: The Definitive Guide_. ISBN 9781138359338. Boca
+Raton, Florida: Chapman and Hall/CRC. URL:
+[https://bookdown.org/yihui/rmarkdown](https://bookdown.org/yihui/rmarkdown).
+
+
+
+---
+
+class: inverse
+
+# 🎈 Congratulations! Keep practising! 🎉 
+
+---
+# Introduction to Reproducibility in R
+
+## Emma Rand &lt;br&gt; [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) &lt;br&gt; Twitter: [@er13_r](https://twitter.com/er13_r) &lt;br&gt; GitHub: [3mmaRand](https://github.com/3mmaRand)  &lt;br&gt; blog: https://buzzrbeeline.blog/
+&lt;br&gt;
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

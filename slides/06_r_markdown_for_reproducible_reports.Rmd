@@ -1,0 +1,741 @@
+---
+title: "R Markdown for Reproducible Reports."
+subtitle: "White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R."
+author: "Emma Rand"
+institute: "University of York, UK"
+output:
+  xaringan::moon_reader:
+    css: [default, ../css_files/emma.css, ../css_files/emma-fonts.css]
+    lib_dir: libs
+    seal: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE,	
+                      warning = FALSE,
+                      fig.width=4, 
+                      fig.height=4, 
+                      fig.retina=3)
+options(htmltools.dir.version = FALSE)
+```
+
+
+```{r packages, include=FALSE}
+library(RefManageR)
+library(kableExtra)
+library(tidyverse)
+```
+
+
+```{r, load-refs, include=FALSE, cache=FALSE}
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = TRUE,
+           dashed = FALSE,
+           longnamesfirst = FALSE,
+           max.names = 2)
+myBib <- ReadBib("../refs.bib", check = FALSE)
+```
+
+
+
+# Introduction
+
+## Aims
+
+unfinished draft
+
+## Learning outcomes 
+
+The successful student will be able to:
+
+* 
+
+### `r emo::ji("clapper")` An instruction to do something!!
+
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Tidy the data given in [Human development index.csv](raw_data/Human development index.csv) so that all the indices are in a single column with other columns giving the rank, country and year.
+
+
+---
+# Goal!
+
+By the end of today you'll be able to do something like this:
+<!-- standard markdown report in pdf, word or html -->
+<!-- include a table, inline code, a figure,  -->
+
+## demo.....
+
+
+---
+# What this workshop is and is not
+
+.pull-left[
+
+Is an introduction to
+* R Markdown
+
+]
+
+--
+
+.pull-right[
+
+It is not
+* An introduction to statistics<sup>1</sup>  
+* Magic  
+
+&nbsp;  
+&nbsp;  
+&nbsp;  
+&nbsp;  
+
+]
+
+
+---
+# Workshop overview
+
+
+---
+# A little survey
+
+<iframe src="https://forms.gle/EqQKx4nLQQemQZWb8" width="500" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+
+---
+# Reproducible Reports: R Markdown
+
+## How do you work?
+
+* What program do you analyse your data in?  
+
+
+* What program do you plot your data in?  
+
+
+* What program do you use to write up the results to submit to a journal (or similar)?  
+
+
+* What is your process for getting your summary data, statistical results, tables and figures in to your report?  
+
+
+--
+
+* What do you do when you get additional data that increases your sample sizes?  
+
+--
+
+* What do you do if you wrote in Word formated for one journal and now have to submit in PDF formated for another?
+
+---
+# Reproducible Reports: R Markdown
+
+## How do you work?
+
+Typically people analyse, plot and write up in different programs. 
+
+Graphs are saved to files and copied and pasted into the final report. 
+
+This process relies on manual labour. 
+
+If the data changes, the author must repeat the entire process to update the report.
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 90% 90%
+background-size: 200px
+
+# Reproducible Reports: R Markdown
+
+The brilliance of R Markdown `r Cite(myBib, "markdown1", "markdown2", .opts = list(max.names= 1))` is that you can use a **single R Markdown file** to:
+
+* save and execute code  
+
+* do all your data processing, analysis and plotting
+
+* generate high quality reports that can be shared with an audience
+
+
+This is a time-efficient and reproducible way to write!
+
+![cool-emoji](pics/cool.png)
+
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Many output formats are supported!
+
+.pull-left[
+![picture of some of the formats](pics/rmarkdownoutputformats.png)
+]
+.pull-right[
+* Word
+* Webpages - many styles and themes
+* PDF
+* journal article formats for many journals
+* webslides
+* powerpoint
+* books
+* blogs
+* posters
+* web applications including interactive
+
+]
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Let's get started
+
+### Organising your work
+
+You are going to work with some made-up data on the myoglobin content in the skeletal muscle of three species of seal
+
+--
+
+Create a new project called 'seals'
+
+--
+
+Inside 'seals', make folders called 'raw_data' and 'processed_data'
+
+--
+
+
+I strongly recommend avoiding spaces in names of files, folders and variable names.
+
+R can cope with them....  but they can often confuse humans!
+
+--
+
+Save a copy of [seal.txt](seals/raw_data/seal.txt) to the 'raw_data' folder
+
+
+---
+
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Live demo
+
+Just watch for a while....
+
+---
+
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Key points from the demo
+
+
+* mixes text and code  
+* human readable  
+* YAML header between the  \-\-\-
+* code chunk options control whether the code and its output end up in your 'knitted' document  
+* comments   
+  * in a code chunk the \# is still used for comments  
+  * in the text a comment is written like this  <!\-\- a comment \-\->
+  * but use Ctrl+Shift+C  
+* \# in the text indicate headings  
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Your own R markdown file
+
+File | New File | R Markdown
+
+--
+
+Delete everything except the YAML header the first code chunk
+
+--
+
+Add your name, and a title 
+
+You could copy and paste a title from [paper.html](seals/paper.html)
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Your own R markdown file
+
+### Default code chunk behaviour.
+
+Set some **default** code chunk options. I recommend these:
+
+
+````
+```{r setup, include=FALSE}`r ''`
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE,
+                      message = FALSE)
+```
+````
+
+`echo = FALSE` means the code will not be included by default - this is normally what you want in a report.
+
+Any output is included by default.
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Your own R markdown file
+
+### References
+
+References and citations can be added by creating a .bib file containing references in BibTeX format and another line to the YAML header.  
+
+--
+
+`bibliography: mybibfile.bib` must be added to the YAML header
+
+--
+
+Citations are added using:
+  *  blah blah blah `[@xaringan]` for blah blah blah `r Cite(myBib, "xaringan")`.    
+  *  Xie `[-@xaringan]` said blah blah blah for `r Cite(myBib, "xaringan",textual = TRUE)` said blah blah blah.  
+
+--
+
+Every citation used results in the reference being added to a list at the bottom of the output.
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Your own R markdown file
+
+### References
+
+#### Make a .bib file
+
+Do File | New file | Text file
+
+Save as `mybibfile.bib`
+
+#### Add BibTeX entries
+
+`citation("package")` in the console will give packages references in BibTeX format.  
+
+BibTeX format is also available through most referencing software (e.g., PaperPile).
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a section of text
+
+### Introduction
+
+Add a header for the introductions and text - again you could copy and paste.
+
+```
+# Introduction
+Aquatic and marine mammals are able to dive
+underwater.................................
+...investigated whether the concentration of
+myoglobin differed between  species.
+
+```
+--
+
+
+Save your file.
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a code chunk
+
+### Packages
+
+The first two code chunks are usually for the default code chunk options (which I tend to call `setup`) and for package loading.Use Insert | R to add a code chunk
+
+Load the tidyverse
+
+.pull-left[
+````
+```{r packages}`r ''`
+library(tidyverse)
+
+```
+````
+]
+.pull-right[
+* `r`indicates it is an R code chunk
+* `packages` is just a name for the chunk. Naming chunks makes debugging easier.
+
+]
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a section of text
+
+### Methods
+
+Add a heading for the Methods section including a reference to R.
+
+```
+# Methods
+We used R [@R-core] with tidyverse packages [@tidyverse] for all analyses.
+
+```
+--
+Hit Knit!
+
+This should render as:
+
+We used R (R Core Team 2019) with tidyverse packages (Wickham 2017) for all analyses.
+
+
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a code chunk
+
+### Importing data
+
+Insert a code chunk for importing the data
+
+
+````
+```{r import}`r ''`
+# Data import
+# the data are organised in to three columns, one for each species. 
+seal <- read.table("raw_data/seal.txt", header = TRUE)
+```
+````
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Run a code chunk
+
+### Interactively..
+
+Note you can run the code interactively to check your progress and the output will be shown in the Rmd document.
+
+
+````
+```{r import}`r ''`
+# Data import
+# the data are organised in to three columns, one for each species. 
+seal <- read.table("raw_data/seal.txt", header = TRUE)
+str(seal)
+```
+````
+
+````
+'data.frame':	30 obs. of  3 variables:
+ $ Harbour    : num  49.7 51 41.6 45.6 39.4 ...
+ $ Weddell    : num  55.4 40.1 46.3 29.8 52.5 ...
+ $ Bladdernose: num  56.2 48.4 37.8 42.8 27 ...
+```` 
+
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a code chunk
+
+### Tidying data
+
+Insert a code chunk for tidying the data and writing it out to a file
+
+````
+```{r tidy}`r ''`
+# put the data in tidy format
+seal2 <- gather(data = seal, key = species, value = myoglobin)
+
+# write tidy data to processed
+write.table(seal2, 
+            "processed_data/seal2.txt",
+            row.names = FALSE)
+```
+````
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Add a code chunk
+
+### Summarising data
+
+Insert a code chunk for summarising the data
+
+# Reproducible Reports: R Markdown
+
+## Add a code chunk
+
+### Summarising data
+
+````
+```{r summarise}`r ''`
+sealsummary <- seal %>% 
+  group_by(species) %>% 
+  summarise(mean = mean(myoglobin),
+            std = sd(myoglobin),
+            n = length(myoglobin),
+            se = std/sqrt(n))
+```
+````
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## What is in `sealsummary`?
+
+### Select a section of code
+
+And run (ctrl-enter)
+
+
+--
+
+Knit your file
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Inline code
+
+### Example
+
+Code results can be inserted directly into the text of a .Rmd file using inline code.
+
+Inline code goes between ` `r` and ` ` ` . 
+
+For example by writing: 
+
+The squareroot of 2 is ` `r`  `sqrt(2)` ` ` ` 
+
+you will get 
+
+The squareroot of 2 is  `r sqrt(2)`
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Inline code
+
+### Discuss the highest mean
+
+We could add
+
+The highest mean is ` `r`  `max(sealsummary$mean)` ` ` `
+
+to our text. 
+
+When we knit the document we would get
+
+The highest mean is 49.01033
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Insert a code chunk
+
+### To access object contents more easily
+
+Insert a code chunk extracting values to make inline reporting easier
+
+Don't worry too much about completely understanding the code
+
+````
+```{r extract}`r ''`
+# extract values for inline reporting
+
+highestmean <- max(sealsummary$mean)
+highestse <- sealsummary$se[sealsummary$mean == highestmean]
+highestspp <- sealsummary$species[sealsummary$mean == highestmean]
+lowestmean <- min(sealsummary$mean)
+lowestse <- sealsummary$se[sealsummary$mean == lowestmean]
+lowestspp <- sealsummary$species[sealsummary$mean == lowestmean]
+
+```
+````
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Your turn.
+
+### Add a results section
+
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+## Adding text
+
+### Special characters
+
+You can include special characters in a markdown document using LaTeX markup. This has \$ signs on the outside and uses backslashes and curly braces to indicate that what follows should be interpreted as a special character of special formatting.
+
+For example, to get $\bar{x} \pm s.e.$ you write `$\bar{x} \pm s.e.$`
+
+
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# Reproducible Reports: R Markdown
+
+
+Go to live demo of document
+
+---
+background-image: url(pics/rmarkdown.png)
+background-position: 100% 0%
+background-size: 100px
+
+# R Markdown Resources
+
+## R Markdown cheatsheet
+
+https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
+
+## R Markdown: The Definitive Guide
+
+Yihui Xie, J. J. Allaire, Garrett Grolemund
+
+https://bookdown.org/yihui/rmarkdown/
+
+## RStudio’s guide
+http://rmarkdown.rstudio.com/index.html
+
+
+
+
+---
+# Summary
+
+.font110[
+
+ 
+
+]
+
+---
+# References
+.footnote[
+Slides made with with xaringan `r Cite(myBib, "xaringan")`
+
+]
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(myBib)
+```
+
+
+
+---
+
+class: inverse
+
+# `r emo::ji("party")` Congratulations! Keep practising! `r emo::ji("party")` 
+
+---
+# Introduction to Reproducibility in R
+
+## Emma Rand <br> [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) <br> Twitter: [@er13_r](https://twitter.com/er13_r) <br> GitHub: [3mmaRand](https://github.com/3mmaRand)  <br> blog: https://buzzrbeeline.blog/
+<br>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
