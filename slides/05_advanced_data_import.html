@@ -59,7 +59,7 @@ There are four main considerations for data import:
 
 --
 
-3. How: with base R functions or a specialised package? Are the data available through an API and if so, is there already a package to make access to it easier?
+3. How: with base R functions or a specialised package? Are the data available through an API and if so, is there already a package to access it?
 
 --
 
@@ -97,19 +97,18 @@ This section may be familiar to those with experience. You may want to skip ahea
 
 Data file: [structurepred.txt](raw_data/structurepred.txt)
 
-These data are root mean square deviations (RMSD) in `\(\unicode{x212B}\)`ngstrom ( `\(\unicode{x212B}\)` ) between predicted and actual protein structures. Three programs were used to make predictions for 30 proteins.
+These data are root mean square deviations (RMSD) in `\(\unicode{x212B}\)`ngstrom between predicted and actual protein structures. Three programs were used to make predictions for 30 proteins.
+
+--
+
+There are three columns: rmsd, prog and prot
 
 --
 
 🎬 Save a copy of the file to your `raw_data` folder and read it in with:
 
-```r
-getwd()
-```
+--
 
-```
-## [1] "C:/Users/Emma Rand/Desktop/pgr_reproducibility/slides"
-```
 
 ```r
 file &lt;- "raw_data/structurepred.txt"
@@ -146,8 +145,12 @@ All the variables have been read into one column.
 
 
 .footnote[
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out.......
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out try reading in these data: [csativa.txt](raw_data/csativa.txt).
+
+
 ]
+
+
 --
 
 A function that can save you having to open a text file to look or wait along time to discover an import failure is `readLines()`:
@@ -197,7 +200,10 @@ ICD-10 codes are alphanumeric codes used by doctors, health insurance companies,
 
 
 .footnote[
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out.......
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out try reading in these data: [grape.txt](raw_data/grape.txt).
+
+
+
 ]
 ---
 # Locally stored text files
@@ -218,7 +224,20 @@ readLines(file, n = 2)
 ## [1] "Code\tDescription" "A00\t\"Cholera\""
 ```
 
-It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵
+It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵️‍♂️
+
+---
+# Locally stored text files
+
+## Exercise 2
+
+🎬The most appropriate `readr` function is `read_table2()` again:
+
+```r
+file &lt;- "raw_data/Icd10Code.csv"
+icd &lt;- read_table2(file)
+```
+
 
 ---
 # Locally stored special formats.
@@ -343,14 +362,29 @@ periwinkle &lt;- periwinkle %&gt;%
 
 🎬 Write the dataframe to a plain text format file in your `processed_data` folder.
 
-
 .footnote[
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out.......
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out try reading in these data: [carsdata.dta](raw_data/carsdata.dta).
+
 ]
+---
+# Locally stored special formats.
+
+You can write the dataframe to a plain text format file in your `processed_data` folder like this:
+
+
+```r
+write.table(periwinkle, "processed_data/periwinkle.txt")
+```
+
 --
 
-👀 There are `read_dta()` and `read_sas()` functions for STATA and SAS files respectively.
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; 👀 There are `read_dta()` and `read_sas()` functions for STATA and SAS files respectively so: 
 
+
+```r
+file2 &lt;- "raw_data/carsdata.dta"
+cars &lt;- read_dta((file2))
+```
 
 ---
 # Reading multiple files
@@ -466,7 +500,7 @@ airquality &lt;- do.call(rbind, df_list)
 The two main differences in this method are that `map()` dispenses with the need for a `for` loop (and for a pre-allocated vector) and we can use the pipe to link operations.
 
 --
-
+🎬 Read the files and combine them:
 
 ```r
 airquality2 &lt;- files %&gt;% 
@@ -476,6 +510,17 @@ airquality2 &lt;- files %&gt;%
 
 --
 I replaced the base R functions `read.csv` and `do.call(rbind())` with tidyverse functions in addition.
+
+--
+
+There's actually a `tidyverse` short cut for `map(read_csv) %&gt;% bind_rows`
+
+
+```r
+airquality3 &lt;- files %&gt;% 
+  map_dfr(read_csv) 
+```
+
 
 ---
 # Files on the internet
@@ -500,10 +545,14 @@ http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&amp;dir=d
 
 🎬 Use `readLines()` to examine the data format.
 
+
+
 ```r
 file &lt;- "http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&amp;dir=data/historical/stdmet/"
+```
 
-# use readLines() data format: 
+
+```r
 readLines(file, n = 4)
 ```
 
@@ -530,8 +579,25 @@ buoy44025 &lt;- read_table(file, col_names = FALSE, skip = 2)
 
 --
 
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Use `scan()` to read in the appropriate lines then [tidy](04_tidying_data_and_the_tidyverse.html) the results and name the columns measure_units, for example
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Use `scan()` to read in the appropriate lines then tidy  the results and name the columns measure_units, for example. [Tidying data and the tidyverse including the pipe](04_tidying_data_and_the_tidyverse.html) might help.
 
+---
+# Files on the internet
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Use `scan()` to read in the appropriate lines then tidy the results and name the columns measure_units, for example.
+
+
+```r
+# read in the variable names from the first line, removing the hash
+measure &lt;- scan(file, nlines = 1, what = character()) %&gt;%
+  str_remove("#")
+# read in the units from the second line, removing the hash and
+# replacing the / with _per_ as / is a special character
+units &lt;- scan(file, skip = 1, nlines = 1, what = character()) %&gt;% 
+  str_remove("#") %&gt;% 
+  str_replace("/", "_per_")
+# paste the variable name and its units together for the column names
+names(buoy44025) &lt;- paste(measure, units, sep = "_") 
+```
 ---
 # Web scraping
 
@@ -613,7 +679,7 @@ A box will appear on the right including the full page source.
 
 
 ```r
-test &lt;- read_html(url) %&gt;%
+biodiv &lt;- read_html(url) %&gt;%
   html_nodes(css = '#mw-content-text &gt; div &gt; table') %&gt;%
   html_table() %&gt;% 
   .[[1]]
@@ -699,7 +765,7 @@ In R `httr` is one package that allows you create requests
 
 ## Terminology: Requests
 
-An API requests consists of:
+An API request like `http://gtr.rcuk.ac.uk/search/project?term=virus&amp;page=1&amp;fetchSize=100` consists of:
   
 * a URL  
   &lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;http://gtr.rcuk.ac.uk/search/&lt;/span&gt;project?term=virus&amp;page=1&amp;fetchSize=100
@@ -723,13 +789,13 @@ An API requests consists of:
 
 ## Terminology: Responses
 
-An API response is usually returned in either:
+An API response is usually returned in one of two formats:
 
 1. JavaScript Object Notification (JSON) 
 
 --
 
-2. Extensible Markup Language (XML) are the most common answer formats.
+2. Extensible Markup Language (XML) 
 
 --
 
@@ -850,14 +916,12 @@ explore
 🎬 Make the request using the query:
 
 ```r
-# httr::GET makes the request
 results &lt;- GET(explore)
 ```
 
 🎬 Process the JSON response into an R data structure:
 
 ```r
-# httr::GET makes the request
 data &lt;- results %&gt;%
   content("text") %&gt;%
   fromJSON()
@@ -870,14 +934,14 @@ data &lt;- results %&gt;%
 
 ### An exploratory query to determine additional search parameters
 
+🎬 Examine the `data` list. 
+
+### Demo
+
 ---
 # APIs
 
 ## Constructing the query
-
-🎬 Examine the `data` list.
-
---
 
 Having worked out what the id codes are for research grants, the BBSRC and 2020 we will want to add those to our query.
 
@@ -915,11 +979,11 @@ The ids must be in a list separated by commas, and then encoded.
 🎬 Create a variable for the selectedFacets parameter by pasting the codes together separated by a comma, then encoding:
 
 ```r
-selectedFacets &lt;- URLencode(paste(research,
-                                  bbsrc, 
-                                  y2020, 
-                                  sep=","),
-                            reserved = TRUE)
+selectedFacets &lt;- paste(research,
+                        bbsrc, 
+                        y2020, 
+                        sep = ",") %&gt;%
+  URLencode()
 ```
 
 ---
@@ -937,7 +1001,6 @@ call1 &lt;- paste(base, endpoint,"?",
                "selectedFacets=", selectedFacets,
                sep="")
 ```
-https://gtr.ukri.org/search/project?term=virus&amp;fetchSize=25&amp;selectedSortableField=&amp;selectedSortOrder=&amp;fields=&amp;type=&amp;selectedFacets=Y2F0fFJlc2VhcmNoIEdyYW50fHN0cmluZw%3D%3D%2CZnVuZGVyfEJCU1JDfHN0cmluZw%3D%3D%2Cc3RhcnR8MTU3NzgzNjgwMDAwMF8xNjA5NDU5MTk5MDU5fHJhbmdl
 --
 
 
@@ -949,7 +1012,7 @@ call1
 ```
 
 ```
-## [1] "http://gtr.rcuk.ac.uk/search/project?term=virus&amp;page=1&amp;fetchSize=100&amp;selectedFacets=Y2F0fFJlc2VhcmNoIEdyYW50fHN0cmluZw%3D%3D%2CZnVuZGVyfEJCU1JDfHN0cmluZw%3D%3D%2Cc3RhcnR8MTU3NzgzNjgwMDAwMF8xNjA5NDU5MTk5MDU5fHJhbmdl"
+## [1] "http://gtr.rcuk.ac.uk/search/project?term=virus&amp;page=1&amp;fetchSize=100&amp;selectedFacets=Y2F0fFJlc2VhcmNoIEdyYW50fHN0cmluZw==,ZnVuZGVyfEJCU1JDfHN0cmluZw==,c3RhcnR8MTU3NzgzNjgwMDAwMF8xNjA5NDU5MTk5MDU5fHJhbmdl"
 ```
 ]
 ---
@@ -960,7 +1023,6 @@ call1
 🎬 We use the GET function in the same way as for our exploratory query:
 
 ```r
-# httr::GET makes the request
 results &lt;- GET(call1)
 ```
 
@@ -979,6 +1041,14 @@ results$status_code
 
 --
 
+200 means everything is OK. 
+
+[List of HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes). You've almost certainly seen a 404 before.
+
+---
+# APIs
+
+## Running the query
 🎬 Extract the content of the response and parse it from JSON to an R structure.
 
 
@@ -987,9 +1057,6 @@ data &lt;- results %&gt;%
   content("text") %&gt;%
   fromJSON()
 ```
-
----
-# APIs
 
 🎬 Examine your results:
 
@@ -1009,7 +1076,15 @@ data$searchResult$resourceHitCount
 ---
 # Summary
 
-
+* Consider whether the data are locally or remotely stored, their format, whether they are in one file or several or distributed across other resources.  
+* If you use some form of database that presents information in your browser, check whether it has an API, then whether there are existing packages to access that API.  
+* plain text files can be read in with base R, readr or data.table methods (and more)  
+* other formats can usually be imported specialised packages  
+* use iteration to import multiple files (rather than copying and pasting import statements)  
+* files on the internet are imported in the same way as those stored locally  
+* some form of tidying is almost always required  
+* `rvest` allows you to scrape data from webpages is you can identify the CSS selector
+* an API allows programmatic access to a data repository  
 
 
 ---
@@ -1039,7 +1114,7 @@ version 1.1.2. URL:
 
 class: inverse
 
-# 🥳 Congratulations! Keep practising! 🥳 
+# 🎂 Congratulations! Keep practising! 🥳 
 
 ---
 # Introduction to Reproducibility in R

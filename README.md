@@ -91,7 +91,8 @@ Once you have installed R and RStudio, start RStudio up and go to the Packages t
 
 Typically R, Rstudio and R packages are painless to install. However, if you encounter problems there will be Zoom office hours on May 18, 1400-1530 assist with set up.  
 
-
+### RStudio Cloud
+If installing R and RStudio is tricky or impossible with your setup (e.g., if you only have a chrome book) then you can use https://rstudio.cloud/. This is a version of RStudio that runs in your browser. It is free but you will need to make an account. You will still need to install packages.
  
 ## Modules
 
