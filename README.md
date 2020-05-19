@@ -54,7 +54,7 @@ Laptops should have the following installed **prior** to attending the workshop:
 
 - R version 3.6 or higher
 - RStudio (1.2)
-- these packages: tidyverse, janitor, rticles
+- these packages: `tidyverse`, `janitor`, `rticles`, `bookdown`
 
 ### Installing R
 
@@ -86,6 +86,9 @@ Download the `.zip` source archive under "Zip/Tarballs". Extract the files to a 
 ### Installing packages
 
 Once you have installed R and RStudio, start RStudio up and go to the Packages tab in the bottom right pane; click Install and type the name of the package you want to install in the box that appears. Then wait until you get the cursor (>) back in the console window.
+
+If you do not have LaTex installed (e.g., MiKTeX), you should also install the R package `tinytex`. This R package has a function allowing you to install lightweight LaTex distribution (compared to other LaTeX distributions). Once `tinytex` is installed, run: `tinytex::install_tinytex()`
+
 
 ## Issues 
 

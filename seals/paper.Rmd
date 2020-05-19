@@ -2,9 +2,9 @@
 title: "Variation in myoglobin content of skeletal muscle of seal species."
 author: "Emma Rand"
 output:
-  pdf_document: default
-  word_document: default
-  html_document: default
+  bookdown::word_document2: default
+  bookdown::html_document2: default
+  bookdown::pdf_document2: default
 bibliography: reference.bib
 ---
 
@@ -16,7 +16,6 @@ knitr::opts_chunk$set(echo = FALSE,
 
 ```{r packages}
 library(tidyverse)
-library(Rmisc)
 ```
 
 # Introduction
@@ -27,12 +26,15 @@ Seal species are known to vary in dive length. We investigated whether the conce
 ```{r import}
 # Data import
 # the data are organised in to three columns, one for each species. 
-seal <- read.table("raw_data/seal.txt", header = TRUE)
+seal <- read_table2("raw_data/seal.txt")
 ```
 
 ```{r tidy}
 # put the data in tidy format
-seal2 <- gather(data = seal, species, myoglobin)
+seal2 <- seal %>% 
+  pivot_longer(names_to = "species",
+               values_to = "myoglobin",
+               cols = everything())
 
 # write tidy data to processed
 write.table(seal2, 
@@ -42,20 +44,23 @@ write.table(seal2,
 
 
 ```{r summarise}
-sealsummary <- summarySE(data = seal2,
-                         measurevar = "myoglobin",
-                         groupvars = "species")
+sealsummary <- seal2 %>%
+  group_by(species) %>%
+  summarise(mean = mean(myoglobin),
+            std = sd(myoglobin),
+            n = length(myoglobin),
+            se = std/sqrt(n))
 ```
 
 ```{r extract}
 # extract values for inline reporting
 
-highestmean <- max(sealsummary$myoglobin)
-highestse <- sealsummary$se[sealsummary$myoglobin == highestmean]
-highestspp <- sealsummary$species[sealsummary$myoglobin == highestmean]
-lowestmean <- min(sealsummary$myoglobin)
-lowestse <- sealsummary$se[sealsummary$myoglobin == lowestmean]
-lowestspp <- sealsummary$species[sealsummary$myoglobin == lowestmean]
+highestmean <- max(sealsummary$mean)
+highestse <- sealsummary$se[sealsummary$mean == highestmean]
+highestspp <- sealsummary$species[sealsummary$mean == highestmean]
+lowestmean <- min(sealsummary$mean)
+lowestse <- sealsummary$se[sealsummary$mean == lowestmean]
+lowestspp <- sealsummary$species[sealsummary$mean == lowestmean]
 
 ```
 
@@ -80,31 +85,38 @@ TukeyHSD(mod)
 ```
 
 # Results
-There is a significant difference in myoglobin concentration between species (_F_ = `r fval`; _d.f._=`r df1`, `r df2`; _p_ = `r p`). Post-hoc testing revealed that difference to be between the `r highestspp` seal with the highest myoglobin concentrations ($\bar{x} \pm s.e.$: `r round(highestmean,2)` $\pm$ `r round(highestse,2)` g Kg^-1^) and the `r lowestspp` seal with the lowest (`r round(lowestmean,2)` $\pm$ `r round(lowestse,2)` g Kg^-1^). See Figure 1.
+There is a significant difference in myoglobin concentration between species (_F_ = `r fval`; _d.f._ =`r df1`, `r df2`; _p_ = `r p`). Post-hoc testing revealed that difference to be between the `r highestspp` seal with the highest myoglobin concentrations ($\bar{x} \pm s.e.$: `r round(highestmean,2)` $\pm$ `r round(highestse,2)` g Kg^-1^) and the `r lowestspp` seal with the lowest (`r round(lowestmean,2)` $\pm$ `r round(lowestse,2)` g Kg^-1^). See Figure \@ref(fig:myo-fig)
 
 
-```{r myo-fig, fig.height=4, fig.width=4, fig.cap="Figure 1 Mean Myoglobin content of skeletal muscle"}
+```{r myo-fig, fig.height=4, fig.width=4, fig.cap="Mean Myoglobin content of skeletal muscle"}
 
-ggplot(seal2, aes(x = species, y = myoglobin) ) +
-  geom_jitter(width = .2, colour = "#8c8c8c") +
+ggplot() +
+  geom_point(data = seal2, aes(x = species, y = myoglobin),
+             position = position_jitter(width = 0.1, height = 0),
+             colour = "gray50") +
   geom_errorbar(data = sealsummary, 
-                aes(ymin = myoglobin, 
-                    ymax = myoglobin), 
-                width =.2, size = 1 ) + 
+                aes(x = species, ymin = mean - se, ymax = mean + se),
+                width = 0.3) +
   geom_errorbar(data = sealsummary, 
-                aes(ymin = myoglobin - se, 
-                    ymax = myoglobin + se), 
-                width = .3 ) +
-  ylab(expression("Myoglobin concentration g "*Kg^{-1})) +
-  ylim(0, 75) +
-  xlab("Seal species") +
-  scale_x_discrete(labels = c("Bladdernose", 
-                              "Harbour", 
-                              "Weddell")) +
-  theme(panel.background = element_rect(fill = "white")) +
-  theme(axis.line.x = element_line(color = "black"),
-        axis.line.y = element_line(color = "black"))
-
+                aes(x = species, ymin = mean, ymax = mean),
+                width = 0.2) +
+  scale_y_continuous(name = expression("Myoglobin concentration g "*Kg^{-1}), 
+                     limits = c(0, 80), 
+                     expand = c(0, 0)) +
+  scale_x_discrete(labels = c("Bladdernose", "Harbour", "Weddell"), 
+                   name = "Seal Species") +
+  annotate("segment", x = 1, xend = 2, 
+           y = 72, yend = 72,
+           colour = "black") +
+  annotate("segment", x = 2, xend = 2, 
+           y = 72, yend = 70,
+           colour = "black") +
+  annotate("segment", x = 1, xend = 1, 
+           y = 72, yend = 70,
+           colour = "black") +
+  annotate("text", x = 1.5,  y = 74, 
+           label = "*", size = 8) +
+  theme_classic()
 
 ```
 

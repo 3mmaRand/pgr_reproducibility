@@ -56,57 +56,29 @@ unfinished draft
 
 The successful student will be able to:
 
-* 
+*  
 
 ### `r emo::ji("clapper")` An instruction to do something!!
 
-`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Tidy the data given in [Human development index.csv](raw_data/Human development index.csv) so that all the indices are in a single column with other columns giving the rank, country and year.
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` 
 
 
 ---
 # Goal!
 
-By the end of today you'll be able to do something like this:
+By the end of this session you'll be able to do something like this:
 <!-- standard markdown report in pdf, word or html -->
 <!-- include a table, inline code, a figure,  -->
 
 ## demo.....
 
 
----
-# What this workshop is and is not
-
-.pull-left[
-
-Is an introduction to
-* R Markdown
-
-]
-
---
-
-.pull-right[
-
-It is not
-* An introduction to statistics<sup>1</sup>  
-* Magic  
-
-&nbsp;  
-&nbsp;  
-&nbsp;  
-&nbsp;  
-
-]
-
 
 ---
 # Workshop overview
 
 
----
-# A little survey
 
-<iframe src="https://forms.gle/EqQKx4nLQQemQZWb8" width="500" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 
 ---
 # Reproducible Reports: R Markdown
