@@ -29,6 +29,7 @@ options(htmltools.dir.version = FALSE)
 library(RefManageR)
 library(kableExtra)
 library(tidyverse)
+library(viridisLite)
 ```
 
 
@@ -83,27 +84,66 @@ By the end of this session you'll be able to do something like this:
 ---
 # Reproducible Reports: R Markdown
 
+```{r echo = FALSE}
+file <- "raw_data/intro_to_reproducubility_ precourse.csv"
+survey <- read_csv(file) 
+```
+
+
 ## How do you work?
 
 * What program do you analyse your data in?  
-
-
 * What program do you plot your data in?  
+--
+```{r echo = FALSE, fig.width=9}
+survey %>% 
+  ggplot(aes(x = `In what package/programme are you MOST likely to carry out data analysis and visualisation currently?`)) +
+  geom_bar(fill = "#9d5e78") +
+  scale_x_discrete(name = "") +
+  scale_y_continuous(name = "Number of people",
+                     expand = c(0, 0)) +
+  theme_classic() +
+  theme(plot.background = element_rect(fill = "#f6fafd"),
+        panel.background = element_rect(fill = "#f6fafd"),
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 14)) +
+  coord_flip()
+  
+```
+
+---
+# Reproducible Reports: R Markdown 
 
 
-* What program do you use to write up the results to submit to a journal (or similar)?  
+* What program do you use to write up the results to submit to a journal (or similar)?
 
+```{r echo = FALSE, fig.width=9}
+survey %>% 
+  ggplot(aes(x = `In what package/programme are you MOST likely to write up analysis results to submit to a journal or similar?`)) +
+  geom_bar(fill = "#9d5e78") +
+  scale_x_discrete(name = "") +
+  scale_y_continuous(name = "Number of people",
+                     expand = c(0, 0)) +
+  theme_classic() +
+  theme(plot.background = element_rect(fill = "#f6fafd"),
+        panel.background = element_rect(fill = "#f6fafd"),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 14)) +
+  coord_flip()
+  
+```
+
+
+---
+# Reproducible Reports: R Markdown 
 
 * What is your process for getting your summary data, statistical results, tables and figures in to your report?  
-
-
 --
 
 * What do you do when you get additional data that increases your sample sizes?  
-
 --
 
-* What do you do if you wrote in Word formated for one journal and now have to submit in PDF formated for another?
+* What do you do if you wrote in Word formatted for one journal and now have to submit in PDF formatted for another?
 
 ---
 # Reproducible Reports: R Markdown
@@ -119,38 +159,40 @@ This process relies on manual labour.
 If the data changes, the author must repeat the entire process to update the report.
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 90% 90%
-background-size: 200px
+background-image: url(../pics/rmarkdown.png)
+background-position: 80% 80%
+background-size: 180px
 
 # Reproducible Reports: R Markdown
 
-The brilliance of R Markdown `r Cite(myBib, "markdown1", "markdown2", .opts = list(max.names= 1))` is that you can use a **single R Markdown file** to:
+The brilliance of R Markdown `r Cite(myBib, "markdown1", "markdown2")` is that you can use a **single R Markdown file** to:
 
 * save and execute code  
 
-* do all your data processing, analysis and plotting
+--
 
-* generate high quality reports that can be shared with an audience
+* do all your data processing, analysis and plotting  
+
+--
+
+* generate high quality reports that can be shared with an audience  
+
+--
 
 
 This is a time-efficient and reproducible way to write!
 
-![cool-emoji](pics/cool.png)
+## `r emo::ji("sunglasses")`
 
 
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
-
 # Reproducible Reports: R Markdown
 
 ## Many output formats are supported!
 
 .pull-left[
-![picture of some of the formats](pics/rmarkdownoutputformats.png)
+![picture of some of the formats](../pics/rmarkdownoutputformats.png)
 ]
 .pull-right[
 * Word
@@ -167,10 +209,6 @@ background-size: 100px
 ]
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
-
 # Reproducible Reports: R Markdown
 
 ## Let's get started
@@ -200,11 +238,6 @@ Save a copy of [seal.txt](seals/raw_data/seal.txt) to the 'raw_data' folder
 
 
 ---
-
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
-
 # Reproducible Reports: R Markdown
 
 ## Live demo
@@ -212,11 +245,6 @@ background-size: 100px
 Just watch for a while....
 
 ---
-
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
-
 # Reproducible Reports: R Markdown
 
 ## Key points from the demo
@@ -234,10 +262,6 @@ background-size: 100px
 
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
-
 # Reproducible Reports: R Markdown
 
 ## Your own R markdown file
@@ -252,13 +276,9 @@ Delete everything except the YAML header the first code chunk
 
 Add your name, and a title 
 
-You could copy and paste a title from [paper.html](seals/paper.html)
+You could copy and paste a title from [paper.html](../seals/paper.html)
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
-
 # Reproducible Reports: R Markdown
 
 ## Your own R markdown file
@@ -278,12 +298,12 @@ knitr::opts_chunk$set(echo = FALSE,
 
 `echo = FALSE` means the code will not be included by default - this is normally what you want in a report.
 
-Any output is included by default.
+Any output *is* included by default.
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -291,13 +311,24 @@ background-size: 100px
 
 ### References
 
-References and citations can be added by creating a .bib file containing references in BibTeX format and another line to the YAML header.  
+References and citations can be added by creating a .bib file containing references in BibTeX format and another line to the YAML header.
+
 
 --
 
-`bibliography: mybibfile.bib` must be added to the YAML header
+`bibliography: mybibfile.bib` must be added to the YAML header.<sup>1</sup>
+.footnote[
+1. There are other ways of including references such as using `RefManageR` package which is what I am using in these slides.
 
---
+]
+
+
+---
+# Reproducible Reports: R Markdown
+
+## Your own R markdown file
+
+### References
 
 Citations are added using:
   *  blah blah blah `[@xaringan]` for blah blah blah `r Cite(myBib, "xaringan")`.    
@@ -305,12 +336,16 @@ Citations are added using:
 
 --
 
+If you have installed the `citr` package there is an Addin to help with this.
+
+--
+
 Every citation used results in the reference being added to a list at the bottom of the output.
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -331,9 +366,9 @@ Save as `mybibfile.bib`
 BibTeX format is also available through most referencing software (e.g., PaperPile).
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -357,9 +392,9 @@ myoglobin differed between  species.
 Save your file.
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -386,9 +421,9 @@ library(tidyverse)
 ]
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -414,9 +449,9 @@ We used R (R Core Team 2019) with tidyverse packages (Wickham 2017) for all anal
 
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -436,9 +471,9 @@ seal <- read.table("raw_data/seal.txt", header = TRUE)
 ````
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -468,9 +503,9 @@ str(seal)
 
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -493,9 +528,9 @@ write.table(seal2,
 ````
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -523,9 +558,9 @@ sealsummary <- seal %>%
 ````
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -542,9 +577,9 @@ Knit your file
 
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -565,9 +600,9 @@ you will get
 The squareroot of 2 is  `r sqrt(2)`
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -587,9 +622,9 @@ The highest mean is 49.01033
 
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -615,9 +650,9 @@ lowestspp <- sealsummary$species[sealsummary$mean == lowestmean]
 ```
 ````
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -628,9 +663,9 @@ background-size: 100px
 
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -645,9 +680,9 @@ For example, to get $\bar{x} \pm s.e.$ you write `$\bar{x} \pm s.e.$`
 
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # Reproducible Reports: R Markdown
 
@@ -655,9 +690,9 @@ background-size: 100px
 Go to live demo of document
 
 ---
-background-image: url(pics/rmarkdown.png)
-background-position: 100% 0%
-background-size: 100px
+
+
+
 
 # R Markdown Resources
 

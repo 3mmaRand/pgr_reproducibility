@@ -54,7 +54,7 @@ Laptops should have the following installed **prior** to attending the workshop:
 
 - R version 3.6 or higher
 - RStudio (1.2)
-- these packages: `tidyverse`, `janitor`, `rticles`, `bookdown`
+- these packages: `tidyverse`, `janitor`, `rticles`, `bookdown`, `citr`
 
 ### Installing R
 
