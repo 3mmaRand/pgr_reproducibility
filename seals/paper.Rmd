@@ -2,16 +2,17 @@
 title: "Variation in myoglobin content of skeletal muscle of seal species."
 author: "Emma Rand"
 output:
+  bookdown::word_document2: default
   bookdown::pdf_document2: default
   bookdown::html_document2: default
-  bookdown::word_document2: default
 bibliography: reference.bib
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, 
                       warning = FALSE,
-                      message = FALSE)
+                      message = FALSE,
+                      fig.retina = 3)
 ```
 
 ```{r packages}
@@ -20,7 +21,13 @@ library(tidyverse)
 
 # Introduction
 Aquatic and marine mammals are able to dive underwater for extended periods as a result of having a higher muscle myoglobin concentration than terrestrial mammals [@Kanatous2741]. @NOREN2000181 found that 83% of the variation in Toothed whale species (odontocetes) dive capacity was accounted for by body mass and myoglobin content.
-Seal species are also known to vary in dive length. We investigated whether the concentration of myoglobin differed between species.
+Seal species are also known to vary in dive length. We investigated whether the concentration of myoglobin differed between three species of seal: Weddell Seal, Harbour Seals and Bladdernose Seals. See Figure \@ref(fig:weddell-fig)
+
+(ref:weddell-fig) Baby Weddell Seals are very cute. By Photo © Samuel Blanc, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=3877642
+
+```{r weddell-fig, out.height="200px", fig.cap='(ref:weddell-fig)'}
+knitr::include_graphics("pics/Baby_Weddell_Seal.jpg")
+```
 
 # Methods
 ```{r import}
@@ -35,13 +42,7 @@ seal2 <- seal %>%
   pivot_longer(names_to = "species",
                values_to = "myoglobin",
                cols = everything())
-
-# write tidy data to processed
-write.table(seal2, 
-            "processed_data/seal2.txt",
-            row.names = FALSE)
 ```
-
 
 ```{r summarise}
 sealsummary <- seal2 %>%
@@ -51,6 +52,11 @@ sealsummary <- seal2 %>%
             n = length(myoglobin),
             se = std/sqrt(n))
 ```
+
+We measured the myoglobin content of the skeletal muscle of `r sealsummary$N[1]` individuals in each of three species.
+We used R [@R-core] with tidyverse packages [@tidyverse] for all analyses and the [@markdown1] and [@bookdown] packages for manuscript preparation.
+
+# Results
 
 ```{r extract}
 # extract values for inline reporting
@@ -63,11 +69,6 @@ lowestse <- sealsummary$se[sealsummary$mean == lowestmean]
 lowestspp <- sealsummary$species[sealsummary$mean == lowestmean]
 
 ```
-
-We measured the myoglobin content of the skeletal muscle of `r sealsummary$N[1]` individuals in each of three species.
-We used R [@R-core] with tidyverse packages [@tidyverse] for all analyses.
-
-
 
 ```{r testing}
 mod <- aov(data = seal2, myoglobin ~ species)
@@ -83,12 +84,19 @@ p <- round(res$`Pr(>F)`[1], 3)
 ```{r posthoc, include=FALSE}
 TukeyHSD(mod)
 ```
+There is a significant difference in myoglobin concentration between species (_F_ = `r fval`; _d.f._ =`r df1`, `r df2`; _p_ = `r p`). Post-hoc testing revealed that difference to be between the `r highestspp` seal with the highest myoglobin concentrations ($\bar{x} \pm s.e.$: `r round(highestmean,2)` $\pm$ `r round(highestse,2)` g Kg^-1^) and the `r lowestspp` seal with the lowest (`r round(lowestmean,2)` $\pm$ `r round(lowestse,2)` g Kg^-1^). See Figure \@ref(fig:myo-fig).
+I've also gratuitously included a table with the same information just for the sake of including a table. See Table \@ref(tab:summary-table).  
 
-# Results
-There is a significant difference in myoglobin concentration between species (_F_ = `r fval`; _d.f._ =`r df1`, `r df2`; _p_ = `r p`). Post-hoc testing revealed that difference to be between the `r highestspp` seal with the highest myoglobin concentrations ($\bar{x} \pm s.e.$: `r round(highestmean,2)` $\pm$ `r round(highestse,2)` g Kg^-1^) and the `r lowestspp` seal with the lowest (`r round(lowestmean,2)` $\pm$ `r round(lowestse,2)` g Kg^-1^). See Figure \@ref(fig:myo-fig)
+```{r summary-table}
+knitr::kable(sealsummary,
+             digits = 2,
+             caption = 'A summary of the data.',
+             row.names = FALSE)
+```
 
+(ref:myo-fig) Mean Myoglobin content of skeletal muscle. Error bars are $\pm 1 s.e.$
 
-```{r myo-fig, fig.height=4, fig.width=4, fig.cap="Mean Myoglobin content of skeletal muscle"}
+```{r myo-fig, fig.height=4, fig.width=4, fig.cap='(ref:myo-fig)'}
 
 ggplot() +
   geom_point(data = seal2, aes(x = species, y = myoglobin),
@@ -120,6 +128,9 @@ ggplot() +
 
 ```
 
+# Discussion
+
+Here we pick up points from the introduction. See \@ref(introduction).
 
 # References
 
