@@ -1,5 +1,5 @@
 
-[![DOI](https://zenodo.org/badge/DOI/)](https://doi.org/xxxxxx)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3859819.svg)](https://doi.org/10.5281/zenodo.3859819)
 
 # Introduction to Reproducibility in R
 
