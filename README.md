@@ -11,8 +11,9 @@ Underlying all biological discoveries are data! The ability to generate reliable
 
 R is a free and open source language especially well-suited to data analysis and visualisation and has a relatively inclusive and newbie-friendly community. R caters to users who do not see themselves as programmers, but then allows them to slide gradually into programming.
 
+This programme comprises six modules lasting from 40 minutes to 2.5 hours. The selection of modules you undertake will depend on your previous experience.
 
-This programme comprises several modules lasting from 30 minutes to 2 hours. The selection of modules you undertake will depend on your previous experience.
+## [Slide index](https://3mmarand.github.io/pgr_reproducibility/index.html)
 
 ## Prerequisites
 
@@ -89,60 +90,44 @@ Once you have installed R and RStudio, start RStudio up and go to the Packages t
 
 If you do not have LaTex installed (e.g., MiKTeX), you should also install the R package `tinytex`. This R package has a function allowing you to install lightweight LaTex distribution (compared to other LaTeX distributions). Once `tinytex` is installed, run: `tinytex::install_tinytex()`
 
-
-## Issues 
-
-Typically R, Rstudio and R packages are painless to install. However, if you encounter problems there will be Zoom office hours on May 18, 1400-1530 assist with set up.  
-
 ### RStudio Cloud
 If installing R and RStudio is tricky or impossible with your setup (e.g., if you only have a chrome book) then you can use https://rstudio.cloud/. This is a version of RStudio that runs in your browser. It is free but you will need to make an account. You will still need to install packages.
  
 ## Modules
 
-Everyone will be included in all calendar invitations. The invitations and the list below indicate the expected audience and attendance records will be kept.
-
 1. Introduction and Principles of reproducibility  
    Expected audience: Everyone  
-   May 19 1100 - 1130  
+  40 mins
  
-
 2. Introduction to R and working with data. 
    Expected audience: Those without previous experience  
-   May 20 1000-1200  
+   2 - 2.5 hr  
  
-
 3. RStudio Projects.  
    Expected audience: Those without experience of RStudio projects  
-   May 21 1300-1330  
+   45 mins  
  
-
 4. Tidying data and the tidyverse including the pipe.  
    Expected audience: For those with previous experience of R but little of 'tidy data' and the tidyverse, such as having done "Introduction to R and working with data."  
-   May 21 1400-1530  
+   1.5 - 2 hr  
  
-
 5. Advanced data import.  
    Expected audience: For those with previous experience of R such as having done "Introduction to R and working with data" and "Tidying data and the tidyverse including the pipe."  
-   May 26 1000-1130   
+   2 - 2.5 hr   
  
-
 6. R Markdown for Reproducible Reports.  
    Expected audience: For those with previous experience of R such as having done "Introduction to R and working with data"  
-   May 28 1300-1500 
+   2 - 2.5 hr 
 
 
 ## Materials
-You can obtain all the workshop materials by using the green 'Clone or download' button above.
-**Not yet updated for online delivery**
-
-The calendar events include links to the slides for that session, a collaborative document for that session and this page.
-
-## Slide index
-
-[Slides](https://3mmarand.github.io/pgr_reproducibility/index.html)
-
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
+Please cite as:
+
+Emma Rand, 2020. 3mmaRand/pgr_reproducibility: White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R. doi:10.5281/zenodo.3859819
+
+You can obtain all the workshop materials by using the green 'Clone or download' button above.
 
 
 
