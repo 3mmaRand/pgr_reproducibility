@@ -66,10 +66,6 @@ The successful student will be able to:
 * create automatically numbered tables and cross reference them in the text  
 * create automatically numbered figures and cross reference them in the text  
 
-
-### `r emo::ji("clapper")` An instruction to do something!!
-
-
 ---
 # Goal!
 
