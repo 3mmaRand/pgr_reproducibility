@@ -51,13 +51,21 @@ myBib <- ReadBib("../refs.bib", check = FALSE)
 
 ## Aims
 
-unfinished draft
+To introduce you to R Markdown for creating reproducible reports in a variety of output formats. You will also get more practice organising analyses and importing, summarising and plotting data.
 
 ## Learning outcomes 
 
 The successful student will be able to:
 
-*  
+* explain what R Markdown is  
+* appreciate the role of the YAML header  
+* set default code chunk behaviour and those for individual chunks  
+* use headings, simple text formatting and special characters  
+* add citations and references with a .bib file  
+* use inline code to report results in text  
+* create automatically numbered tables and cross reference them in the text  
+* create automatically numbered figures and cross reference them in the text  
+
 
 ### `r emo::ji("clapper")` An instruction to do something!!
 
@@ -629,7 +637,7 @@ highestspp <- sealsummary$species[sealsummary$mean == highestmean]
 
 ## Special characters
 
-You can include special characters in a markdown document using LaTeX markup. This has \$ signs on the outside and uses backslashes and curly braces to indicate that what follows should be interpreted as a special character or special formatting.
+You can include special characters in a markdown document using LaTeX markup. This has `$` signs on the outside and uses backslashes and curly braces to indicate that what follows should be interpreted as a special character or special formatting.
 
 For example, to get $\bar{x} \pm s.e.$ you write `$\bar{x} \pm s.e.$`
 
@@ -676,6 +684,10 @@ In order for tables to be automatically numbered, and to allow you to cross-refe
 1. the chunk must be labelled. I've used `summary-table`  
 2. the table must have a caption as set by the `caption` argument
 
+--
+
+`r emo::ji("exclamation_mark")` The caption does not have to include "Table 1." 
+
 ---
 # Reproducible Reports: R Markdown
 
@@ -683,7 +695,7 @@ In order for tables to be automatically numbered, and to allow you to cross-refe
 
 To refer to this table in the text, we use `\@ref(tab:summary-table)`
 
-`r emo::ji("clapper")` Add a sentence to your results referring to the reader to the summary table.
+`r emo::ji("clapper")` Add a sentence to your results referring to the reader to the summary table such as: See table \\@ref(tab:summary-table)
 
 --
 
@@ -691,8 +703,8 @@ To refer to this table in the text, we use `\@ref(tab:summary-table)`
 
 
 The general syntax for cross-references is `\@ref(label)` where label can be:  
-`tab:*name-of-chunk-that-makes-a-table*` or  
-`fig:*name-of-chunk-that-makes-a-figure*`
+`tab:name-of-chunk-that-makes-a-table` or  
+`fig:name-of-chunk-that-makes-a-figure`
 
 ---
 # Reproducible Reports: R Markdown
@@ -772,7 +784,114 @@ It's the highest (Weddell) and lowest (Harbour) means that differ.
 ---
 # Reproducible Reports: R Markdown
 
-## A figure
+## Adding a figure
+.pull-left[
+This is what we are aiming for:
+
+```{r myo-fig, echo = FALSE, out.height="350px"}
+
+knitr::include_graphics("../pics/seals.png")
+
+```
+]
+
+.pull-right[
+
+In order for figures to be automatically numbered, and to allow you to cross-reference them in the text, you need to ensure two things in the chunk:
+
+1. the chunk must be labelled. I'll used `myo-fig`  
+2. the figure must have a caption *but* this time it is set in the code chunk options using `fig.cap` 
+
+To refer to this figure in the text, we will use `\@ref(fig:myo-fig)`
+]
+---
+# Reproducible Reports: R Markdown
+
+## Adding a figure
+
+We will go through the items that need to be in the markdown with a basic plot.
+
+`r emo::ji("clapper")` Add a code chunk for the figure:
+
+````
+```{r myo-fig, fig.cap="Mean Myoglobin content of skeletal muscle"}`r ''`
+ggplot() +
+  geom_point(data = seal2, aes(x = species, y = myoglobin),
+             position = position_jitter(width = 0.1, height = 0))
+```
+````
+
+--
+
+I have labelled the chunk `myo-fig` and set the caption with `fig.cap`.
+
+
+---
+# Reproducible Reports: R Markdown
+
+## Adding a figure
+
+`r emo::ji("clapper")` Now add a sentence to your results such as: See Figure \\@ref(fig:myo-fig)
+
+
+--
+
+`r emo::ji("clapper")` Hit knit! `r emo::ji("knit")`
+
+You should find the figure and the cross reference to it are automatically numbered.
+
+
+---
+# Reproducible Reports: R Markdown
+
+## Adding a figure
+
+Figure legends are often long and contain special characters
+
+--
+
+Including long text in the code chunk option makes the code a bit hard to read and special characters are difficult.
+
+--
+
+We can instead create a 'reference' for the legend.
+
+
+`r emo::ji("clapper")`Add this text to your document:  
+
+  (ref:myo-fig) Mean Myoglobin content of skeletal muscle. Error bars are $\pm 1 s.e.$
+
+
+---
+# Reproducible Reports: R Markdown
+
+## Adding a figure
+
+`r emo::ji("clapper")`And edit your chunk options like this:  
+
+````
+```{r myo-fig, fig.cap="(ref:myo-fig)"}`r ''`
+ggplot() +
+  geom_point(data = seal2, aes(x = species, y = myoglobin),
+             position = position_jitter(width = 0.1, height = 0))
+```
+````
+
+--
+
+`r emo::ji("clapper")` Hit knit! `r emo::ji("knit")`
+
+---
+# Reproducible Reports: R Markdown
+
+## Your turn
+
+Suggestions:
+
+* customise this figure (see the Seal example)  
+* add an additional figure  
+* add an image as a figure  
+* Try out a template from `rticles`: File | New File | R Markdown and choose Fr
 
 
 ---
@@ -792,6 +911,15 @@ It's the highest (Weddell) and lowest (Harbour) means that differ.
 
 .font110[
 
+* R Markdown interweaves analysis code and reporting and is human readable  
+* metadata about the document is given YAML header  
+* there are many formats for outputs and several packages available  
+* code chunk behaviour such as visibility and output size is set with options 
+* `#` is a heading in the text and a comment (as normal), in a code chunk
+* LateX can be included  
+* citations and references are added with a .bib file  
+* use inline code to report results in text  
+* automatically numbered tables and figures and cross references to them can be included  
  
 
 ]

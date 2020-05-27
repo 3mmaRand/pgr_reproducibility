@@ -2,8 +2,8 @@
 title: "Variation in myoglobin content of skeletal muscle of seal species."
 author: "Emma Rand"
 output:
-  bookdown::word_document2: default
   bookdown::pdf_document2: default
+  bookdown::word_document2: default
   bookdown::html_document2: default
 bibliography: reference.bib
 ---
@@ -53,8 +53,8 @@ sealsummary <- seal2 %>%
             se = std/sqrt(n))
 ```
 
-We measured the myoglobin content of the skeletal muscle of `r sealsummary$N[1]` individuals in each of three species.
-We used R [@R-core] with tidyverse packages [@tidyverse] for all analyses and the [@markdown1] and [@bookdown] packages for manuscript preparation.
+We measured the myoglobin content of the skeletal muscle of `r sealsummary$n[1]` individuals in each of three species.
+We used R [@R-core] with tidyverse packages [@tidyverse] for all analyses and the rmarkdown [@markdown1] and bookdown [@bookdown] packages for manuscript preparation.
 
 # Results
 
@@ -96,7 +96,7 @@ knitr::kable(sealsummary,
 
 (ref:myo-fig) Mean Myoglobin content of skeletal muscle. Error bars are $\pm 1 s.e.$
 
-```{r myo-fig, fig.height=4, fig.width=4, fig.cap='(ref:myo-fig)'}
+```{r myo-fig, fig.height=4, fig.width=4, fig.cap="(ref:myo-fig)"}
 
 ggplot() +
   geom_point(data = seal2, aes(x = species, y = myoglobin),
@@ -124,7 +124,9 @@ ggplot() +
            colour = "black") +
   annotate("text", x = 1.5,  y = 74, 
            label = "*", size = 8) +
-  theme_classic()
+  theme_classic() +
+  theme(axis.title = element_text(size  = 10),
+        axis.text = element_text(size = 10))
 
 ```
 
