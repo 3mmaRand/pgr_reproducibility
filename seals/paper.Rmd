@@ -2,9 +2,9 @@
 title: "Variation in myoglobin content of skeletal muscle of seal species."
 author: "Emma Rand"
 output:
-  bookdown::pdf_document2: default
   bookdown::word_document2: default
   bookdown::html_document2: default
+  bookdown::pdf_document2: default
 bibliography: reference.bib
 ---
 
@@ -19,8 +19,10 @@ knitr::opts_chunk$set(echo = FALSE,
 library(tidyverse)
 ```
 
+We used R[@R-core]
+
 # Introduction
-Aquatic and marine mammals are able to dive underwater for extended periods as a result of having a higher muscle myoglobin concentration than terrestrial mammals [@Kanatous2741]. @NOREN2000181 found that 83% of the variation in Toothed whale species (odontocetes) dive capacity was accounted for by body mass and myoglobin content.
+Aquatic and marine mammals are able to dive underwater for extended periods as a result of having a higher muscle myoglobin concentration than terrestrial mammals [@Kanatous2741]. [@markdown1] found that 83% of the variation in Toothed whale species (odontocetes) dive capacity was accounted for by body mass and myoglobin content.
 Seal species are also known to vary in dive length. We investigated whether the concentration of myoglobin differed between three species of seal: Weddell Seal, Harbour Seals and Bladdernose Seals. See Figure \@ref(fig:weddell-fig)
 
 (ref:weddell-fig) Baby Weddell Seals are very cute. By Photo © Samuel Blanc, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=3877642
