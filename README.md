@@ -125,7 +125,7 @@ If installing R and RStudio is tricky or impossible with your setup (e.g., if yo
 
 Please cite as:
 
-Emma Rand, 2020. 3mmaRand/pgr_reproducibility: White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R. doi:10.5281/zenodo.3859819
+Emma Rand, 2020. White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R. doi:10.5281/zenodo.3859819
 
 You can obtain all the workshop materials by using the green 'Clone or download' button above.
 
