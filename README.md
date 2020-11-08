@@ -15,6 +15,8 @@ This programme comprises six modules lasting from 40 minutes to 2.5 hours. The s
 
 ## [Slide index](https://3mmarand.github.io/pgr_reproducibility/index.html)
 
+[Seal example](https://3mmarand.github.io/pgr_reproducibility/seals/paper.html)
+
 ## Prerequisites
 
 I recognise that people will enter this training with a diverse range of previous experience in R. This is a challenge to manage but the aim is for everyone to get something out of the training no matter where they start. 
