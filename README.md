@@ -15,6 +15,8 @@ This programme comprises six modules lasting from 40 minutes to 2.5 hours. The s
 
 ## [Slide index](https://3mmarand.github.io/pgr_reproducibility/index.html)
 
+[Seal example](https://3mmarand.github.io/pgr_reproducibility/seals/paper.html)
+
 ## Prerequisites
 
 I recognise that people will enter this training with a diverse range of previous experience in R. This is a challenge to manage but the aim is for everyone to get something out of the training no matter where they start. 
@@ -125,7 +127,7 @@ If installing R and RStudio is tricky or impossible with your setup (e.g., if yo
 
 Please cite as:
 
-Emma Rand, 2020. 3mmaRand/pgr_reproducibility: White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R. doi:10.5281/zenodo.3859819
+Emma Rand, 2020. White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R. doi:10.5281/zenodo.3859819
 
 You can obtain all the workshop materials by using the green 'Clone or download' button above.
 
