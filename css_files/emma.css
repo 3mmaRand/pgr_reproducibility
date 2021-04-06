@@ -1,7 +1,7 @@
 .remark-slide-content {
   background-color: #f6fafd;
-  border-top: 80px solid 	#5e789d;
-  font-size: 20px;
+  border-top: 100px solid 	#5e789d;
+  font-size: 27px;
   font-weight: 300;
   line-height: 1.5;
   padding: 1em 2em 1em 2em
@@ -18,8 +18,8 @@
 .remark-slide-content > h1 {
   font-family: 'Open Sans';
   font-weight: normal;
-  font-size: 45px;
-  margin-top: -95px;
+  font-size: 55px;
+  margin-top: -115px;
   margin-left: -00px;
   color: #f6fafd;
 }
@@ -37,7 +37,7 @@ position: absolute;
 }
 
 .remark-slide-content > h2, h3, h4 {
-  padding-top: -15px;
+  padding-top: -10px;
   padding-bottom: 00px;
   color: #25496b;
   text-shadow: none;
@@ -49,7 +49,7 @@ position: absolute;
 
 .inverse h1 {
     color: #f6fafd;
-    font-size: 60px;
+    font-size: 80px;
 }
 
 .inverse h2 {
@@ -57,32 +57,32 @@ position: absolute;
 }
 
 .remark-slide-content > h2, .pull-left > h2, .pull-right > h2 {
-  font-size: 35px;
+  font-size: 47px;
   color: #25496b;
 }
 
 .remark-slide-content > h3, .remark-slide-content > h4,
 .pull-left > h3, .pull-left > h4, .pull-right > h3, .pull-right > h4 {
-  font-size: 30px;
+  font-size: 40px;
 }
 
 
 .title-slide {
   background-color: #f6fafd;
-  border-top: 80px solid #f6fafd;
+  border-top: 100px solid #f6fafd;
 }
 
 .title-slide > h1  {
   color: #25496b;
-  font-size: 40px;
+  font-size: 55px;
   text-shadow: none;
   font-weight: 400;
   text-align: left;
   margin-left: 15px;
-  padding-top: 80px;
+  padding-top: -80px;
 }
 .title-slide > h2  {
-  margin-top: -25px;
+  margin-top: -15px;
   padding-bottom: -20px;
   color: #25496b;
   text-shadow: none;
@@ -102,13 +102,13 @@ position: absolute;
 }
 
 .remark-slide-number {
-  font-size: 13pt;
+  font-size: 18pt;
   font-family: 'Open Sans';
   color: #272822;
   opacity: 1;
 }
 .inverse .remark-slide-number {
-  font-size: 13pt;
+  font-size: 18pt;
   font-family: 'Open Sans';
   color: #f6fafd;
   opacity: 1;
@@ -137,6 +137,12 @@ position: absolute;
   overflow-y: scroll;
 }
 
+/* squash captions (when use out.width or fig.align in knitr chunk, image gets
+put in img div. Since need to use fig.cap to specify alt text, a caption is
+then created, so use css to hide) */
+.caption {
+  display: none;
+}
 
 .code10 .remark-code {
   font-size: 10%;

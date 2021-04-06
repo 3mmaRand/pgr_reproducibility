@@ -68,13 +68,19 @@ class: inverse
 
 Chosen topics are: foundational, widely applicable, and transferable conceptually.
 
+
+
 .pull-left[
 
+.font90[
+
 **It is**
-* An introduction to R for those that have no previous experience
-* About using RStudio projects and good practice in code and project documentation and organisation
+* An introduction to R for those without previous experience
+* About using RStudio projects and good practice for code and project documentation and organisation
 * An introduction to the tidyverse, RMarkdown, some more advanced data import
  
+
+]
 
 ]
 
@@ -82,17 +88,21 @@ Chosen topics are: foundational, widely applicable, and transferable conceptuall
 
 .pull-right[
 
+.font90[
+
 **It is not**
 * An introduction to statistics  
 * Magic  
 
 ]
 
-
+]
 ---
 # Programme overview
 
 Modules lasting from 30 minutes to 2 hours. The selection of modules you undertake will depend on your previous experience.
+
+.font60[
 
 [1. Introduction and Principles of reproducibility](01_intro_and_principles_of_repro.html)  
 Audience: Everyone
@@ -109,8 +119,14 @@ Audience: Those without previous experience of R
 * Importing data: working directories and paths  
 * Summarising and visualising with the [`tidyverse`](https://www.tidyverse.org/)  
 * Installing and loading packages  
+
+]
+
 ---
-# Programme overview - continued
+# Programme overview
+
+.font60[
+
 [3. RStudio Projects](03_rstudio_projects.html)  
 Audience: Those without experience of RStudio projects
 * Organising your work in a logical, consistent and reproducible way using RStudio Projects  
@@ -121,8 +137,14 @@ Audience: Those without experience of RStudio projects
 Audience: For those with previous experience of R but little of 'tidy data' and the tidyverse, such as having done "Introduction to R and working with data."
 * Using the tidyverse including the pipe to link operations together.  
 * Carrying out some common data tidying tasks such as reshaping, renaming and recoding variable and cleaning cell contents  
+
+]
+
 ---
-# Programme overview - continued   
+# Programme overview
+
+.font60[
+
 [5. Advanced data import](05_advanced_data_import.html)  
 Audience: For those with previous experience of R such as having done "Introduction to R and working with data" and "Tidying data and the tidyverse including the pipe."
 * Understanding what matters in data import  
@@ -130,10 +152,12 @@ Audience: For those with previous experience of R such as having done "Introduct
 * Carrying out some simple web scraping  
 * Packages available for importing publicly accessible data from APIs  
 
-[6. R Markdown for Reproducible Reports]()  
+[6. R Markdown for Reproducible Reports](06_r_markdown_for_reproducible_reports.html)  
 Audience: For those with previous experience of R such as having done "Introduction to R and working with data."
 * Making more advanced figures  
 * Creating reproducible reports in a variety of output formats.  
+
+]
 
 ---
 class: inverse
@@ -145,7 +169,7 @@ class: inverse
 # Survey results 1/3
 
 
-The distribution of ratings you (n = 3) gave in the survey were:
+The distribution of ratings you (n = 21) gave in the survey were:
 &lt;img src="01_intro_and_principles_of_repro_files/figure-html/unnamed-chunk-2-1.png" width="864" /&gt;
 
 ---
@@ -199,12 +223,14 @@ Also see National Science Foundation &lt;a name=cite-K_Bollen2015-un&gt;&lt;/a&g
 ---
 # Open Science
 
-![](../pics/Foster.png)&lt;!-- --&gt;
+&lt;img src="../pics/Foster.png" width="700px" /&gt;
 .font60[
 By Petr Knoth and Nancy Pontika - https://en.wikipedia.org/wiki/Open_science#/media/File:Os_taxonomy.png, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=61125075
-]
 
 FAIR - Findable, Accessible, Interoperable, Reusable &lt;a name=cite-Wilkinson2016-pu&gt;&lt;/a&gt;([Wilkinson Dumontier, et al., 2016](#bib-Wilkinson2016-pu))
+]
+
+
 
 ---
 class: inverse
@@ -213,23 +239,11 @@ class: inverse
 
 
 ---
-background-image: url(../pics/rationale1.png)
-background-position: 50% 35%
-background-size: 600px
-
 # Rationale for scripting analysis
 Science is the generation of ideas, designing work to test them and reporting the results.
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+
+&lt;img src="../pics/rationale1.png" width="600px" /&gt;
+
 .pull-left[
 Generating the results
 ]
@@ -238,68 +252,34 @@ Generating the results
 Analysing and reporting them
 ]
 ---
-background-image: url(../pics/rationale2.png)
-background-position: 50% 35%
-background-size: 600px
 
 # Rationale for scripting analysis
 We ensure reproducibility of laboratory and field work by planning and recording in lab books and using standard protocols. 
---
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+
+
+&lt;img src="../pics/rationale2.png" width="600px" /&gt;
+
 Even so replicating results can be hard.
 ---
-background-image: url(../pics/rationale3.png)
-background-position: 50% 35%
-background-size: 600px
 
 # Rationale for scripting analysis
 We ensure reproducibility of laboratory and field work by planning and recording in lab books and using standard protocols. 
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-Even so replicating results can be hard.
+
+&lt;img src="../pics/rationale3.png" width="600px" /&gt;
+
 
 Workflows for computational projects and the data analysis and reporting of other work can, and should, be 100% reproducible! Scripting is the way to achieve this.
 
 ---
-background-image: url(../pics/rationale5.png)
-background-position: 80% 35%
-background-size: 800px
 
 # Rationale for scripting analysis
 
 That reproducibility applies to all aspects of the data workflow.
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+
+&lt;img src="../pics/rationale5.png" width="600px" /&gt;
+
 --
+
 From importing or collecting the data, processing it for analysis, building statistical models and communicating the methods and results.
 
 --
@@ -328,7 +308,7 @@ R has reputation for catering to users who do not see themselves as programmers,
 
 --
 
-It was also designed for data analysis and graphics - it is a 'domain specific' programming language - which means it is usually easier to achieve those tasks in R than a general purpose programming language.
+Designed for data analysis and graphics - which means it is often easier to achieve those tasks in R than a general purpose programming language.
 
 ---
 background-image: url(../pics/welcome_to_rstats_twitter.png)
@@ -353,10 +333,10 @@ Artwork by @allison_horst "welcome to rstats on twitter"
 ---
 background-image: url(../pics/rmarkdown_wizards.png)
 background-position: 10% 60%
-background-size: 500px
+background-size: 450px
 # Why R?
 
-R Markdown is sometimes called R's "killer feature". It turns your analyses into fully reproducible high quality documents, reports, presentations and dashboards.
+R Markdown is sometimes called R's "killer feature". Turns analyses into fully reproducible high quality reports, presentations and dashboards.
 
 Can run Python and other languages in R Markdown documents
 
@@ -372,13 +352,11 @@ class: inverse
 # Aspects of Reproducibility
 
 ---
-# Organisation of data within files
+# Organisation of data 
 
-## What is tidy data?
+Within files should be 'tidy'
 
-One response per row.
-
-Tidy data adhere to a consistent structure which makes it easier to manipulate, model and visualize them. The structure is defined by:  
+Tidy data adhere to a consistent structure which makes it easier to manipulate, model and visualize them. 
 
 1. Each variable has its own column.  
 2. Each observation has its own row.  
@@ -390,16 +368,16 @@ The term 'tidy data' was popularised by &lt;a name=cite-Wickham2014-nl&gt;&lt;/a
 There may be more than one potential tidy structure.  
 
 ---
-# Organisation of data within files
+# Tidy format
 
 
-
-## Tidy format
 
 Suppose we had just 3 individuals in each of two populations:
 
 .pull-left[
-## NOT TIDY!
+
+**Not tidy**
+
 &lt;table&gt;
  &lt;thead&gt;
   &lt;tr&gt;
@@ -427,7 +405,7 @@ Suppose we had just 3 individuals in each of two populations:
 
 .pull-right[
 
-## TIDY!
+**Tidy!**
 &lt;table&gt;
  &lt;thead&gt;
   &lt;tr&gt;
@@ -479,13 +457,13 @@ Suppose we had just 3 individuals in each of two populations:
 
 .pull-left[
 
-### Directories
+**Directories**
 
 * structured  
 * systematic  
 * repeatable  
 
-### Naming
+**Naming**
 
 * human and machine readable  
   * no spaces  
@@ -495,7 +473,7 @@ Suppose we had just 3 individuals in each of two populations:
 ]
 
 .pull-right[
-.code50[
+.code40[
 ```
 -- stem_cell_rna_2019
    |__stem_cell_rna_2019.Rproj
@@ -508,7 +486,6 @@ Suppose we had just 3 individuals in each of two populations:
       |__2019-05-14_donor_3.csv
    |__processed_data
       |__all_long.txt
-      |__all_wide.txt
    |__figures
       |__01_volcano_donor_1_vs_donor_2.eps
       |__02_volcano_donor_1_vs_donor_3.eps
@@ -534,11 +511,6 @@ Suppose we had just 3 individuals in each of two populations:
 ]
 
 ]
-
-
-
-
-
 
 
 
@@ -568,7 +540,17 @@ Suppose we had just 3 individuals in each of two populations:
 
 ---
 # References
-.font80[
+.footnote[
+.font60[
+Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan)) and xaringanExtra &lt;a name=cite-xaringanExtra&gt;&lt;/a&gt;([Aden-Buie, 2020](#bib-xaringanExtra))
+]
+]
+.font60[
+&lt;a name=bib-xaringanExtra&gt;&lt;/a&gt;[Aden-Buie, G.](#cite-xaringanExtra)
+(2020). _xaringanExtra: Extras And Extensions for Xaringan Slides_. R
+package version 0.2.3.9000. URL:
+[https://github.com/gadenbuie/xaringanExtra](https://github.com/gadenbuie/xaringanExtra).
+
 &lt;a name=bib-Baggerly2009-pw&gt;&lt;/a&gt;[Baggerly, K. A. and K. R.
 Coombes](#cite-Baggerly2009-pw) (2009). "DERIVING CHEMOSENSITIVITY FROM
 CELL LINES: FORENSIC BIOINFORMATICS AND REPRODUCIBLE RESEARCH IN
@@ -597,25 +579,17 @@ Academies of Sciences, Engineering, Medicine, et
 al.](#cite-National_Academies_of_Sciences_Engineering2019-sb) (2019).
 _Understanding Reproducibility and Replicability_. National Academies
 Press (US).
+]
 
+---
+# References
+
+.font60[
 &lt;a name=bib-OECD_Global_Science_Forum2020-cp&gt;&lt;/a&gt;[OECD Global Science
 Forum](#cite-OECD_Global_Science_Forum2020-cp) (2020). _Building
 digital workforce capacity and skills for data-intensive science_.
 OECD.
 
-&lt;a name=bib-Sandve2013-nd&gt;&lt;/a&gt;[Sandve, G. K., A. Nekrutenko, et
-al.](#cite-Sandve2013-nd) (2013). "Ten simple rules for reproducible
-computational research". En. In: _PLoS Comput. Biol._ 9.10, p.
-e1003285.
-]
-
----
-# References
-.footnote[
-Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan)) and xaringanExtra &lt;a name=cite-xaringanExtra&gt;&lt;/a&gt;([Aden-Buie, 2020](#bib-xaringanExtra))
-
-]
-.font80[
 &lt;a name=bib-Sandve2013-nd&gt;&lt;/a&gt;[Sandve, G. K., A. Nekrutenko, et
 al.](#cite-Sandve2013-nd) (2013). "Ten simple rules for reproducible
 computational research". En. In: _PLoS Comput. Biol._ 9.10, p.
@@ -643,10 +617,14 @@ Presentation Ninja_. R package version 0.12. URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
 ]
 ---
-# Introduction to Reproducibility in R
+# Intro to Repro in R
 
-## Emma Rand &lt;br&gt; [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) &lt;br&gt; Twitter: [@er13_r](https://twitter.com/er13_r) &lt;br&gt; GitHub: [3mmaRand](https://github.com/3mmaRand)  &lt;br&gt; blog: https://buzzrbeeline.blog/
-&lt;br&gt;
+Emma Rand  
+[emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk)  
+Twitter: [@er13_r](https://twitter.com/er13_r)   
+GitHub: [3mmaRand](https://github.com/3mmaRand)  
+blog: https://buzzrbeeline.blog/  
+
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

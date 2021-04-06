@@ -5,9 +5,26 @@
     <meta charset="utf-8" />
     <meta name="author" content="Emma Rand" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/js-cookie/js.cookie.js"></script>
+    <script src="libs/peerjs/peerjs.min.js"></script>
+    <script src="libs/tiny.toast/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast/broadcast.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
     <script src="libs/kePrint/kePrint.js"></script>
-    <link rel="stylesheet" href="..\css_files\emma.css" type="text/css" />
-    <link rel="stylesheet" href="..\css_files\emma-fonts.css" type="text/css" />
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css_files/emma.css" type="text/css" />
+    <link rel="stylesheet" href="../css_files/emma-fonts.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -27,33 +44,35 @@ class: center, middle, inverse, title-slide
 
 
 
+&lt;style&gt;
+div.blue { background-color:#b0cdef; border-radius: 5px; padding: 20px;}
+div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
+&lt;/style&gt;
 
-background-image: url(../pics/tidyverse_logo.png)
-background-position: 100% 80%
-background-size: 180px
 
 # Overview
-.font140[
+
 * Finding your way round RStudio  
 * Typing in data, doing some calculations on it, plotting it
 * Understanding the manual  
 * Working with a data  
   * Importing data: working directories and paths  
   * Summarising and visualising with the [`tidyverse`](https://www.tidyverse.org/)  
-* Installing and loading packages
-]
+
+
+&lt;img src="../pics/tidyverse_logo.png" width="160px" style="display: block; margin: auto 0 auto auto;" /&gt;
+
 ---
 
 class: inverse
 
 #  Finding your way round RStudio
+
 ---
 
-# Finding your way round RStudio
+# RStudio: live demonstration
 
-## Live demonstration
-
-Overview [Larger](http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg)
+Overview [Larger](http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg). **Will be followed be a recap**
 
 &lt;img src="http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg" width="600px" /&gt;
 
@@ -61,10 +80,7 @@ Overview [Larger](http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg)
 There is an [RStudio cheatsheet](http://www-users.york.ac.uk/~er13/rstudio-ide.pdf) which covers more advanced RStudio features.
 
 ---
-
-# Finding your way round RStudio
-
-## Live demonstration
+# RStudio: Recap
 
 * the panels
 * making yourself comfortable
@@ -72,60 +88,53 @@ There is an [RStudio cheatsheet](http://www-users.york.ac.uk/~er13/rstudio-ide.p
 * using R as a calculator
 * assigning values
 * where to see objects
-* using a script - typing doesn't make it happen you need to execute
+* using a script - make sure to execute
 * comments \#
 * data types and structures
 * functions `c()`, `class()` and `str()`
-* types of of R files: .R, .RData . RHistory
+* types of R files: .R, .RData .RHistory
 
 
 ---
-# Finding your way round RStudio
-
-## Summary of live demonstration: &lt;mark style="background-color: #b0cdef"&gt;The panels&lt;/mark&gt;
+# RStudio: Recap
 
 .pull-left[
-Top left
-* Script - where you write, edit and save code and comments you want to keep  
-  
+Top left Panel
+* Script - write and edit code and comments to keep  
+ 
 ---
-Bottom left  
-* console - commands get executed here and can be typed here  
+Bottom left Panel 
+* Console - where commands get executed and can be typed  
 ]
 
 .pull-right[
-Top right
-* Environment - where to see your objects  
-* History - a list of every command you sent  
+Top right Panel
+* Environment - see your objects  
+* History - of commands  
 --- 
-Bottom right  
+Bottom right Panel
 * Files - a file explorer  
-* Packages - the packages you have installed and a method of installing packages  
+* Packages - those installed and a method of installing  
 * Help - the manual  
-* Plots - where your plots go  
+* Plots
 ]
 
 ---
-# Finding your way round RStudio
-
-## Summary of Live demonstration: &lt;mark style="background-color: #b0cdef"&gt;Types of R files&lt;/mark&gt;
-
+# RStudio: Recap
+Type of file
 * .R 
-  a script file:  code (to save) and comments
-* .RData  
-  a environment file also know as a workspace: objects but no code
-* .RHistory  (everything you typed, mostly wrong!)
+  a script file: code and comments
+* .RData: a environment file also known as a workspace. Objects but no code
+* .RHistory: everything you typed, mostly wrong!
  
-### Using a script 
+Using a script 
 * any R code can be executed from a script
 * code can be (should be!) commented  
 * comments start with a `#`
 
 ---
-# Finding your way round RStudio
-
-## Summary of Live demonstration: &lt;mark style="background-color: #b0cdef"&gt;Data types and structures&lt;/mark&gt;
-
+# RStudio: Recap
+Data types and structures
 These are the most commonly needed but there are others
 .pull-left[
 Types
@@ -141,6 +150,7 @@ Structures
 * dataframes
 ]
 
+
 ---
 
 class: inverse
@@ -151,11 +161,11 @@ class: inverse
 # Typing in data, calcs, plots
 
 ## The goal
-We will work some data on the number of males in 64 bird nests with a clutch size of 5.
+We will work some data on the number of males in 64 bird nests with a clutch size of 5. You are going to type data in R, summarise and plot it
 --
 .pull-left[
-You are going to make this data, find the mean number of males per nest...
-&lt;table&gt;
+
+&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:right;"&gt; No. males &lt;/th&gt;
@@ -190,12 +200,9 @@ You are going to make this data, find the mean number of males per nest...
 &lt;/tbody&gt;
 &lt;/table&gt;
 ]
---
 .pull-right[
-... and make a plot
 
-
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-3-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-4-1.png" width="288" /&gt;
 ]
 
 
@@ -208,18 +215,18 @@ In RStudio do File | New project | New directory
 
 Be purposeful about where you create it and name it.
 
-I suggest `birds.`
+I suggest `birds`
 
 --
 
-Make a new script using the new file button ![new script](../pics/newscript.png) and save it as analysis.R to carry out the rest of the work.  
+Make a new script ![new script](../pics/newscript.png) and save it as analysis.R to carry out the rest of the work.  
 
 
 
 ---
 # Typing in data, calcs, plots
 
-## Putting the data into R data structures
+## Data structures
 
 Make a vector `n` that holds the numbers 0 to 5. 
 
@@ -228,35 +235,26 @@ Make a vector `n` that holds the numbers 0 to 5.
 n &lt;- c(0, 1, 2, 3, 4, 5)
 ```
 
-* Write your command in the script file  
+* Write your command in the analysis.R  
 
 --
 
 * Notice I have used a comment  
 --
 
-* Make sure you have your cursor on the line you want to execute  
+* Cursor on the line you want to execute  
 
 --
 
-* Run it using the run button ![Run](../pics/runbutton.png) or doing Ctrl+Enter&lt;sup&gt;1&lt;/sup&gt;. 
-
-.footnote[
-[1] Ctrl+Enter is the default shortcut to run the current line or selection. I prefer to set to Ctrl+R]
+* Execute with ![Run](../pics/runbutton.png) or Ctrl+Enter 
 
 ---
 # Typing in data, calcs, plots
 
-## Putting the data into R data structures
+## Data structures
 
-Let's take a look at it using `str()` (structure) and `class()`&lt;sup&gt;1&lt;/sup&gt;:
-
-.footnote[
-[1] These commands are useful to check what data type you're working with.
-]
-
+Let's take a look at it using `str()` (structure) and `class()`
 --
-
 
 ```r
 class(n)
@@ -265,9 +263,7 @@ class(n)
 ```
 ## [1] "numeric"
 ```
-
 --
-
 
 ```r
 str(n)
@@ -284,17 +280,21 @@ It's a numeric vector.
 ---
 # Typing in data, calcs, plots
 
-## Putting the data into R data structures
+## Data structures
 
-Now create a vector called `freq` containing the numbers of nests with 0 to 5 males. 
+Create a vector, `freq`, containing the numbers of nests with 0 to 5 males. 
 
 
 ```r
 # the number of nests with 0 to 5 males
 freq &lt;- c(4, 13, 14, 15, 13, 5)
 ```
---
-We can use `sum(freq)` to check we get the total number of nests expected, 64
+---
+# Typing in data, calcs, plots
+
+## Total number of nests
+
+We can use `sum(freq)` to check the total number of nests is 64.
 
 
 ```r
@@ -310,9 +310,9 @@ sum(freq)
 # Typing in data, calcs, plots
 
 ## Finding the mean
-Our data is in the form of a frequency table so to find the mean number of males per nest we need find the total number of males like this:
+We have frequencies so to find the mean number of males per nest we need the total number of males:
 .pull-left[
-&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; No. males &lt;/th&gt;
@@ -369,30 +369,26 @@ Our data is in the form of a frequency table so to find the mean number of males
 # Typing in data, calcs, plots
 
 ## Finding the mean
-
-
-Find the total number of nests
+Total number of nests:
 
 ```r
-# total number of nests
 total_nests &lt;- sum(freq)
 ```
  
 --
-
-Find the total number of males
+Total number of males
 
 ```r
-# total number of males
 total_males &lt;- sum(n * freq)
 ```
 
---
+---
+# Typing in data, calcs, plots
 
-Find the mean number of males per nest
+## Finding the mean
+Mean number of males per nest:
 
 ```r
-# mean number males/nest
 total_males/total_nests
 ```
 
@@ -402,12 +398,9 @@ total_males/total_nests
 
 
 ---
-# Typing in data, calcs, plots
+# Why it works
 
-## Finding the mean
-
-
-R works 'elementwise' unlike most programming lanaguges.  
+R works 'elementwise' unlike most programming languages.  
 ` n * freq`
 gives
 
@@ -415,15 +408,18 @@ gives
 
 It was designed to make it easy to work with data.
 
+---
+
+class: inverse
+
+# Plotting the data with ggplot()
 
 ---
 background-image: url(../pics/ggplot2.png)
-background-position: 90% 65%
+background-position: 90% 75%
 background-size: 200px
 
 # Typing in data, calcs, plots
-
-## Plotting using `ggplot2`
 
 Commands like `c()`, `sum()`, and `str()` are part the 'base' R system.
 
@@ -431,21 +427,15 @@ Base packages (collections of commands) always come with R.
 
 --
 
-Other packages, such as `ggplot2` &lt;a name=cite-ggplot2&gt;&lt;/a&gt;([Wickham, 2016](#bib-ggplot2))&lt;sup&gt;1&lt;/sup&gt; need to be added.
+Other packages, such as `ggplot2` &lt;a name=cite-ggplot2&gt;&lt;/a&gt;([Wickham, 2016](#bib-ggplot2)) need to be added.
 
 `ggplot2` is one of the `tidyverse`  packages.
 
-.footnote[
-[1] A fantastic plotting system which has a common conceptual framework for visualisation based on [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl?ie=UTF8&amp;qid=1477928463&amp;sr=8-1&amp;keywords=the+grammar+of+graphics&amp;linkCode=sl1&amp;tag=ggplot2-20&amp;linkId=f0130e557161b83fbe97ba0e9175c431)
-]
-
 ---
 background-image: url(../pics/tidyverse.png)
-background-position: 90% 65%
+background-position: 90% 75%
 background-size: 200px
 # Typing in data, calcs, plots
-
-## Plotting using `ggplot2`
 
 You should have already installed `tidyverse` but we need to load it (add it to our library) before we can use it in a session.
 
@@ -458,8 +448,7 @@ library(tidyverse)
 
 We will also later use `dplyr` and `tidyr` functions also from `tidyverse`.
 
-
-## `ggplot2` or `ggplot()`?
+--
 
 `ggplot2` is the name of the package
 
@@ -469,19 +458,23 @@ We will also later use `dplyr` and `tidyr` functions also from `tidyverse`.
 ---
 # Plotting using ggplot2
 
-## Data structure needed for `ggplot()` 
+## Data structure for `ggplot()` 
 
 `ggplot()` takes a dataframe for an argument
 
-We need to make one from `n` and `freq`. We will turn `n` into a factor (a categorical variable).
-
+We can make a dataframe of the two vectors, `n` and `freq`: 
 
 ```r
 nest_data &lt;- data.frame(n = factor(n), freq)
 ```
 
---
-And check
+`n` was made into a factor (a categorical variable).
+
+---
+# Plotting using ggplot2
+
+## Data structure for `ggplot()` 
+Check:
 
 ```r
 str(nest_data)
@@ -495,9 +488,9 @@ str(nest_data)
 
 --
 
-`nest_data` is just a name we have given the dataframe
+`nest_data` is the name we have given the dataframe
 
-Click on `nest_data` in the Environment pane to see a spreadsheet-like view of it.
+Click on `nest_data` in the Environment. 
 
 ---
 # Plotting using ggplot2
@@ -512,7 +505,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col()
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-16-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-17-1.png" width="288" /&gt;
 
 
 ---
@@ -530,7 +523,11 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 `aes()` gives the 'Aesthetic mappings'. How variables (columns) are mapped to visual properties (aesthetics) e.g., axes, colour, shapes.
 
---
+Thus...
+---
+# Plotting using ggplot2
+
+## A barplot
 
 `ggplot(data = nest_data, aes(x = n, y = freq))` produces a plot with axes 
 
@@ -549,7 +546,9 @@ class: inverse
 
 'Arguments' can be added to the `geom_col()` command.  
 
-Commands do something with/to an object and their arguments can specify:
+Commands do something 
+
+Their arguments go in brackets and can specify:
 * what object to do it to  
 * how exactly to do it  
 
@@ -565,61 +564,48 @@ Open the manual page using:
 ?geom_col()
 ```
 
-## demonstration
+## Demonstration
 ---
-# Using the help manual
-
-## Key points
+# Using the help manual: Recap
 
 * **Description** an overview of what the command does  
-
 * **Usage** lists argument    
-  * format: argument name = default value  
-  * some arguments MUST be supplied, they have no defaults
-  * ... essentially, etc
-
-* **Arguments** gives the detail on how the arguments work
-
-* **Details** decribes how the command works in more detial  
-
+  * form: argument name = default value  
+  * some arguments MUST be supplied others have defaults
+  * ... means etc
+* **Arguments** gives the detail about the arguments 
+* **Details** describes how the command works in more detail  
 * **Value** gives the output of the command 
-
 * Don't be too perturbed by not fully understanding the information
 
 ---
-# Using the help manual
+# Using manual: Alter a ggplot
 
-## Altering a ggplot
-
-We can change the fill of the bars using `fill`:
+Change the fill of the bars using `fill`:
 
 ```r
 ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(fill = "lightblue")
 ```
 .pull-left[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-18-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-19-1.png" width="288" /&gt;
 ]
 --
 .pull-right[
-Colours can be given by their name: "lightblue" 
+Colours can be given by their name, "lightblue" or code, "#ADD8E6".  
 
-Or by their hexadecimal code: "#ADD8E6".  
-
-You can look these up as follows:  
-
-[By colour name](../pics/colournames.pdf)
-
-[By hexadecimal code](../pics/colourhex.pdf)
+Look up by [name](../pics/colournames.pdf) or [code](../pics/colourhex.pdf)
 
 ]
 
 ---
-# Using the help manual
+# Using manual: Alter a ggplot
 
-## Altering a ggplot
+`fill` is an aesthetic. 
 
-`fill` is an aesthetic. We can set the fill aesthetic to a particular colour inside `geom_col()` but we can also map it to a variable inside the `aes()` instead: 
+We can set (map) fill aesthetic to a particular colour inside `geom_col()` or map it to a variable inside the `aes()` instead
+---
+# Using manual: Alter a ggplot
 
 ```r
 ggplot(data = nest_data, aes(x = n, y = freq, fill = n)) +
@@ -631,17 +617,16 @@ ggplot(data = nest_data, aes(x = n, y = freq, fill = n)) +
 --
 .pull-right[
 
-Mapping fill to variable means the colour is variable - you get a different colour for each value of n. Not useful here but is when you have another variable.
+Mapping fill to variable means the colour varies for each value of n. 
 ]
 ---
-# Using the help manual
-
-## Altering a ggplot
+# Using manual: Alter a ggplot
 
 Can you use the manual to put the bars next to each other?
-.pull-right[
+
 .footnote[
-&lt;span style=" font-weight: bold;    color: #f6fafd !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Can you use the manual to change to colour of the lines around each bar to black?]]
+&lt;br&gt;
+&lt;span style=" font-weight: bold;    color: #f6fafd !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Change the colour of the lines around each bar to black.]
 --
 
 
@@ -654,13 +639,9 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 
 ---
+# Using manual: Alter a ggplot
 
-# Using the help manual
-
-## Altering a ggplot
-
-
-&lt;span style=" font-weight: bold;    color: #f6fafd !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Can you use the manual to change to colour of the lines around each bar to black?
+&lt;span style=" font-weight: bold;    color: #f6fafd !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Change the colour of the lines around each bar to black.
 
 .pull-left[
 
@@ -679,43 +660,32 @@ ggplot(data = nest_data,
 ---
 # Top Tip
 
-&lt;style&gt;
-div.blue { background-color:#b0cdef; border-radius: 5px; padding: 20px;}
-div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
-&lt;/style&gt;
-
 &lt;div class = "blue"&gt;
-
-.font130[
+.font100[
 Make your code easier to read by using white space and new lines  
 
 * put spaces around `=` , `-&gt;` and after `,`  
-* use a newline after every comma in a command with lots of arguments  
-]
+* use a newline after every comma in a command with lots of arguments ] 
 &lt;/div&gt;
 
 ---
-# Plotting using ggplot2
+# Alter a ggplot: axes 
+Changes to a discrete x axis: `scale_x_discrete()`.
 
-## Altering the axes. 
-Changes to a discrete x axis can be made by adding a `scale_x_discrete()`.
+Changes to a continuous y axis: `scale_y_continuous()`.
 
-Changes to a continuous y axis can be made by adding a `scale_y_continuous()`.
-
-`ggplot` automatically extends the axes slightly to make sure there is room for points to plot. 
-You can turn this behaviour off with the expand argument.
+`ggplot` automatically extends the axes slightly. You can turn this behaviour off with the expand argument.
 
 --
 
 Each 'layer' is added to the ggplot() command with a `+`
 
 ---
-# Plotting using ggplot2
+# Alter a ggplot: axes
 
 
 ```r
-ggplot(data = nest_data,
-       aes(x = n, y = freq)) +
+ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black") +
@@ -731,12 +701,11 @@ ggplot(data = nest_data,
 ]
 
 ---
-# Plotting using ggplot2
+# Alter a ggplot: axes
 
 
 ```r
-ggplot(data = nest_data,
-       aes(x = n, y = freq)) +
+ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black") +
@@ -752,19 +721,18 @@ ggplot(data = nest_data,
 
 class: inverse
 
-# Working with Data
+# Working with imported data
 
 
 ---
-# Working with Data
-
-## The goal
-
-&lt;table&gt;
+# The goal
+.pull-left[
+Summarise
+&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style="border-bottom:hidden" colspan="2"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt; Interorbital distance&lt;/div&gt;&lt;/th&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="2"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt; Interorbital distance&lt;/div&gt;&lt;/th&gt;
 &lt;/tr&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; Population &lt;/th&gt;
@@ -777,20 +745,23 @@ class: inverse
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.2400 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.1170032 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.7025 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.0906167 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.70 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.09 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+]
+.pull-right[
+Plot
 
 &lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-26-1.png" width="288" /&gt;
-
+]
 ---
 background-image: url(../pics/interorbital.png)
 background-position: 100% 0%
@@ -819,10 +790,6 @@ This section will teach you about three concepts:
 We will work with the interorbital distances of domestic pigeons in two different populations: A and B
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 ## Importing
 
@@ -830,17 +797,63 @@ It is good practice to organise your files into a folder structure.
 
 For example, I often use:
 
-![a folder called stemcells with 4 subfolders - figures, processed data, raw data and scripts](../pics/dir_structure.png)
+---
+# Example organisation
+
+.pull-left[
+Directories
+* systematic  
+* repeatable  
+
+Naming: human and machine readable
+  * no spaces  
+  * use snake/kebab case  
+  * ordering: numbers (zero left padded), dates  
+  * file extensions
+]
+.pull-right[
+.code40[
+```
+-- stem_cell_rna_2019
+   |__stem_cell_rna_2019.Rproj
+   |__raw_ data
+      |__2019-03-21_donor_1.csv
+      |__2019-03-21_donor_2.csv
+      |__2019-03-21_donor_3.csv
+   |__processed_data
+      |__all_long.txt
+      |__all_wide.txt
+   |__figures
+      |__01_volcano_donor_1_vs_donor_2.eps
+      |__02_volcano_donor_1_vs_donor_3.eps
+   |__functions
+      |__01_file_import
+      |__02_normalise.R
+      |__theme_pca.R
+      |__theme_volcano.R
+   |__pics
+      |__01_image.png
+      |__01_image.png
+   |__README.md
+   |__refs
+      |__r_refs.bib
+      |__proj_refs.bib
+   |__analyses
+      |__01_data_processing.R
+      |__02_exploratory.R
+      |__03_modelling.R
+      |__04_figures.R
+      |__05_report.Rmd
+```
+]
+
+]
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
-## Importing
-&lt;br&gt;
-Make a folder in your Project directory (this is also your working directory) called 'data'
+## Organising
+
+Make two folders in your Project directory (this is also your working directory) called 'data'
 
 The easiest way to do this is in RStudio  - see the bottom right Files panel
 
@@ -848,26 +861,39 @@ The easiest way to do this is in RStudio  - see the bottom right Files panel
 
 Save a copy of [pigeon.txt](../data/pigeon.txt) to the 'data' folder
 
+---
+# Working with Data 
+
+## Start coding
+
+Make a new script called 'analysis.R'
+
+--
+
+Add this code:
+
+
+```r
+# load packages
+library(tidyverse)
+```
+
+We need to load the `tidyverse` packages for several of commands we will use.
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 ## Importing
 
 
 To read the data in to R you need to use the 'relative path'
 
-to the file in the `read.table()` command:
+to the file in the `read_table2()` command:
 
 
 
 ```r
-pigeon &lt;- read.table("../data/pigeon.txt", header = TRUE)
+pigeon &lt;- read_table2("data/pigeon.txt")
 ```
-
 
 
 --
@@ -875,20 +901,14 @@ pigeon &lt;- read.table("../data/pigeon.txt", header = TRUE)
 The `data/` part is the 'relative path' to the file. 
 
 --
-
 It says where the file is **relative to your working directory**
 
 pigeon.txt is inside a folder (directory) called 'data' which is in your working directory.
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
-## Importing
 
-Look at the structure of the dataframe pigeon using `str()`
+Check all is well by looking at the structure of the dataframe pigeon using `str()`
 
 
 ```r
@@ -896,20 +916,17 @@ str(pigeon)
 ```
 
 ```
-## 'data.frame':	40 obs. of  2 variables:
-##  $ A: num  12.4 11.2 11.6 12.3 11.8 10.7 11.3 11.6 12.3 10.5 ...
-##  $ B: num  12.6 11.3 12.1 12.2 11.8 11.5 11.2 11.9 11.2 12.1 ...
+## spec_tbl_df [40 x 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ A: num [1:40] 12.4 11.2 11.6 12.3 11.8 10.7 11.3 11.6 12.3 10.5 ...
+##  $ B: num [1:40] 12.6 11.3 12.1 12.2 11.8 11.5 11.2 11.9 11.2 12.1 ...
+##  - attr(*, "spec")=
+##   .. cols(
+##   ..   A = col_double(),
+##   ..   B = col_double()
+##   .. )
 ```
---
 
-It's a dataframe with two variables (columns) called A and B
-
-The datatype of both variables is numeric.
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data
 
 ## Understanding the dataframe
@@ -920,10 +937,13 @@ The columns are the variables; the rows are the observations
 --
 
 To refer a column inside a dataframe (a single column data) we need to use the dollar notation: `dataframe$columnname`
+---
+# Working with Data
 
---
+## Understanding the dataframe
 
 So to output all of the values of one column we can use:
+.scroll-output-width[
 
 ```r
 pigeon$A
@@ -934,26 +954,16 @@ pigeon$A
 ## [16] 10.8 10.4 12.0 11.7 11.3 11.5 11.8 10.3 10.3 11.5 10.7 11.3 11.6 13.3 10.7
 ## [31] 12.1 10.2 10.8 11.4 10.9 10.3 10.4 10.0 11.2 11.3
 ```
-
-
+]
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
-
 # Working with Data
 
 ## Summarising multi-group data
 
-### Find the mean for each population. 
+Thus to find the mean of a single column data: 
 
-Remember, to refer a column inside a dataframe (a single column data) we need to use the dollar notation: `dataframe$columnname`
-
---
 .pull-left[
-The mean of column $A
 
 
 ```r
@@ -964,7 +974,6 @@ mean(pigeon$A)
 ## [1] 11.24
 ```
 
-The mean of column $B
 
 
 ```r
@@ -981,20 +990,12 @@ This relies on the groups being in different columns!
 
 ]
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 
 ## Tidy format
 
 
-Instead of having a population in each column, we very often
-
-have, **and want**, data organised so the measurements are all
-
-in one column and a second column gives the group. 
+Instead of having a population in each column, we often have, **and want**, all measurements in one column with a second column giving the group. 
 
 --
 
@@ -1003,31 +1004,50 @@ This format is described as 'tidy' &lt;a name=cite-Wickham2019-ml&gt;&lt;/a&gt;(
 
 --
 
-Tidy data has a variable in each column and only one observation (case) per row.
+Has one variable in each column and only one observation (case) per row.
 
 --
 
-The format captures the structure of your data and allows you to specify the role of variables in analyses and visualisations.
+Captures the structure of data and allows you to specify the role of variables in analyses and visualisations.
+---
+# Data Organisation
+
+## What is tidy data?
+
+One response per row.
+
+Tidy data adhere to a consistent structure which makes it easier to manipulate, model and visualize them. The structure is defined by:  
+
+1. Each variable has its own column.  
+2. Each observation has its own row.  
+3. Each value has its own cell.  
+
+---
+# Data Organisation
+
+## What is tidy data?
+
+The term 'tidy data' was popularised by &lt;a name=cite-Wickham2014-nl&gt;&lt;/a&gt;[Wickham (2014)](#bib-Wickham2014-nl).
+
+Closely allied to the relational algebra of relational databases &lt;a name=cite-Codd1990-th&gt;&lt;/a&gt;([Codd, 1990](#bib-Codd1990-th)). Underlies the enforced rectangular formatting in SPSS, STATA and R's dataframe.  
+
+--
+
+There may be more than one potential tidy structure.  
 
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
+
+
 
 ## Tidy format
 
+Suppose we had just 3 individuals in each of two populations:
+
 .pull-left[
-
-Tidy data has a variable in each column and only one observation (case) per row.
-
-Suppose we had just 3 individuals in each population:
-
-
-**NOT TIDY!**
-&lt;table&gt;
+NOT TIDY!
+&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:right;"&gt; A &lt;/th&gt;
@@ -1053,12 +1073,9 @@ Suppose we had just 3 individuals in each population:
 
 
 .pull-right[
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
 
-**TIDY!**
-&lt;table&gt;
+TIDY!
+&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; population &lt;/th&gt;
@@ -1096,23 +1113,19 @@ Suppose we had just 3 individuals in each population:
 
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
-## Tidy format
-
 We can make the data tidy with `pivot_longer()`&lt;sup&gt;1&lt;/sup&gt;.
-
-`pivot_longer()` collects the values from specified columns (`cols`) into a single column (`values_to`) and creates a column to indicate the group (`names_to`). 
 
 .footnote[
 [1] `pivot_longer()` is a function from a package called `tidyr` which is one of the `tidyverse` packages.
 ]
-
 --
 
+`pivot_longer()` collects the values from specified columns (`cols`) into a single column (`values_to`) and creates a column to indicate the group (`names_to`). 
+
+---
+# Working with Data 
+.scroll-output-width[
 
 ```r
 pigeon2 &lt;- pivot_longer(data = pigeon, 
@@ -1127,21 +1140,13 @@ str(pigeon2)
 ##  $ population: chr [1:80] "A" "B" "A" "B" ...
 ##  $ distance  : num [1:80] 12.4 12.6 11.2 11.3 11.6 12.1 12.3 12.2 11.8 11.8 ...
 ```
+]
 
-&amp;nbsp;
-&amp;nbsp;
-
-
+A 'tibble' `\(\approx\)` dataframe
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 
-## Summarising multi-group data
-&lt;br&gt;
 Now we have a dataframe in tidy format which *will* make it easier to summarise, analyse and visualise.
 
 --
@@ -1153,20 +1158,34 @@ To summarise data in this format we use the `group_by()` and `summarise()` funct
 We will also use the pipe operator: ` %&gt;% `
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 
-## Summarising multi-group data
-.pull-left[
+To summarise multiple group data in tidy form:
+
 
 ```r
 pigeon2 %&gt;% 
   group_by(population) %&gt;% 
   summarise(mean = mean(distance))
 ```
+
+--
+
+This can be read as:
+  - take pigeon2 *and then*  
+  - group it by population *and then*  
+  - summarise it by calculating the mean  
+
+i.e., the mean is done for each population.
+
+--
+
+The `mean` before the `=` is just a name.
+
+---
+# Working with Data 
+The result:
+
 
 ```
 ## # A tibble: 2 x 2
@@ -1175,33 +1194,8 @@ pigeon2 %&gt;%
 ## 1 A           11.2
 ## 2 B           11.7
 ```
-
-]
---
-
-.pull-right[
-
-
-This can be read as:  
-  - take pigeon2 *and then*  
-  - group it by population *and then*  
-  - summarise it by calculating the mean  
-
-i.e., the mean is done for each population.
-]
-
---
-
-the `mean` before the `=` is just a name.
-
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
-
-## Summarising multi-group data
 
 We can add the number of pigeons in each group to the summary using the `length()` function.
 
@@ -1213,6 +1207,18 @@ pigeon2 %&gt;%
 *           n = length(distance))
 ```
 
+.footnote[
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Add a column for the standard deviation
+
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Add a column for the standard error given by `\(\frac{s.d.}{\sqrt{n}}\)`
+
+]
+---
+# Working with Data 
+
+The result:
+
+
 ```
 ## # A tibble: 2 x 3
 ##   population  mean     n
@@ -1221,21 +1227,10 @@ pigeon2 %&gt;%
 ## 2 B           11.7    40
 ```
 
-.footnote[
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Add a column for the standard deviation
 
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Add a column for the standard error given by `\(\frac{s.d.}{\sqrt{n}}\)`
-
-]
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 
-## Summarising multi-group data
-&lt;br&gt;
 
 ```r
 pigeon2 %&gt;% 
@@ -1255,13 +1250,8 @@ pigeon2 %&gt;%
 ```
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
-
-## Plotting multi-group data
+To plot this data as a histogram:
 
 
 ```r
@@ -1272,30 +1262,22 @@ ggplot(data = pigeon2, aes(x = distance)) +
 ```
 .pull-left[
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-39-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-44-1.png" width="288" /&gt;
 ]
 
 --
 .pull-right[
 
-The geom we have used this time is a `geom_histogram()`.
+`geom_histogram()` is the `geom` and `bins` gives the number of bars.
 
-`bins` is the the number of bars you get.
-
-We have the whole data set without separating the populations
+This is whole data set, not separated by population!
 
 ]
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 
-## Plotting multi-group data
-
-We can use the `aes()` to 'map' the population variable to the `fill` aesthetic
+To plot multiple group data in tidy form we map the population variable to the `fill` aesthetic
 
 
 ```r
@@ -1305,44 +1287,37 @@ We can use the `aes()` to 'map' the population variable to the `fill` aesthetic
   scale_x_continuous(name = "Interorbital distance (mm)")
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-40-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-45-1.png" width="288" /&gt;
 .pull-right[
 .footnote[
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Can you remember how to make the axes cross at (0,0)]
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Make the axes cross at (0,0)]
 ]
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Can you remember how to make the axes cross at (0,0)
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Make the axes cross at (0,0)
 
 
 ```r
-*ggplot(data = pigeon2, aes(x = distance, fill = population)) +
+ggplot(data = pigeon2, aes(x = distance, fill = population)) + 
   geom_histogram(bins = 10, 
                  col = "black") +
   scale_x_continuous(name = "Interorbital distance (mm)",
-                     expand = c(0, 0)) +
+*                    expand = c(0, 0)) +
   scale_y_continuous(name = "Frequency",
-                     expand = c(0, 0))
+*                    expand = c(0, 0))
 ```
+result on next slide.
+---
+# Working with Data 
+The result:
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-41-1.png" width="288" /&gt;
-
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-46-1.png" width="288" /&gt;
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 
-## Plotting multi-group data
-
-`geom_density()` is another `geom` that can be used when `distance` is mapped to `x` and the y axis gives counts.
+`geom_density()` can also be used when `distance` is mapped to `x` and  `y` gives a measure of occurrence.
 
 
 ```r
@@ -1351,19 +1326,12 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   scale_x_continuous(name = "Interorbital distance (mm)")
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-42-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-47-1.png" width="288" /&gt;
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 
-## Plotting multi-group data
-
-We can alter the transparancy using `alpha`
-
+Alter the transparency using `alpha`:
 
 
 ```r
@@ -1372,29 +1340,17 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   scale_x_continuous(name = "Interorbital distance (mm)")
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-43-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-48-1.png" width="288" /&gt;
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 
-## Plotting multi-group data
-
-We often want to format figures for inclusion in reports. 
+Formatting figures for inclusion in reports?
 
 All [elements can be customised individually](https://ggplot2.tidyverse.org/reference/theme.html) but `theme_classic()` takes care of many options you are likely to desire.
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
-
-## Plotting multi-group data
 
 
 ```r
@@ -1404,21 +1360,15 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
 * theme_classic()
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-44-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-49-1.png" width="288" /&gt;
 
 ---
-background-image: url(../pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
 
-## Plotting multi-group data
-
-### A different kind of plot
+A different kind of plot:
 
 .pull-left[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-45-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-50-1.png" width="288" /&gt;
 ]
 
 .pull-right[
@@ -1428,8 +1378,6 @@ Note: We need to change the `aes()` as well as the `geom` because this figure ha
 ]
 ---
 # Working with Data 
-
-## Plotting multi-group data
 
 
 ```r
@@ -1442,65 +1390,77 @@ ggplot(data = pigeon2, aes(x = population, y = distance)) +
   theme_classic()
 ```
 
-.pull-left[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-46-1.png" width="288" /&gt;
-]
-.pull-right[
-.footnote[
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Can you (gratuitously) colour the boxes by population too?]
-]
 
+.footnote[
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Can you (gratuitously) colour the boxes by population too?
+]
+---
+# Working with Data 
+
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-51-1.png" width="288" /&gt;
 ---
 # Summary
-
-
-* write commands in a script, edit when incorrect  
-* comment your scripts  
-* use white space and newlines  
-* the assignment operator is `&lt;-` (alt-minus)  
-* the pipe operator is ` %&gt;%` (ctl-shift-m)  
-* objects you're created can be seen in the Environment window  
+* Use a script and comment it  
+* organise analyses and use relative paths
+* shortcuts: `&lt;-` is Alt-minus  ` %&gt;%` is Ctl-Shift-M  
+* objects are seen in the Environment window  
 * data is read in to R from files into dataframes  
-* the dataframe is the most commonly used data structure in analysis  
-* you'll eventually get used to the manual  
-* a `ggplot` has a `data` argument and an `aesthetic` argument; layers are added with a `+`; `geoms`dtermine how the data are plotted  
-* `ggplot` makes it easy to transition between plot types  
-* Use RStudio projects and organise your analysis into separate folders (more tomorrow)  
-* use relative paths (more tomorrow)  
+* the dataframe is a common data structure  
+* you'll eventually get used to the manual!  
+* a `ggplot` has a `data` argument and an `aesthetic` argument; layers are added with a `+`; `geoms`determine how the data are plotted  
+---
+
+class: inverse
+
+# 🎉 Congratulations! Keep practising! 🎉 
+
 
 
 ---
 # References
 .footnote[
-Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan))
-
+.font60[
+Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan)) and xaringanExtra &lt;a name=cite-xaringanExtra&gt;&lt;/a&gt;([Aden-Buie, 2020](#bib-xaringanExtra))
 ]
+]
+.font60[
+&lt;a name=bib-xaringanExtra&gt;&lt;/a&gt;[Aden-Buie, G.](#cite-xaringanExtra)
+(2020). _xaringanExtra: Extras And Extensions for Xaringan Slides_. R
+package version 0.2.3.9000. URL:
+[https://github.com/gadenbuie/xaringanExtra](https://github.com/gadenbuie/xaringanExtra).
+
+&lt;a name=bib-Codd1990-th&gt;&lt;/a&gt;[Codd, E. F.](#cite-Codd1990-th) (1990).
+_The Relational Model for Database Management: Version 2_. Boston, MA,
+USA: Addison-Wesley Longman Publishing Co., Inc.
+
+&lt;a name=bib-Wickham2014-nl&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2014-nl)
+(2014). "Tidy Data". In: _Journal of Statistical Software, Articles_
+59.10, pp. 1-23.
+
 &lt;a name=bib-ggplot2&gt;&lt;/a&gt;[Wickham, H.](#cite-ggplot2) (2016). _ggplot2:
 Elegant Graphics for Data Analysis_. Springer-Verlag New York. ISBN:
 978-3-319-24277-4. URL:
 [https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org).
 
-&lt;a name=bib-Wickham2019-ml&gt;&lt;/a&gt;[Wickham, H, M. Averick, et
+&lt;a name=bib-Wickham2019-ml&gt;&lt;/a&gt;[Wickham, H., M. Averick, et
 al.](#cite-Wickham2019-ml) (2019). "Welcome to the Tidyverse". In:
 _JOSS_ 4.43, p. 1686.
 
 &lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan:
 Presentation Ninja_. R package version 0.12. URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
-
+]
 
 
 ---
+# Intro to Repro in R
 
-class: inverse
+Emma Rand  
+[emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk)  
+Twitter: [@er13_r](https://twitter.com/er13_r)   
+GitHub: [3mmaRand](https://github.com/3mmaRand)  
+blog: https://buzzrbeeline.blog/  
 
-# 🎂 Congratulations! Keep practising! 🎈 
-
----
-# Introduction to Reproducibility in R
-
-## Emma Rand &lt;br&gt; [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) &lt;br&gt; Twitter: [@er13_r](https://twitter.com/er13_r) &lt;br&gt; GitHub: [3mmaRand](https://github.com/3mmaRand)  &lt;br&gt; blog: https://buzzrbeeline.blog/
-&lt;br&gt;
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
