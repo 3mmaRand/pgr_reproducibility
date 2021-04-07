@@ -57,7 +57,7 @@ Laptops should have the following installed **prior** to attending the workshop:
 
 - R version 4.04 or higher
 - RStudio (1.4)
-- these packages from CRAN: `devtools`, `tidyverse`, `janitor`, `rticles`, `bookdown`, `tinytex`
+- these packages from CRAN: `devtools`, `usethis`, `tidyverse`, `janitor`, `rticles`, `bookdown`, `tinytex`
 - this package from GitHub: `crsh/citr`
 - Once `tinytex` is installed, run: `tinytex::install_tinytex()`
 
