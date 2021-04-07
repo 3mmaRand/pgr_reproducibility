@@ -13,25 +13,39 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       message = FALSE,	
                       warning = FALSE,
-                      fig.width=4, 
-                      fig.height=4, 
-                      fig.retina=3)
+                      fig.width = 4, 
+                      fig.height = 4, 
+                      fig.retina = 3)
 options(htmltools.dir.version = FALSE)
 ```
-
-
+```{r xaringanextra, include=FALSE}
+# tile view
+xaringanExtra::use_tile_view()
+# share
+xaringanExtra::style_share_again(
+  share_buttons = "all")
+# broadcast: press P to enter the presenter view. Click on the Broadcast button to start broadcasting. Broadcast button will turn into a broadcast link. Share this link with your audience. When they open the link, their browser will connect with yours and from then on, whenever you advance or change slides, your viewer’s slides will move to the current slide.
+# Note that the broadcast link is unique and, as the presenter, is remembered for 4 hours. After 4 hours of inactivity, a new link will be generated..
+xaringanExtra::use_broadcast()
+# scribble, toggle S, note cannot advance sides
+xaringanExtra::use_scribble()
+# copy code
+xaringanExtra::use_clipboard()
+# highlighted code
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         
+  mute_unhighlighted_code = TRUE)
+```
 ```{r packages, include=FALSE}
 library(RefManageR)
 library(kableExtra)
 library(tidyverse)
+
 ```
-
-
 ```{r, load-refs, include=FALSE, cache=FALSE}
 BibOptions(check.entries = FALSE,
            bib.style = "authoryear",
@@ -45,14 +59,22 @@ myBib <- ReadBib("../refs.bib", check = FALSE)
 ```
 
 
+<style>
+div.blue { background-color:#b0cdef; border-radius: 5px; padding: 20px;}
+div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
+</style>
 
-# Introduction
 
-## Aims
 
-The aim of this section is to introduce you to the tidyverse `r Cite(myBib, "Wickham2019-ml")` including the pipe, `%>%`  and some commonly applied data tidying operations. We are covering data tidying before the [Advanced Data Import](05_advanced_data_import.html) section because some of the import methods will make use of tidyverse methods and generate tidy data structures.
+# Outline
 
-## Learning outcomes 
+The aim of this section is to introduce you to the tidyverse `r Cite(myBib, "Wickham2019-ml")` including the pipe, `%>%`,  and some commonly applied data tidying operations. 
+
+
+We are covering data tidying before the [Advanced Data Import](05_advanced_data_import.html) section because some of the import methods will make use of tidyverse methods and generate tidy data structures.
+
+---
+# Learning outcomes 
 
 The successful student will be able to:
 
@@ -61,40 +83,123 @@ The successful student will be able to:
 * carry out some common data tidying tasks such as reshaping, renaming and recoding variables, and cleaning cell contents
  
 
-### `r emo::ji("clapper")` An instruction to do something!!
-
 ---
-# Data tidying tasks
+# Outline
 
-Tidying data includes reshaping it in to 'tidy' format but also other tasks such as:
+You should be able to code along with the examples. When you see the film clapper it is ..
 
-* renaming variables for consistency  
-* recoding variables  
-* cleaning content for consistency with respect to valid values, missing values and NA  
+`r emo::ji("clapper")` .. an instruction to do something!!
 
 --
 
-`r emo::ji("eyes")` 
+`r emo::ji("clapper")` Start a new RStudio Project called `module-04-tidy`
 
-* Keep the raw data exactly as it came to you and do not alter/edit.
-* Script and document all tidying tasks.
+--
+
+`r emo::ji("clapper")` Add directories called `scripts`, `data-raw`, and `data-processed`. 
+
+--
+
+`r emo::ji("clapper")` Use a new script for example. 
+
+---
+class: inverse
+
+#  What is tidy data?
+
+
+---
+# What is tidy data?
+
+Adhere to a consistent structure which makes it easier to manipulate, model and visualize them. 
+
+1. Each variable has its own column.  
+2. Each observation has its own row.  
+3. Each value has its own cell.  
+
+--
+
+Closely allied to the relational algebra `r Cite(myBib, "Codd1990-th")`.  
+Underlies the enforced rectangular formatting in SPSS, STATA and R's dataframe.  
+The term 'tidy data' was popularised by `r Citet(myBib, "Wickham2014-nl")`.   
+
+Note: There may be more than one potential tidy structure.
+
+---
+# Tidy format
+
+```{r echo=FALSE}
+pigeon <- read_table2("../data/pigeon.txt")
+```
+
+Suppose we had just 3 individuals in each of two populations:
+
+.pull-left[
+**NOT TIDY!**
+```{r echo=FALSE}
+knitr::kable(pigeon[1:3,], 
+             format = "html")
+```
+]
+```{r echo=FALSE}
+pigeon2 <- gather(data = pigeon, 
+                  key = population, 
+                  value = distance)
+```
+
+.pull-right[
+
+**TIDY!**
+```{r echo=FALSE}
+knitr::kable(head(pigeon2[c(1:3,41:43),]), 
+             format = "html",
+             row.names = FALSE)
+```
+]
+
+
+---
+class: inverse
+
+#  Tidyverse
+
 
 ---
 # Tidyverse
 
-The [tidyverse](https://www.tidyverse.org/) `r Cite(myBib, "R-tidyverse")` is "an opinionated" collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.  
+The [tidyverse](https://www.tidyverse.org/)  `r Cite(myBib, "R-tidyverse")` is both a paradigm for coding in R and a metapackage (a collection of packages).
 
-This consistency is intended to make data work more efficient.
+Contributors describe it as "an opinionated" collection of R packages designed for data science. 
 
 --
 
-The are many other extremely useful packages that are not part of the `tidyverse` but which also use a common design across packages. 
+The key feature is that **`tidyverse`** packages share an underlying design philosophy, grammar, and data structures.  
+
+This means they work well together and learning new tidyverse packages is quick. This consistency is intended to make data work more efficient.
+
+---
+# Tidyverse
+
+**`tidyverse`** packages have a reputation for making code which is easy to read and write for humans, and for the connection of tools together into reproducible workflows.
+
+The R Views [article by Joe Rickert](https://rviews.rstudio.com/2017/06/08/what-is-the-tidyverse/) gives a good overview.
+
+---
+# Tidyverse
+
+The are many other extremely useful packages that are not part of the tidyverse but which also use a common design across packages. 
 
 An example is the [Bioconductor Project](https://www.bioconductor.org/).
 
 --
 
-`tidyverse` has a reputation for being easy for humans to read, and to connect tools together into reproducible workflows for manipulating, exploring, analysing and visualising rectangular data.
+However, Bioconductor packages that take a tidyverse approach are beginning to accumulate. For example:
+
+* **`tidybulk`** `r Cite(myBib, "R-tidybulk")`. 
+* **`tidyHeatmap`** `r Cite(myBib, "tidyHeatmap")`
+* See also [A Tidy Transcriptomics introduction to RNA sequencing analyses](https://stemangiola.github.io/rpharma2020_tidytranscriptomics/articles/tidytranscriptomics.html)
+* **`biobroom`** `r Cite(myBib, "R-biobroom")`
+
 
 
 ---
@@ -108,28 +213,40 @@ library(tidyverse)
 ```
 
 --
-[Core packages](https://www.tidyverse.org/packages/) are: `ggplot2`, `dplyr`, `tidyr`, `readr`, `purr`, `tibble`, `stringr` and `forcats`
+[Core packages](https://www.tidyverse.org/packages/) are: **`ggplot2`**, **`dplyr`**, **`tidyr`**, **`readr`**, **`purr`**, **`tibble`**, **`stringr`** and **`forcats`**
 
 --
 
+Actually, **`ggplot2`** predates the tidyverse which is why it uses `+` to link functions together. It does use the same sort of grammar and works very well within the tidyverse.
+
+---
+# Tidyverse
+
 The tidyverse also includes many other packages with more specialised usage. They are not loaded automatically with `library(tidyverse)`and need their own `library()` calls. 
+
 --
 
 Examples are `readxl`, `haven`, `rvest` and `lubridate.`
 
 
 ---
+class: inverse
+
+#  The pipe %>%
+
+---
 # The pipe %>%
 
 The pipe `%>%` operator from the `magrittr` package `r Cite(myBib, "magrittr")` is loaded with core tidyverse. 
 
-It is key to connecting tools together in a readable way.
+
+It is the feature that allows us to connect tools together in a readable way.
 
 It can improve code readability by:
 
 --
 
-* structuring sequences of data operations left-to-right (as opposed to from the inside and out),
+* structuring sequences of data operations left-to-right or top-to-bottom (as opposed to from the inside and out),
 
 --
 
@@ -139,20 +256,44 @@ It can improve code readability by:
 
 * making it easy to add steps anywhere in the sequence of operations.
 
---
+---
+# The pipe %>%
 
-Instead of using ` function(object)` you can use `object %>% function()`
+The pipe means that instead of using: 
+```{r eval=FALSE}
+function(object) 
+```
+
+We can use 
+```{r eval=FALSE}
+object %>% function()
+```
 
 --
 
 This is useful when you have multiple functions to apply.
+---
+# The pipe %>%
+
+Instead of:
+
+```{r eval=FALSE}
+function2(function1(object)) 
+```
+
+We can use 
+```{r eval=FALSE}
+object %>% function1()  %>% function2()
+```
 
 ---
 # The pipe %>%
 
-For example, suppose we want to apply a log-squareroot transformation<sup>1</sup> to some proportion data. 
+As a simple example, suppose we want to apply a log-squareroot transformation<sup>1</sup> to some proportion data. 
 
+.font70[
 .footnote[1. a transformation commonly applied to proportion data to make it less platykurtic $x^{t} = log(\sqrt{x})$
+]
 ]
 
 --
@@ -163,9 +304,11 @@ For example, suppose we want to apply a log-squareroot transformation<sup>1</sup
 nums <- sample((1:100)/100, size = 10, replace = FALSE)
 ```
 
---
+---
+# The pipe %>%
 
-Two ways we could apply the log-squareroot transformation are to:
+
+Two ways we *could* apply the log-squareroot transformation are to:
 
 1. nest the squareroot and log functions  
 2. create intermediate variables  
@@ -181,13 +324,14 @@ tnums <- log(sqrt(nums))
 
 --
 
-Disadvantage: Code must read from inside to outside. 
+Code must read from inside to outside. 
 
 Increasingly difficult to read as number of functions increases. 
 
 Also makes simple debugging harder.
 
---
+---
+# The pipe %>%
 
 `r emo::ji("clapper")` Create intermediate variables:
 
@@ -198,7 +342,9 @@ tnums <- log(sqrtnums)
 
 --
 
-Disadvantage: Extra variables you don't need. Not ideal if objects are large.
+Easier to read than nesting.
+
+But you have extra variables you don't need and which become increasingly difficult to name appropriately creating code and workspace clutter.
 
 ---
 # The pipe %>%
@@ -206,9 +352,15 @@ Disadvantage: Extra variables you don't need. Not ideal if objects are large.
 Using the pipe avoids these by taking the output of one operation as the input of the next. 
 
 The pipe has long been used by Unix operating systems (where the pipe operator is `|`). 
-The R pipe operator is `%>%`, a short cut for which is ctrl-shift-M. 
+
+The R pipe operator is `%>%` 
 
 --
+
+`r emo::ji("clapper")` The keyboard short cut is ctrl-shift-M.
+
+---
+# The pipe %>%
 
 `r emo::ji("clapper")` Use pipes to code the functions in sequence:
 ```{r}
@@ -219,7 +371,7 @@ tnums <- nums %>%
 
 --
 
-This can be read as: take `nums` and then squareroot it and then log it.
+This can be read as: take `nums` *and then* squareroot it *and then* log it.
 
 ---
 # The pipe %>%
@@ -239,25 +391,52 @@ In most cases, you don't need to include the `.`.
 Occasionally you do have to, for example when arguments are optional or there is ambiguity over which argument is meant.
 
 ---
+class: inverse
+
+#  Data tidying tasks
+
+---
+# Data tidying tasks
+
+Tidying data includes reshaping it in to 'tidy' format but also other tasks such as:
+
+* renaming variables for consistency  
+* recoding variables  
+* cleaning content for consistency with respect to valid values, missing values and NA  
+
+--
+
+`r emo::ji("eyes")` Key point!
+
+* Keep the raw data exactly as it came to you and do not alter/edit.
+* Script and document all tidying tasks.
+
+---
+class: inverse
+# Converting "wide" to "long"
+
+---
 # Converting "wide" to "long"
 
 Data commonly need to be reshaped from a format with more than one observation per row.
 
 --
 
-The data given in [biomass.txt](raw_data/biomass.txt) are taken from an experiment in which the insect pest biomass (g) was measured on plots sprayed  with water (control) or one of five different insecticides. 
+The data given in [biomass.txt](data-raw/biomass.txt) are taken from an experiment in which the insect pest biomass (g) was measured on plots sprayed  with water (control) or one of five different insecticides. 
 
 Also in the data file are variables indicating the replicate number and the identity of the tray in which the plant was grown.
 
---
+---
+# Converting "wide" to "long"
 
-`r emo::ji("clapper")` Save a copy of this file to your `raw_data` folder and read it in.
+`r emo::ji("clapper")` Save a copy of this file to your `data-raw` folder and read it in.
 
-```{r echo=FALSE}
-file <- "raw_data/biomass.txt"
-biomass <- read.table(file, header = T)
-
+```{r}
+file <- "data-raw/biomass.txt"
+biomass <- read_table2(file)
 ```
+
+`read_table2()` is a function from the tidyverse's **`readr`** package. It works a lot like base R's `read.table()` but with some useful defaults (e.g., is header assumed) and extra functionality (e.g.,it's faster).
 
 ---
 # Converting "wide" to "long"
@@ -265,15 +444,15 @@ biomass <- read.table(file, header = T)
 `r emo::ji("clapper")` View the dataframe.
 
 .scroll-output-height[
-
+.code70[
 ```{r echo=FALSE}
-
 biomass
-
 ```
-
+]
 ]
 
+
+A tibble is the tidyverse's dataframe. In fact, tibbles are dataframes as well as tibbles.
 
 ---
 # Converting "wide" to "long"
@@ -282,7 +461,7 @@ These data are in "wide" format and can be converting to "long" format using the
 
 --
 
-`pivot_longer()` collects the values from specified columns (cols) into a single column (values_to) and creates a column to indicate the group (names_to). 
+`pivot_longer()` collects the values from specified columns (`cols`) into a single column (`values_to`) and creates a column to indicate the group (`names_to`). 
 
 --
 
@@ -303,39 +482,37 @@ biomass2 <- biomass %>%
 
 The values will be in a column called `mass`, the treatments in a column called `spray`.
 
-
 ---
 # Converting "wide" to "long"
 
-`r emo::ji("clapper")` Write this dataframe to file to your `processed_data` folder.
-
-
-`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Tidy the data given in [Human development index.csv](raw_data/Human development index.csv) so that all the indices are in a single column with other columns giving the rank, country and year.
-
-
----
-# Converting "wide" to "long"
-
-`r emo::ji("clapper")` Write this dataframe to file to your `processed_data` folder.
-
-
-```{r echo=TRUE}
-file <- "processed_data/biomass2.txt"
-write.table(biomass2, file = file, row.names = FALSE, quote = FALSE)
-
-```
-
-You can see the resulting file here:  [biomass2.txt](processed_data/biomass2.txt) 
+`r emo::ji("clapper")` View the dataframe.
 
 .scroll-output-height[
+.code70[
+```{r echo=FALSE}
+biomass2
+```
+]
+]
+
+---
+# Converting "wide" to "long"
+
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Write this dataframe to file to your `data-processed` folder. 
+
 
 ```{r echo=FALSE}
-
-as.data.frame(biomass2)
-
+file <- "data-processed/biomass2-tidyverse.txt"
+write_delim(biomass2, 
+            file = file)
 ```
 
-]
+See the result: [biomass2-tidyverse.txt](data-processed/biomass2-tidyverse.txt)
+
+---
+class: inverse
+
+# Splitting column contents
 
 ---
 # Splitting column contents
@@ -348,7 +525,7 @@ For example, a column might contain a full species name and you might want to se
 
 --
 
-Another example arises when you read in multiple files with names that encode a date, experiment or treatment. Typically, we add the file name to a column in the dataframe before combining the dataframes for analysis.
+Another example arises when you read in multiple files with names that encode a date, experiment or treatment. Typically, we add the file name to a column in the dataframe before combining the dataframes for analysis and then split the  name into columns for the date, experiment of treatment.
 
 ---
 # Splitting column contents
@@ -375,7 +552,8 @@ We give:
 * the names of the new columns we want to create
 * the patterns matching the part of the `rep_tray` value we want to go in each column.
 
---
+---
+# Splitting column contents
 
 `r emo::ji("clapper")` Extract parts of `rep_tray` and put in new columns `replicate_number`, `tray_id`:
 
@@ -387,30 +565,19 @@ biomass3 <- biomass2 %>%
 ```
 
 --
-
+.font80[
 * The patterns to save into columns are inside `( )`.  
 * The pattern going into `replicate_number`, `[0-9]{1,2}`, means 1 or 2 numbers.  
 * The pattern going into `tray_id`, `[a-z]` means one lowercase letter.
 * the bit between the two `( )`, `\_` is a pattern that matches what is in `rep_tray` but is not to be saved. 
-
+]
  
 ---
-# Splitting column contents
-
-.scroll-output-height[
-
-```{r echo=FALSE}
-
-as.data.frame(biomass3)
-
-```
-
-]
-
----
+class: inverse
 # Case study
 
-## Overivew
+---
+# Overivew
 
 You will now work through an example of some real data from [The Genever Group](https://www.geneverlab.info/). The arrangement and format of these data are typical of many protein and gene expression datasets so the processing is representative of that needed in a variety of situations.
 
@@ -420,19 +587,18 @@ The data are mass spectrometry data of the soluble protein fraction from five im
 
 The data are normalised protein abundances. Each row is a protein.
 
---
+---
+# Data description
 
-`r emo::ji("clapper")` Save a copy of [Y101_Y102_Y201_Y202_Y101-5.csv](raw_data/Y101_Y102_Y201_Y202_Y101-5.csv) file to your `raw_data` folder.
+`r emo::ji("clapper")` Save a copy of [Y101_Y102_Y201_Y202_Y101-5.csv](data-raw/Y101_Y102_Y201_Y202_Y101-5.csv) file to your `data-raw` folder.
 
-`r emo::ji("clapper")` You may wish to view it while reading the information on the next page.
+`r emo::ji("clapper")` You may wish to view it in excel while reading the information on the next page.
 
 ---
-# Case study
-
-## Data description
+# Data description
 
 The cells lines are Y101, Y102, Y201, Y202 and Y101.5 and there are three replicates for each cell line arranged in columns. Also in the file are columns for:
-
+.font70[
 * the protein accession
 * the number of peptides used to identify the protein
 * the number of unique peptides used to identify the protein
@@ -445,11 +611,10 @@ The cells lines are Y101, Y102, Y201, Y202 and Y101.5 and there are three replic
 * the cell line with the lowest mean
 * the protein mass
 * whether at least two peptides were detected for a protein.
+]
 
 ---
-# Case study
-
-## Data Import
+# Data Import
 
 Column names are spread over three rows but are primarily in the third row.
 
@@ -457,33 +622,27 @@ Column names are spread over three rows but are primarily in the third row.
 
 We can read in from the third row by skipping the first two. We can also use the `clean()` function from the `janitor` package to improve the column names.
 
+---
+# Data Import
 
 `r emo::ji("clapper")` Read in the file using `read_csv()` from the `tidyverse`'s `readr` package.
 ```{r}
 # define file name
-filesol <- "raw_data/Y101_Y102_Y201_Y202_Y101-5.csv"
-
+filesol <- "data-raw/Y101_Y102_Y201_Y202_Y101-5.csv"
 # skip first two lines
 sol <- read_csv(filesol, skip = 2) %>% 
   janitor::clean_names()
-
 ```
 
 ---
-# Case study
+# Data Import
 
-## Data Import
+`r emo::ji("eyes")` the `::` notation gives you access to a package's functions without first using the `library()` command. 
 
-`r emo::ji("eyes")` I used `read_csv()` because strings are treated as character variables, not factors. Whilst analysis and visualisation often require factor variables, any processing of strings is made much easier if they are characters.
-
---
-
-`r emo::ji("eyes")` the `::` notation gives you access to a package's functions without first using the `library()` command. Useful when you want to use a single function from a package, or you need to specify which package when a function name is used in two loaded packages.
+This is useful when you want to use a single function from a package, or you need to specify which package when a function name is used in two loaded packages.
 
 ---
-# Case study
-
-## Filtering rows
+# Filtering rows
 
 This dataset includes bovine serum proteins from the medium on which the cells were grown which need to be filtered out.
 
@@ -491,7 +650,10 @@ This dataset includes bovine serum proteins from the medium on which the cells w
 
 We also filter out proteins for which fewer than 2 peptides were detected since we can not be confident about their identity. This is common practice for such proteomic data. 
 
---
+---
+# Filtering rows
+
+**`dplyr`** (yep, a tidyverse package) has the `filter()` function. It is easier to use than selection using `datframe[rows, cols]`
 
 `r emo::ji("clapper")` Keep rows of human proteins identified by more than one peptide:
 ```{r}
@@ -499,34 +661,42 @@ sol <- sol %>%
   filter(str_detect(description, "OS=Homo sapiens")) %>% 
   filter(x1pep == "x")
 ```
-`r emo::ji("eyes")` `str_detect(string, pattern)` returns a logical vector according to whether 'pattern' is found in 'string'.
 
 ---
 # Case study
 
-## Processing cells contents
+`r emo::ji("eyes")` `str_detect(string, pattern)` returns a logical vector according to whether 'pattern' is found in 'string'.
+
+`r emo::ji("eyes")` Notice that we have applied `filter()` twice using the pipe.
+
+---
+# Processing cells contents
 
 It would be useful to extract the genename from the description and put it in a column.
 
 One entry from the description column looks like this:
 
 .scroll-output-width[
-
+.code60[
 ```{r}
 sol$description[1]
 ```
+]
 ]
 
 --
 
 The genename is after `GN=`. We need to extract the part of the string with the genename and put it in a new column. 
 
+---
+# Processing cells contents
+
 A way to problem-solve your way through this is work with *one* value carrying out one operation at a time until you've worked out what to do before implementing on an entire column.
 
----
-# Case study
+The pipe makes it especially easy to break problems down like this.
 
-## Processing cells contents
+---
+# Processing cells contents
 
 ### One step at a time on one value
 
@@ -545,9 +715,7 @@ str_extract(one_description,"GN=[^\\s]+")
 Explanation on next slide.
 
 ---
-# Case study
-
-## Processing cells contents
+# Processing cells contents
 
 ### One step at a time on one value
 
@@ -563,9 +731,7 @@ Explanation on next slide.
 So `GN=[^\\s]+` means `GN=` followed by one or more characters that are not whitespace. This means the pattern stops matching at the first white space after "GN=".
 
 ---
-# Case study
-
-## Processing cells contents
+# Processing cells contents
 
 ### One step at a time on one value
 
@@ -578,30 +744,45 @@ str_extract(one_description, "GN=[^\\s]+") %>%
 ```
 
 --
-## `r emo::ji("party")`
-
+.font140[
+`r emo::ji("party")`
+]
 ---
-# Case study
-
-## Processing cells contents
+# Processing cells contents
 
 ### Creating a new column
 
-`mutate()` is the `dplyr` function that adds new variables and preserves existing ones. It takes `name` = `value` pairs of expressions where `name` is the name for the new variable and `value` is the value it takes which maybe be an expression. 
+Now we know how to get the result for one value, we need to apply the same process to the whole column
 
 --
+
+`mutate()` is the **`dplyr`** function that adds new variables and preserves existing ones. It takes `name` = `value` pairs of expressions where:
+
+* `name` is the name for the new variable and 
+* `value` is the value it takes. This is usually an expression. 
+
+---
+# Processing cells contents
+
+### Creating a new column
 
 `r emo::ji("clapper")` Add a variable `genename` which contains the processed string from the `description` variable:
 ```{r}
 sol <- sol %>%
   mutate(genename =  str_extract(description,"GN=[^\\s]+") %>% 
            str_replace("GN=", ""))
-
 ```
 
----
-# Case study
 
+
+
+---
+class: inverse
+
+# Extra exercises to try
+
+---
+# Extra exercises to try
 
 `r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
 
@@ -615,9 +796,7 @@ sol <- sol %>%
 
 
 ---
-# Case study
-
-## Answers
+# Answers
 `r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
 
 ```{r}
@@ -635,9 +814,7 @@ sol <- sol %>%
 ```
 
 ---
-# Case study
-
-## Answers
+# Answers
 
 `r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. 
 ```{r }
@@ -649,9 +826,7 @@ sol2 <- sol %>% pivot_longer(names_to = "lineage_rep",
 ```
 
 ---
-# Case study
-
-## Answers
+# Answers
 
 `r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Create separate columns in `sol2` for the cell lineage and the replicate.
 
@@ -668,7 +843,7 @@ sol2 <- sol2 %>%
 ---
 # Summary
 
-.font110[
+.font80[
 
 * `tidyverse` is a collection of packages with a common design; many excellent packages are not part of it  
 * `library(tidyverse)` loads the core packages; other `tidyverse` packages need their own `library()` call  
@@ -676,35 +851,53 @@ sol2 <- sol2 %>%
 * reshaping data from wide to long format is common: `pivot_longer()`  
 * splitting cell contents is common: `extract()` 
 * regular expressions allow you to match text patterns; expect to have to google and do a lot of trial and error  
-* `clean_names()`  
+* `clean_names()` is well useful!
 * `::` gives you access to a package's functions without using `library()`  
 * use particular rows `filter()`  
-* use particular columns `select()`  
+  
 
 ]
+
+---
+# Reading
+
+
+* [article by Joe Rickert](https://rviews.rstudio.com/2017/06/08/what-is-the-tidyverse/) gives a good overview.
+* Tidy Data `r Cite(myBib, "Wickham2014-nl")` sections 1 and 2
+* Welcome to the Tidyverse `r Cite(myBib, "Wickham2019-ml")` 
+* Tidy Data `r Cite(myBib, "Wickham2014-nl")` sections 3 - 6
+* R for Data Science `r Cite(myBib, "Wickham:2017:RDS:3086927")` Chapter 12.1, to 12.3 and Chapter 18
+
+
 
 ---
 # References
 .footnote[
-Slides made with with xaringan `r Cite(myBib, "xaringan")`
-
+.font60[
+Slides made with with xaringan `r Cite(myBib, "xaringan")` and xaringanExtra `r Cite(myBib, "xaringanExtra")`
+]
+]
+.font60[
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(myBib, start = 1, end = 7)
+```
 ]
 
-```{r refs, echo=FALSE, results="asis"}
-PrintBibliography(myBib)
+---
+# References
+.font60[
+```{r refs2, echo=FALSE, results="asis"}
+PrintBibliography(myBib, start = 8 )
 ```
-
-
-
----
-
-class: inverse
-
-# `r emo::ji("party")` Congratulations! Keep practising! `r emo::ji("party")` 
+]
 
 ---
-# Introduction to Reproducibility in R
+# Intro to Repro in R
 
-## Emma Rand <br> [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) <br> Twitter: [@er13_r](https://twitter.com/er13_r) <br> GitHub: [3mmaRand](https://github.com/3mmaRand)  <br> blog: https://buzzrbeeline.blog/
-<br>
+Emma Rand  
+[emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk)  
+Twitter: [@er13_r](https://twitter.com/er13_r)   
+GitHub: [3mmaRand](https://github.com/3mmaRand)  
+blog: https://buzzrbeeline.blog/  
+
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.

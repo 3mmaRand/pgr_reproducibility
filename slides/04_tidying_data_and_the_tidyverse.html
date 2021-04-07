@@ -5,8 +5,24 @@
     <meta charset="utf-8" />
     <meta name="author" content="Emma Rand" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="..\css_files\emma.css" type="text/css" />
-    <link rel="stylesheet" href="..\css_files\emma-fonts.css" type="text/css" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/js-cookie/js.cookie.js"></script>
+    <script src="libs/peerjs/peerjs.min.js"></script>
+    <script src="libs/tiny.toast/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast/broadcast.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css_files/emma.css" type="text/css" />
+    <link rel="stylesheet" href="../css_files/emma-fonts.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -25,18 +41,22 @@ class: center, middle, inverse, title-slide
 
 
 
+&lt;style&gt;
+div.blue { background-color:#b0cdef; border-radius: 5px; padding: 20px;}
+div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
+&lt;/style&gt;
 
 
 
+# Outline
+
+The aim of this section is to introduce you to the tidyverse &lt;a name=cite-Wickham2019-ml&gt;&lt;/a&gt;([Wickham Averick, et al., 2019](#bib-Wickham2019-ml)) including the pipe, `%&gt;%`,  and some commonly applied data tidying operations. 
 
 
-# Introduction
+We are covering data tidying before the [Advanced Data Import](05_advanced_data_import.html) section because some of the import methods will make use of tidyverse methods and generate tidy data structures.
 
-## Aims
-
-The aim of this section is to introduce you to the tidyverse &lt;a name=cite-Wickham2019-ml&gt;&lt;/a&gt;([Wickham Averick, et al., 2019](#bib-Wickham2019-ml)) including the pipe, `%&gt;%`  and some commonly applied data tidying operations. We are covering data tidying before the [Advanced Data Import](05_advanced_data_import.html) section because some of the import methods will make use of tidyverse methods and generate tidy data structures.
-
-## Learning outcomes 
+---
+# Learning outcomes 
 
 The successful student will be able to:
 
@@ -45,40 +65,164 @@ The successful student will be able to:
 * carry out some common data tidying tasks such as reshaping, renaming and recoding variables, and cleaning cell contents
  
 
-### 🎬 An instruction to do something!!
-
 ---
-# Data tidying tasks
+# Outline
 
-Tidying data includes reshaping it in to 'tidy' format but also other tasks such as:
+You should be able to code along with the examples. When you see the film clapper it is ..
 
-* renaming variables for consistency  
-* recoding variables  
-* cleaning content for consistency with respect to valid values, missing values and NA  
+🎬 .. an instruction to do something!!
 
 --
 
-👀 
+🎬 Start a new RStudio Project called `module-04-tidy`
 
-* Keep the raw data exactly as it came to you and do not alter/edit.
-* Script and document all tidying tasks.
+--
+
+🎬 Add directories called `scripts`, `data-raw`, and `data-processed`. 
+
+--
+
+🎬 Use a new script for example. 
+
+---
+class: inverse
+
+#  What is tidy data?
+
+
+---
+# What is tidy data?
+
+Adhere to a consistent structure which makes it easier to manipulate, model and visualize them. 
+
+1. Each variable has its own column.  
+2. Each observation has its own row.  
+3. Each value has its own cell.  
+
+--
+
+Closely allied to the relational algebra &lt;a name=cite-Codd1990-th&gt;&lt;/a&gt;([Codd, 1990](#bib-Codd1990-th)).  
+Underlies the enforced rectangular formatting in SPSS, STATA and R's dataframe.  
+The term 'tidy data' was popularised by &lt;a name=cite-Wickham2014-nl&gt;&lt;/a&gt;[Wickham (2014)](#bib-Wickham2014-nl).   
+
+Note: There may be more than one potential tidy structure.
+
+---
+# Tidy format
+
+
+
+Suppose we had just 3 individuals in each of two populations:
+
+.pull-left[
+**NOT TIDY!**
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; A &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; B &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 12.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+
+.pull-right[
+
+**TIDY!**
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; population &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; distance &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+
+---
+class: inverse
+
+#  Tidyverse
+
 
 ---
 # Tidyverse
 
-The [tidyverse](https://www.tidyverse.org/) &lt;a name=cite-R-tidyverse&gt;&lt;/a&gt;([Wickham, 2017](#bib-R-tidyverse)) is "an opinionated" collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.  
+The [tidyverse](https://www.tidyverse.org/)  &lt;a name=cite-R-tidyverse&gt;&lt;/a&gt;([Wickham, 2017](#bib-R-tidyverse)) is both a paradigm for coding in R and a metapackage (a collection of packages).
 
-This consistency is intended to make data work more efficient.
+Contributors describe it as "an opinionated" collection of R packages designed for data science. 
 
 --
 
-The are many other extremely useful packages that are not part of the `tidyverse` but which also use a common design across packages. 
+The key feature is that **`tidyverse`** packages share an underlying design philosophy, grammar, and data structures.  
+
+This means they work well together and learning new tidyverse packages is quick. This consistency is intended to make data work more efficient.
+
+---
+# Tidyverse
+
+**`tidyverse`** packages have a reputation for making code which is easy to read and write for humans, and for the connection of tools together into reproducible workflows.
+
+The R Views [article by Joe Rickert](https://rviews.rstudio.com/2017/06/08/what-is-the-tidyverse/) gives a good overview.
+
+---
+# Tidyverse
+
+The are many other extremely useful packages that are not part of the tidyverse but which also use a common design across packages. 
 
 An example is the [Bioconductor Project](https://www.bioconductor.org/).
 
 --
 
-`tidyverse` has a reputation for being easy for humans to read, and to connect tools together into reproducible workflows for manipulating, exploring, analysing and visualising rectangular data.
+However, Bioconductor packages that take a tidyverse approach are beginning to accumulate. For example:
+
+* **`tidybulk`** &lt;a name=cite-R-tidybulk&gt;&lt;/a&gt;([Mangiola, 2020](#bib-R-tidybulk)). 
+* **`tidyHeatmap`** &lt;a name=cite-tidyHeatmap&gt;&lt;/a&gt;([Mangiola and Papenfuss, 2020](#bib-tidyHeatmap))
+* See also [A Tidy Transcriptomics introduction to RNA sequencing analyses](https://stemangiola.github.io/rpharma2020_tidytranscriptomics/articles/tidytranscriptomics.html)
+* **`biobroom`** &lt;a name=cite-R-biobroom&gt;&lt;/a&gt;([Bass Robinson, et al., 2020](#bib-R-biobroom))
+
 
 
 ---
@@ -93,28 +237,40 @@ library(tidyverse)
 ```
 
 --
-[Core packages](https://www.tidyverse.org/packages/) are: `ggplot2`, `dplyr`, `tidyr`, `readr`, `purr`, `tibble`, `stringr` and `forcats`
+[Core packages](https://www.tidyverse.org/packages/) are: **`ggplot2`**, **`dplyr`**, **`tidyr`**, **`readr`**, **`purr`**, **`tibble`**, **`stringr`** and **`forcats`**
 
 --
 
+Actually, **`ggplot2`** predates the tidyverse which is why it uses `+` to link functions together. It does use the same sort of grammar and works very well within the tidyverse.
+
+---
+# Tidyverse
+
 The tidyverse also includes many other packages with more specialised usage. They are not loaded automatically with `library(tidyverse)`and need their own `library()` calls. 
+
 --
 
 Examples are `readxl`, `haven`, `rvest` and `lubridate.`
 
 
 ---
+class: inverse
+
+#  The pipe %&gt;%
+
+---
 # The pipe %&gt;%
 
-The pipe `%&gt;%` operator from the `magrittr` package &lt;a name=cite-magrittr&gt;&lt;/a&gt;([Bache and Wickham, 2014b](#bib-magrittr)) is loaded with core tidyverse. 
+The pipe `%&gt;%` operator from the `magrittr` package &lt;a name=cite-magrittr&gt;&lt;/a&gt;([Bache and Wickham, 2014](#bib-magrittr)) is loaded with core tidyverse. 
 
-It is key to connecting tools together in a readable way.
+
+It is the feature that allows us to connect tools together in a readable way.
 
 It can improve code readability by:
 
 --
 
-* structuring sequences of data operations left-to-right (as opposed to from the inside and out),
+* structuring sequences of data operations left-to-right or top-to-bottom (as opposed to from the inside and out),
 
 --
 
@@ -124,20 +280,48 @@ It can improve code readability by:
 
 * making it easy to add steps anywhere in the sequence of operations.
 
---
+---
+# The pipe %&gt;%
 
-Instead of using ` function(object)` you can use `object %&gt;% function()`
+The pipe means that instead of using: 
+
+```r
+function(object) 
+```
+
+We can use 
+
+```r
+object %&gt;% function()
+```
 
 --
 
 This is useful when you have multiple functions to apply.
+---
+# The pipe %&gt;%
+
+Instead of:
+
+
+```r
+function2(function1(object)) 
+```
+
+We can use 
+
+```r
+object %&gt;% function1()  %&gt;% function2()
+```
 
 ---
 # The pipe %&gt;%
 
-For example, suppose we want to apply a log-squareroot transformation&lt;sup&gt;1&lt;/sup&gt; to some proportion data. 
+As a simple example, suppose we want to apply a log-squareroot transformation&lt;sup&gt;1&lt;/sup&gt; to some proportion data. 
 
+.font70[
 .footnote[1. a transformation commonly applied to proportion data to make it less platykurtic `\(x^{t} = log(\sqrt{x})\)`
+]
 ]
 
 --
@@ -149,9 +333,11 @@ For example, suppose we want to apply a log-squareroot transformation&lt;sup&gt;
 nums &lt;- sample((1:100)/100, size = 10, replace = FALSE)
 ```
 
---
+---
+# The pipe %&gt;%
 
-Two ways we could apply the log-squareroot transformation are to:
+
+Two ways we *could* apply the log-squareroot transformation are to:
 
 1. nest the squareroot and log functions  
 2. create intermediate variables  
@@ -168,13 +354,14 @@ tnums &lt;- log(sqrt(nums))
 
 --
 
-Disadvantage: Code must read from inside to outside. 
+Code must read from inside to outside. 
 
 Increasingly difficult to read as number of functions increases. 
 
 Also makes simple debugging harder.
 
---
+---
+# The pipe %&gt;%
 
 🎬 Create intermediate variables:
 
@@ -186,7 +373,9 @@ tnums &lt;- log(sqrtnums)
 
 --
 
-Disadvantage: Extra variables you don't need. Not ideal if objects are large.
+Easier to read than nesting.
+
+But you have extra variables you don't need and which become increasingly difficult to name appropriately creating code and workspace clutter.
 
 ---
 # The pipe %&gt;%
@@ -194,9 +383,15 @@ Disadvantage: Extra variables you don't need. Not ideal if objects are large.
 Using the pipe avoids these by taking the output of one operation as the input of the next. 
 
 The pipe has long been used by Unix operating systems (where the pipe operator is `|`). 
-The R pipe operator is `%&gt;%`, a short cut for which is ctrl-shift-M. 
+
+The R pipe operator is `%&gt;%` 
 
 --
+
+🎬 The keyboard short cut is ctrl-shift-M.
+
+---
+# The pipe %&gt;%
 
 🎬 Use pipes to code the functions in sequence:
 
@@ -208,7 +403,7 @@ tnums &lt;- nums %&gt;%
 
 --
 
-This can be read as: take `nums` and then squareroot it and then log it.
+This can be read as: take `nums` *and then* squareroot it *and then* log it.
 
 ---
 # The pipe %&gt;%
@@ -229,21 +424,53 @@ In most cases, you don't need to include the `.`.
 Occasionally you do have to, for example when arguments are optional or there is ambiguity over which argument is meant.
 
 ---
+class: inverse
+
+#  Data tidying tasks
+
+---
+# Data tidying tasks
+
+Tidying data includes reshaping it in to 'tidy' format but also other tasks such as:
+
+* renaming variables for consistency  
+* recoding variables  
+* cleaning content for consistency with respect to valid values, missing values and NA  
+
+--
+
+👀 Key point!
+
+* Keep the raw data exactly as it came to you and do not alter/edit.
+* Script and document all tidying tasks.
+
+---
+class: inverse
+# Converting "wide" to "long"
+
+---
 # Converting "wide" to "long"
 
 Data commonly need to be reshaped from a format with more than one observation per row.
 
 --
 
-The data given in [biomass.txt](raw_data/biomass.txt) are taken from an experiment in which the insect pest biomass (g) was measured on plots sprayed  with water (control) or one of five different insecticides. 
+The data given in [biomass.txt](data-raw/biomass.txt) are taken from an experiment in which the insect pest biomass (g) was measured on plots sprayed  with water (control) or one of five different insecticides. 
 
 Also in the data file are variables indicating the replicate number and the identity of the tray in which the plant was grown.
 
---
+---
+# Converting "wide" to "long"
 
-🎬 Save a copy of this file to your `raw_data` folder and read it in.
+🎬 Save a copy of this file to your `data-raw` folder and read it in.
 
 
+```r
+file &lt;- "data-raw/biomass.txt"
+biomass &lt;- read_table2(file)
+```
+
+`read_table2()` is a function from the tidyverse's **`readr`** package. It works a lot like base R's `read.table()` but with some useful defaults (e.g., is header assumed) and extra functionality (e.g.,it's faster).
 
 ---
 # Converting "wide" to "long"
@@ -251,24 +478,28 @@ Also in the data file are variables indicating the replicate number and the iden
 🎬 View the dataframe.
 
 .scroll-output-height[
-
+.code70[
 
 ```
-##    WaterControl      A      B      C      D      E rep_tray
-## 1        349.80 159.14 150.07  79.95 266.74 349.80      1_x
-## 2        324.07 145.89 154.38 266.39 109.54 320.07      2_x
-## 3        358.57 116.34  69.50 161.16 221.11 358.57      3_x
-## 4        255.21 135.16 150.68 161.43 160.04 255.21      4_y
-## 5        208.49 136.63 212.59  51.24 197.54 208.49      5_y
-## 6        325.73  81.77 144.02 184.38 270.40 325.73      6_y
-## 7        294.66 115.66 149.79 176.16 223.51 294.66      7_z
-## 8        284.72 113.92 133.96 135.90 140.59 284.72      8_z
-## 9        382.56 155.28 153.01 158.96 290.08 382.56      9_z
-## 10       279.02 143.89 197.60 126.16 189.18 279.02     10_z
+## # A tibble: 10 x 7
+##    WaterControl     A     B     C     D     E rep_tray
+##           &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   
+##  1         350. 159.  150.   80.0  267.  350. 1_x     
+##  2         324. 146.  154.  266.   110.  320. 2_x     
+##  3         359. 116.   69.5 161.   221.  359. 3_x     
+##  4         255. 135.  151.  161.   160.  255. 4_y     
+##  5         208. 137.  213.   51.2  198.  208. 5_y     
+##  6         326.  81.8 144.  184.   270.  326. 6_y     
+##  7         295. 116.  150.  176.   224.  295. 7_z     
+##  8         285. 114.  134.  136.   141.  285. 8_z     
+##  9         383. 155.  153.  159.   290.  383. 9_z     
+## 10         279. 144.  198.  126.   189.  279. 10_z
 ```
-
+]
 ]
 
+
+A tibble is the tidyverse's dataframe. In fact, tibbles are dataframes as well as tibbles.
 
 ---
 # Converting "wide" to "long"
@@ -277,7 +508,7 @@ These data are in "wide" format and can be converting to "long" format using the
 
 --
 
-`pivot_longer()` collects the values from specified columns (cols) into a single column (values_to) and creates a column to indicate the group (names_to). 
+`pivot_longer()` collects the values from specified columns (`cols`) into a single column (`values_to`) and creates a column to indicate the group (`names_to`). 
 
 --
 
@@ -299,98 +530,47 @@ biomass2 &lt;- biomass %&gt;%
 
 The values will be in a column called `mass`, the treatments in a column called `spray`.
 
-
 ---
 # Converting "wide" to "long"
 
-🎬 Write this dataframe to file to your `processed_data` folder.
-
-
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Tidy the data given in [Human development index.csv](raw_data/Human development index.csv) so that all the indices are in a single column with other columns giving the rank, country and year.
-
-
----
-# Converting "wide" to "long"
-
-🎬 Write this dataframe to file to your `processed_data` folder.
-
-
-
-```r
-file &lt;- "processed_data/biomass2.txt"
-write.table(biomass2, file = file, row.names = FALSE, quote = FALSE)
-```
-
-You can see the resulting file here:  [biomass2.txt](processed_data/biomass2.txt) 
+🎬 View the dataframe.
 
 .scroll-output-height[
-
+.code70[
 
 ```
-##    rep_tray        spray   mass
-## 1       1_x WaterControl 349.80
-## 2       1_x            A 159.14
-## 3       1_x            B 150.07
-## 4       1_x            C  79.95
-## 5       1_x            D 266.74
-## 6       1_x            E 349.80
-## 7       2_x WaterControl 324.07
-## 8       2_x            A 145.89
-## 9       2_x            B 154.38
-## 10      2_x            C 266.39
-## 11      2_x            D 109.54
-## 12      2_x            E 320.07
-## 13      3_x WaterControl 358.57
-## 14      3_x            A 116.34
-## 15      3_x            B  69.50
-## 16      3_x            C 161.16
-## 17      3_x            D 221.11
-## 18      3_x            E 358.57
-## 19      4_y WaterControl 255.21
-## 20      4_y            A 135.16
-## 21      4_y            B 150.68
-## 22      4_y            C 161.43
-## 23      4_y            D 160.04
-## 24      4_y            E 255.21
-## 25      5_y WaterControl 208.49
-## 26      5_y            A 136.63
-## 27      5_y            B 212.59
-## 28      5_y            C  51.24
-## 29      5_y            D 197.54
-## 30      5_y            E 208.49
-## 31      6_y WaterControl 325.73
-## 32      6_y            A  81.77
-## 33      6_y            B 144.02
-## 34      6_y            C 184.38
-## 35      6_y            D 270.40
-## 36      6_y            E 325.73
-## 37      7_z WaterControl 294.66
-## 38      7_z            A 115.66
-## 39      7_z            B 149.79
-## 40      7_z            C 176.16
-## 41      7_z            D 223.51
-## 42      7_z            E 294.66
-## 43      8_z WaterControl 284.72
-## 44      8_z            A 113.92
-## 45      8_z            B 133.96
-## 46      8_z            C 135.90
-## 47      8_z            D 140.59
-## 48      8_z            E 284.72
-## 49      9_z WaterControl 382.56
-## 50      9_z            A 155.28
-## 51      9_z            B 153.01
-## 52      9_z            C 158.96
-## 53      9_z            D 290.08
-## 54      9_z            E 382.56
-## 55     10_z WaterControl 279.02
-## 56     10_z            A 143.89
-## 57     10_z            B 197.60
-## 58     10_z            C 126.16
-## 59     10_z            D 189.18
-## 60     10_z            E 279.02
+## # A tibble: 60 x 3
+##    rep_tray spray         mass
+##    &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;
+##  1 1_x      WaterControl 350. 
+##  2 1_x      A            159. 
+##  3 1_x      B            150. 
+##  4 1_x      C             80.0
+##  5 1_x      D            267. 
+##  6 1_x      E            350. 
+##  7 2_x      WaterControl 324. 
+##  8 2_x      A            146. 
+##  9 2_x      B            154. 
+## 10 2_x      C            266. 
+## # ... with 50 more rows
 ```
-
 ]
+]
+
+---
+# Converting "wide" to "long"
+
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Write this dataframe to file to your `data-processed` folder. 
+
+
+
+
+See the result: [biomass2-tidyverse.txt](data-processed/biomass2-tidyverse.txt)
+
+---
+class: inverse
+
+# Splitting column contents
 
 ---
 # Splitting column contents
@@ -403,7 +583,7 @@ For example, a column might contain a full species name and you might want to se
 
 --
 
-Another example arises when you read in multiple files with names that encode a date, experiment or treatment. Typically, we add the file name to a column in the dataframe before combining the dataframes for analysis.
+Another example arises when you read in multiple files with names that encode a date, experiment or treatment. Typically, we add the file name to a column in the dataframe before combining the dataframes for analysis and then split the  name into columns for the date, experiment of treatment.
 
 ---
 # Splitting column contents
@@ -430,7 +610,8 @@ We give:
 * the names of the new columns we want to create
 * the patterns matching the part of the `rep_tray` value we want to go in each column.
 
---
+---
+# Splitting column contents
 
 🎬 Extract parts of `rep_tray` and put in new columns `replicate_number`, `tray_id`:
 
@@ -443,89 +624,19 @@ biomass3 &lt;- biomass2 %&gt;%
 ```
 
 --
-
+.font80[
 * The patterns to save into columns are inside `( )`.  
 * The pattern going into `replicate_number`, `[0-9]{1,2}`, means 1 or 2 numbers.  
 * The pattern going into `tray_id`, `[a-z]` means one lowercase letter.
 * the bit between the two `( )`, `\_` is a pattern that matches what is in `rep_tray` but is not to be saved. 
-
+]
  
 ---
-# Splitting column contents
-
-.scroll-output-height[
-
-
-```
-##    replicate_number tray_id        spray   mass
-## 1                 1       x WaterControl 349.80
-## 2                 1       x            A 159.14
-## 3                 1       x            B 150.07
-## 4                 1       x            C  79.95
-## 5                 1       x            D 266.74
-## 6                 1       x            E 349.80
-## 7                 2       x WaterControl 324.07
-## 8                 2       x            A 145.89
-## 9                 2       x            B 154.38
-## 10                2       x            C 266.39
-## 11                2       x            D 109.54
-## 12                2       x            E 320.07
-## 13                3       x WaterControl 358.57
-## 14                3       x            A 116.34
-## 15                3       x            B  69.50
-## 16                3       x            C 161.16
-## 17                3       x            D 221.11
-## 18                3       x            E 358.57
-## 19                4       y WaterControl 255.21
-## 20                4       y            A 135.16
-## 21                4       y            B 150.68
-## 22                4       y            C 161.43
-## 23                4       y            D 160.04
-## 24                4       y            E 255.21
-## 25                5       y WaterControl 208.49
-## 26                5       y            A 136.63
-## 27                5       y            B 212.59
-## 28                5       y            C  51.24
-## 29                5       y            D 197.54
-## 30                5       y            E 208.49
-## 31                6       y WaterControl 325.73
-## 32                6       y            A  81.77
-## 33                6       y            B 144.02
-## 34                6       y            C 184.38
-## 35                6       y            D 270.40
-## 36                6       y            E 325.73
-## 37                7       z WaterControl 294.66
-## 38                7       z            A 115.66
-## 39                7       z            B 149.79
-## 40                7       z            C 176.16
-## 41                7       z            D 223.51
-## 42                7       z            E 294.66
-## 43                8       z WaterControl 284.72
-## 44                8       z            A 113.92
-## 45                8       z            B 133.96
-## 46                8       z            C 135.90
-## 47                8       z            D 140.59
-## 48                8       z            E 284.72
-## 49                9       z WaterControl 382.56
-## 50                9       z            A 155.28
-## 51                9       z            B 153.01
-## 52                9       z            C 158.96
-## 53                9       z            D 290.08
-## 54                9       z            E 382.56
-## 55               10       z WaterControl 279.02
-## 56               10       z            A 143.89
-## 57               10       z            B 197.60
-## 58               10       z            C 126.16
-## 59               10       z            D 189.18
-## 60               10       z            E 279.02
-```
-
-]
-
----
+class: inverse
 # Case study
 
-## Overivew
+---
+# Overivew
 
 You will now work through an example of some real data from [The Genever Group](https://www.geneverlab.info/). The arrangement and format of these data are typical of many protein and gene expression datasets so the processing is representative of that needed in a variety of situations.
 
@@ -535,19 +646,18 @@ The data are mass spectrometry data of the soluble protein fraction from five im
 
 The data are normalised protein abundances. Each row is a protein.
 
---
+---
+# Data description
 
-🎬 Save a copy of [Y101_Y102_Y201_Y202_Y101-5.csv](raw_data/Y101_Y102_Y201_Y202_Y101-5.csv) file to your `raw_data` folder.
+🎬 Save a copy of [Y101_Y102_Y201_Y202_Y101-5.csv](data-raw/Y101_Y102_Y201_Y202_Y101-5.csv) file to your `data-raw` folder.
 
-🎬 You may wish to view it while reading the information on the next page.
+🎬 You may wish to view it in excel while reading the information on the next page.
 
 ---
-# Case study
-
-## Data description
+# Data description
 
 The cells lines are Y101, Y102, Y201, Y202 and Y101.5 and there are three replicates for each cell line arranged in columns. Also in the file are columns for:
-
+.font70[
 * the protein accession
 * the number of peptides used to identify the protein
 * the number of unique peptides used to identify the protein
@@ -560,11 +670,10 @@ The cells lines are Y101, Y102, Y201, Y202 and Y101.5 and there are three replic
 * the cell line with the lowest mean
 * the protein mass
 * whether at least two peptides were detected for a protein.
+]
 
 ---
-# Case study
-
-## Data Import
+# Data Import
 
 Column names are spread over three rows but are primarily in the third row.
 
@@ -572,33 +681,28 @@ Column names are spread over three rows but are primarily in the third row.
 
 We can read in from the third row by skipping the first two. We can also use the `clean()` function from the `janitor` package to improve the column names.
 
+---
+# Data Import
 
 🎬 Read in the file using `read_csv()` from the `tidyverse`'s `readr` package.
 
 ```r
 # define file name
-filesol &lt;- "raw_data/Y101_Y102_Y201_Y202_Y101-5.csv"
-
+filesol &lt;- "data-raw/Y101_Y102_Y201_Y202_Y101-5.csv"
 # skip first two lines
 sol &lt;- read_csv(filesol, skip = 2) %&gt;% 
   janitor::clean_names()
 ```
 
 ---
-# Case study
+# Data Import
 
-## Data Import
+👀 the `::` notation gives you access to a package's functions without first using the `library()` command. 
 
-👀 I used `read_csv()` because strings are treated as character variables, not factors. Whilst analysis and visualisation often require factor variables, any processing of strings is made much easier if they are characters.
-
---
-
-👀 the `::` notation gives you access to a package's functions without first using the `library()` command. Useful when you want to use a single function from a package, or you need to specify which package when a function name is used in two loaded packages.
+This is useful when you want to use a single function from a package, or you need to specify which package when a function name is used in two loaded packages.
 
 ---
-# Case study
-
-## Filtering rows
+# Filtering rows
 
 This dataset includes bovine serum proteins from the medium on which the cells were grown which need to be filtered out.
 
@@ -606,7 +710,10 @@ This dataset includes bovine serum proteins from the medium on which the cells w
 
 We also filter out proteins for which fewer than 2 peptides were detected since we can not be confident about their identity. This is common practice for such proteomic data. 
 
---
+---
+# Filtering rows
+
+**`dplyr`** (yep, a tidyverse package) has the `filter()` function. It is easier to use than selection using `datframe[rows, cols]`
 
 🎬 Keep rows of human proteins identified by more than one peptide:
 
@@ -615,19 +722,23 @@ sol &lt;- sol %&gt;%
   filter(str_detect(description, "OS=Homo sapiens")) %&gt;% 
   filter(x1pep == "x")
 ```
-👀 `str_detect(string, pattern)` returns a logical vector according to whether 'pattern' is found in 'string'.
 
 ---
 # Case study
 
-## Processing cells contents
+👀 `str_detect(string, pattern)` returns a logical vector according to whether 'pattern' is found in 'string'.
+
+👀 Notice that we have applied `filter()` twice using the pipe.
+
+---
+# Processing cells contents
 
 It would be useful to extract the genename from the description and put it in a column.
 
 One entry from the description column looks like this:
 
 .scroll-output-width[
-
+.code60[
 
 ```r
 sol$description[1]
@@ -637,17 +748,21 @@ sol$description[1]
 ## [1] "Neuroblast differentiation-associated protein AHNAK OS=Homo sapiens GN=AHNAK PE=1 SV=2"
 ```
 ]
+]
 
 --
 
 The genename is after `GN=`. We need to extract the part of the string with the genename and put it in a new column. 
 
+---
+# Processing cells contents
+
 A way to problem-solve your way through this is work with *one* value carrying out one operation at a time until you've worked out what to do before implementing on an entire column.
 
----
-# Case study
+The pipe makes it especially easy to break problems down like this.
 
-## Processing cells contents
+---
+# Processing cells contents
 
 ### One step at a time on one value
 
@@ -672,9 +787,7 @@ str_extract(one_description,"GN=[^\\s]+")
 Explanation on next slide.
 
 ---
-# Case study
-
-## Processing cells contents
+# Processing cells contents
 
 ### One step at a time on one value
 
@@ -690,9 +803,7 @@ Explanation on next slide.
 So `GN=[^\\s]+` means `GN=` followed by one or more characters that are not whitespace. This means the pattern stops matching at the first white space after "GN=".
 
 ---
-# Case study
-
-## Processing cells contents
+# Processing cells contents
 
 ### One step at a time on one value
 
@@ -710,18 +821,27 @@ str_extract(one_description, "GN=[^\\s]+") %&gt;%
 ```
 
 --
-## 🎈
-
+.font140[
+🎉
+]
 ---
-# Case study
-
-## Processing cells contents
+# Processing cells contents
 
 ### Creating a new column
 
-`mutate()` is the `dplyr` function that adds new variables and preserves existing ones. It takes `name` = `value` pairs of expressions where `name` is the name for the new variable and `value` is the value it takes which maybe be an expression. 
+Now we know how to get the result for one value, we need to apply the same process to the whole column
 
 --
+
+`mutate()` is the **`dplyr`** function that adds new variables and preserves existing ones. It takes `name` = `value` pairs of expressions where:
+
+* `name` is the name for the new variable and 
+* `value` is the value it takes. This is usually an expression. 
+
+---
+# Processing cells contents
+
+### Creating a new column
 
 🎬 Add a variable `genename` which contains the processed string from the `description` variable:
 
@@ -731,9 +851,16 @@ sol &lt;- sol %&gt;%
            str_replace("GN=", ""))
 ```
 
----
-# Case study
 
+
+
+---
+class: inverse
+
+# Extra exercises to try
+
+---
+# Extra exercises to try
 
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
 
@@ -747,9 +874,7 @@ sol &lt;- sol %&gt;%
 
 
 ---
-# Case study
-
-## Answers
+# Answers
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Add a column, `protid`, for the top protein identifier. This is the first Uniprot ID after the "1::" in the `accession` column. 
 
 
@@ -772,9 +897,7 @@ sol &lt;- sol %&gt;%
 ```
 
 ---
-# Case study
-
-## Answers
+# Answers
 
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. 
 
@@ -785,9 +908,7 @@ sol2 &lt;- sol %&gt;% pivot_longer(names_to = "lineage_rep",
 ```
 
 ---
-# Case study
-
-## Answers
+# Answers
 
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Create separate columns in `sol2` for the cell lineage and the replicate.
 
@@ -805,7 +926,7 @@ sol2 &lt;- sol2 %&gt;%
 ---
 # Summary
 
-.font110[
+.font80[
 
 * `tidyverse` is a collection of packages with a common design; many excellent packages are not part of it  
 * `library(tidyverse)` loads the core packages; other `tidyverse` packages need their own `library()` call  
@@ -813,51 +934,101 @@ sol2 &lt;- sol2 %&gt;%
 * reshaping data from wide to long format is common: `pivot_longer()`  
 * splitting cell contents is common: `extract()` 
 * regular expressions allow you to match text patterns; expect to have to google and do a lot of trial and error  
-* `clean_names()`  
+* `clean_names()` is well useful!
 * `::` gives you access to a package's functions without using `library()`  
 * use particular rows `filter()`  
-* use particular columns `select()`  
+  
 
 ]
 
 ---
+# Reading
+
+
+* [article by Joe Rickert](https://rviews.rstudio.com/2017/06/08/what-is-the-tidyverse/) gives a good overview.
+* Tidy Data ([Wickham, 2014](#bib-Wickham2014-nl)) sections 1 and 2
+* Welcome to the Tidyverse ([Wickham Averick, et al., 2019](#bib-Wickham2019-ml)) 
+* Tidy Data ([Wickham, 2014](#bib-Wickham2014-nl)) sections 3 - 6
+* R for Data Science &lt;a name=cite-Wickham2017RDS3086927&gt;&lt;/a&gt;([Wickham and Grolemund, 2017](#bib-Wickham2017RDS3086927)) Chapter 12.1, to 12.3 and Chapter 18
+
+
+
+---
 # References
 .footnote[
-Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan))
-
+.font60[
+Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan)) and xaringanExtra &lt;a name=cite-xaringanExtra&gt;&lt;/a&gt;([Aden-Buie, 2020](#bib-xaringanExtra))
 ]
+]
+.font60[
+&lt;a name=bib-xaringanExtra&gt;&lt;/a&gt;[Aden-Buie, G.](#cite-xaringanExtra)
+(2020). _xaringanExtra: Extras And Extensions for Xaringan Slides_. R
+package version 0.2.3.9000. URL:
+[https://github.com/gadenbuie/xaringanExtra](https://github.com/gadenbuie/xaringanExtra).
 
 &lt;a name=bib-magrittr&gt;&lt;/a&gt;[Bache, S. M. and H. Wickham](#cite-magrittr)
-(2014b). _magrittr: A Forward-Pipe Operator for R_. R package version
+(2014). _magrittr: A Forward-Pipe Operator for R_. R package version
 1.5. URL:
 [https://CRAN.R-project.org/package=magrittr](https://CRAN.R-project.org/package=magrittr).
 
+&lt;a name=bib-R-biobroom&gt;&lt;/a&gt;[Bass, A. J., D. G. Robinson, et
+al.](#cite-R-biobroom) (2020). _biobroom: Turn Bioconductor objects
+into tidy data frames_. R package version 1.20.0. URL:
+[https://github.com/StoreyLab/biobroom](https://github.com/StoreyLab/biobroom).
+
+&lt;a name=bib-Codd1990-th&gt;&lt;/a&gt;[Codd, E. F.](#cite-Codd1990-th) (1990).
+_The Relational Model for Database Management: Version 2_. Boston, MA,
+USA: Addison-Wesley Longman Publishing Co., Inc.
+
+&lt;a name=bib-R-tidybulk&gt;&lt;/a&gt;[Mangiola, S.](#cite-R-tidybulk) (2020).
+_tidybulk: Brings transcriptomics to the tidyverse_. R package version
+1.0.2. URL:
+[https://bioconductor.org/packages/release/bioc/html/tidybulk.html](https://bioconductor.org/packages/release/bioc/html/tidybulk.html).
+
+&lt;a name=bib-tidyHeatmap&gt;&lt;/a&gt;[Mangiola, S. and A.
+Papenfuss](#cite-tidyHeatmap) (2020). "tidyHeatmap: an R package for
+modular heatmap production based on tidy principles". In: _Journal of
+Open Source Software_ 5.52, p. 2472. DOI:
+[10.21105/joss.02472](https://doi.org/10.21105%2Fjoss.02472). URL:
+[https://doi.org/10.21105/joss.02472](https://doi.org/10.21105/joss.02472).
+
+&lt;a name=bib-Wickham2014-nl&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2014-nl)
+(2014). "Tidy Data". In: _Journal of Statistical Software, Articles_
+59.10, pp. 1-23.
+]
+
+---
+# References
+.font60[
 &lt;a name=bib-R-tidyverse&gt;&lt;/a&gt;[Wickham, H.](#cite-R-tidyverse) (2017).
 _tidyverse: Easily Install and Load the 'Tidyverse'_. R package version
 1.2.1. URL:
 [https://CRAN.R-project.org/package=tidyverse](https://CRAN.R-project.org/package=tidyverse).
 
-&lt;a name=bib-Wickham2019-ml&gt;&lt;/a&gt;[Wickham, H, M. Averick, et
+&lt;a name=bib-Wickham2019-ml&gt;&lt;/a&gt;[Wickham, H., M. Averick, et
 al.](#cite-Wickham2019-ml) (2019). "Welcome to the Tidyverse". In:
 _JOSS_ 4.43, p. 1686.
+
+&lt;a name=bib-Wickham2017RDS3086927&gt;&lt;/a&gt;[Wickham, H. and G.
+Grolemund](#cite-Wickham2017RDS3086927) (2017). _R for Data Science:
+Import, Tidy, Transform, Visualize, and Model Data_. 1st. O'Reilly
+Media, Inc. ISBN: 1491910399, 9781491910399. URL:
+[https://r4ds.had.co.nz/](https://r4ds.had.co.nz/).
 
 &lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan:
 Presentation Ninja_. R package version 0.12. URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
-
-
-
----
-
-class: inverse
-
-# 🎉 Congratulations! Keep practising! 🎉 
+]
 
 ---
-# Introduction to Reproducibility in R
+# Intro to Repro in R
 
-## Emma Rand &lt;br&gt; [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) &lt;br&gt; Twitter: [@er13_r](https://twitter.com/er13_r) &lt;br&gt; GitHub: [3mmaRand](https://github.com/3mmaRand)  &lt;br&gt; blog: https://buzzrbeeline.blog/
-&lt;br&gt;
+Emma Rand  
+[emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk)  
+Twitter: [@er13_r](https://twitter.com/er13_r)   
+GitHub: [3mmaRand](https://github.com/3mmaRand)  
+blog: https://buzzrbeeline.blog/  
+
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
