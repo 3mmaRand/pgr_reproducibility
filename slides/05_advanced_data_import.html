@@ -5,8 +5,24 @@
     <meta charset="utf-8" />
     <meta name="author" content="Emma Rand" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="..\css_files\emma.css" type="text/css" />
-    <link rel="stylesheet" href="..\css_files\emma-fonts.css" type="text/css" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/js-cookie/js.cookie.js"></script>
+    <script src="libs/peerjs/peerjs.min.js"></script>
+    <script src="libs/tiny.toast/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast/broadcast.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css_files/emma.css" type="text/css" />
+    <link rel="stylesheet" href="../css_files/emma-fonts.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -25,15 +41,18 @@ class: center, middle, inverse, title-slide
 
 
 
+&lt;style&gt;
+div.blue { background-color:#b0cdef; border-radius: 5px; padding: 20px;}
+div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
+&lt;/style&gt;
 
 
-# Introduction
 
-## Aims
+# Aims
 The aim of this session is to strength your ability to import your own data files regardless of the formatting and to introduce you to some of the other ways to import data such as through web scraping and via APIs.
 
-
-## Learning outcomes 
+---
+# Learning outcomes 
 
 The successful student will be able to:
 
@@ -41,61 +60,73 @@ The successful student will be able to:
 * import multiple files  
 * import plain text and proprietary data formats stored locally and on the web  
 * carry out some simple web scraping  
+* describe the process of accessing data through an API  
 * start to appreciate the number of packages available for importing publicly accessible data
  
 
-### 🎬 An instruction to do something!!
+ 🎬 An instruction to do something!!
 
 ---
 # Four Aspects
 
 There are four main considerations for data import:
 
-1. Where are the data? Are they stored locally (on your own computer) or remotely (on another computer/server). Are they distributed rather than in a single repository or file?
+.font80[
+1. **Where are the data?** Are they stored locally (on your own computer) or remotely (on another computer/server). Are they distributed rather than in a single repository or file?
 
---
+2. **What format are they in?** Are they plain text format, structured text like as XML or JSON, or in proprietary software format . 
 
-2. What format are they in? Are they plain text format, structured text like as XML or JSON, or in proprietary software format . 
+3. **How?** Should we use base R functions or a specialised package? Are the data available through an API and if so, is there already a package to access it?
 
---
-
-3. How: with base R functions or a specialised package? Are the data available through an API and if so, is there already a package to access it?
-
---
-
-4. What data structure will be created in R? Often this will be dataframes or dataframe-like structures (eg., tibbles) but there are many specialised data structures.
+4. **What data structure will be created in R?** Often this will be dataframes or dataframe-like structures (eg., tibbles) but there are many specialised data structures for biological data
+]
 
 ---
+class: inverse
+
 # Locally stored text files
 
-## Overivew
+---
+# Overview
 
 This section may be familiar to those with experience. You may want to skip ahead.
 
-* Plain text files can be opened in notepad or other text editor and make sense (contrast with for examples xlsx, doc, sav, png)  
+Plain text files
+- can be opened in notepad or other text editor and make sense 
 
---
+- often have file extensions that indicate the format
 
-* Columns usually 'delimited' by a particular character (but fixed width does occur).  
-
---
-
-* Can be read in with the base packages `read.table()` methods.  
-
---
-
-* Or with the `readr` package methods such as `read_table()`, `read_csv()`, `read_delim()` which is usually my preference because they are a little faster and output tibbles.  
-
---
-
-* Or with the even faster `fread()` from the `data.table` package &lt;a name=cite-Dowle_Srinivasan_2019&gt;&lt;/a&gt;([Dowle and Srinivasan, 2019](#bib-Dowle_Srinivasan_2019)).  
+- have columns 'delimited' by a particular character or at fixed positions.  
 
 ---
-# Locally stored text files
+# Overview
 
-## Exercise 1
+They can be read in to R using:
 
-Data file: [structurepred.txt](raw_data/structurepred.txt)
+- the base package with methods such as `read.table()`, `read.csv()`
+
+--
+
+- Or with the `readr` package methods such as `read_table()`, `read_table2()`, `read_csv()` and `read_delim()` which is usually my preference because they are a little faster and output tibbles.  
+
+--
+
+- Or with the even faster `fread()` from the `data.table` package &lt;a name=cite-Dowle_Srinivasan_2019&gt;&lt;/a&gt;([Dowle and Srinivasan, 2019](#bib-Dowle_Srinivasan_2019)).  
+
+
+---
+# Overview
+
+We will focus on `readr` package methods such as `read_table()`, `read_table2()`, `read_csv()` and `read_delim()`
+
+--
+
+You might want to note those down
+
+---
+# Exercise 1
+
+Data file: [structurepred.txt](data-raw/structurepred.txt)
 
 These data are root mean square deviations (RMSD) in `\(\unicode{x212B}\)`ngstrom between predicted and actual protein structures. Three programs were used to make predictions for 30 proteins.
 
@@ -105,20 +136,18 @@ There are three columns: rmsd, prog and prot
 
 --
 
-🎬 Save a copy of the file to your `raw_data` folder and read it in with:
+🎬 Save a copy of the file to your `data-raw` folder and read it in with:
 
 --
 
 
 ```r
-file &lt;- "raw_data/structurepred.txt"
+file &lt;- "data-raw/structurepred.txt"
 protein_struc &lt;- read_table(file)
 ```
 
 ---
-# Locally stored text files
-
-## Exercise 1
+# Exercise 1
 
 🎬 Examine the result:
 
@@ -129,7 +158,7 @@ glimpse(protein_struc)
 ```
 ## Rows: 90
 ## Columns: 1
-## $ `rmsd prog prot` &lt;chr&gt; "9.038 Abstruct 1", "14.952 Abstruct 2", "17.734 A...
+## $ `rmsd prog prot` &lt;chr&gt; "9.038 Abstruct 1", "14.952 Abstruct 2", "17.734 Abst~
 ```
 
 
@@ -138,20 +167,45 @@ glimpse(protein_struc)
 All the variables have been read into one column.
 
 ---
-# Locally stored text files
-
-## Exercise 1
-🎬 Look up `read_table()`, Can you work out how to read the three variables in to three columns?
-
+# Exercise 1
+🎬 Look up `read_table()` using `?read_table()`. Can you work out how to read the three variables in to three columns?
 
 .footnote[
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out try reading in these data: [csativa.txt](raw_data/csativa.txt).
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out try reading in these data: [csativa.txt](data-raw/csativa.txt).]
 
 
-]
+---
+# Exercise 1 Answer
 
+
+```r
+protein_struc &lt;- read_table2(file)
+```
+
+&gt; `read_table2()` ... allows any number of whitespace characters between columns, and the lines can be of different lengths.
+
+&gt; `read_table()` is more strict, each line must be the same length, and each field is in the same position in every line.
 
 --
+
+Each line in [structurepred.txt](data-raw/structurepred.txt) is not the same length (i.e., it is *not* a fixed width file) which is one of the requirements of `read_table()`.
+
+
+---
+# Extra Exercise answer
+
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out try reading in these data: [csativa.txt](data-raw/csativa.txt).
+
+
+```r
+file2 &lt;- "data-raw/csativa.txt"
+csat &lt;- read_table2(file2, skip = 4)
+```
+
+The first 4 lines of the data file give information about the data. We only need to read data from line 5.
+
+---
+# Exercise 1 addendum
 
 A function that can save you having to open a text file to look or wait along time to discover an import failure is `readLines()`:
 
@@ -165,56 +219,45 @@ readLines(file, n = 5)
 ## [4] "17.734 Abstruct 3" "3.117 Abstruct 4"
 ```
 
----
-# Locally stored text files
-
-## Exercise 1
-
-The helps you identify that each line is not the same length (i.e., it is not a fixed width file) which is one of the requirements of `read_table()`.
+It helps you identify that each line is not the same length. 
 
 --
 
-`read_table2()` is the function you needed.
-
-
-```r
-protein_struc &lt;- read_table2(file)
-```
-
---
-
-`readLines()` is especially useful when the file is very big and takes ages to open or import.
+This is especially useful when the file is very big and takes ages to open or import.
 
 ---
-# Locally stored text files
+# Exercise 2
 
-## Exercise 2
-
-Data file: [Icd10Code.csv](raw_data/Icd10Code.csv)
+Data file: [Icd10Code.csv](data-raw/Icd10Code.csv)
 
 ICD-10 codes are alphanumeric codes used by doctors, health insurance companies, and public health agencies across the world to represent diagnoses. This file contains a list of the codes and diseases they represent.
 
 --
 
-🎬 Save a copy of the file to your `raw_data` folder and read it with the most appropriate `readr` function.
+🎬 Save a copy of the file to your `data-raw` folder and read it with the most appropriate `readr` function.
 
 
 .footnote[
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out try reading in these data: [grape.txt](raw_data/grape.txt).
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out try reading in these data: [grape.txt](data-raw/grape.txt).]
 
-
-
-]
 ---
-# Locally stored text files
+# Exercise 2 Answer
 
-## Exercise 2
 
-You may have quite naturally assumed that file with a .csv extension would contain comma separated values and used `read_csv()`. 
+```r
+file &lt;- "data-raw/Icd10Code.csv"
+icd &lt;- read_table2(file)
+```
 
 --
 
-The use of `readLines()` reveals it is actually tab separated.
+You may have quite naturally assumed that file with a .csv extension would contain comma separated values and used `read_csv()`. 
+
+---
+# Exercise 2 Answer
+
+
+The use of `readLines()` reveals it is actually tab, `\t`, separated.
 
 ```r
 readLines(file, n = 2)
@@ -224,27 +267,28 @@ readLines(file, n = 2)
 ## [1] "Code\tDescription" "A00\t\"Cholera\""
 ```
 
-It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵
+It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵️‍♀️
 
 ---
-# Locally stored text files
+# Extra Exercise answer
 
-## Exercise 2
 
-🎬The most appropriate `readr` function is `read_table2()` again:
-
-```r
-file &lt;- "raw_data/Icd10Code.csv"
-icd &lt;- read_table2(file)
+```
+## [1] "Code\tDescription" "A00\t\"Cholera\""
 ```
 
 
 ---
-# Locally stored special formats.
+class: inverse
 
-## Overview
+# Locally stored, special formats.
 
-File in some special format:
+
+
+---
+# Overview
+
+Files in some special format:
 
 * Cannot usually be opened in notepad.  
 
@@ -258,34 +302,38 @@ If you have that software you may be able to export in plain text format.
 
 --
 
-But usually there is a package or function that allows you to script the steps. Favourites of mine are:  
+But usually there is a package or function that allows you to script the steps. 
+
+---
+# Overview
+
+Favourites of mine are:  
   * `haven` &lt;a name=cite-haven&gt;&lt;/a&gt;([Wickham and Miller, 2018](#bib-haven)) for importing and exporting SPSS, STATA and SAS files  
   * `readxl` &lt;a name=cite-readxl&gt;&lt;/a&gt;([Wickham and Bryan, 2019](#bib-readxl)) for excel files  
 
+Both of these packages are installed when you install `tidyverse` .... but are not loaded with `library(tidyverse)`. Therefore we will need to load them.
 --
 
 * Google is your friend.  
 
 ---
-# Locally stored special formats.
+# Example 1 SPSS
 
-## SPSS example using `haven`
-
-Data file: [periwinkle.sav](raw_data/periwinkle.sav).
+Data file: [periwinkle.sav](data-raw/periwinkle.sav).
 
 These data give a measure of the gut parasite load in two species of rough periwinkle in the Spring and Summer.
 
-🎬 Save a copy of the file to your `raw_data` folder and read it with:
+🎬 Save a copy of the file to your `data-raw` folder and read it with:
 
 ```r
 library(haven)
-file &lt;- "raw_data/periwinkle.sav"
+file &lt;- "data-raw/periwinkle.sav"
 periwinkle &lt;- read_sav(file)
 ```
----
-# Locally stored special formats.
 
-## SPSS example using `haven`
+---
+# Example 1 SPSS
+
 
 .scroll-output-height[
 🎬 Examine the result.
@@ -299,30 +347,28 @@ str(periwinkle)
 ##  $ para   : num [1:100] 58 51 54 39 65 67 60 54 47 66 ...
 ##   ..- attr(*, "label")= chr "Number of Parasites"
 ##   ..- attr(*, "format.spss")= chr "F8.0"
-##  $ season : 'haven_labelled' num [1:100] 1 1 1 1 1 1 1 1 1 1 ...
-##   ..- attr(*, "label")= chr "Season"
-##   ..- attr(*, "format.spss")= chr "F8.0"
-##   ..- attr(*, "labels")= Named num [1:2] 1 2
-##   .. ..- attr(*, "names")= chr [1:2] "Spring" "Summer"
-##  $ species: 'haven_labelled' num [1:100] 1 1 1 1 1 1 1 1 1 1 ...
-##   ..- attr(*, "label")= chr "Species"
-##   ..- attr(*, "format.spss")= chr "F8.0"
-##   ..- attr(*, "display_width")= int 14
-##   ..- attr(*, "labels")= Named num [1:2] 1 2
-##   .. ..- attr(*, "names")= chr [1:2] "Littorina saxatilis" "Littorina nigrolineata"
+##  $ season : dbl+lbl [1:100] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+##    ..@ label      : chr "Season"
+##    ..@ format.spss: chr "F8.0"
+##    ..@ labels     : Named num [1:2] 1 2
+##    .. ..- attr(*, "names")= chr [1:2] "Spring" "Summer"
+##  $ species: dbl+lbl [1:100] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+##    ..@ label        : chr "Species"
+##    ..@ format.spss  : chr "F8.0"
+##    ..@ display_width: int 14
+##    ..@ labels       : Named num [1:2] 1 2
+##    .. ..- attr(*, "names")= chr [1:2] "Littorina saxatilis" "Littorina nigrolineata"
 ```
 ]
 
----
-# Locally stored special formats.
 
-## SPSS example using `haven`
 
 The SPSS variables `season` and `species` are labelled integers, i.e., the actual values are integers, which is a common data structure in other statistical environments.
 
 `read_sav()` has made them variables of type "haven_labelled". 
 
---
+---
+# Example 1 SPSS
 
 The labels of these can be viewed in R using:
 
@@ -345,11 +391,9 @@ attr(periwinkle$species, "labels")
 ```
 
 ---
-# Locally stored special formats.
+# Example 1 SPSS
 
-## SPSS example using `haven`
-
-🎬 Turn the variables of type "haven_labelled" in to factors with:
+🎬 We can turn the variables of type "haven_labelled" in to factors with:
 
 
 ```r
@@ -360,43 +404,54 @@ periwinkle &lt;- periwinkle %&gt;%
 
 --
 
-🎬 Write the dataframe to a plain text format file in your `processed_data` folder.
+🎬 Write the dataframe to a plain text format file in your `data-processed` folder.
 
 .footnote[
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out try reading in these data: [carsdata.dta](raw_data/carsdata.dta).
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out try reading in these data: [carsdata.dta](data-raw/carsdata.dta).
 
 ]
----
-# Locally stored special formats.
 
-You can write the dataframe to a plain text format file in your `processed_data` folder like this:
+---
+# Example 1 SPSS - Write Answer
+
+You can write the dataframe to a plain text format file in your `data-processed` folder like this:
 
 
 ```r
-write.table(periwinkle, "processed_data/periwinkle.txt")
-```
-
---
-
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; 👀 There are `read_dta()` and `read_sas()` functions for STATA and SAS files respectively so: 
-
-
-```r
-file2 &lt;- "raw_data/carsdata.dta"
-cars &lt;- read_dta((file2))
+write.table(periwinkle, "data-processed/periwinkle.txt")
 ```
 
 ---
+# Extra Exercise answer
+
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  If you have worked that out try reading in these data: [carsdata.dta](data-raw/carsdata.dta).
+
+👀 There are `read_dta()` and `read_sas()` functions for STATA and SAS files respectively so: 
+
+
+```r
+file &lt;- "data-raw/carsdata.dta"
+cars &lt;- read_dta(file)
+```
+
+---
+class: inverse
+
 # Reading multiple files
+
+---
+# Overview
 
 We often have multiple files of the same format to import. Rather than coping and pasting the same data import command and editing the file name, it is better to import in single statement.
 
 --
 
-## Two methods
+**Two methods**
 
 I will demonstrate two ways you can import multiple files.
---
+
+---
+# Overview
 
 1. Using a `for` loop in base R
    * create a list with a length equal to the number of files.  
@@ -410,36 +465,36 @@ I will demonstrate two ways you can import multiple files.
 
 
 ---
-# Reading multiple files
-
-## The data
+# The data
 [specdata.zip](specdata.zip) is a compressed folder csv files containing air quality measures taken from twenty locations. The files all have the same structure of four columns: "Date","sulfate","nitrate" and "ID". "ID" gives the location ID and is the same as in the file name.
 
 --
 
 👀 Both methods require us to download the data and create a vector of file names.
 
---
+---
+# Both methods: download
 
-🎬 Save a copy of [specdata.zip](specdata.zip) and unzip it with:
+🎬 Save a copy of [data-raw/specdata.zip](specdata.zip) to `data-raw` and unzip it with:
 
 
 ```r
-unzip("specdata.zip")
+unzip("data-raw/specdata.zip", exdir = "data-raw")
 ```
 
 --
 
-Examine the results in the Files pane
+This should create a directory in `data-raw` called `specdata` which contains twenty .csv files. Examine the results in the Files pane
 
 ---
-# Reading multiple files
-
+# Both methods: file names
 
 🎬 Create a vector of file names:
 
 ```r
-files &lt;- dir("specdata/", pattern = ".csv", full.names = TRUE)
+files &lt;- dir("data-raw/specdata/", 
+             pattern = ".csv", 
+             full.names = TRUE)
 ```
 
 --
@@ -451,10 +506,22 @@ files &lt;- dir("specdata/", pattern = ".csv", full.names = TRUE)
 `full.names = TRUE` means the directory path is prepended to the file names to give a relative file path
 
 ---
-# Reading multiple files
+class: inverse
 
-## Using a for loop in base R
+# Reading multiple files: Method 1
 
+## Using a `for` loop in base R
+
+---
+# Method 1 base R
+
+We need to:
+- Pre-allocate a list with a length equal to the number of files
+- Iterate through each filename in `files` reading it with read_csv
+- Combine the list of data frames into a single dataframe (optional)
+
+---
+# Method 1 base R
 
 🎬 Pre-allocate a list with a length equal to the number of files.
 
@@ -469,16 +536,14 @@ df_list &lt;- vector("list", length(files))
 
 ```r
 for (i in 1:length(files)) {
-  df_list[[i]] &lt;- read.csv(files[[i]])
+  df_list[[i]] &lt;- read_csv(files[[i]])
 }
 ```
 
 ---
-# Reading multiple files
+# Method 1 base R
 
-## Using a for loop in base R
-
-🎬 To combine the list of data frames into a single data frame we can use:
+🎬 To combine the list of data frames into a single dataframe we can use:
 
 ```r
 airquality &lt;- do.call(rbind, df_list)
@@ -490,12 +555,18 @@ airquality &lt;- do.call(rbind, df_list)
 
 --
 
-😀 You now have a dataframe containing all the data in the twenty files.
+😃 You now have a dataframe containing all the data in the twenty files.
 
 ---
-# Reading multiple files
+class: inverse
+
+# Reading multiple files: Method 1
 
 ## Using `purrr` from the tidyverse
+
+---
+# Using purrr 
+
 
 The two main differences in this method are that `map()` dispenses with the need for a `for` loop (and for a pre-allocated vector) and we can use the pipe to link operations.
 
@@ -509,9 +580,10 @@ airquality2 &lt;- files %&gt;%
 ```
 
 --
-I replaced the base R functions `read.csv` and `do.call(rbind())` with tidyverse functions in addition.
+I replaced the base R function  `rbind()` with the tidyverse function `bind_rows()`.
 
---
+---
+# Using purrr 
 
 There's actually a `tidyverse` short cut for `map(read_csv) %&gt;% bind_rows`
 
@@ -521,11 +593,15 @@ airquality3 &lt;- files %&gt;%
   map_dfr(read_csv) 
 ```
 
+Even shorter!
 
 ---
+class: inverse
+
 # Files on the internet
 
-## Overview
+---
+# Overview
 
 It may be preferable to read data files from the internet rather than download the file if the data are likely to be updated.
 
@@ -539,9 +615,7 @@ For example, these data are from a buoy (buoy #44025) off the coast of New Jerse
 http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&amp;dir=data/historical/stdmet/
 
 ---
-# Files on the internet
-
-## Example
+# Example
 
 🎬 Use `readLines()` to examine the data format.
 
@@ -551,6 +625,7 @@ http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&amp;dir=d
 file &lt;- "http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&amp;dir=data/historical/stdmet/"
 ```
 
+.scroll-output-width[
 
 ```r
 readLines(file, n = 4)
@@ -562,19 +637,21 @@ readLines(file, n = 4)
 ## [3] "2010 12 31 23 50 222  7.2  8.5  0.75  4.55  3.72 203 1022.2   6.9   6.7   3.5 99.0 99.00"
 ## [4] "2011 01 01 00 50 233  6.0  6.8  0.76  4.76  3.77 196 1022.2   6.7   6.7   3.7 99.0 99.00"
 ```
+]
 
 --
 
 The first line gives the column name, the second line gives units and the data themselves begin on line 3
 
 ---
-# Files on the internet
+# Example
 
-## Example
 🎬 Read in the data.
 
 ```r
-buoy44025 &lt;- read_table(file, col_names = FALSE, skip = 2)
+buoy44025 &lt;- read_table(file, 
+                        col_names = FALSE,
+                        skip = 2)
 ```
 
 --
@@ -582,26 +659,38 @@ buoy44025 &lt;- read_table(file, col_names = FALSE, skip = 2)
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Use `scan()` to read in the appropriate lines then tidy  the results and name the columns measure_units, for example. [Tidying data and the tidyverse including the pipe](04_tidying_data_and_the_tidyverse.html) might help.
 
 ---
-# Files on the internet
+# Extra Exercise Answer
+
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Use `scan()` to read in the appropriate lines then tidy the results and name the columns measure_units, for example.
 
+.code60[
 
 ```r
 # read in the variable names from the first line, removing the hash
-measure &lt;- scan(file, nlines = 1, what = character()) %&gt;%
+measure &lt;- scan(file, 
+                nlines = 1, 
+                what = character()) %&gt;%
   str_remove("#")
 # read in the units from the second line, removing the hash and
 # replacing the / with _per_ as / is a special character
-units &lt;- scan(file, skip = 1, nlines = 1, what = character()) %&gt;% 
+units &lt;- scan(file, 
+              skip = 1,
+              nlines = 1,
+              what = character()) %&gt;% 
   str_remove("#") %&gt;% 
   str_replace("/", "_per_")
 # paste the variable name and its units together for the column names
-names(buoy44025) &lt;- paste(measure, units, sep = "_") 
+names(buoy44025) &lt;- paste(measure, 
+                          units, sep = "_") 
 ```
+]
 ---
+class: inverse
+
 # Web scraping
 
-## Overview
+---
+# Overview
 
 What if data are not in a file but on web page? One solution is to  'scrape' the data using package `rvest` &lt;a name=cite-rvest&gt;&lt;/a&gt;([Wickham, 2019b](#bib-rvest)).
 
@@ -609,18 +698,14 @@ Do you see what they did there? 😜
 
 --
 
-This is possible because the two core standards for building web pages, HTML (Hypertext Markup Language) and CSS (Cascading Style Sheets) are just text files which describe the structure of a page and its appearance.
+This is possible because the two core standards for building web pages, HTML (Hypertext Markup Language) and CSS (Cascading Style Sheets) are just text files which describe the structure of a page and its appearance with tags.
 
 --
-
-HTML describes the structure of pages using markup: pieces of content are labelled such as “paragraph,” “list,” “table,” and so on.
 
 We will do just one small example of a big topic: getting the information from a Wikipedia page on [Global biodiversity](https://en.wikipedia.org/wiki/Global_biodiversity)
 
 ---
-# Web scraping
-
-## Process
+# Steps
 
 There are several steps
 
@@ -642,14 +727,8 @@ There are several steps
 
 5. Do any any additional processing to the data in the R object.  
 
---
-
-🎬 Go to the web page: https://en.wikipedia.org/wiki/Global_biodiversity 
-
 ---
-# Web scraping
-
-## Process
+# Steps
 
 🎬 Load the `rvest` package and assign the web address to a variable:
 
@@ -660,46 +739,70 @@ url &lt;- "https://en.wikipedia.org/wiki/Global_biodiversity"
 
 --
 
+🎬 Go to the web page: https://en.wikipedia.org/wiki/Global_biodiversity 
+
+--
+
 🎬 Scroll down the Global biodiversity page until you see the table. Right click on the page and choose Inspect.
 
 A box will appear on the right including the full page source. 
 
---
+---
+# Steps
 
 🎬 In the Elements window, click on the element that highlights the information you want - in this case `&lt;table class="wikitable"&gt;`
 
 🎬 Right click on that element and choose Copy | Copy selector.
 
----
-# Web scraping
 
-## Process
+This is:
+
+`#mw-content-text &gt; div.mw-parser-output &gt; table`
+
+---
+# Steps
 
 🎬 Now download and parse the html file using `read_html`, extract the text at the copied selector using `html_nodes()`, process the text in to a list using `html_table()` and get the dataframe which is the first(and only) element of that list:
 
 
 ```r
 biodiv &lt;- read_html(url) %&gt;%
-  html_nodes(css = '#mw-content-text &gt; div &gt; table') %&gt;%
+  html_nodes(css = '#mw-content-text &gt; div.mw-parser-output &gt; table') %&gt;%
   html_table() %&gt;% 
   .[[1]]
 ```
 
---
+---
+# 🎉
 
 🎬 Examine the resulting dataframe. 
 
+.code60[
+
+```r
+glimpse(biodiv)
+```
+
+```
+## Rows: 99
+## Columns: 5
+## $ `Major/Component group`                     &lt;chr&gt; "Chordates", "&lt;U+21B3&gt;", "&lt;U+21B3&gt;", "&lt;U+21B3&gt;"~
+## $ `Major/Component group`                     &lt;chr&gt; "Chordates", "Mammals", "B~
+## $ `Major/Component group`                     &lt;chr&gt; "Chordates", "Mammals", "B~
+## $ Described                                   &lt;chr&gt; "64,788", "5,487", "9,990"~
+## $ `Global estimate (described + undescribed)` &lt;chr&gt; "~80,500", "~5,500", "&gt;10,~
+```
+]
 --
-
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Use methods given in [Tidying data and the tidyverse including the pipe](04_tidying_data_and_the_tidyverse.html) to process the contents of the dataframe.
-
-
-
+This resulting dataframe needs some work
 
 ---
+class: inverse
+
 # APIs
 
-## Overview
+---
+# Overview
 
 There are many data repositories online and you may have used a search page to retrieve data for download.   
 That search page is designed for humans to interface with the data repository.
@@ -710,9 +813,8 @@ An Applications Programming Interface (API) allows a data repository or program 
 
 This is especially useful when your data updates frequently.
 
---
-
-## Packages
+---
+# Overview
 
 Many packages have been written that simplify your use of an API&lt;sup&gt;1&lt;/sup&gt;. You may have used these without knowing. Using an API that has an already has a package is relatively simple.
 
@@ -722,29 +824,27 @@ Many packages have been written that simplify your use of an API&lt;sup&gt;1&lt;
 ]
 
 ---
-# APIs
-
-## Packages
+# API Package examples
 
 Just a few examples are:
 
 * `RGoogleAnalytics` for the the Google Analytics API
 * `rentrez` for the NCBI's 'EUtils' API, allowing users to search databases like 'GenBank'
-*  `aRxiv`	Interface to the arXiv API allowing you to seach the preprints database.
+*  `aRxiv`	Interface to the arXiv API allowing you to search the preprints database.
 * `CytobankAPI`	to access the Cytobank API
 * Many packages on [Bioconductor](https://www.bioconductor.org/) and [ROpenSci](https://ropensci.org/)
 
---
+---
+# Important
 
 👀 Search for an existing package to access an API before you start with the methods shown on the next few slides!  
 
 --
 
 This is a example of how to connect to an API to get data when the API doesn't have a package for R. It is a brief introduction but if is it something you want to do you will undoubtedly need to learn more.
----
-# APIs
 
-## Terminology
+---
+# API Terminology
 
 Interaction with an API comprises a **request** (what you send) and a **response**.  
 
@@ -761,33 +861,30 @@ The most common type of request is carried out with the GET HTTP method&lt;sup&g
 In R `httr` is one package that allows you create requests
 
 ---
-# APIs
+# API Terminology: Requests
 
-## Terminology: Requests
-
-An API request like `http://gtr.rcuk.ac.uk/search/project?term=virus&amp;page=1&amp;fetchSize=100` consists of:
+An API request like `http://gtr.rcuk.ac.uk/search/project?term=coronavirus&amp;page=1&amp;fetchSize=100` consists of:
   
 * a URL  
-  &lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;http://gtr.rcuk.ac.uk/search/&lt;/span&gt;project?term=virus&amp;page=1&amp;fetchSize=100
+  &lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;http://gtr.rcuk.ac.uk/search/&lt;/span&gt;project?term=coronavirus&amp;page=1&amp;fetchSize=100
 
 --
 
 * an 'endpoint' followed by a `?`. An endpoint is a dataset provided by the API.  
-  http://gtr.rcuk.ac.uk/search/&lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;project&lt;/span&gt;?term=virus&amp;page=1&amp;fetchSize=100
+  http://gtr.rcuk.ac.uk/search/&lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;project&lt;/span&gt;?term=coronavirus&amp;page=1&amp;fetchSize=100
 
 --
   
-  Many APIs have multiple endpoints.  
-
---
-
-* Endpoints are queried with 'parameters' separtated by `&amp;` which are defined in the API documentation  
-  http://gtr.rcuk.ac.uk/search/project?&lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;term=virus&amp;amp;page=1&amp;amp;fetchSize=100&lt;/span&gt;
+Many APIs have multiple endpoints.  
 
 ---
-# APIs
+# API Terminology: Requests
 
-## Terminology: Responses
+* Endpoints are queried with 'parameters' separated by `&amp;` which are defined in the API documentation  
+  http://gtr.rcuk.ac.uk/search/project?&lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #D0DEE6 !important;" &gt;term=coronavirus&amp;amp;page=1&amp;amp;fetchSize=100&lt;/span&gt;
+
+---
+# API Terminology: Responses
 
 An API response is usually returned in one of two formats:
 
@@ -804,16 +901,14 @@ These formats are plain text but need processing.
 JSON data is often handled with the `jsonlite` package
 
 ---
-# APIs
-
-## Example
+# Example
 
 
 We are going to query the [UK Research and Innovation](https://www.ukri.org/) [Gateway to Research](https://gtr.ukri.org/)  which enables users to search and analyse information about publicly funded research. 
 
 --
 
-We will retrieve BBSRC research grants that will start in 2020 about viruses.
+We will retrieve BBSRC research grants that start in 2021 about coronavirus.
 
 --
 
@@ -831,9 +926,7 @@ library(jsonlite)
 ```
 
 ---
-# APIs
-
-## Example
+# Example
 
 We need to:  
 1. Make a "GET" request to the API to pull raw data into R  
@@ -843,19 +936,17 @@ We need to:
 2. Parse that data from its raw form (JSON) into a usable format
 
 ---
-# APIs
-
-## Constructing the query
+# Example: Construct query
 
 🎬 Create variables for the URL, the endpoint and the parameters:
 
 
 ```r
-base &lt;- "http://gtr.rcuk.ac.uk/search/"
+base &lt;- "https://gtr.ukri.org/search/"
 endpoint &lt;- "project"
 page &lt;- 1
 fetchsize &lt;- 100
-term &lt;- "virus"
+term &lt;- "coronavirus"
 ```
 
 --
@@ -864,15 +955,24 @@ We are searching the `project` data resource; other possible endpoints include `
 
 `fetchSize` and `page` give the number of results per page returned and which page should be returned. 
 
---
+---
+# Example
+
+```
+base &lt;- "https://gtr.ukri.org/search/"
+endpoint &lt;- "project"
+page &lt;- 1
+fetchsize &lt;- 100
+term &lt;- "coronavirus"
+```
+
 
 Typically, we need to write a loop to retrieve all the results. 
-For simplicity, I have used a search that returns less that a one page of results.
+
+For simplicity, I have used a search (research grants, funded by the BBSRC in 2021) that returns less that a one page of results - meaning I could have omitted the page and fetchsize.
 
 ---
-# APIs
-
-## Constructing the query
+# Example: Construct query
 
 Specifying the funding council, type of grant and year is done by passing **id codes** to the `selectedFacets` parameter. 
 
@@ -885,17 +985,15 @@ This is information obtained from the API documentation.
 But you can often examine the response to an exploratory request to obtain such information
 
 ---
-# APIs
+# Example: Construct query
 
-## Constructing the query
-
-### An exploratory query to determine additional search parameters
+An exploratory query to determine additional search parameters
 
 🎬 Construct the query:
 
 
 ```r
-explore &lt;- paste(base,endpoint, "?",
+explore &lt;- paste(base, endpoint, "?",
                "term=", term, "&amp;",
                "page=", page, "&amp;",
                "fetchSize=", fetchsize,
@@ -904,20 +1002,21 @@ explore
 ```
 
 ```
-## [1] "http://gtr.rcuk.ac.uk/search/project?term=virus&amp;page=1&amp;fetchSize=100"
+## [1] "https://gtr.ukri.org/search/project?term=coronavirus&amp;page=1&amp;fetchSize=100"
 ```
+
 ---
-# APIs
+# Example: Construct query
 
-## Constructing the query
+An exploratory query to determine additional search parameters
 
-### An exploratory query to determine additional search parameters
 
 🎬 Make the request using the query:
 
 ```r
 results &lt;- GET(explore)
 ```
+
 
 🎬 Process the JSON response into an R data structure:
 
@@ -928,26 +1027,24 @@ data &lt;- results %&gt;%
 ```
 
 ---
-# APIs
+# Example: Construct query
 
-## Constructing the query
+An exploratory query to determine additional search parameters
 
-### An exploratory query to determine additional search parameters
 
 🎬 Examine the `data` list. 
 
-### Demo
+**Demo**
 
 ---
-# APIs
-
-## Constructing the query
+# Example: Construct query
 
 Having worked out what the id codes are for research grants, the BBSRC and 2020 we will want to add those to our query.
 
 --
 
 🎬 Create variables for the variables for appropriate `selectedFacets` id codes:
+.code60[
 
 ```r
 # these are the id codes that filter the results by:
@@ -956,13 +1053,11 @@ research &lt;- "Y2F0fFJlc2VhcmNoIEdyYW50fHN0cmluZw=="
 # "Funder" and
 bbsrc &lt;- "ZnVuZGVyfEJCU1JDfHN0cmluZw=="
 # "Start year
-y2020 &lt;- "c3RhcnR8MTU3NzgzNjgwMDAwMF8xNjA5NDU5MTk5MDU5fHJhbmdl"
+y2021 &lt;- "c3RhcnR8MTYwOTQ1OTIwMDAwMF8xNjQwOTk1MTk5MDU5fHJhbmdl"
 ```
-
+]
 ---
-# APIs
-
-## Constructing the query
+# Example: Construct query
 
 The id codes include some special characters that must be encoded as `%` plus a two-digit hexadecimal representation (known as percent coding). 
 
@@ -974,22 +1069,21 @@ You may have seen browsers replace spaces with `%20` - this is just one example.
 
 The ids must be in a list separated by commas, and then encoded.
 
---
+---
+# Example: Construct query
 
 🎬 Create a variable for the selectedFacets parameter by pasting the codes together separated by a comma, then encoding:
 
 ```r
 selectedFacets &lt;- paste(research,
                         bbsrc, 
-                        y2020, 
+                        y2021, 
                         sep = ",") %&gt;%
   URLencode()
 ```
 
 ---
-# APIs
-
-## Constructing the query
+# Example: Construct query
 
 🎬 Paste all parts into the same query, adding `?` and `&amp;` where required:
 
@@ -999,12 +1093,14 @@ call1 &lt;- paste(base, endpoint,"?",
                "page=", page, "&amp;",
                "fetchSize=", fetchsize, "&amp;",
                "selectedFacets=", selectedFacets,
-               sep="")
+               sep = "")
 ```
---
+
+---
+# Example: Check query
 
 
-🎬 Check the result:
+🎬 Check the query:
 .scroll-output-width[
 
 ```r
@@ -1012,13 +1108,12 @@ call1
 ```
 
 ```
-## [1] "http://gtr.rcuk.ac.uk/search/project?term=virus&amp;page=1&amp;fetchSize=100&amp;selectedFacets=Y2F0fFJlc2VhcmNoIEdyYW50fHN0cmluZw==,ZnVuZGVyfEJCU1JDfHN0cmluZw==,c3RhcnR8MTU3NzgzNjgwMDAwMF8xNjA5NDU5MTk5MDU5fHJhbmdl"
+## [1] "https://gtr.ukri.org/search/project?term=coronavirus&amp;page=1&amp;fetchSize=100&amp;selectedFacets=Y2F0fFJlc2VhcmNoIEdyYW50fHN0cmluZw==,ZnVuZGVyfEJCU1JDfHN0cmluZw==,c3RhcnR8MTYwOTQ1OTIwMDAwMF8xNjQwOTk1MTk5MDU5fHJhbmdl"
 ```
 ]
----
-# APIs
 
-## Running the query
+---
+# Example: Run query
 
 🎬 We use the GET function in the same way as for our exploratory query:
 
@@ -1026,13 +1121,14 @@ call1
 results &lt;- GET(call1)
 ```
 
---
+---
+# Example: Check result
 
 🎬 We can check the request was successful using:
 
 
 ```r
-results$status_code
+results[["status_code"]]
 ```
 
 ```
@@ -1046,9 +1142,32 @@ results$status_code
 [List of HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes). You've almost certainly seen a 404 before.
 
 ---
-# APIs
+# Example: Pages of results?
 
-## Running the query
+If we needed to know how to make our loop, we would need to look in:
+
+
+```r
+results[["headers"]][["link-pages"]]
+```
+
+```
+## [1] "1"
+```
+
+```r
+results[["headers"]][["link-records"]]
+```
+
+```
+## [1] "7"
+```
+ to find the number of pages and results.
+
+
+---
+# Example: Extract response
+
 🎬 Extract the content of the response and parse it from JSON to an R structure.
 
 
@@ -1058,24 +1177,48 @@ data &lt;- results %&gt;%
   fromJSON()
 ```
 
+---
+# Example: Examine
+
 🎬 Examine your results:
 
 ```r
-data$searchResult$resourceHitCount
+data[["searchResult"]][["resourceHitCount"]]
 ```
 
 ```
-##       resource count
-## 1      project    27
-## 2 organisation     2
-## 3     outcomes  4723
-## 4       person  2420
-## 5  publication  6617
+##      resource count
+## 1     project     7
+## 2    outcomes   178
+## 3      person   640
+## 4 publication   293
+```
+---
+# Example: Examine
+
+🎬 Examine your results:
+.scroll-output-width[
+.code60[
+
+```r
+data[["searchResult"]][["results"]][["projectComposition"]][["project"]][["title"]]
 ```
 
+```
+## [1] "An accurate eukaryotic plasma membrane assay for coronavirus binding"                                                 
+## [2] "Development of a virus-free sensor system to repurpose approved drugs for blocking Coronavirus replication"           
+## [3] "High-resolution structure, function, and anti-viral inhibition of the SARS-CoV2 E protein ion channel"                
+## [4] "Common host proteins required for replication organelle function across coronaviruses"                                
+## [5] "Airway Epithelial-Myeloid cell crosstalk as a key mechanism in the pathogenesis of COVID-19"                          
+## [6] "SARS-CoV-2 infections in cats: assessing their zoonotic potential and role in sustaining the COVID-19 pandemic"       
+## [7] "Probing the mechanism of action of Shiftless, a host restriction factor targeting programmed ribosomal frameshifting."
+```
+]
+]
 ---
 # Summary
 
+.font80[
 * Consider whether the data are locally or remotely stored, their format, whether they are in one file or several or distributed across other resources.  
 * If you use some form of database that presents information in your browser, check whether it has an API, then whether there are existing packages to access that API.  
 * plain text files can be read in with base R, readr or data.table methods (and more)  
@@ -1085,15 +1228,20 @@ data$searchResult$resourceHitCount
 * some form of tidying is almost always required  
 * `rvest` allows you to scrape data from webpages is you can identify the CSS selector
 * an API allows programmatic access to a data repository  
-
+]
 
 ---
 # References
-
 .footnote[
-Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan))
-
+.font60[
+Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan)) and xaringanExtra &lt;a name=cite-xaringanExtra&gt;&lt;/a&gt;([Aden-Buie, 2020](#bib-xaringanExtra))
 ]
+]
+.font60[
+&lt;a name=bib-xaringanExtra&gt;&lt;/a&gt;[Aden-Buie, G.](#cite-xaringanExtra)
+(2020). _xaringanExtra: Extras And Extensions for Xaringan Slides_. R
+package version 0.2.3.9000. URL:
+[https://github.com/gadenbuie/xaringanExtra](https://github.com/gadenbuie/xaringanExtra).
 
 &lt;a name=bib-Dowle_Srinivasan_2019&gt;&lt;/a&gt;[Dowle, M. and A.
 Srinivasan](#cite-Dowle_Srinivasan_2019) (2019). _data.table: Extension
@@ -1116,19 +1264,19 @@ version 1.1.2. URL:
 &lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan:
 Presentation Ninja_. R package version 0.12. URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
+]
 
 
----
-
-class: inverse
-
-# 🎂 Congratulations! Keep practising! 🎂 
 
 ---
-# Introduction to Reproducibility in R
+# Intro to Repro in R
 
-## Emma Rand &lt;br&gt; [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) &lt;br&gt; Twitter: [@er13_r](https://twitter.com/er13_r) &lt;br&gt; GitHub: [3mmaRand](https://github.com/3mmaRand)  &lt;br&gt; blog: https://buzzrbeeline.blog/
-&lt;br&gt;
+Emma Rand  
+[emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk)  
+Twitter: [@er13_r](https://twitter.com/er13_r)   
+GitHub: [3mmaRand](https://github.com/3mmaRand)  
+blog: https://buzzrbeeline.blog/  
+
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
