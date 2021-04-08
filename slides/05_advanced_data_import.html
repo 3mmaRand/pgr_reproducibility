@@ -267,7 +267,7 @@ readLines(file, n = 2)
 ## [1] "Code\tDescription" "A00\t\"Cholera\""
 ```
 
-It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵️‍♀️
+It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵
 
 ---
 # Extra Exercise answer
@@ -555,7 +555,7 @@ airquality &lt;- do.call(rbind, df_list)
 
 --
 
-😃 You now have a dataframe containing all the data in the twenty files.
+😄 You now have a dataframe containing all the data in the twenty files.
 
 ---
 class: inverse
@@ -626,6 +626,7 @@ file &lt;- "http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.
 ```
 
 .scroll-output-width[
+.code60[
 
 ```r
 readLines(file, n = 4)
@@ -637,6 +638,7 @@ readLines(file, n = 4)
 ## [3] "2010 12 31 23 50 222  7.2  8.5  0.75  4.55  3.72 203 1022.2   6.9   6.7   3.5 99.0 99.00"
 ## [4] "2011 01 01 00 50 233  6.0  6.8  0.76  4.76  3.77 196 1022.2   6.7   6.7   3.7 99.0 99.00"
 ```
+]
 ]
 
 --
@@ -777,6 +779,7 @@ biodiv &lt;- read_html(url) %&gt;%
 
 🎬 Examine the resulting dataframe. 
 
+.scroll-output-width[
 .code60[
 
 ```r
@@ -793,7 +796,10 @@ glimpse(biodiv)
 ## $ `Global estimate (described + undescribed)` &lt;chr&gt; "~80,500", "~5,500", "&gt;10,~
 ```
 ]
+]
+
 --
+
 This resulting dataframe needs some work
 
 ---

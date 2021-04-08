@@ -579,9 +579,11 @@ file <- "http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&
 ```
 
 .scroll-output-width[
+.code60[
 ```{r}
 readLines(file, n = 4)
 ```
+]
 ]
 
 --
@@ -720,12 +722,16 @@ biodiv <- read_html(url) %>%
 
 `r emo::ji("clapper")` Examine the resulting dataframe. 
 
+.scroll-output-width[
 .code60[
 ```{r}
 glimpse(biodiv)
 ```
 ]
+]
+
 --
+
 This resulting dataframe needs some work
 
 ---
