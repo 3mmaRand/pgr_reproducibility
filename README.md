@@ -51,8 +51,6 @@ To help me direct you to useful training and manage diversity in previous experi
 
 ### Computing requirements
 
-I recommend you install Zoom rather than using the browser.
-
 Laptops should have the following installed **prior** to attending the workshop:
 
 - R version 4.04 or higher
