@@ -5,8 +5,24 @@
     <meta charset="utf-8" />
     <meta name="author" content="Emma Rand" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="..\css_files\emma.css" type="text/css" />
-    <link rel="stylesheet" href="..\css_files\emma-fonts.css" type="text/css" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/js-cookie/js.cookie.js"></script>
+    <script src="libs/peerjs/peerjs.min.js"></script>
+    <script src="libs/tiny.toast/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast/broadcast.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css_files/emma.css" type="text/css" />
+    <link rel="stylesheet" href="../css_files/emma-fonts.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -25,29 +41,31 @@ class: center, middle, inverse, title-slide
 
 
 
+&lt;style&gt;
+div.blue { background-color:#b0cdef; border-radius: 5px; padding: 20px;}
+div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
+&lt;/style&gt;
 
 
 
 
-
-# Introduction
-
-## Aims
+# Aims
 
 To introduce you to R Markdown for creating reproducible reports in a variety of output formats. You will also get more practice organising analyses and importing, summarising and plotting data.
 
-## Learning outcomes 
+🎬 An instruction to do something
+---
+# Learning outcomes 
 
 The successful student will be able to:
 
 * explain what R Markdown is  
 * appreciate the role of the YAML header  
-* set default code chunk behaviour and those for individual chunks  
+* set default code chunk behaviour and that for individual chunks  
 * use headings, simple text formatting and special characters  
 * add citations and references with a .bib file  
 * use inline code to report results in text  
-* create automatically numbered tables and cross reference them in the text  
-* create automatically numbered figures and cross reference them in the text  
+* create automatically numbered tables and figures and cross reference them in text  
 
 ---
 # Goal!
@@ -56,31 +74,26 @@ By the end of this session you'll be able to do something like this:
 &lt;!-- standard markdown report in pdf, word or html --&gt;
 &lt;!-- include a table, inline code, a figure,  --&gt;
 
-## demo.....
+demo.....
 
 
 
 ---
-# Workshop overview
+# Reproducible Reports
 
 
 
 
----
-# Reproducible Reports: R Markdown
-
-
-
-
-## How do you work?
+How do you work?
 
 * What program do you analyse your data in?  
 * What program do you plot your data in?  
 --
+
 &lt;img src="06_r_markdown_for_reproducible_reports_files/figure-html/unnamed-chunk-2-1.png" width="648" /&gt;
 
 ---
-# Reproducible Reports: R Markdown 
+# Reproducible Reports
 
 
 * What program do you use to write up the results to submit to a journal (or similar)?
@@ -89,7 +102,7 @@ By the end of this session you'll be able to do something like this:
 
 
 ---
-# Reproducible Reports: R Markdown 
+# Reproducible Reports
 
 * What is your process for getting your summary data, statistical results, tables and figures in to your report?  
 --
@@ -100,9 +113,9 @@ By the end of this session you'll be able to do something like this:
 * What do you do if you wrote in Word formatted for one journal and now have to submit in PDF formatted for another?
 
 ---
-# Reproducible Reports: R Markdown
+# Reproducible Reports
 
-## How do you work?
+How do you work?
 
 Typically people analyse, plot and write up in different programs. 
 
@@ -114,12 +127,12 @@ If the data changes, the author must repeat the entire process to update the rep
 
 ---
 background-image: url(../pics/rmarkdown.png)
-background-position: 80% 80%
+background-position: 100% 85%
 background-size: 180px
 
-# Reproducible Reports: R Markdown
+# Reproducible Reports
 
-The brilliance of R Markdown &lt;a name=cite-markdown1&gt;&lt;/a&gt;([Allaire Xie, et al., 2019a](#bib-markdown1)) is that you can use a **single R Markdown file** to:
+The brilliance of R Markdown (Allaire Xie, et al., 2019) is that you can use a **single R Markdown file** to:
 
 * save and execute code  
 
@@ -136,46 +149,44 @@ The brilliance of R Markdown &lt;a name=cite-markdown1&gt;&lt;/a&gt;([Allaire Xi
 
 This is a time-efficient and reproducible way to write!
 
-## 😎
+😎
 
 
 
 ---
-# Reproducible Reports: R Markdown
+# Formats
 
-## Many output formats are supported!
+Many output formats are supported!
 
 .pull-left[
 ![picture of some of the formats](../pics/rmarkdownoutputformats.png)
 ]
 .pull-right[
 * Word
-* Webpages - many styles and themes
+* Webpages
 * PDF
-* journal article formats for many journals
+* specific journal formats
 * webslides
 * powerpoint
 * books
 * blogs
 * posters
-* web applications including interactive
+* web applications
 
 ]
 
 ---
-# Reproducible Reports: R Markdown
-
-## Organising your work
+# Organising your work
 
 You are going to work with some made-up data on the myoglobin content in the skeletal muscle of three species of seal
 
 --
 
-Create a new project called 'seals'
+Create a new project called `seals`
 
 --
 
-Inside 'seals', make folders called 'raw_data' and 'processed_data'
+Inside `seals`, make folders called `data-raw` and `data-processed`
 
 --
 
@@ -186,37 +197,31 @@ R can cope with them....  but they can often confuse humans!
 
 --
 
-Save a copy of [seal.txt](../seals/raw_data/seal.txt) to the 'raw_data' folder
+Save a copy of [seal.txt](../seals/data-raw/seal.txt) to the `data-raw` folder
 
 
 ---
-# Reproducible Reports: R Markdown
-
-## Live demo
+# Live demo
 
 🎬 Just watch for a while....
 
 ---
-# Reproducible Reports: R Markdown
-
-## Key points from the demo
+# Key points from demo
 
 
 * mixes text and code  
 * human readable  
-* YAML header between the  \-\-\-
+* YAML header between the  `---`
 * code chunk options control whether the code and its output end up in your 'knitted' document  
 * comments   
-  * in a code chunk the \# is still used for comments  
-  * in the text a comment is written like this  &lt;!\-\- a comment \-\-&gt;
+  * in a code chunk `#` 
+  * in the text  `&lt;!-- a comment --&gt;`
   * but use Ctrl+Shift+C  
-* \# in the text indicate headings  
+* `#` in the text indicate headings  
 
 
 ---
-# Reproducible Reports: R Markdown
-
-## Your own R markdown file
+# Your own R markdown
 
 🎬 File | New File | R Markdown
 
@@ -230,14 +235,18 @@ Save a copy of [seal.txt](../seals/raw_data/seal.txt) to the 'raw_data' folder
 
 You could copy and paste a title from [paper.html](../seals/paper.html)
 
+--
+
+🎬 Save the Rmd as `report.Rmd`
+
+
+
 ---
 
-# Reproducible Reports: R Markdown
+# YAML
 
-## YAML
-
-🎬 I also recommend using the `bookdown` package &lt;a name=cite-bookdown&gt;&lt;/a&gt;([Xie, 2016](#bib-bookdown))output types which handle cross referencing well.
-
+🎬 Add `bookdown` (Xie, 2016) output types:
+.code60[
 ```
 ---
 title: "Variation in myoglobin content of skeletal muscle of seal species."
@@ -250,11 +259,11 @@ bibliography: reference.bib
 ---
 
 ```
+]
 
+I recommend using the `bookdown` package (Xie, 2016) output types because they handle cross referencing well.
 ---
-# Reproducible Reports: R Markdown
-
-## Default code chunk behaviour.
+# Default code chunk behaviour
 
 🎬 Set some **default** code chunk options. I recommend these:
 
@@ -269,21 +278,19 @@ knitr::opts_chunk$set(echo = FALSE,
 ````
 --
 
-`echo = FALSE` code will not be included in the output - normally what you want in a report.
-`warning = FALSE` and `message = FALSE` R messages and warnings will not be included
+`echo = FALSE` code will not be included in output  
+`warning = FALSE` and `message = FALSE` R messages and warnings will not be included  
 `fig.retina = 3` for improving the appearance of R figures in HTML documents
 
 ---
 
-# Reproducible Reports: R Markdown
+# Add a code chunk
 
-## Add a code chunk
-
-### Packages
+For package loading
 
 The first two code chunks are usually for the default code chunk options (which I tend to call `setup`) and for package loading. 
 
-🎬 Use Insert | R to add a code chunk:
+🎬 Use Insert | R to add a code chunk (Ctrl-Alt-i):
 
 .pull-left[
 ````
@@ -300,25 +307,24 @@ library(tidyverse)
 ]
 
 ---
-# Reproducible Reports: R Markdown
+# References
 
-## References
-
-References and citations can be added by creating a .bib file containing references in BibTeX format and another line to the YAML header.
+References and citations can be added by:
+-  creating a .bib file containing references in BibTeX format and 
+-  adding another line to the YAML header
 
 
 --
 
 🎬 Add `bibliography: mybibfile.bib` to the YAML header.&lt;sup&gt;1&lt;/sup&gt;
 .footnote[
+.font70[
 1. There are other ways of including references such as using `RefManageR` package which is what I am using in these slides.
-
+]
 ]
 
 ---
-# Reproducible Reports: R Markdown
-
-## References: Make a .bib file
+# Make a .bib file
 
 🎬 Do File | New file | Text file
 
@@ -334,13 +340,11 @@ BibTeX format is also available through most referencing software (e.g., PaperPi
 
 
 ---
-# Reproducible Reports: R Markdown
-
-## References
+# References
 
 Citations are added using:
-  *  blah blah blah `[@xaringan]` for blah blah blah &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan)).    
-  *  Xie `[-@xaringan]` said blah blah blah for [Xie (2019)](#bib-xaringan) said blah blah blah.  
+  *  blah blah blah `[@xaringan]` for blah blah blah (Xie, 2019).    
+  *  Xie `[-@xaringan]` said blah blah blah for Xie (2019) said blah blah blah.  
 
 --
 
@@ -351,12 +355,7 @@ If you have installed the `citr` package there is an Addin to help with this.
 Every citation used results in the reference being added to a list at the bottom of the output.
 
 ---
-
-# Reproducible Reports: R Markdown
-
-## Add a section of text
-
-### Introduction
+# Add text
 
 🎬 Add a header for the Introduction and text - again you could copy and paste. 
 
@@ -369,27 +368,19 @@ myoglobin differed between  species.
 
 ```
 ---
-# Reproducible Reports: R Markdown
-
-## Your turn
+# Your turn
 
 🎬 Include at least one reference in your introduction, such as this one: https://doi.org/https://doi.org/10.1016/S1095-6433(00)00182-3.
 
 --
 
-🎬 Save your file.
+🎬 Save your Rmd
 
 
 ---
+# Your turn
 
-
-
-
-# Reproducible Reports: R Markdown
-
-## Add a section of text
-
-### Your turn
+Add a section of text for Methods
 
 🎬 Add a heading for the Methods section including at least one reference to R or packages.
 
@@ -400,14 +391,10 @@ myoglobin differed between  species.
 
 This should render as something like:
 
-We used R (R Core Team 2019) with tidyverse packages (Wickham 2017) for all analyses.
+We used R (R Core Team, 2021) with tidyverse packages (Wickham, 2017) for all analyses.
 
 ---
-# Reproducible Reports: R Markdown
-
-## Add a code chunk
-
-### Importing data
+# Add a code chunk
 
 🎬 Insert a code chunk for importing the data
 
@@ -416,25 +403,26 @@ We used R (R Core Team 2019) with tidyverse packages (Wickham 2017) for all anal
 ```{r import}
 # Data import
 # the data are organised in to three columns, one for each species. 
-seal &lt;- read.table("raw_data/seal.txt", header = TRUE)
+seal &lt;- read_table2("data-raw/seal.txt")
 ```
 ````
 --
 Notice than you can, and should, comment your code.
 
 ---
-# Reproducible Reports: R Markdown
-
-## Run a code chunk interactively
+# Run code interactively
 
 You can run the code interactively to check your progress and the output will be shown in the Rmd document.
 
 🎬 Run the whole code chunk using the green arrow button on the right of the code chunk:
+---
+# Run code interactively
+
 ````
 ```{r import}
 # Data import
 # the data are organised in to three columns, one for each species. 
-seal &lt;- read_table2("raw_data/seal.txt", header)
+seal &lt;- read_table2("data-raw/seal.txt")
 str(seal)
 ```
 ````
@@ -450,9 +438,7 @@ str(seal)
 Individual lines of code can be run by placing your cursor on the line and doing ctl-enter.
 
 ---
-# Reproducible Reports: R Markdown
-
-## Add a code chunk to tidy data
+# Add a code chunk
 
 🎬 Insert a code chunk for tidying the data:
 
@@ -467,9 +453,9 @@ seal2 &lt;- seal %&gt;%
 ````
 
 ---
-# Reproducible Reports: R Markdown
+# Add a code chunk
 
-## Add a code chunk to summarise
+Add a code chunk to summarise
 
 🎬 Insert a code chunk for summarising the data:
 
@@ -485,22 +471,20 @@ sealsummary &lt;- seal2 %&gt;%
 ````
 
 ---
-# Reproducible Reports: R Markdown
+# Run code interactively
 
-## What is in `sealsummary`?
+What is in `sealsummary`?
 
 🎬 Select a section of code and and run (ctrl-enter)
 
 
 --
 
-Knit your file
+🎬 Knit your file 🧶 
 
 
 ---
-# Reproducible Reports: R Markdown
-
-## Inline code
+# Inline code
 
 Inline code is how you include a variable value, like a mean, in a section of text.
 
@@ -516,25 +500,23 @@ For example by writing:
 
 The squareroot of 2 is ` `r`  `sqrt(2)` ` ` ` 
 
-you will get 
+you will get: 
 
 The squareroot of 2 is  1.4142136
 
 ---
-# Reproducible Reports: R Markdown
+# Reproducible Reports
 
-## Inline code
+Inline code
 
 🎬 Add a sentence to your Methods section which uses inline code to report how many individuals were examined.
 
 ---
-# Reproducible Reports: R Markdown
-
-## Inline code
+# Inline code
 
 Suppose you want to report the highest mean in the text.
 
-We could add
+We could add:
 
 The highest mean is ` `r`  `max(sealsummary$mean)` ` ` `
 
@@ -546,13 +528,13 @@ The highest mean is 49.01033
 
 
 ---
-# Reproducible Reports: R Markdown
-
-## Inline code
+# Inline code
 
 🎬 Insert a code chunk to extract values from the summary to make inline reporting easier. This helps us avoid long pieces of inline code
 
-Don't worry too much about completely understanding the code
+Don't worry too much about completely understanding the code.
+
+.code80[
 
 ````
 ```{r extract}
@@ -563,6 +545,7 @@ highestse &lt;- sealsummary$se[sealsummary$mean == highestmean]
 highestspp &lt;- sealsummary$species[sealsummary$mean == highestmean]
 ```
 ````
+]
 
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; If you have spare time, also extract the lowest mean, its s.e. and the species to which it belongs.
 &lt;!-- lowestmean &lt;- min(sealsummary$mean) --&gt;
@@ -572,18 +555,14 @@ highestspp &lt;- sealsummary$species[sealsummary$mean == highestmean]
 
 
 ---
-# Reproducible Reports: R Markdown
-
-## Your turn.
+# Your turn.
 
 🎬 Make a start on a results section by mixing text and inline coding. 
 
 🎬 Knit your document. 🧶
 
 ---
-# Reproducible Reports: R Markdown
-
-## Special characters
+# Special characters
 
 You can include special characters in a markdown document using LaTeX markup. This has `$` signs on the outside and uses backslashes and curly braces to indicate that what follows should be interpreted as a special character or special formatting.
 
@@ -592,9 +571,7 @@ For example, to get `\(\bar{x} \pm s.e.\)` you write `$\bar{x} \pm s.e.$`
 🎬 Improve your results section by using special characters.
 
 ---
-# Reproducible Reports: R Markdown
-
-## Adding a table
+# Adding a table
 
 the `knitr` package's `kable()` function is a useful way to include tables. `kable()` takes a dataframe as an argument and has options to format the contents as a table. 
 
@@ -602,7 +579,8 @@ the `knitr` package's `kable()` function is a useful way to include tables. `kab
 
 For example, `digits` will round the number of decimal places used.
 
---
+---
+# Adding a table
 
 🎬 Add a code chunk for a table of the summarised data:
 
@@ -614,10 +592,9 @@ knitr::kable(sealsummary,
              row.names = FALSE)
 ```
 ````
----
-# Reproducible Reports: R Markdown
 
-## Adding cross-references to the table.
+---
+# Cross-referencing a table
 
 ````
 ```{r summary-table}
@@ -627,21 +604,28 @@ knitr::kable(sealsummary,
              row.names = FALSE)
 ```
 ````
-In order for tables to be automatically numbered, and to allow you to cross-reference them in the text, you need to ensure two things in the chunk:
+For tables to be automatically numbered, and to allow you to cross-reference them in the text:
 
 1. the chunk must be labelled. I've used `summary-table`  
 2. the table must have a caption as set by the `caption` argument
 
 --
 
-❗ The caption does not have to include "Table 1." 
+❗ The caption does **not** have to include "Table 1." 
 
 ---
-# Reproducible Reports: R Markdown
-
-## Adding cross-references to the table.
+# Cross-referencing a table
 
 To refer to this table in the text, we use `\@ref(tab:summary-table)`
+
+The general syntax for cross-references is `\@ref(label)` where label can be:  
+-  `tab:name-of-chunk-that-makes-a-table`
+-  `fig:name-of-chunk-that-makes-a-figure`
+-  `ref:name-of-section`
+-  `eq:name-of-equation`
+
+---
+# Cross-referencing a table
 
 🎬 Add a sentence to your results referring to the reader to the summary table such as: See table \\@ref(tab:summary-table)
 
@@ -650,14 +634,10 @@ To refer to this table in the text, we use `\@ref(tab:summary-table)`
 🎬 Hit knit! 🧶
 
 
-The general syntax for cross-references is `\@ref(label)` where label can be:  
-`tab:name-of-chunk-that-makes-a-table` or  
-`fig:name-of-chunk-that-makes-a-figure`
+
 
 ---
-# Reproducible Reports: R Markdown
-
-## Statstical testing
+# Statstical testing
 
 An appropriate analysis for this scenario is a one-way ANOVA followed by a Tukey Honest Significant Difference post-hoc test. 
 
@@ -683,17 +663,13 @@ res &lt;- summary(mod)[[1]]
 ````
 
 ---
-# Reproducible Reports: R Markdown
-
-## Your turn
+# Your turn
 
 🎬 Extract the *F*, *d.f.* and *p* values from the dataframe and report them in the results section by mixing text and inline coding.
 
 
 ---
-# Reproducible Reports: R Markdown
-
-## Statstical testing: Tukey
+# Statstical testing: Tukey
 
 🎬 Insert a code chunk an run a Tukey HSD on the model:
 
@@ -706,11 +682,10 @@ TukeyHSD(mod)
 Note: I have added the `include=FALSE` argument to the chunk. This suppresses the output in the knitted document.
 
 ---
-# Reproducible Reports: R Markdown
+# Statstical testing: Tukey
 
-## Statstical testing: Tukey
-
-🎬 Run the Tukey code:
+🎬 Run the Tukey code interactively:
+.code80[
 
 ````
   Tukey multiple comparisons of means
@@ -724,15 +699,14 @@ Harbour-Bladdernose -2.835357 -7.968374  2.297660 0.3889209
 Weddell-Bladdernose  4.474286 -0.658731  9.607302 0.1001324
 Weddell-Harbour      7.309643  2.176626 12.442660 0.0029812
 ````
+]
 
---
 It's the highest (Weddell) and lowest (Harbour) means that differ.
 
 
 ---
-# Reproducible Reports: R Markdown
+# Adding a figure
 
-## Adding a figure
 .pull-left[
 This is what we are aiming for:
 
@@ -740,40 +714,38 @@ This is what we are aiming for:
 ]
 
 .pull-right[
+For figures to be automatically numbered, and to allow you to cross-reference them in the text:
 
-In order for figures to be automatically numbered, and to allow you to cross-reference them in the text, you need to ensure two things in the chunk:
-
-1. the chunk must be labelled. I'll used `myo-fig`  
+1. the chunk must be labelled. I've used `myo-fig`  
 2. the figure must have a caption *but* this time it is set in the code chunk options using `fig.cap` 
 
 To refer to this figure in the text, we will use `\@ref(fig:myo-fig)`
 ]
 ---
-# Reproducible Reports: R Markdown
-
-## Adding a figure
+# Adding a figure
 
 We will go through the items that need to be in the markdown with a basic plot.
 
 🎬 Add a code chunk for the figure:
+.code70[
 
 ````
 ```{r myo-fig, fig.cap="Mean Myoglobin content of skeletal muscle"}
 ggplot() +
-  geom_point(data = seal2, aes(x = species, y = myoglobin),
-             position = position_jitter(width = 0.1, height = 0))
+  geom_point(data = seal2, 
+             aes(x = species, y = myoglobin),
+             position = position_jitter(width = 0.1,
+                                        height = 0))
 ```
 ````
+]
 
---
 
 I have labelled the chunk `myo-fig` and set the caption with `fig.cap`.
 
 
 ---
-# Reproducible Reports: R Markdown
-
-## Adding a figure
+# Adding a figure
 
 🎬 Now add a sentence to your results such as: See Figure \\@ref(fig:myo-fig)
 
@@ -786,9 +758,7 @@ You should find the figure and the cross reference to it are automatically numbe
 
 
 ---
-# Reproducible Reports: R Markdown
-
-## Adding a figure
+# Figure legends 2
 
 Figure legends are often long and contain special characters
 
@@ -807,28 +777,29 @@ We can instead create a 'reference' for the legend.
 
 
 ---
-# Reproducible Reports: R Markdown
+# Reproducible Reports
 
-## Adding a figure
+Adding a figure
 
 🎬And edit your chunk options like this:  
 
+.code70[
 ````
 ```{r myo-fig, fig.cap="(ref:myo-fig)"}
 ggplot() +
-  geom_point(data = seal2, aes(x = species, y = myoglobin),
-             position = position_jitter(width = 0.1, height = 0))
+  geom_point(data = seal2, 
+             aes(x = species, y = myoglobin),
+             position = position_jitter(width = 0.1,
+                                        height = 0))
 ```
 ````
+]
 
---
 
 🎬 Hit knit! 🧶
 
 ---
-# Reproducible Reports: R Markdown
-
-## Your turn
+# Your turn
 
 Suggestions:
 
@@ -845,15 +816,15 @@ Suggestions:
 
 * RStudio’s guide http://rmarkdown.rstudio.com/index.html  
 
-* R Markdown: The Definitive Guide &lt;a name=cite-markdown2&gt;&lt;/a&gt;([Xie Allaire, et al., 2018a](#bib-markdown2)) https://bookdown.org/yihui/rmarkdown/   
+* R Markdown: The Definitive Guide (Xie Allaire, et al., 2018) https://bookdown.org/yihui/rmarkdown/   
  
-* bookdown: Authoring Books and Technical Documents with R Markdown ([Xie, 2016](#bib-bookdown)) https://bookdown.org/yihui/bookdown/  
+* bookdown: Authoring Books and Technical Documents with R Markdown (Xie, 2016) https://bookdown.org/yihui/bookdown/  
 
 
 ---
 # Summary
 
-.font110[
+
 
 * R Markdown interweaves analysis code and reporting and is human readable  
 * metadata about the document is given YAML header  
@@ -866,47 +837,71 @@ Suggestions:
 * automatically numbered tables and figures and cross references to them can be included  
  
 
-]
-
 ---
 # References
 .footnote[
-Slides made with with xaringan ([Xie, 2019](#bib-xaringan))
+.font60[
+Slides made with with xaringan (Xie, 2019) and xaringanExtra (Aden-Buie, 2020)
+]
+]
+.font60[
+&lt;p&gt;&lt;cite&gt;Aden-Buie, G.
+(2020).
+&lt;em&gt;xaringanExtra: Extras And Extensions for Xaringan Slides&lt;/em&gt;.
+R package version 0.2.3.9000.
+URL: &lt;a href="https://github.com/gadenbuie/xaringanExtra"&gt;https://github.com/gadenbuie/xaringanExtra&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;cite&gt;Allaire, J., Y. Xie, et al.
+(2019).
+&lt;em&gt;rmarkdown: Dynamic Documents for R&lt;/em&gt;.
+R package version 1.16.
+URL: &lt;a href="https://github.com/rstudio/rmarkdown"&gt;https://github.com/rstudio/rmarkdown&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;R Core Team
+(2021).
+&lt;em&gt;R: A Language and Environment for Statistical Computing&lt;/em&gt;.
+R Foundation for Statistical Computing.
+Vienna, Austria.
+URL: &lt;a href="https://www.R-project.org/"&gt;https://www.R-project.org/&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Wickham, H.
+(2017).
+&lt;em&gt;tidyverse: Easily Install and Load the 'Tidyverse'&lt;/em&gt;.
+R package version 1.2.1.
+URL: &lt;a href="https://CRAN.R-project.org/package=tidyverse"&gt;https://CRAN.R-project.org/package=tidyverse&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Xie, Y.
+(2016).
+&lt;em&gt;bookdown: Authoring Books and Technical Documents with R Markdown&lt;/em&gt;.
+ISBN 978-1138700109.
+Boca Raton, Florida: Chapman and Hall/CRC.
+URL: &lt;a href="https://github.com/rstudio/bookdown"&gt;https://github.com/rstudio/bookdown&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Xie, Y.
+(2019).
+&lt;em&gt;xaringan: Presentation Ninja&lt;/em&gt;.
+R package version 0.12.
+URL: &lt;a href="https://CRAN.R-project.org/package=xaringan"&gt;https://CRAN.R-project.org/package=xaringan&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;Xie, Y., J. Allaire, et al.
+(2018).
+&lt;em&gt;R Markdown: The Definitive Guide&lt;/em&gt;.
+ISBN 9781138359338.
+Boca Raton, Florida: Chapman and Hall/CRC.
+URL: &lt;a href="https://bookdown.org/yihui/rmarkdown"&gt;https://bookdown.org/yihui/rmarkdown&lt;/a&gt;.&lt;/cite&gt;&lt;/p&gt;
 ]
 
-&lt;a name=bib-markdown1&gt;&lt;/a&gt;[Allaire, J, Y. Xie, et al.](#cite-markdown1)
-(2019a). _rmarkdown: Dynamic Documents for R_. R package version 1.16.
-URL:
-[https://github.com/rstudio/rmarkdown](https://github.com/rstudio/rmarkdown).
-
-&lt;a name=bib-bookdown&gt;&lt;/a&gt;[Xie, Y.](#cite-bookdown) (2016). _bookdown:
-Authoring Books and Technical Documents with R Markdown_. ISBN
-978-1138700109. Boca Raton, Florida: Chapman and Hall/CRC. URL:
-[https://github.com/rstudio/bookdown](https://github.com/rstudio/bookdown).
-
-&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan:
-Presentation Ninja_. R package version 0.12. URL:
-[https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
-
-&lt;a name=bib-markdown2&gt;&lt;/a&gt;[Xie, Y, J. Allaire, et al.](#cite-markdown2)
-(2018a). _R Markdown: The Definitive Guide_. ISBN 9781138359338. Boca
-Raton, Florida: Chapman and Hall/CRC. URL:
-[https://bookdown.org/yihui/rmarkdown](https://bookdown.org/yihui/rmarkdown).
-
 
 
 ---
+# Intro to Repro in R
 
-class: inverse
+Emma Rand  
+[emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk)  
+Twitter: [@er13_r](https://twitter.com/er13_r)   
+GitHub: [3mmaRand](https://github.com/3mmaRand)  
+blog: https://buzzrbeeline.blog/  
 
-# 🎉 Congratulations! Keep practising! 🎉 
-
----
-# Introduction to Reproducibility in R
-
-## Emma Rand &lt;br&gt; [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) &lt;br&gt; Twitter: [@er13_r](https://twitter.com/er13_r) &lt;br&gt; GitHub: [3mmaRand](https://github.com/3mmaRand)  &lt;br&gt; blog: https://buzzrbeeline.blog/
-&lt;br&gt;
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
