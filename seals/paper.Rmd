@@ -2,9 +2,9 @@
 title: "Variation in myoglobin content of skeletal muscle of seal species."
 author: "Emma Rand"
 output:
-  bookdown::pdf_document2: default
-  bookdown::html_document2: default
   bookdown::word_document2: default
+  bookdown::html_document2: default
+  bookdown::pdf_document2: default
 bibliography: reference.bib
 ---
 
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = FALSE,
 library(tidyverse)
 ```
 
-# Introduction
+# Introduction {-#intro}
 Aquatic and marine mammals are able to dive underwater for extended periods as a result of having a higher muscle myoglobin concentration than terrestrial mammals [@Kanatous2741] found that 83% of the variation in Toothed whale species (odontocetes) dive capacity was accounted for by body mass and myoglobin content.
 Seal species are also known to vary in dive length. We investigated whether the concentration of myoglobin differed between three species of seal: Weddell Seal, Harbour Seals and Bladdernose Seals. See Figure \@ref(fig:weddell-fig)
 
@@ -29,11 +29,11 @@ Seal species are also known to vary in dive length. We investigated whether the 
 knitr::include_graphics("pics/Baby_Weddell_Seal.jpg")
 ```
 
-# Methods
+# Methods {-#methods}
 ```{r import}
 # Data import
 # the data are organised in to three columns, one for each species. 
-seal <- read_table2("raw_data/seal.txt")
+seal <- read_table2("data-raw/seal.txt")
 ```
 
 ```{r tidy}
@@ -42,6 +42,8 @@ seal2 <- seal %>%
   pivot_longer(names_to = "species",
                values_to = "myoglobin",
                cols = everything())
+file <- "data-processed/seal.csv"
+write_csv(seal2, file)
 ```
 
 ```{r summarise}
@@ -56,7 +58,7 @@ sealsummary <- seal2 %>%
 We measured the myoglobin content of the skeletal muscle of `r sealsummary$n[1]` individuals in each of three species.
 We used R [@R-core] with tidyverse packages [@tidyverse] for all analyses and the rmarkdown [@markdown1] and bookdown [@bookdown] packages for manuscript preparation.
 
-# Results
+# Results {-#results}
 
 ```{r extract}
 # extract values for inline reporting
@@ -130,9 +132,9 @@ ggplot() +
 
 ```
 
-# Discussion
+# Discussion {-#discussion}
 
-Here we pick up points from the introduction. See \@ref(introduction).
+Here we pick up points from the [Introduction](#intro).
 
-# References
+# References {-#refs}
 
