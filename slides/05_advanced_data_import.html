@@ -466,7 +466,7 @@ I will demonstrate two ways you can import multiple files.
 
 ---
 # The data
-[specdata.zip](specdata.zip) is a compressed folder csv files containing air quality measures taken from twenty locations. The files all have the same structure of four columns: "Date","sulfate","nitrate" and "ID". "ID" gives the location ID and is the same as in the file name.
+[specdata.zip](data-raw/specdata.zip) is a compressed folder csv files containing air quality measures taken from twenty locations. The files all have the same structure of four columns: "Date","sulfate","nitrate" and "ID". "ID" gives the location ID and is the same as in the file name.
 
 --
 
@@ -475,7 +475,7 @@ I will demonstrate two ways you can import multiple files.
 ---
 # Both methods: download
 
-🎬 Save a copy of [data-raw/specdata.zip](specdata.zip) to `data-raw` and unzip it with:
+🎬 Save a copy of [specdata.zip](data-raw/specdata.zip) to `data-raw` and unzip it with:
 
 
 ```r
@@ -555,7 +555,7 @@ airquality &lt;- do.call(rbind, df_list)
 
 --
 
-😄 You now have a dataframe containing all the data in the twenty files.
+😆 You now have a dataframe containing all the data in the twenty files.
 
 ---
 class: inverse

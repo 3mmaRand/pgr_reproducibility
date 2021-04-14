@@ -427,7 +427,7 @@ I will demonstrate two ways you can import multiple files.
 
 ---
 # The data
-[specdata.zip](specdata.zip) is a compressed folder csv files containing air quality measures taken from twenty locations. The files all have the same structure of four columns: "Date","sulfate","nitrate" and "ID". "ID" gives the location ID and is the same as in the file name.
+[specdata.zip](data-raw/specdata.zip) is a compressed folder csv files containing air quality measures taken from twenty locations. The files all have the same structure of four columns: "Date","sulfate","nitrate" and "ID". "ID" gives the location ID and is the same as in the file name.
 
 --
 
@@ -436,7 +436,7 @@ I will demonstrate two ways you can import multiple files.
 ---
 # Both methods: download
 
-`r emo::ji("clapper")` Save a copy of [data-raw/specdata.zip](specdata.zip) to `data-raw` and unzip it with:
+`r emo::ji("clapper")` Save a copy of [specdata.zip](data-raw/specdata.zip) to `data-raw` and unzip it with:
 
 ```{r}
 unzip("data-raw/specdata.zip", exdir = "data-raw")
