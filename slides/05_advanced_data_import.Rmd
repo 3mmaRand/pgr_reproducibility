@@ -269,10 +269,11 @@ It is not uncommon for people to use file extensions that are misleading so don'
 ---
 # Extra Exercise answer
 
-```{r echo=FALSE}
+```{r}
 file2 <- "data-raw/grape.txt"
-readLines(file, n = 2)
+readLines(file2, n = 2)
 grape <- read_delim(file2, delim = "/")
+glimpse(grape)
 ```
 
 

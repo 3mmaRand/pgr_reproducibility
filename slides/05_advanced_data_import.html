@@ -273,8 +273,26 @@ It is not uncommon for people to use file extensions that are misleading so don'
 # Extra Exercise answer
 
 
+```r
+file2 &lt;- "data-raw/grape.txt"
+readLines(file2, n = 2)
 ```
-## [1] "Code\tDescription" "A00\t\"Cholera\""
+
+```
+## [1] "linoleic/regime/variety" "26.51/hot/giro"
+```
+
+```r
+grape &lt;- read_delim(file2, delim = "/")
+glimpse(grape)
+```
+
+```
+## Rows: 48
+## Columns: 3
+## $ linoleic &lt;dbl&gt; 26.51, 21.56, 21.39, 22.41, 25.04, 26.47, 21.31, 13.79, 14.50~
+## $ regime   &lt;chr&gt; "hot", "hot", "hot", "hot", "hot", "hot", "hot", "hot", "warm~
+## $ variety  &lt;chr&gt; "giro", "giro", "giro", "giro", "giro", "giro", "giro", "giro~
 ```
 
 
@@ -555,7 +573,7 @@ airquality &lt;- do.call(rbind, df_list)
 
 --
 
-😆 You now have a dataframe containing all the data in the twenty files.
+😄 You now have a dataframe containing all the data in the twenty files.
 
 ---
 class: inverse
