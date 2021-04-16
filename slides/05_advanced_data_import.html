@@ -436,7 +436,7 @@ You can write the dataframe to a plain text format file in your `data-processed`
 
 
 ```r
-write.table(periwinkle, "data-processed/periwinkle.txt")
+write_delim(periwinkle, "data-processed/periwinkle.txt")
 ```
 
 ---
@@ -573,7 +573,7 @@ airquality &lt;- do.call(rbind, df_list)
 
 --
 
-😄 You now have a dataframe containing all the data in the twenty files.
+😃 You now have a dataframe containing all the data in the twenty files.
 
 ---
 class: inverse

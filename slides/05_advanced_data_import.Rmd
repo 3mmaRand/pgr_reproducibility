@@ -381,7 +381,7 @@ periwinkle <- periwinkle %>%
 You can write the dataframe to a plain text format file in your `data-processed` folder like this:
 
 ```{r}
-write.table(periwinkle, "data-processed/periwinkle.txt")
+write_delim(periwinkle, "data-processed/periwinkle.txt")
 ```
 
 ---
