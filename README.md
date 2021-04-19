@@ -1,5 +1,5 @@
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3859819.svg)](https://doi.org/10.5281/zenodo.3859819)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4701167.svg)](https://doi.org/10.5281/zenodo.4701167)
 
 # Introduction to Reproducibility in R
 
@@ -154,7 +154,7 @@ If installing R and RStudio is tricky or impossible with your set up (e.g., if y
 
 Please cite as:
 
-Emma Rand, 2020. White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R. doi:10.5281/zenodo.3859819
+Emma Rand. (2021, April 19). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R. 2021 (Version v1.1). Zenodo. http://doi.org/10.5281/zenodo.4701167
 
 You can obtain all the workshop materials by using the green 'Clone or download' button above.
 
