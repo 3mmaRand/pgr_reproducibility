@@ -2,9 +2,9 @@
 title: "Variation in myoglobin content of skeletal muscle of seal species."
 author: "Emma Rand"
 output:
-  bookdown::word_document2: default
-  bookdown::html_document2: default
   bookdown::pdf_document2: default
+  bookdown::html_document2: default
+  bookdown::word_document2: default
 bibliography: reference.bib
 ---
 
@@ -133,6 +133,14 @@ ggplot() +
 ```
 
 # Discussion {-#discussion}
+See Table \@ref(tab:summary-table2).  
+```{r summary-table2}
+knitr::kable(sealsummary,
+             digits = 2,
+             caption = 'A summary of the data.',
+             row.names = FALSE)
+```
+
 
 Here we pick up points from the [Introduction](#intro).
 

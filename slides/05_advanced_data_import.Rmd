@@ -533,6 +533,7 @@ The two main differences in this method are that `map()` dispenses with the need
 airquality2 <- files %>% 
   map(read_csv) %>%
   bind_rows()
+
 ```
 
 --
