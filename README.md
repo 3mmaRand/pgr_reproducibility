@@ -153,8 +153,7 @@ If installing R and RStudio is tricky or impossible with your set up (e.g., if y
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
 Please cite as:
-
-Emma Rand. (2021, April 19). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R. 2021 (Version v1.1). Zenodo. http://doi.org/10.5281/zenodo.4701167
+Rand E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (version v1.1). DOI: https://doi.org/10.5281/zenodo.4701167 URL: https://github.com/3mmaRand/pgr_reproducibility
 
 You can obtain all the workshop materials by using the green 'Clone or download' button above.
 
