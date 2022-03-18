@@ -44,6 +44,7 @@ Tutor-led for Everyone: [RStudio Projects](https://3mmarand.github.io/pgr_repro
 
 1400 - 1600
 Tutor-led for Everyone:[ R Markdown for Reproducible Reports](https://3mmarand.github.io/pgr_reproducibility/slides/06_r_markdown_for_reproducible_reports.html)
+
 # Tutor
 
 The course will be delivered by [Emma Rand](https://www.york.ac.uk/biology/our-staff/emma-rand/) of The University of York.
