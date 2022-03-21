@@ -120,7 +120,7 @@ Chosen topics are: foundational, widely applicable, and transferable conceptuall
 ---
 # Programme overview
 
-Modules lasting from 30 minutes to 2 hours. The selection of modules you undertake will depend on your previous experience.
+Modules, tutor-led or supported study. The selection of modules you undertake will depend on your previous experience.
 
 .font60[
 
@@ -131,7 +131,8 @@ Audience: Everyone
 * Organisation of data  
 * Organisation of analyses  
 
-[2. Introduction to R and working with data](02_intro_to_r_and_working_with_data.html)  
+[2. A. Introduction to R and working with data](02_intro_to_r_and_working_with_data.html)  
+
 Audience: Those without previous experience of R
 * Finding your way round RStudio  
 * Typing in data, doing some calculations on it, plotting it  
@@ -141,6 +142,27 @@ Audience: Those without previous experience of R
 * Installing and loading packages  
 
 ]
+
+---
+# Have experience?
+
+.font60[
+
+[2. B. Tidying data and the tidyverse including the pipe](04_tidying_data_and_the_tidyverse.html)  
+Audience: For those with previous experience of R but little of 'tidy data' and the tidyverse
+* Using the tidyverse including the pipe to link operations together.  
+* Carrying out some common data tidying tasks such as reshaping, renaming and recoding variable and cleaning cell contents  
+
+
+
+[2. C. Advanced data import](05_advanced_data_import.html)  
+Audience: For those with previous experience of R and the tidyverse including the pipe."
+* Understanding what matters in data import  
+* Importing plain text and proprietary data formats stored locally and on the web  
+* Carrying out some simple web scraping  
+* Packages available for importing publicly accessible data from APIs  
+]
+
 
 ---
 # Programme overview
@@ -153,26 +175,7 @@ Audience: Those without experience of RStudio projects
 * Writing code with relative paths given appropriate to your project organisation  
 * Writing dataframes and figures to file  
 
-[4. Tidying data and the tidyverse including the pipe](04_tidying_data_and_the_tidyverse.html)  
-Audience: For those with previous experience of R but little of 'tidy data' and the tidyverse, such as having done "Introduction to R and working with data."
-* Using the tidyverse including the pipe to link operations together.  
-* Carrying out some common data tidying tasks such as reshaping, renaming and recoding variable and cleaning cell contents  
-
-]
-
----
-# Programme overview
-
-.font60[
-
-[5. Advanced data import](05_advanced_data_import.html)  
-Audience: For those with previous experience of R such as having done "Introduction to R and working with data" and "Tidying data and the tidyverse including the pipe."
-* Understanding what matters in data import  
-* Importing plain text and proprietary data formats stored locally and on the web  
-* Carrying out some simple web scraping  
-* Packages available for importing publicly accessible data from APIs  
-
-[6. R Markdown for Reproducible Reports](06_r_markdown_for_reproducible_reports.html)  
+[4. R Markdown for Reproducible Reports](06_r_markdown_for_reproducible_reports.html)  
 Audience: For those with previous experience of R such as having done "Introduction to R and working with data."
 * Making more advanced figures  
 * Creating reproducible reports in a variety of output formats.  
@@ -192,7 +195,7 @@ class: inverse
 # gs4_auth() run interactively
 file <- "https://docs.google.com/spreadsheets/d/11Xx7FLNiure8jF-ti3DNKCj53j3eC8hgMYXA3crvT3I/edit#gid=184416414"
 survey <- read_sheet(file) %>% 
-  filter(Timestamp > "2020-12-31")
+  filter(Timestamp > "2021-12-31")
 
 ```
 The distribution of ratings you (n = `r dim(survey)[1]`) gave in the survey were:
