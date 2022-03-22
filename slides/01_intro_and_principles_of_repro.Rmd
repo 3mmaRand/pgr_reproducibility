@@ -385,7 +385,21 @@ Less than you probably think
 One definition
 *"... obtaining consistent results using the same input data; computational steps, methods, and code; and conditions of analysis. This definition is synonymous with “computational reproducibility"*. `r Cite(myBib, "National_Academies_of_Sciences_Engineering2019-sb")`
 
-Also see National Science Foundation `r Cite(myBib, "K_Bollen2015-un")`
+ Also see 
+
+-  The Turing Way "Definitions for Reproducibility" `r Cite(myBib, "the_turing_way_community_2019_3233986")`
+-  National Science Foundation `r Cite(myBib, "K_Bollen2015-un")`
+
+---
+# Reproducibility is key!
+
+```{r turing-reprod-matrix, echo = FALSE, out.width="700px"}
+knitr::include_graphics("../pics/reproducible-matrix.jpg")
+```
+
+.font60[
+How the Turing Way `r Cite(myBib, "the_turing_way_community_2019_3233986")` defines reproducible research
+]
 
 
 ---
@@ -396,7 +410,7 @@ Also see National Science Foundation `r Cite(myBib, "K_Bollen2015-un")`
 * Five selfish reasons to work reproducibly `r Cite(myBib, "Markowetz2015")`. Alternatively, see the [talk](https://youtu.be/yVT07Sukv9Q)
 
 
-* Will become standard in Science and publishing e.g OECD Global Science Forum Building digital workforce capacity and skills for data-intensive science `r Cite(myBib, "OECD_Global_Science_Forum2020-cp")`
+* **Will** become standard in Science and publishing e.g OECD Global Science Forum Building digital workforce capacity and skills for data-intensive science `r Cite(myBib, "OECD_Global_Science_Forum2020-cp")`
 
 ---
 # Open Science
@@ -406,9 +420,9 @@ knitr::include_graphics("../pics/Foster.png")
 ```
 .font60[
 By Petr Knoth and Nancy Pontika - https://en.wikipedia.org/wiki/Open_science#/media/File:Os_taxonomy.png, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=61125075
+]
 
 FAIR - Findable, Accessible, Interoperable, Reusable `r Cite(myBib, "Wilkinson2016-pu")`
-]
 
 
 
@@ -499,13 +513,11 @@ R has reputation for catering to users who do not see themselves as programmers,
 Designed for data analysis and graphics - which means it is often easier to achieve those tasks in R than a general purpose programming language.
 
 ---
-background-image: url(../pics/welcome_to_rstats_twitter.png)
-background-position: 95% 75%
-background-size: 350px
 # Why R?
 
 The R community is one of R's greatest assets, being vibrant, inclusive and supportive of users at all levels.
 
+.pull-left[
 * [#rstats](https://twitter.com/hashtag/rstats?lang=en) on twitter is very active
 * [RForwards](https://forwards.github.io/about/) the widening participation task force <sup>1</sup>
 * [RLadies](https://rladies.org/) gender diversity promotion 
@@ -513,27 +525,43 @@ The R community is one of R's greatest assets, being vibrant, inclusive and supp
 
 .font70[
 .footnote[
-Artwork by @allison_horst "welcome to rstats on twitter"
 1. I am member of the Core Team for Forwards
 ]
 ]
 
+]
+
+.pull-right[
+```{r echo = FALSE, out.width="400px"}
+knitr::include_graphics("../pics/welcome_to_rstats_twitter.png")
+```
+
+.font70[
+.footnote[
+Artwork by @allison_horst 
+]
+]
+
+]
+
 ---
-background-image: url(../pics/rmarkdown_wizards.png)
-background-position: 10% 60%
-background-size: 450px
+# Why R?
+
 # Why R?
 
 R Markdown is sometimes called R's "killer feature". Turns analyses into fully reproducible high quality reports, presentations and dashboards.
 
 Can run Python and other languages in R Markdown documents
 
+```{r echo = FALSE, out.width="500px"}
+knitr::include_graphics("../pics/rmarkdown_wizards.png")
+```
+
 .font70[
 .footnote[
-Artwork by @allison_horst "Be an Rmarkdown knitting wizard."
+Artwork by @allison_horst 
 ]
 ]
-
 ---
 class: inverse
 
@@ -715,5 +743,6 @@ Twitter: [@er13_r](https://twitter.com/er13_r)
 GitHub: [3mmaRand](https://github.com/3mmaRand)  
 blog: https://buzzrbeeline.blog/  
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
+Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167

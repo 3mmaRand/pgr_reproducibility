@@ -4,6 +4,7 @@
     <title>Introduction and Principles of reproducibility.</title>
     <meta charset="utf-8" />
     <meta name="author" content="Emma Rand" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view/tile-view.js"></script>
@@ -15,7 +16,7 @@
     <script src="libs/fabric/fabric.min.js"></script>
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -100,7 +101,7 @@ Chosen topics are: foundational, widely applicable, and transferable conceptuall
 ---
 # Programme overview
 
-Modules lasting from 30 minutes to 2 hours. The selection of modules you undertake will depend on your previous experience.
+Modules, tutor-led or supported study. The selection of modules you undertake will depend on your previous experience.
 
 .font60[
 
@@ -111,7 +112,8 @@ Audience: Everyone
 * Organisation of data  
 * Organisation of analyses  
 
-[2. Introduction to R and working with data](02_intro_to_r_and_working_with_data.html)  
+[2. A. Introduction to R and working with data](02_intro_to_r_and_working_with_data.html)  
+
 Audience: Those without previous experience of R
 * Finding your way round RStudio  
 * Typing in data, doing some calculations on it, plotting it  
@@ -121,6 +123,27 @@ Audience: Those without previous experience of R
 * Installing and loading packages  
 
 ]
+
+---
+# Have experience?
+
+.font60[
+
+[2. B. Tidying data and the tidyverse including the pipe](04_tidying_data_and_the_tidyverse.html)  
+Audience: For those with previous experience of R but little of 'tidy data' and the tidyverse
+* Using the tidyverse including the pipe to link operations together.  
+* Carrying out some common data tidying tasks such as reshaping, renaming and recoding variable and cleaning cell contents  
+
+
+
+[2. C. Advanced data import](05_advanced_data_import.html)  
+Audience: For those with previous experience of R and the tidyverse including the pipe."
+* Understanding what matters in data import  
+* Importing plain text and proprietary data formats stored locally and on the web  
+* Carrying out some simple web scraping  
+* Packages available for importing publicly accessible data from APIs  
+]
+
 
 ---
 # Programme overview
@@ -133,26 +156,7 @@ Audience: Those without experience of RStudio projects
 * Writing code with relative paths given appropriate to your project organisation  
 * Writing dataframes and figures to file  
 
-[4. Tidying data and the tidyverse including the pipe](04_tidying_data_and_the_tidyverse.html)  
-Audience: For those with previous experience of R but little of 'tidy data' and the tidyverse, such as having done "Introduction to R and working with data."
-* Using the tidyverse including the pipe to link operations together.  
-* Carrying out some common data tidying tasks such as reshaping, renaming and recoding variable and cleaning cell contents  
-
-]
-
----
-# Programme overview
-
-.font60[
-
-[5. Advanced data import](05_advanced_data_import.html)  
-Audience: For those with previous experience of R such as having done "Introduction to R and working with data" and "Tidying data and the tidyverse including the pipe."
-* Understanding what matters in data import  
-* Importing plain text and proprietary data formats stored locally and on the web  
-* Carrying out some simple web scraping  
-* Packages available for importing publicly accessible data from APIs  
-
-[6. R Markdown for Reproducible Reports](06_r_markdown_for_reproducible_reports.html)  
+[4. R Markdown for Reproducible Reports](06_r_markdown_for_reproducible_reports.html)  
 Audience: For those with previous experience of R such as having done "Introduction to R and working with data."
 * Making more advanced figures  
 * Creating reproducible reports in a variety of output formats.  
@@ -169,7 +173,7 @@ class: inverse
 # Survey results 1/3
 
 
-The distribution of ratings you (n = 55) gave in the survey were:
+The distribution of ratings you (n = 28) gave in the survey were:
 &lt;img src="01_intro_and_principles_of_repro_files/figure-html/unnamed-chunk-2-1.png" width="864" /&gt;
 
 ---
@@ -207,7 +211,19 @@ Less than you probably think
 One definition
 *"... obtaining consistent results using the same input data; computational steps, methods, and code; and conditions of analysis. This definition is synonymous with “computational reproducibility"*. &lt;a name=cite-National_Academies_of_Sciences_Engineering2019-sb&gt;&lt;/a&gt;([National Academies of Sciences, Engineering Medicine, et al., 2019](#bib-National_Academies_of_Sciences_Engineering2019-sb))
 
-Also see National Science Foundation &lt;a name=cite-K_Bollen2015-un&gt;&lt;/a&gt;([Bollen Cacioppo, et al., 2015](#bib-K_Bollen2015-un))
+ Also see 
+
+-  The Turing Way "Definitions for Reproducibility" 
+-  National Science Foundation &lt;a name=cite-K_Bollen2015-un&gt;&lt;/a&gt;([Bollen Cacioppo, et al., 2015](#bib-K_Bollen2015-un))
+
+---
+# Reproducibility is key!
+
+&lt;img src="../pics/reproducible-matrix.jpg" width="700px" /&gt;
+
+.font60[
+How the Turing Way  defines reproducible research
+]
 
 
 ---
@@ -218,7 +234,7 @@ Also see National Science Foundation &lt;a name=cite-K_Bollen2015-un&gt;&lt;/a&g
 * Five selfish reasons to work reproducibly &lt;a name=cite-Markowetz2015&gt;&lt;/a&gt;([Markowetz, 2015](#bib-Markowetz2015)). Alternatively, see the [talk](https://youtu.be/yVT07Sukv9Q)
 
 
-* Will become standard in Science and publishing e.g OECD Global Science Forum Building digital workforce capacity and skills for data-intensive science &lt;a name=cite-OECD_Global_Science_Forum2020-cp&gt;&lt;/a&gt;([OECD Global Science Forum, 2020](#bib-OECD_Global_Science_Forum2020-cp))
+* **Will** become standard in Science and publishing e.g OECD Global Science Forum Building digital workforce capacity and skills for data-intensive science &lt;a name=cite-OECD_Global_Science_Forum2020-cp&gt;&lt;/a&gt;([OECD Global Science Forum, 2020](#bib-OECD_Global_Science_Forum2020-cp))
 
 ---
 # Open Science
@@ -226,9 +242,9 @@ Also see National Science Foundation &lt;a name=cite-K_Bollen2015-un&gt;&lt;/a&g
 &lt;img src="../pics/Foster.png" width="700px" /&gt;
 .font60[
 By Petr Knoth and Nancy Pontika - https://en.wikipedia.org/wiki/Open_science#/media/File:Os_taxonomy.png, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=61125075
+]
 
 FAIR - Findable, Accessible, Interoperable, Reusable &lt;a name=cite-Wilkinson2016-pu&gt;&lt;/a&gt;([Wilkinson Dumontier, et al., 2016](#bib-Wilkinson2016-pu))
-]
 
 
 
@@ -311,13 +327,11 @@ R has reputation for catering to users who do not see themselves as programmers,
 Designed for data analysis and graphics - which means it is often easier to achieve those tasks in R than a general purpose programming language.
 
 ---
-background-image: url(../pics/welcome_to_rstats_twitter.png)
-background-position: 95% 75%
-background-size: 350px
 # Why R?
 
 The R community is one of R's greatest assets, being vibrant, inclusive and supportive of users at all levels.
 
+.pull-left[
 * [#rstats](https://twitter.com/hashtag/rstats?lang=en) on twitter is very active
 * [RForwards](https://forwards.github.io/about/) the widening participation task force &lt;sup&gt;1&lt;/sup&gt;
 * [RLadies](https://rladies.org/) gender diversity promotion 
@@ -325,27 +339,39 @@ The R community is one of R's greatest assets, being vibrant, inclusive and supp
 
 .font70[
 .footnote[
-Artwork by @allison_horst "welcome to rstats on twitter"
 1. I am member of the Core Team for Forwards
 ]
 ]
 
+]
+
+.pull-right[
+&lt;img src="../pics/welcome_to_rstats_twitter.png" width="400px" /&gt;
+
+.font70[
+.footnote[
+Artwork by @allison_horst 
+]
+]
+
+]
+
 ---
-background-image: url(../pics/rmarkdown_wizards.png)
-background-position: 10% 60%
-background-size: 450px
+# Why R?
+
 # Why R?
 
 R Markdown is sometimes called R's "killer feature". Turns analyses into fully reproducible high quality reports, presentations and dashboards.
 
 Can run Python and other languages in R Markdown documents
 
+&lt;img src="../pics/rmarkdown_wizards.png" width="500px" /&gt;
+
 .font70[
 .footnote[
-Artwork by @allison_horst "Be an Rmarkdown knitting wizard."
+Artwork by @allison_horst 
 ]
 ]
-
 ---
 class: inverse
 
@@ -625,7 +651,9 @@ Twitter: [@er13_r](https://twitter.com/er13_r)
 GitHub: [3mmaRand](https://github.com/3mmaRand)  
 blog: https://buzzrbeeline.blog/  
 
-&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;Licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+
+Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
