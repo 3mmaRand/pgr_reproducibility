@@ -129,7 +129,7 @@ Note: There may be more than one potential tidy structure.
 # Tidy format
 
 ```{r echo=FALSE}
-pigeon <- read_table2("../data/pigeon.txt")
+pigeon <- read_table("../data/pigeon.txt")
 ```
 
 Suppose we had just 3 individuals in each of two populations:
@@ -433,10 +433,10 @@ Also in the data file are variables indicating the replicate number and the iden
 
 ```{r}
 file <- "data-raw/biomass.txt"
-biomass <- read_table2(file)
+biomass <- read_table(file)
 ```
 
-`read_table2()` is a function from the tidyverse's **`readr`** package. It works a lot like base R's `read.table()` but with some useful defaults (e.g., is header assumed) and extra functionality (e.g.,it's faster).
+`read_table()` is a function from the tidyverse's **`readr`** package. It works a lot like base R's `read.table()` but with some useful defaults (e.g., is header assumed) and extra functionality (e.g.,it's faster).
 
 ---
 # Converting "wide" to "long"

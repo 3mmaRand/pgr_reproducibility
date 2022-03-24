@@ -4,6 +4,7 @@
     <title>RStudio Projects.</title>
     <meta charset="utf-8" />
     <meta name="author" content="Emma Rand" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view/tile-view.js"></script>
@@ -15,7 +16,7 @@
     <script src="libs/fabric/fabric.min.js"></script>
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -103,7 +104,7 @@ getwd()
 ```
 
 ```
-## [1] "C:/Users/er13/Desktop/PGR/pgr_reproducibility/slides"
+## [1] "Z:/My Documents/pgr_reproducibility/slides"
 ```
 ]
 
@@ -521,7 +522,7 @@ I suggest
 ---
 # Reading
 
-Suggested reading [Chapter 2 Project-oriented workflow](https://whattheyforgot.org/project-oriented-workflow.html) of What they forgot to teach you about R &lt;a name=cite-Bryan-Hester&gt;&lt;/a&gt;([Bryan and Hester, b](#bib-Bryan-Hester))
+Suggested reading [Chapter 2 Project-oriented workflow](https://whattheyforgot.org/project-oriented-workflow.html) of What they forgot to teach you about R (Bryan and Hester, b)
 
 ---
 class: inverse
@@ -571,7 +572,7 @@ library(tidyverse)
 
 
 ```r
-seal &lt;- read_table2("data-raw/seal.txt")
+seal &lt;- read_table("data-raw/seal.txt")
 ```
 
 
@@ -716,12 +717,12 @@ ggsave("figures/fig1.tiff",
 # Reading
 
 **Strongly recommended**
-* Chapter 2 Project-oriented workflow | What They Forgot to Teach You About R ([Bryan and Hester, b](#bib-Bryan-Hester))
+* Chapter 2 Project-oriented workflow | What They Forgot to Teach You About R (Bryan and Hester, b)
 
 **Further**
-* Ten simple rules for reproducible computational research &lt;a name=cite-Sandve2013-nd&gt;&lt;/a&gt;([Sandve Nekrutenko, et al., 2013](#bib-Sandve2013-nd)) 
-* Good enough practices in scientific computing &lt;a name=cite-Wilson2017-cp&gt;&lt;/a&gt;([Wilson Bryan, et al., 2017](#bib-Wilson2017-cp))  
-* Excuse Me, Do You Have a Moment to Talk About Version Control? &lt;a name=cite-Bryan2018-hl&gt;&lt;/a&gt;([Bryan, 2018](#bib-Bryan2018-hl))  
+* Ten simple rules for reproducible computational research (Sandve Nekrutenko, et al., 2013) 
+* Good enough practices in scientific computing (Wilson Bryan, et al., 2017)  
+* Excuse Me, Do You Have a Moment to Talk About Version Control? (Bryan, 2018)  
 
 
 
@@ -729,36 +730,31 @@ ggsave("figures/fig1.tiff",
 # References
 .footnote[
 .font60[
-Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan)) and xaringanExtra &lt;a name=cite-xaringanExtra&gt;&lt;/a&gt;([Aden-Buie, 2020](#bib-xaringanExtra))
+Slides made with with xaringan (Xie, 2019) and xaringanExtra (Aden-Buie, 2020)
 ]
 ]
 .font60[
-&lt;a name=bib-xaringanExtra&gt;&lt;/a&gt;[Aden-Buie, G.](#cite-xaringanExtra)
-(2020). _xaringanExtra: Extras And Extensions for Xaringan Slides_. R
-package version 0.2.3.9000. URL:
+Aden-Buie, G. (2020). _xaringanExtra: Extras And Extensions for
+Xaringan Slides_. R package version 0.2.3.9000. URL:
 [https://github.com/gadenbuie/xaringanExtra](https://github.com/gadenbuie/xaringanExtra).
 
-&lt;a name=bib-Bryan2018-hl&gt;&lt;/a&gt;[Bryan, J.](#cite-Bryan2018-hl) (2018).
-"Excuse Me, Do You Have a Moment to Talk About Version Control?" In:
-_Am. Stat._ 72.1, pp. 20-27.
+Bryan, J. (2018). "Excuse Me, Do You Have a Moment to Talk About
+Version Control?" In: _Am. Stat._ 72.1, pp. 20-27.
 
-&lt;a name=bib-Bryan-Hester&gt;&lt;/a&gt;[Bryan, J. and J.
-Hester](#cite-Bryan-Hester) _Chapter 2 Project-oriented workflow | What
+Bryan, J. and J. Hester _Chapter 2 Project-oriented workflow | What
 They Forgot to Teach You About R_. &lt;URL:
 https://whattheyforgot.org/project-oriented-workflow.html&gt;. Accessed:
 2019-9-26.
 
-&lt;a name=bib-Sandve2013-nd&gt;&lt;/a&gt;[Sandve, G. K., A. Nekrutenko, et
-al.](#cite-Sandve2013-nd) (2013). "Ten simple rules for reproducible
-computational research". En. In: _PLoS Comput. Biol._ 9.10, p.
-e1003285.
+Sandve, G. K., A. Nekrutenko, et al. (2013). "Ten simple rules for
+reproducible computational research". En. In: _PLoS Comput. Biol._
+9.10, p. e1003285.
 
-&lt;a name=bib-Wilson2017-cp&gt;&lt;/a&gt;[Wilson, G., J. Bryan, et
-al.](#cite-Wilson2017-cp) (2017). "Good enough practices in scientific
-computing". En. In: _PLoS Comput. Biol._ 13.6, p. e1005510.
+Wilson, G., J. Bryan, et al. (2017). "Good enough practices in
+scientific computing". En. In: _PLoS Comput. Biol._ 13.6, p. e1005510.
 
-&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan:
-Presentation Ninja_. R package version 0.12. URL:
+Xie, Y. (2019). _xaringan: Presentation Ninja_. R package version 0.12.
+URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
 ]
 
@@ -772,7 +768,18 @@ Twitter: [@er13_r](https://twitter.com/er13_r)
 GitHub: [3mmaRand](https://github.com/3mmaRand)  
 blog: https://buzzrbeeline.blog/  
 
-&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;Licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+
+Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167
+
+
+
+
+
+
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

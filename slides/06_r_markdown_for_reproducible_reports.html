@@ -317,7 +317,7 @@ References and citations can be added by:
 
 --
 
-🎬 Add `bibliography: mybibfile.bib` to the YAML header.&lt;sup&gt;1&lt;/sup&gt;
+🎬 Add `bibliography: reference.bib` to the YAML header.&lt;sup&gt;1&lt;/sup&gt;
 .footnote[
 .font70[
 1. There are other ways of including references such as using `RefManageR` package which is what I am using in these slides.
@@ -329,7 +329,7 @@ References and citations can be added by:
 
 🎬 Do File | New file | Text file
 
-🎬 Save as `mybibfile.bib`
+🎬 Save as `reference.bib`
 
 🎬 Add BibTeX entries
 
@@ -346,10 +346,6 @@ BibTeX format is also available through most referencing software (e.g., PaperPi
 Citations are added using:
   *  blah blah blah `[@xaringan]` for blah blah blah (Xie, 2019).    
   *  Xie `[-@xaringan]` said blah blah blah for Xie (2019) said blah blah blah.  
-
---
-
-If you have installed the `citr` package there is an Addin to help with this.
 
 --
 
@@ -404,7 +400,7 @@ We used R (R Core Team, 2021) with tidyverse packages (Wickham, 2017) for all an
 ```{r import}
 # Data import
 # the data are organised in to three columns, one for each species. 
-seal &lt;- read_table2("data-raw/seal.txt")
+seal &lt;- read_table("data-raw/seal.txt")
 ```
 ````
 --
@@ -423,7 +419,7 @@ You can run the code interactively to check your progress and the output will be
 ```{r import}
 # Data import
 # the data are organised in to three columns, one for each species. 
-seal &lt;- read_table2("data-raw/seal.txt")
+seal &lt;- read_table("data-raw/seal.txt")
 str(seal)
 ```
 ````

@@ -4,6 +4,7 @@
     <title>Advanced data import.</title>
     <meta charset="utf-8" />
     <meta name="author" content="Emma Rand" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view/tile-view.js"></script>
@@ -15,7 +16,7 @@
     <script src="libs/fabric/fabric.min.js"></script>
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -157,8 +158,10 @@ glimpse(protein_struc)
 
 ```
 ## Rows: 90
-## Columns: 1
-## $ `rmsd prog prot` &lt;chr&gt; "9.038 Abstruct 1", "14.952 Abstruct 2", "17.734 Abst~
+## Columns: 3
+## $ rmsd &lt;dbl&gt; 9.038, 14.952, 17.734, 3.117, 11.284, 12.761, 9.759, 9.715, 0.684~
+## $ prog &lt;chr&gt; "Abstruct", "Abstruct", "Abstruct", "Abstruct", "Abstruct", "Abst~
+## $ prot &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19~
 ```
 
 
@@ -267,7 +270,7 @@ readLines(file, n = 2)
 ## [1] "Code\tDescription" "A00\t\"Cholera\""
 ```
 
-It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵
+It is not uncommon for people to use file extensions that are misleading so don't assume it is what it says on the tin 🕵️‍♂️
 
 ---
 # Extra Exercise answer
@@ -573,7 +576,7 @@ airquality &lt;- do.call(rbind, df_list)
 
 --
 
-😃 You now have a dataframe containing all the data in the twenty files.
+🙋 You now have a dataframe containing all the data in the twenty files.
 
 ---
 class: inverse
@@ -805,13 +808,10 @@ glimpse(biodiv)
 ```
 
 ```
-## Rows: 99
-## Columns: 5
-## $ `Major/Component group`                     &lt;chr&gt; "Chordates", "&lt;U+21B3&gt;", "&lt;U+21B3&gt;", "&lt;U+21B3&gt;"~
-## $ `Major/Component group`                     &lt;chr&gt; "Chordates", "Mammals", "B~
-## $ `Major/Component group`                     &lt;chr&gt; "Chordates", "Mammals", "B~
-## $ Described                                   &lt;chr&gt; "64,788", "5,487", "9,990"~
-## $ `Global estimate (described + undescribed)` &lt;chr&gt; "~80,500", "~5,500", "&gt;10,~
+## Rows: 1
+## Columns: 2
+## $ X1 &lt;lgl&gt; NA
+## $ X2 &lt;chr&gt; "This article needs to be updated. Please help update this article ~
 ```
 ]
 ]
@@ -1184,7 +1184,7 @@ results[["headers"]][["link-records"]]
 ```
 
 ```
-## [1] "7"
+## [1] "16"
 ```
  to find the number of pages and results.
 
@@ -1212,10 +1212,10 @@ data[["searchResult"]][["resourceHitCount"]]
 
 ```
 ##      resource count
-## 1     project     7
-## 2    outcomes   178
-## 3      person   640
-## 4 publication   293
+## 1     project    16
+## 2    outcomes  1361
+## 3      person   849
+## 4 publication   490
 ```
 ---
 # Example: Examine
@@ -1229,13 +1229,22 @@ data[["searchResult"]][["results"]][["projectComposition"]][["project"]][["title
 ```
 
 ```
-## [1] "An accurate eukaryotic plasma membrane assay for coronavirus binding"                                                 
-## [2] "Development of a virus-free sensor system to repurpose approved drugs for blocking Coronavirus replication"           
-## [3] "High-resolution structure, function, and anti-viral inhibition of the SARS-CoV2 E protein ion channel"                
-## [4] "Common host proteins required for replication organelle function across coronaviruses"                                
-## [5] "Airway Epithelial-Myeloid cell crosstalk as a key mechanism in the pathogenesis of COVID-19"                          
-## [6] "SARS-CoV-2 infections in cats: assessing their zoonotic potential and role in sustaining the COVID-19 pandemic"       
-## [7] "Probing the mechanism of action of Shiftless, a host restriction factor targeting programmed ribosomal frameshifting."
+##  [1] "UK International coronavirus network (UK-ICN)"                                                                                                   
+##  [2] "An accurate eukaryotic plasma membrane assay for coronavirus binding"                                                                            
+##  [3] "Mechanisms of coronavirus replication: the role of cellular lipids in the generation of replication organelles"                                  
+##  [4] "Development of a virus-free sensor system to repurpose approved drugs for blocking Coronavirus replication"                                      
+##  [5] "Global trade of coronavirus hosts: bringing geographically isolated hosts and viruses together risks novel recombination and spillover to humans"
+##  [6] "High-resolution structure, function, and anti-viral inhibition of the SARS-CoV2 E protein ion channel"                                           
+##  [7] "Common host proteins required for replication organelle function across coronaviruses"                                                           
+##  [8] "Airway Epithelial-Myeloid cell crosstalk as a key mechanism in the pathogenesis of COVID-19"                                                     
+##  [9] "The risk of SARS-2 establishing itself in animal reservoirs"                                                                                     
+## [10] "BEACON - A multi-user and multi-project facility for biological macromolecules and nanoparticles characterization in solution"                   
+## [11] "SARS-CoV-2 infections in cats: assessing their zoonotic potential and role in sustaining the COVID-19 pandemic"                                  
+## [12] "Discovery and characterisation of novel immunomodulatory Cullin-RING ubiquitin ligases (CRLs) in the airway"                                     
+## [13] "CATH-FunVar - Predicting Viral and Human Variants Affecting COVID-19 Susceptibility and Severity and Repurposing Therapeutics"                   
+## [14] "Mapping the lipid envelope composition of SARS-CoV2 for reducing transmission, thrombosis and inflammation"                                      
+## [15] "Investigating Host and Viral Factors for Improved Design of Future Live Attenuated Vaccines for IBV"                                             
+## [16] "Probing the mechanism of action of Shiftless, a host restriction factor targeting programmed ribosomal frameshifting."
 ```
 ]
 ]
@@ -1301,7 +1310,9 @@ Twitter: [@er13_r](https://twitter.com/er13_r)
 GitHub: [3mmaRand](https://github.com/3mmaRand)  
 blog: https://buzzrbeeline.blog/  
 
-&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;Licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+
+Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

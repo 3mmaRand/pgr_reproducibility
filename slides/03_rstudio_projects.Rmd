@@ -581,11 +581,11 @@ library(tidyverse)
 `r emo::ji("clapper")` Add the command to import the data:
 
 ```{r eval=FALSE}
-seal <- read_table2("data-raw/seal.txt")
+seal <- read_table("data-raw/seal.txt")
 ```
 ```{r include=FALSE}
 # my directory organisation differs
-seal <- read_table2("../data/seal.txt")
+seal <- read_table("../data/seal.txt")
 ```
 
 --
