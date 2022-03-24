@@ -105,7 +105,7 @@ demo.....
 # gs4_auth() run interactively
 file <- "https://docs.google.com/spreadsheets/d/11Xx7FLNiure8jF-ti3DNKCj53j3eC8hgMYXA3crvT3I/edit#gid=184416414"
 survey <- read_sheet(file) %>% 
-  filter(Timestamp > "2020-12-31")
+  filter(Timestamp > "2021-12-31")
 
 ```
 
@@ -122,7 +122,7 @@ survey %>%
   geom_bar(fill = "#9d5e78") +
   scale_x_discrete(name = "") +
   scale_y_continuous(name = "Number of people",
-                     expand = c(0, 0)) +
+                     expand = c(0, 0.1)) +
   theme_classic() +
   theme(plot.background = element_rect(fill = "#f6fafd"),
         panel.background = element_rect(fill = "#f6fafd"),
@@ -370,7 +370,7 @@ References and citations can be added by:
 
 --
 
-`r emo::ji("clapper")` Add `bibliography: mybibfile.bib` to the YAML header.<sup>1</sup>
+`r emo::ji("clapper")` Add `bibliography: reference.bib` to the YAML header.<sup>1</sup>
 .footnote[
 .font70[
 1. There are other ways of including references such as using `RefManageR` package which is what I am using in these slides.
@@ -382,7 +382,7 @@ References and citations can be added by:
 
 `r emo::ji("clapper")` Do File | New file | Text file
 
-`r emo::ji("clapper")` Save as `mybibfile.bib`
+`r emo::ji("clapper")` Save as `reference.bib`
 
 `r emo::ji("clapper")` Add BibTeX entries
 
@@ -399,10 +399,6 @@ BibTeX format is also available through most referencing software (e.g., PaperPi
 Citations are added using:
   *  blah blah blah `[@xaringan]` for blah blah blah `r Cite(myBib, "xaringan")`.    
   *  Xie `[-@xaringan]` said blah blah blah for `r Cite(myBib, "xaringan",textual = TRUE)` said blah blah blah.  
-
---
-
-If you have installed the `citr` package there is an Addin to help with this.
 
 --
 
@@ -457,7 +453,7 @@ We used R `r Cite(myBib, "R-core")` with tidyverse packages `r Cite(myBib, "R-ti
 ```{r import}`r ''`
 # Data import
 # the data are organised in to three columns, one for each species. 
-seal <- read_table2("data-raw/seal.txt")
+seal <- read_table("data-raw/seal.txt")
 ```
 ````
 --
@@ -476,7 +472,7 @@ You can run the code interactively to check your progress and the output will be
 ```{r import}`r ''`
 # Data import
 # the data are organised in to three columns, one for each species. 
-seal <- read_table2("data-raw/seal.txt")
+seal <- read_table("data-raw/seal.txt")
 str(seal)
 ```
 ````
