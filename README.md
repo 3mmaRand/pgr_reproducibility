@@ -3,7 +3,7 @@
 
 # Introduction to Reproducibility in R
 
-Training programme for first year bioscience PhD students at the White Rose Universities (York, Sheffield, Leeds). It is designed and delivered by [Emma Rand](https://www.york.ac.uk/biology/our-staff/emma-rand/) of The University of York.
+Training programme for first year PhD students on the White Rose Universities (York, Sheffield, Leeds) DTP. It is designed and delivered by [Emma Rand](https://www.york.ac.uk/biology/our-staff/emma-rand/) of The University of York.
 
 ## Overview
 
@@ -92,11 +92,11 @@ Download the pre-compiled binary for your OS from https://cloud.r-project.org/ a
 
 **For Windows**
 
-Click "Download R for Windows", then "base", then "Download R 4.0.4 for Windows". This will download an `.exe` file; once downloaded, open to start the installation. You can accept all the defaults.
+Click "Download R for Windows", then "base", then "Download R 4.x.x for Windows". This will download an `.exe` file; once downloaded, open to start the installation. You can accept all the defaults.
 
 **For Mac**
 
-Click "Download R for (Mac) OS X", then "R-4.0.4.pkg" to download the installer.
+Click "Download R for (Mac) OS X", then "R-4.x.x.pkg" to download the installer.
 Run the installer to complete installation. You can accept all the defaults.
 
 **For Linux**
@@ -143,8 +143,6 @@ If you installed r-base-dev, when installing R, you should have all you need to 
 ### From CRAN
 Once you have installed R and RStudio, start RStudio up and go to the Packages tab in the bottom right pane; click Install and type the name of the package you want to install in the box that appears. Then wait until you get the cursor (>) back in the console window.
 
-### From GitHub
-Install `citr` with `devtools::install_github("crsh/citr")`
 ## RStudio Cloud
 If installing R and RStudio is tricky or impossible with your set up (e.g., if you only have a chrome book) then you can use https://rstudio.cloud/. This is a version of RStudio that runs in your browser. It is free for 15 hours but you will need to make an account. You will still need to install packages.
 
