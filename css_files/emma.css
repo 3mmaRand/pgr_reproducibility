@@ -69,19 +69,22 @@ position: absolute;
 
 .title-slide {
   background-color: #f6fafd;
-  border-top: 80px solid #f6fafd;
+  border-top: 0px solid #f6fafd;
+  
 }
 
-.title-slide > h1  {
+.title > h1 {
   color: #25496b;
-  font-size: 40px;
+  font-size: 50px;
   text-shadow: none;
   font-weight: 400;
-  text-align: left;
+  text-align: center;
   margin-left: 15px;
-  padding-top: 80px;
+  padding-top: -10px;
+  padding-bottom: -20px;
 }
-.title-slide > h2  {
+
+.subtitle > h2  {
   margin-top: -25px;
   padding-bottom: -20px;
   color: #25496b;
@@ -91,7 +94,7 @@ position: absolute;
   text-align: left;
   margin-left: 15px;
 }
-.title-slide > h3  {
+.author > h3  {
   color: #25496b;
   text-shadow: none;
   font-weight: 300;
@@ -100,6 +103,17 @@ position: absolute;
   margin-left: 15px;
   margin-bottom: -30px;
 }
+
+.institute > h3  {
+  color: #25496b;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 25px;
+  text-align: left;
+  margin-left: 15px;
+  margin-bottom: -30px;
+}
+
 
 .remark-slide-number {
   font-size: 13pt;

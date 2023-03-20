@@ -15,7 +15,12 @@ R is a free and open source language especially well-suited to data analysis and
 ## Prerequisites
 
 I recognise that people will enter this training with a diverse range of previous experience in R. This is a challenge to manage but the aim is for everyone to get something out of the training no matter where they start. 
-There will be sessions for those with and without previous experience. Pre-course instructions for participants are given below.
+There will be sessions for those with and without previous experience. I recommend you:
+
+-   sit close to the front of the class if you are completely new to R and towards the back if you have some experience 
+-   bring headphones to allow you to ignore tutor-led material when needed
+
+Pre-course instructions for participants are given below.
 
 ## Philosophy and approach
 
@@ -45,30 +50,30 @@ To help me direct you to useful training and manage diversity in previous experi
 
 ## Facilities
 
-There are Windows PCs at the venue and you are not required to bring your own machine. Participants from outside of York will be provided with a temporary IT account.
+There are Windows PCs at the venue and you are not required to bring your own machine. Participants from outside of York will be provided with a temporary IT account. However, if you prefer to work on your own machine please follow the instructions in [Computing requirements](#computing-requirements)
 
 # Schedule for workshop
-0930 Arrive
 
-1000 – 1040 
+
+1015 - 1030
 Tutor-led for Everyone: [Introduction and Principles of reproducibility](https://3mmarand.github.io/pgr_reproducibility/slides/01_intro_and_principles_of_repro.html)
 
-1045-1245
+1030 - 1200
 Tutor-led for Beginners:  [Introduction to R and working with data](https://3mmarand.github.io/pgr_reproducibility/slides/02_intro_to_r_and_working_with_data.html)
 or
 Supported learning for those with some R experience [Tidying data and the tidyverse including the pipe](https://3mmarand.github.io/pgr_reproducibility/slides/04_tidying_data_and_the_tidyverse.html)
 
-1245-1330 Lunch 
+1200 - 1245 Lunch 
 
-1330-1400
+1245 - 1330
 Tutor-led for Everyone: [RStudio Projects](https://3mmarand.github.io/pgr_reproducibility/slides/03_rstudio_projects.html)
 
-1400 - 1430
+1330 - 1430
 Tutor-led for Everyone:[ R Markdown for Reproducible Reports](https://3mmarand.github.io/pgr_reproducibility/slides/06_r_markdown_for_reproducible_reports.html)
 
-1430-1450 Tea and coffee break
+1430 - 1515 Tea and coffee break with Special Interests Group launch
 
-1450 - 1600
+1515 - 1645
 Continuation of Tutor-led for Everyone:[ R Markdown for Reproducible Reports](https://3mmarand.github.io/pgr_reproducibility/slides/06_r_markdown_for_reproducible_reports.html)
 
 

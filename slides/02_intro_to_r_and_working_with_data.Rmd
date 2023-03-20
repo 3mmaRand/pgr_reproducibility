@@ -23,6 +23,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       fig.retina = 3)
 options(htmltools.dir.version = FALSE)
 ```
+
 ```{r xaringanextra, include=FALSE}
 # tile view
 xaringanExtra::use_tile_view()
@@ -47,6 +48,7 @@ library(kableExtra)
 library(tidyverse)
 
 ```
+
 ```{r, load-refs, include=FALSE, cache=FALSE}
 BibOptions(check.entries = FALSE,
            bib.style = "authoryear",
@@ -56,7 +58,7 @@ BibOptions(check.entries = FALSE,
            dashed = FALSE,
            longnamesfirst = FALSE,
            max.names = 2)
-myBib <- ReadBib("../refs.bib", check = FALSE)
+myBib <- ReadBib("refs.bib", check = FALSE)
 ```
 
 
@@ -76,8 +78,9 @@ div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
   * Summarising and visualising with the [`tidyverse`](https://www.tidyverse.org/)  
 
 
+
 ```{r, echo=FALSE, out.width = "160px", fig.align='right'}
-knitr::include_graphics("../pics/tidyverse_logo.png")
+knitr::include_graphics("pics/tidyverse_logo.png")
 ```
 
 ---
@@ -224,7 +227,7 @@ I suggest `birds`
 
 --
 
-Make a new script ![new script](../pics/newscript.png) and save it as analysis.R to carry out the rest of the work.  
+Make a new script ![new script](pics/newscript.png) and save it as analysis.R to carry out the rest of the work.  
 
 
 
@@ -250,7 +253,7 @@ n <- c(0, 1, 2, 3, 4, 5)
 
 --
 
-* Execute with ![Run](../pics/runbutton.png) or Ctrl+Enter 
+* Execute with ![Run](pics/runbutton.png) or Ctrl+Enter 
 
 ---
 # Typing in data, calcs, plots
@@ -364,7 +367,7 @@ class: inverse
 # Plotting the data with ggplot()
 
 ---
-background-image: url(../pics/ggplot2.png)
+background-image: url(pics/ggplot2.png)
 background-position: 90% 75%
 background-size: 200px
 
@@ -381,7 +384,7 @@ Other packages, such as `ggplot2` `r Cite(myBib, "ggplot2")` need to be added.
 `ggplot2` is one of the `tidyverse` `r Cite(myBib, "tidyverse")` packages.
 
 ---
-background-image: url(../pics/tidyverse.png)
+background-image: url(pics/tidyverse.png)
 background-position: 90% 75%
 background-size: 200px
 # Typing in data, calcs, plots
@@ -530,7 +533,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 .pull-right[
 Colours can be given by their name, "lightblue" or code, "#ADD8E6".  
 
-Look up by [name](../pics/colournames.pdf) or [code](../pics/colourhex.pdf)
+Look up by [name](pics/colournames.pdf) or [code](pics/colourhex.pdf)
 
 ]
 
@@ -656,7 +659,7 @@ class: inverse
 .pull-left[
 Summarise
 ```{r echo=FALSE}
-pigeon <- read.table("../data/pigeon.txt", header = T)
+pigeon <- read.table("data/pigeon.txt", header = T)
 pigeon2 <- pivot_longer(data = pigeon,
                         cols = everything(), 
                         names_to = "population",
@@ -692,7 +695,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population))  +
 ```
 ]
 ---
-background-image: url(../pics/interorbital.png)
+background-image: url(pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -788,7 +791,7 @@ The easiest way to do this is in RStudio  - see the bottom right Files panel
 
 --
 
-Save a copy of [pigeon.txt](../data/pigeon.txt) to the 'data' folder
+Save a copy of [pigeon.txt](data/pigeon.txt) to the 'data' folder
 
 ---
 # Working with Data 
@@ -818,13 +821,10 @@ To read the data in to R you need to use the 'relative path'
 to the file in the `read_table()` command:
 
 
-```{r eval=FALSE}
+```{r}
 pigeon <- read_table("data/pigeon.txt")
 ```
 
-```{r echo=FALSE}
-pigeon <- read_table("../data/pigeon.txt")
-```
 --
 
 The `data/` part is the 'relative path' to the file. 
@@ -940,7 +940,7 @@ There may be more than one potential tidy structure.
 # Working with Data 
 
 ```{r echo=FALSE}
-pigeon <- read.table("../data/pigeon.txt", header = T)
+pigeon <- read.table("data/pigeon.txt", header = T)
 ```
 
 ## Tidy format

@@ -31,12 +31,22 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Introduction to R and working with data.
+]
+.subtitle[
 ## White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R.
+]
+.author[
 ### Emma Rand
+]
+.institute[
 ### University of York, UK
+]
 
 ---
+
+
 
 
 
@@ -61,7 +71,8 @@ div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
   * Summarising and visualising with the [`tidyverse`](https://www.tidyverse.org/)  
 
 
-&lt;img src="../pics/tidyverse_logo.png" width="160px" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+&lt;img src="pics/tidyverse_logo.png" width="160px" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ---
 
@@ -220,7 +231,7 @@ I suggest `birds`
 
 --
 
-Make a new script ![new script](../pics/newscript.png) and save it as analysis.R to carry out the rest of the work.  
+Make a new script ![new script](pics/newscript.png) and save it as analysis.R to carry out the rest of the work.  
 
 
 
@@ -247,7 +258,7 @@ n &lt;- c(0, 1, 2, 3, 4, 5)
 
 --
 
-* Execute with ![Run](../pics/runbutton.png) or Ctrl+Enter 
+* Execute with ![Run](pics/runbutton.png) or Ctrl+Enter 
 
 ---
 # Typing in data, calcs, plots
@@ -416,7 +427,7 @@ class: inverse
 # Plotting the data with ggplot()
 
 ---
-background-image: url(../pics/ggplot2.png)
+background-image: url(pics/ggplot2.png)
 background-position: 90% 75%
 background-size: 200px
 
@@ -433,7 +444,7 @@ Other packages, such as `ggplot2` (Wickham, 2016) need to be added.
 `ggplot2` is one of the `tidyverse`  packages.
 
 ---
-background-image: url(../pics/tidyverse.png)
+background-image: url(pics/tidyverse.png)
 background-position: 90% 75%
 background-size: 200px
 # Typing in data, calcs, plots
@@ -595,7 +606,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 .pull-right[
 Colours can be given by their name, "lightblue" or code, "#ADD8E6".  
 
-Look up by [name](../pics/colournames.pdf) or [code](../pics/colourhex.pdf)
+Look up by [name](pics/colournames.pdf) or [code](pics/colourhex.pdf)
 
 ]
 
@@ -764,7 +775,7 @@ Plot
 &lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-26-1.png" width="288" /&gt;
 ]
 ---
-background-image: url(../pics/interorbital.png)
+background-image: url(pics/interorbital.png)
 background-position: 100% 0%
 background-size: 180px
 
@@ -860,7 +871,7 @@ The easiest way to do this is in RStudio  - see the bottom right Files panel
 
 --
 
-Save a copy of [pigeon.txt](../data/pigeon.txt) to the 'data' folder
+Save a copy of [pigeon.txt](data/pigeon.txt) to the 'data' folder
 
 ---
 # Working with Data 
@@ -896,7 +907,6 @@ to the file in the `read_table()` command:
 pigeon &lt;- read_table("data/pigeon.txt")
 ```
 
-
 --
 
 The `data/` part is the 'relative path' to the file. 
@@ -917,7 +927,7 @@ str(pigeon)
 ```
 
 ```
-## spec_tbl_df [40 x 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+## spc_tbl_ [40 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ A: num [1:40] 12.4 11.2 11.6 12.3 11.8 10.7 11.3 11.6 12.3 10.5 ...
 ##  $ B: num [1:40] 12.6 11.3 12.1 12.2 11.8 11.5 11.2 11.9 11.2 12.1 ...
 ##  - attr(*, "spec")=
@@ -1000,7 +1010,7 @@ Instead of having a population in each column, we often have, **and want**, all 
 
 --
 
-This format is described as 'tidy' (Wickham Averick, et al., 2019).
+This format is described as 'tidy' (Wickham Averick et al., 2019).
 
 
 --
@@ -1137,7 +1147,7 @@ str(pigeon2)
 ```
 
 ```
-## tibble [80 x 2] (S3: tbl_df/tbl/data.frame)
+## tibble [80 × 2] (S3: tbl_df/tbl/data.frame)
 ##  $ population: chr [1:80] "A" "B" "A" "B" ...
 ##  $ distance  : num [1:80] 12.4 12.6 11.2 11.3 11.6 12.1 12.3 12.2 11.8 11.8 ...
 ```
@@ -1189,7 +1199,7 @@ The result:
 
 
 ```
-## # A tibble: 2 x 2
+## # A tibble: 2 × 2
 ##   population  mean
 ##   &lt;chr&gt;      &lt;dbl&gt;
 ## 1 A           11.2
@@ -1221,7 +1231,7 @@ The result:
 
 
 ```
-## # A tibble: 2 x 3
+## # A tibble: 2 × 3
 ##   population  mean     n
 ##   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;
 ## 1 A           11.2    40
@@ -1243,7 +1253,7 @@ pigeon2 %&gt;%
 ```
 
 ```
-## # A tibble: 2 x 5
+## # A tibble: 2 × 5
 ##   population  mean     n    sd     se
 ##   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;
 ## 1 A           11.2    40 0.740 0.117 
@@ -1263,7 +1273,7 @@ ggplot(data = pigeon2, aes(x = distance)) +
 ```
 .pull-left[
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-44-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-43-1.png" width="288" /&gt;
 ]
 
 --
@@ -1288,7 +1298,7 @@ To plot multiple group data in tidy form we map the population variable to the `
   scale_x_continuous(name = "Interorbital distance (mm)")
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-45-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-44-1.png" width="288" /&gt;
 .pull-right[
 .footnote[
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Make the axes cross at (0,0)]
@@ -1313,7 +1323,7 @@ result on next slide.
 # Working with Data 
 The result:
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-46-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-45-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1327,7 +1337,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   scale_x_continuous(name = "Interorbital distance (mm)")
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-47-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-46-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1341,7 +1351,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   scale_x_continuous(name = "Interorbital distance (mm)")
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-48-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-47-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1361,7 +1371,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
 * theme_classic()
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-49-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-48-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1369,7 +1379,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
 A different kind of plot:
 
 .pull-left[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-50-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-49-1.png" width="288" /&gt;
 ]
 
 .pull-right[
@@ -1398,7 +1408,7 @@ ggplot(data = pigeon2, aes(x = population, y = distance)) +
 ---
 # Working with Data 
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-51-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-50-1.png" width="288" /&gt;
 ---
 # Summary
 * Use a script and comment it  
@@ -1413,7 +1423,7 @@ ggplot(data = pigeon2, aes(x = population, y = distance)) +
 
 class: inverse
 
-# 🎈 Congratulations! Keep practising! 🎂 
+# 🎉 Congratulations! Keep practising! 🎉 
 
 
 
@@ -1513,6 +1523,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
