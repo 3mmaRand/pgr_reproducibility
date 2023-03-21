@@ -29,10 +29,18 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # RStudio Projects.
+]
+.subtitle[
 ## White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R.
+]
+.author[
 ### Emma Rand
+]
+.institute[
 ### University of York, UK
+]
 
 ---
 
@@ -104,7 +112,7 @@ getwd()
 ```
 
 ```
-## [1] "Z:/My Documents/pgr_reproducibility/slides"
+## [1] "C:/Users/er13/OneDrive - University of York/Desktop/Desktop/PGR/pgr_reproducibility/slides"
 ```
 ]
 
@@ -405,7 +413,7 @@ And your whole project is portable!
 
 --
 
-When someone, including future you, opens the project on another machine, all the paths just work. 🎈
+When someone, including future you, opens the project on another machine, all the paths just work. 🥳
 
 ---
 class: inverse
@@ -555,7 +563,7 @@ The analysis will import a data file, reformat it and write the new format to fi
 ---
 # Save and Import 
 
-🎬 Save a copy of [seal.txt](../data/seal.txt ) to your `data-raw` folder. These data give the muscle myoglobin concentration for three species of seal.
+🎬 Save a copy of [seal.txt](data/seal.txt ) to your `data-raw` folder. These data give the muscle myoglobin concentration for three species of seal.
 
 --
 
@@ -574,7 +582,6 @@ library(tidyverse)
 ```r
 seal &lt;- read_table("data-raw/seal.txt")
 ```
-
 
 --
 
@@ -651,7 +658,7 @@ fig1 &lt;- ggplot(data = seal,
 fig1
 ```
 
-&lt;img src="03_rstudio_projects_files/figure-html/unnamed-chunk-9-1.png" width="288" /&gt;
+&lt;img src="03_rstudio_projects_files/figure-html/unnamed-chunk-8-1.png" width="288" /&gt;
 
 
 
@@ -742,8 +749,8 @@ Bryan, J. (2018). "Excuse Me, Do You Have a Moment to Talk About
 Version Control?" In: _Am. Stat._ 72.1, pp. 20-27.
 
 Bryan, J. and J. Hester _Chapter 2 Project-oriented workflow | What
-They Forgot to Teach You About R_. &lt;URL:
-https://whattheyforgot.org/project-oriented-workflow.html&gt;. Accessed:
+They Forgot to Teach You About R_.
+&lt;https://whattheyforgot.org/project-oriented-workflow.html&gt;. Accessed:
 2019-9-26.
 
 Sandve, G. K., A. Nekrutenko, et al. (2013). "Ten simple rules for
@@ -770,7 +777,7 @@ blog: https://buzzrbeeline.blog/
 
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;Licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
 
-Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167
+Rand, E. (2023). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.2). https://doi.org/10.5281/zenodo.3859818
 
 
 
@@ -827,6 +834,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

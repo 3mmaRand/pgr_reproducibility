@@ -55,7 +55,7 @@ BibOptions(check.entries = FALSE,
            dashed = FALSE,
            longnamesfirst = FALSE,
            max.names = 2)
-myBib <- ReadBib("../refs.bib", check = FALSE)
+myBib <- ReadBib("refs.bib", check = FALSE)
 ```
 
 
@@ -566,7 +566,7 @@ The analysis will import a data file, reformat it and write the new format to fi
 ---
 # Save and Import 
 
-`r emo::ji("clapper")` Save a copy of [seal.txt](../data/seal.txt ) to your `data-raw` folder. These data give the muscle myoglobin concentration for three species of seal.
+`r emo::ji("clapper")` Save a copy of [seal.txt](data/seal.txt ) to your `data-raw` folder. These data give the muscle myoglobin concentration for three species of seal.
 
 --
 
@@ -580,12 +580,8 @@ library(tidyverse)
 
 `r emo::ji("clapper")` Add the command to import the data:
 
-```{r eval=FALSE}
+```{r}
 seal <- read_table("data-raw/seal.txt")
-```
-```{r include=FALSE}
-# my directory organisation differs
-seal <- read_table("../data/seal.txt")
 ```
 
 --
@@ -626,7 +622,7 @@ My main reasons for doing so are to save copies of data that have been processed
 --
 
 `r emo::ji("clapper")` Write your dataframe `seal` to a csv file named `seal-long.csv` in your `data-processed` folder:
-```{r eval=FALSE}
+```{r}
 file <- "data-processed/seal-long.csv"
 write_csv(seal, file)
 ```
@@ -694,7 +690,7 @@ device <- "tiff"
 
 `r emo::ji("clapper")` Save the figure to your figures directory:
 
-```{r eva}
+```{r}
 ggsave("figures/fig1.tiff",
        plot = fig1,
        device = device,
@@ -755,7 +751,7 @@ blog: https://buzzrbeeline.blog/
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
-Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167
+Rand, E. (2023). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.2). https://doi.org/10.5281/zenodo.3859818
 
 
 

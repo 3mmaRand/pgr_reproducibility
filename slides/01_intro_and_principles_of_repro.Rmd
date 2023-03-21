@@ -116,8 +116,7 @@ Modules, tutor-led or supported study. The selection of modules you undertake wi
 Audience: Everyone
 * Rationale for scripting  
 * Why R?  
-* Organisation of data  
-* Organisation of analyses  
+
 
 [2. A. Introduction to R and working with data](02_intro_to_r_and_working_with_data.html)  
 
@@ -144,7 +143,7 @@ Audience: For those with previous experience of R but little of 'tidy data' and 
 
 
 [2. C. Advanced data import](05_advanced_data_import.html)  
-Audience: For those with previous experience of R and the tidyverse including the pipe."
+Audience: For those with previous experience of R and the tidyverse including the pipe. 
 * Understanding what matters in data import  
 * Importing plain text and proprietary data formats stored locally and on the web  
 * Carrying out some simple web scraping  
@@ -160,6 +159,8 @@ Audience: For those with previous experience of R and the tidyverse including th
 [3. RStudio Projects](03_rstudio_projects.html)  
 Audience: Those without experience of RStudio projects
 * Organising your work in a logical, consistent and reproducible way using RStudio Projects  
+* Organisation of data  
+* Organisation of analyses  
 * Writing code with relative paths given appropriate to your project organisation  
 * Writing dataframes and figures to file  
 
@@ -180,23 +181,9 @@ class: inverse
 ---
 # Data analysis
 
-How much of data analysis is using statistics?
-
-Less than you probably think
-
-~80% of your time on getting data, cleaning data, aggregating data, reshaping data, and exploring data using exploratory data analysis and data visualization.
+Mainly isn't statistics. ~80% of your time on getting data, cleaning data, aggregating data, reshaping data, and exploring data using exploratory data analysis and data visualization.
 
 
----
-# Reproducibility is key!
-
-One definition
-*"... obtaining consistent results using the same input data; computational steps, methods, and code; and conditions of analysis. This definition is synonymous with “computational reproducibility"*. `r Cite(myBib, "National_Academies_of_Sciences_Engineering2019-sb")`
-
- Also see 
-
--  The Turing Way "Definitions for Reproducibility" `r Cite(myBib, "the_turing_way_community_2019_3233986")`
--  National Science Foundation `r Cite(myBib, "K_Bollen2015-un")`
 
 ---
 # Reproducibility is key!
@@ -219,20 +206,6 @@ How the Turing Way `r Cite(myBib, "the_turing_way_community_2019_3233986")` defi
 
 
 * **Will** become standard in Science and publishing e.g OECD Global Science Forum Building digital workforce capacity and skills for data-intensive science `r Cite(myBib, "OECD_Global_Science_Forum2020-cp")`
-
----
-# Open Science
-
-```{r foster-fig, echo = FALSE, out.width="700px"}
-knitr::include_graphics("pics/Foster.png")
-```
-.font60[
-By Petr Knoth and Nancy Pontika - https://en.wikipedia.org/wiki/Open_science#/media/File:Os_taxonomy.png, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=61125075
-]
-
-FAIR - Findable, Accessible, Interoperable, Reusable `r Cite(myBib, "Wilkinson2016-pu")`
-
-
 
 ---
 class: inverse
@@ -277,24 +250,6 @@ knitr::include_graphics("pics/rationale3.png")
 
 
 Workflows for computational projects and the data analysis and reporting of other work can, and should, be 100% reproducible! Scripting is the way to achieve this.
-
----
-
-# Rationale for scripting analysis
-
-That reproducibility applies to all aspects of the data workflow.
-
-```{r echo = FALSE, out.width="600px"}
-knitr::include_graphics("pics/rationale5.png")
-```
-
---
-
-From importing or collecting the data, processing it for analysis, building statistical models and communicating the methods and results.
-
---
-
-These are usually iterative and that process of iteration (the development of the analysis) should also be captured.
 
 ---
 class: inverse
@@ -352,155 +307,24 @@ Artwork by @allison_horst
 
 ]
 
----
-# Why R?
 
-# Why R?
-
-R Markdown is sometimes called R's "killer feature". Turns analyses into fully reproducible high quality reports, presentations and dashboards.
-
-Can run Python and other languages in R Markdown documents
-
-```{r echo = FALSE, out.width="500px"}
-knitr::include_graphics("pics/rmarkdown_wizards.png")
-```
-
-.font70[
-.footnote[
-Artwork by @allison_horst 
-]
-]
 ---
 class: inverse
 
 # Aspects of Reproducibility
 
 ---
-# Organisation of data 
+# Aspects of Reproducibility 
 
-Within files should be 'tidy'
-
-Tidy data adhere to a consistent structure which makes it easier to manipulate, model and visualize them. 
-
-1. Each variable has its own column.  
-2. Each observation has its own row.  
-3. Each value has its own cell.  
-
-Closely allied to the relational algebra of relational databases `r Cite(myBib, "Codd1990-th")`.  
-Underlies the enforced rectangular formatting in SPSS, STATA and R's dataframe.  
-The term 'tidy data' was popularised by `r Citet(myBib, "Wickham2014-nl")`.   
-There may be more than one potential tidy structure.  
-
----
-# Tidy format
-
-```{r echo=FALSE}
-pigeon <- read.table("data/pigeon.txt", header = T)
-```
-
-Suppose we had just 3 individuals in each of two populations:
-
-.pull-left[
-
-**Not tidy**
-
-```{r echo=FALSE}
-knitr::kable(pigeon[1:3,], 
-             format = "html")
-```
-]
-```{r echo=FALSE}
-pigeon2 <- gather(data = pigeon, 
-                  key = population, 
-                  value = distance)
-```
-
-.pull-right[
-
-**Tidy!**
-```{r echo=FALSE}
-knitr::kable(head(pigeon2[c(1:3,41:43),]), 
-             format = "html",
-             row.names = FALSE)
-```
-]
-
----
-# Organisation of analyses
-
-* Project based approach, e.g., RStudio project or similar  
-* directory structure 
-* naming   
-* commenting  
-* readme  
-* version control  
-
----
-# Organisation of analyses
-
-.pull-left[
-
-**Directories**
-
-* structured  
-* systematic  
-* repeatable  
-
-**Naming**
-
-* human and machine readable  
-  * no spaces  
-  * use snake/kebab case  
-  * ordering: numbers (zero left padded), dates  
-  * file extensions
-]
-
-.pull-right[
-.code40[
-```
--- stem_cell_rna_2019
-   |__stem_cell_rna_2019.Rproj
-   |__raw_ data
-      |__2019-03-21_donor_1.csv
-      |__2019-03-21_donor_2.csv
-      |__2019-03-21_donor_3.csv
-      |__2019-05-14_donor_1.csv
-      |__2019-05-14_donor_2.csv
-      |__2019-05-14_donor_3.csv
-   |__processed_data
-      |__all_long.txt
-   |__figures
-      |__01_volcano_donor_1_vs_donor_2.eps
-      |__02_volcano_donor_1_vs_donor_3.eps
-   |__functions
-      |__01_file_import
-      |__02_normalise.R
-      |__theme_pca.R
-      |__theme_volcano.R
-   |__pics
-      |__01_image.png
-      |__01_image.png
-   |__README.md
-   |__refs
-      |__r_refs.bib
-      |__proj_refs.bib
-   |__analyses
-      |__01_data_processing.R
-      |__02_exploratory.R
-      |__03_modelling.R
-      |__04_figures.R
-      |__05_report.Rmd
-```
-]
-
-]
-
+* Data within files should be 'tidy'
+* Project based approach
+* Consistency: naming, space, style   
+* Documentation: commenting and README  
+* Literate programming e.g. Rmarkdown  
 
 
 ---
-# Organisation of analyses
-
-## Further Reading
+# Further Reading
 
 * "Ten simple rules for reproducible computational research" `r Cite(myBib, "Sandve2013-nd")`  
 * "Best practices for scientific computing" `r Cite(myBib, "Wilson2014-ij")`  
@@ -515,11 +339,7 @@ knitr::kable(head(pigeon2[c(1:3,41:43),]),
   * not enough, you need to practice!  
   * comprised of modules so you can opt out where you already have the skills  
 * Scripting makes your work reproducible  
-* Focus is on R but principles are widely applicable; use Python if you prefer  
-* Recognising structure in your data and organising in 'tidy' format will pay dividends  
-* The structured, systematic and consistent organisation of analyses will pay dividends
-
-
+* Focus is on R but principles of reproducibility are widely applicable; use Python if you prefer  
 
 ---
 # References
@@ -530,18 +350,10 @@ Slides made with with xaringan `r Cite(myBib, "xaringan")` and xaringanExtra `r 
 ]
 .font60[
 ```{r refs, echo=FALSE, results="asis"}
-PrintBibliography(myBib, end = 7)
+PrintBibliography(myBib)
 ```
 ]
 
----
-# References
-
-.font60[
-```{r refs2, echo=FALSE, results="asis"}
-PrintBibliography(myBib, start = 8)
-```
-]
 ---
 # Intro to Repro in R
 
@@ -553,4 +365,4 @@ blog: https://buzzrbeeline.blog/
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
-Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167
+Rand, E. (2023). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.2). https://doi.org/10.5281/zenodo.3859818

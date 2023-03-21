@@ -195,7 +195,7 @@ df <- data.frame(n, freq)
 knitr::kable(df, 
              format = "html",
              col.names = c("No. males", "No. nests"),
-             row.names = FALSE)%>%
+             row.names = FALSE)  |> 
   kable_styling(font_size = 16)
 ```
 ]
@@ -260,31 +260,15 @@ n <- c(0, 1, 2, 3, 4, 5)
 
 ## Data structures
 
-Let's take a look at it using `str()` (structure) and `class()`
---
-```{r}
-class(n)
-```
---
-```{r}
-str(n)
-```
-
-It's a numeric vector.
- 
-
-
----
-# Typing in data, calcs, plots
-
-## Data structures
-
 Create a vector, `freq`, containing the numbers of nests with 0 to 5 males. 
+
+--
 
 ```{r}
 # the number of nests with 0 to 5 males
 freq <- c(4, 13, 14, 15, 13, 5)
 ```
+
 ---
 # Typing in data, calcs, plots
 
@@ -307,14 +291,14 @@ We have frequencies so to find the mean number of males per nest we need the tot
 df$product <- df$n * df$freq
 totalm <- sum(df$product)
 totaln <- sum(df$freq)
-dfchar <- df %>%
+dfchar <- df |>
   mutate_all(as.character)
 dfchar <- rbind(dfchar, c("Total", totaln, totalm))
-dfchar %>% kable(format = "html",
+dfchar |> kable(format = "html",
                  col.names = c("No. males", "No. nests", "No. males *No. nests"),
-                 row.names = FALSE) %>% 
-  kable_styling(font_size = 16) %>%
-  row_spec(6, hline_after = TRUE) %>%
+                 row.names = FALSE) |> 
+  kable_styling(font_size = 16) |>
+  row_spec(6, hline_after = TRUE) |>
   row_spec(7, bold = TRUE, background = "#C0C2C9")
 ```
 ]
@@ -420,16 +404,6 @@ nest_data <- data.frame(n = factor(n), freq)
 
 `n` was made into a factor (a categorical variable).
 
----
-# Plotting using ggplot2
-
-## Data structure for `ggplot()` 
-Check:
-```{r}
-str(nest_data)
-```
-
---
 
 `nest_data` is the name we have given the dataframe
 
@@ -664,20 +638,20 @@ pigeon2 <- pivot_longer(data = pigeon,
                         cols = everything(), 
                         names_to = "population",
                         values_to = "distance")
-sumpig <- pigeon2 %>%
-  group_by(population) %>% 
+sumpig <- pigeon2 |>
+  group_by(population) |> 
   summarise(n = length(distance),
             mean = mean(distance),
             se = sd(distance)/sqrt(n))
-sumpig %>% 
+sumpig |> 
     kable(format = "html",
           digits = 2,
                  col.names = c("Population",
                                "N", 
                                "Mean",
                                "SE"),
-                 row.names = FALSE) %>%
-  add_header_above(c(" " = 2, " Interorbital distance" = 2)) %>%
+                 row.names = FALSE) |>
+  add_header_above(c(" " = 2, " Interorbital distance" = 2)) |>
   kable_styling(font_size = 16)
 ```
 ]
@@ -721,65 +695,6 @@ This section will teach you about three concepts:
 
 We will work with the interorbital distances of domestic pigeons in two different populations: A and B
 
----
-# Working with Data 
-## Importing
-
-It is good practice to organise your files into a folder structure. 
-
-For example, I often use:
-
----
-# Example organisation
-
-.pull-left[
-Directories
-* systematic  
-* repeatable  
-
-Naming: human and machine readable
-  * no spaces  
-  * use snake/kebab case  
-  * ordering: numbers (zero left padded), dates  
-  * file extensions
-]
-.pull-right[
-.code40[
-```
--- stem_cell_rna_2019
-   |__stem_cell_rna_2019.Rproj
-   |__raw_ data
-      |__2019-03-21_donor_1.csv
-      |__2019-03-21_donor_2.csv
-      |__2019-03-21_donor_3.csv
-   |__processed_data
-      |__all_long.txt
-      |__all_wide.txt
-   |__figures
-      |__01_volcano_donor_1_vs_donor_2.eps
-      |__02_volcano_donor_1_vs_donor_3.eps
-   |__functions
-      |__01_file_import
-      |__02_normalise.R
-      |__theme_pca.R
-      |__theme_volcano.R
-   |__pics
-      |__01_image.png
-      |__01_image.png
-   |__README.md
-   |__refs
-      |__r_refs.bib
-      |__proj_refs.bib
-   |__analyses
-      |__01_data_processing.R
-      |__02_exploratory.R
-      |__03_modelling.R
-      |__04_figures.R
-      |__05_report.Rmd
-```
-]
-
-]
 
 ---
 # Working with Data 
@@ -834,14 +749,6 @@ It says where the file is **relative to your working directory**
 
 pigeon.txt is inside a folder (directory) called 'data' which is in your working directory.
 
----
-# Working with Data 
-
-Check all is well by looking at the structure of the dataframe pigeon using `str()`
-
-```{r }
-str(pigeon)
-```
 
 ---
 # Working with Data
@@ -851,44 +758,6 @@ A dataframe is made of columns and rows
 
 The columns are the variables; the rows are the observations
 
---
-
-To refer a column inside a dataframe (a single column data) we need to use the dollar notation: `dataframe$columnname`
----
-# Working with Data
-
-## Understanding the dataframe
-
-So to output all of the values of one column we can use:
-.scroll-output-width[
-```{r}
-pigeon$A
-```
-]
-
----
-# Working with Data
-
-## Summarising multi-group data
-
-Thus to find the mean of a single column data: 
-
-.pull-left[
-
-```{r }
-mean(pigeon$A)
-```
-
-
-```{r }
-mean(pigeon$B)
-```
-]
-.pull-right[
-
-This relies on the groups being in different columns!
-
-]
 ---
 # Working with Data 
 
@@ -940,7 +809,7 @@ There may be more than one potential tidy structure.
 # Working with Data 
 
 ```{r echo=FALSE}
-pigeon <- read.table("data/pigeon.txt", header = T)
+pigeon <- read_table("data/pigeon.txt")
 ```
 
 ## Tidy format
@@ -951,7 +820,7 @@ Suppose we had just 3 individuals in each of two populations:
 NOT TIDY!
 ```{r echo=FALSE}
 knitr::kable(pigeon[1:3,], 
-             format = "html") %>%
+             format = "html") |>
   kable_styling(font_size = 16)
 ```
 ]
@@ -967,7 +836,7 @@ TIDY!
 ```{r echo=FALSE}
 knitr::kable(head(pigeon2[c(1:3,41:43),]), 
              format = "html",
-             row.names = FALSE) %>%
+             row.names = FALSE) |>
   kable_styling(font_size = 16)
 ```
 ]
@@ -1009,7 +878,7 @@ To summarise data in this format we use the `group_by()` and `summarise()` funct
 
 --
 
-We will also use the pipe operator: ` %>% `
+We will also use the pipe operator: ` |> `
 
 ---
 # Working with Data 
@@ -1017,8 +886,8 @@ We will also use the pipe operator: ` %>% `
 To summarise multiple group data in tidy form:
 
 ```{r eval=FALSE}
-pigeon2 %>% 
-  group_by(population) %>% 
+pigeon2 |> 
+  group_by(population) |> 
   summarise(mean = mean(distance))
 ```
 
@@ -1040,8 +909,8 @@ The `mean` before the `=` is just a name.
 The result:
 
 ```{r echo=FALSE}
-pigeon2 %>% 
-  group_by(population) %>% 
+pigeon2 |> 
+  group_by(population) |> 
   summarise(mean = mean(distance))
 ```
 ---
@@ -1050,8 +919,8 @@ pigeon2 %>%
 We can add the number of pigeons in each group to the summary using the `length()` function.
 
 ```{r eval=FALSE}
-pigeon2 %>% 
-  group_by(population) %>% 
+pigeon2 |> 
+  group_by(population) |> 
   summarise(mean = mean(distance),
             n = length(distance)) #<<
 ```
@@ -1068,8 +937,8 @@ pigeon2 %>%
 The result:
 
 ```{r echo=FALSE}
-pigeon2 %>% 
-  group_by(population) %>% 
+pigeon2 |> 
+  group_by(population) |> 
   summarise(mean = mean(distance),
             n = length(distance)) #<<
 ```
@@ -1079,8 +948,8 @@ pigeon2 %>%
 # Working with Data 
 
 ```{r}
-pigeon2 %>% 
-  group_by(population) %>% 
+pigeon2 |> 
+  group_by(population) |> 
   summarise(mean = mean(distance),
             n = length(distance),
             sd = sd(distance), #<<
@@ -1245,7 +1114,7 @@ ggplot(data = pigeon2, aes(x = population, y = distance)) +
 # Summary
 * Use a script and comment it  
 * organise analyses and use relative paths
-* shortcuts: `<-` is Alt-minus  ` %>%` is Ctl-Shift-M  
+* shortcuts: `<-` is Alt-minus  ` |>` is Ctl-Shift-M  
 * objects are seen in the Environment window  
 * data is read in to R from files into dataframes  
 * the dataframe is a common data structure  
@@ -1284,7 +1153,7 @@ blog: https://buzzrbeeline.blog/
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
-Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167
+Rand, E. (2023). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.2). https://doi.org/10.5281/zenodo.3859818
 
 
 

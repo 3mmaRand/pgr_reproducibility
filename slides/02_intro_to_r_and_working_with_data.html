@@ -265,42 +265,16 @@ n &lt;- c(0, 1, 2, 3, 4, 5)
 
 ## Data structures
 
-Let's take a look at it using `str()` (structure) and `class()`
---
-
-```r
-class(n)
-```
-
-```
-## [1] "numeric"
-```
---
-
-```r
-str(n)
-```
-
-```
-##  num [1:6] 0 1 2 3 4 5
-```
-
-It's a numeric vector.
- 
-
-
----
-# Typing in data, calcs, plots
-
-## Data structures
-
 Create a vector, `freq`, containing the numbers of nests with 0 to 5 males. 
+
+--
 
 
 ```r
 # the number of nests with 0 to 5 males
 freq &lt;- c(4, 13, 14, 15, 13, 5)
 ```
+
 ---
 # Typing in data, calcs, plots
 
@@ -482,23 +456,6 @@ nest_data &lt;- data.frame(n = factor(n), freq)
 
 `n` was made into a factor (a categorical variable).
 
----
-# Plotting using ggplot2
-
-## Data structure for `ggplot()` 
-Check:
-
-```r
-str(nest_data)
-```
-
-```
-## 'data.frame':	6 obs. of  2 variables:
-##  $ n   : Factor w/ 6 levels "0","1","2","3",..: 1 2 3 4 5 6
-##  $ freq: num  4 13 14 15 13 5
-```
-
---
 
 `nest_data` is the name we have given the dataframe
 
@@ -517,7 +474,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col()
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-17-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-14-1.png" width="288" /&gt;
 
 
 ---
@@ -600,7 +557,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(fill = "lightblue")
 ```
 .pull-left[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-19-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-16-1.png" width="288" /&gt;
 ]
 --
 .pull-right[
@@ -624,7 +581,7 @@ ggplot(data = nest_data, aes(x = n, y = freq, fill = n)) +
   geom_col()
 ```
 .pull-left[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-20-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-17-1.png" width="288" /&gt;
 ]
 --
 .pull-right[
@@ -647,7 +604,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
   geom_col(fill = "lightblue", width = 1)
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-21-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-18-1.png" width="288" /&gt;
 
 
 ---
@@ -667,7 +624,7 @@ ggplot(data = nest_data,
 ]
 
 .pull-right[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-22-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-19-1.png" width="288" /&gt;
 ]
 ---
 # Top Tip
@@ -705,7 +662,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 * scale_y_continuous(expand = c(0, 0))
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-23-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-20-1.png" width="288" /&gt;
 
 .pull-right[
 .footnote[
@@ -727,7 +684,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
                      name = "Number of Nests") 
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-24-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-21-1.png" width="288" /&gt;
 
 ---
 
@@ -772,7 +729,7 @@ Summarise
 .pull-right[
 Plot
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-26-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-23-1.png" width="288" /&gt;
 ]
 ---
 background-image: url(pics/interorbital.png)
@@ -801,65 +758,6 @@ This section will teach you about three concepts:
 
 We will work with the interorbital distances of domestic pigeons in two different populations: A and B
 
----
-# Working with Data 
-## Importing
-
-It is good practice to organise your files into a folder structure. 
-
-For example, I often use:
-
----
-# Example organisation
-
-.pull-left[
-Directories
-* systematic  
-* repeatable  
-
-Naming: human and machine readable
-  * no spaces  
-  * use snake/kebab case  
-  * ordering: numbers (zero left padded), dates  
-  * file extensions
-]
-.pull-right[
-.code40[
-```
--- stem_cell_rna_2019
-   |__stem_cell_rna_2019.Rproj
-   |__raw_ data
-      |__2019-03-21_donor_1.csv
-      |__2019-03-21_donor_2.csv
-      |__2019-03-21_donor_3.csv
-   |__processed_data
-      |__all_long.txt
-      |__all_wide.txt
-   |__figures
-      |__01_volcano_donor_1_vs_donor_2.eps
-      |__02_volcano_donor_1_vs_donor_3.eps
-   |__functions
-      |__01_file_import
-      |__02_normalise.R
-      |__theme_pca.R
-      |__theme_volcano.R
-   |__pics
-      |__01_image.png
-      |__01_image.png
-   |__README.md
-   |__refs
-      |__r_refs.bib
-      |__proj_refs.bib
-   |__analyses
-      |__01_data_processing.R
-      |__02_exploratory.R
-      |__03_modelling.R
-      |__04_figures.R
-      |__05_report.Rmd
-```
-]
-
-]
 
 ---
 # Working with Data 
@@ -916,26 +814,6 @@ It says where the file is **relative to your working directory**
 
 pigeon.txt is inside a folder (directory) called 'data' which is in your working directory.
 
----
-# Working with Data 
-
-Check all is well by looking at the structure of the dataframe pigeon using `str()`
-
-
-```r
-str(pigeon)
-```
-
-```
-## spc_tbl_ [40 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
-##  $ A: num [1:40] 12.4 11.2 11.6 12.3 11.8 10.7 11.3 11.6 12.3 10.5 ...
-##  $ B: num [1:40] 12.6 11.3 12.1 12.2 11.8 11.5 11.2 11.9 11.2 12.1 ...
-##  - attr(*, "spec")=
-##   .. cols(
-##   ..   A = col_double(),
-##   ..   B = col_double()
-##   .. )
-```
 
 ---
 # Working with Data
@@ -945,61 +823,6 @@ A dataframe is made of columns and rows
 
 The columns are the variables; the rows are the observations
 
---
-
-To refer a column inside a dataframe (a single column data) we need to use the dollar notation: `dataframe$columnname`
----
-# Working with Data
-
-## Understanding the dataframe
-
-So to output all of the values of one column we can use:
-.scroll-output-width[
-
-```r
-pigeon$A
-```
-
-```
-##  [1] 12.4 11.2 11.6 12.3 11.8 10.7 11.3 11.6 12.3 10.5 12.1 10.4 10.8 11.9 10.9
-## [16] 10.8 10.4 12.0 11.7 11.3 11.5 11.8 10.3 10.3 11.5 10.7 11.3 11.6 13.3 10.7
-## [31] 12.1 10.2 10.8 11.4 10.9 10.3 10.4 10.0 11.2 11.3
-```
-]
-
----
-# Working with Data
-
-## Summarising multi-group data
-
-Thus to find the mean of a single column data: 
-
-.pull-left[
-
-
-```r
-mean(pigeon$A)
-```
-
-```
-## [1] 11.24
-```
-
-
-
-```r
-mean(pigeon$B)
-```
-
-```
-## [1] 11.7025
-```
-]
-.pull-right[
-
-This relies on the groups being in different columns!
-
-]
 ---
 # Working with Data 
 
@@ -1010,7 +833,7 @@ Instead of having a population in each column, we often have, **and want**, all 
 
 --
 
-This format is described as 'tidy' (Wickham Averick et al., 2019).
+This format is described as 'tidy' (Wickham Averick, et al., 2019).
 
 
 --
@@ -1166,7 +989,7 @@ To summarise data in this format we use the `group_by()` and `summarise()` funct
 
 --
 
-We will also use the pipe operator: ` %&gt;% `
+We will also use the pipe operator: ` |&gt; `
 
 ---
 # Working with Data 
@@ -1175,8 +998,8 @@ To summarise multiple group data in tidy form:
 
 
 ```r
-pigeon2 %&gt;% 
-  group_by(population) %&gt;% 
+pigeon2 |&gt; 
+  group_by(population) |&gt; 
   summarise(mean = mean(distance))
 ```
 
@@ -1212,8 +1035,8 @@ We can add the number of pigeons in each group to the summary using the `length(
 
 
 ```r
-pigeon2 %&gt;% 
-  group_by(population) %&gt;% 
+pigeon2 |&gt; 
+  group_by(population) |&gt; 
   summarise(mean = mean(distance),
 *           n = length(distance))
 ```
@@ -1244,8 +1067,8 @@ The result:
 
 
 ```r
-pigeon2 %&gt;% 
-  group_by(population) %&gt;% 
+pigeon2 |&gt; 
+  group_by(population) |&gt; 
   summarise(mean = mean(distance),
             n = length(distance),
 *           sd = sd(distance),
@@ -1273,7 +1096,7 @@ ggplot(data = pigeon2, aes(x = distance)) +
 ```
 .pull-left[
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-43-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-36-1.png" width="288" /&gt;
 ]
 
 --
@@ -1298,7 +1121,7 @@ To plot multiple group data in tidy form we map the population variable to the `
   scale_x_continuous(name = "Interorbital distance (mm)")
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-44-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-37-1.png" width="288" /&gt;
 .pull-right[
 .footnote[
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Make the axes cross at (0,0)]
@@ -1323,7 +1146,7 @@ result on next slide.
 # Working with Data 
 The result:
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-45-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-38-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1337,7 +1160,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   scale_x_continuous(name = "Interorbital distance (mm)")
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-46-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-39-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1351,7 +1174,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   scale_x_continuous(name = "Interorbital distance (mm)")
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-47-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-40-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1371,7 +1194,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
 * theme_classic()
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-48-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-41-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1379,7 +1202,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
 A different kind of plot:
 
 .pull-left[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-49-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-42-1.png" width="288" /&gt;
 ]
 
 .pull-right[
@@ -1408,12 +1231,12 @@ ggplot(data = pigeon2, aes(x = population, y = distance)) +
 ---
 # Working with Data 
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-50-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-43-1.png" width="288" /&gt;
 ---
 # Summary
 * Use a script and comment it  
 * organise analyses and use relative paths
-* shortcuts: `&lt;-` is Alt-minus  ` %&gt;%` is Ctl-Shift-M  
+* shortcuts: `&lt;-` is Alt-minus  ` |&gt;` is Ctl-Shift-M  
 * objects are seen in the Environment window  
 * data is read in to R from files into dataframes  
 * the dataframe is a common data structure  
@@ -1423,7 +1246,7 @@ ggplot(data = pigeon2, aes(x = population, y = distance)) +
 
 class: inverse
 
-# 🎉 Congratulations! Keep practising! 🎉 
+# 🥳 Congratulations! Keep practising! 🎉 
 
 
 
@@ -1470,7 +1293,7 @@ blog: https://buzzrbeeline.blog/
 
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;Licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
 
-Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167
+Rand, E. (2023). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.2). https://doi.org/10.5281/zenodo.3859818
 
 
 

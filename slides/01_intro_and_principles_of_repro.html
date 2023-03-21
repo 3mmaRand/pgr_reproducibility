@@ -108,8 +108,7 @@ Modules, tutor-led or supported study. The selection of modules you undertake wi
 Audience: Everyone
 * Rationale for scripting  
 * Why R?  
-* Organisation of data  
-* Organisation of analyses  
+
 
 [2. A. Introduction to R and working with data](02_intro_to_r_and_working_with_data.html)  
 
@@ -136,7 +135,7 @@ Audience: For those with previous experience of R but little of 'tidy data' and 
 
 
 [2. C. Advanced data import](05_advanced_data_import.html)  
-Audience: For those with previous experience of R and the tidyverse including the pipe."
+Audience: For those with previous experience of R and the tidyverse including the pipe. 
 * Understanding what matters in data import  
 * Importing plain text and proprietary data formats stored locally and on the web  
 * Carrying out some simple web scraping  
@@ -152,6 +151,8 @@ Audience: For those with previous experience of R and the tidyverse including th
 [3. RStudio Projects](03_rstudio_projects.html)  
 Audience: Those without experience of RStudio projects
 * Organising your work in a logical, consistent and reproducible way using RStudio Projects  
+* Organisation of data  
+* Organisation of analyses  
 * Writing code with relative paths given appropriate to your project organisation  
 * Writing dataframes and figures to file  
 
@@ -172,23 +173,9 @@ class: inverse
 ---
 # Data analysis
 
-How much of data analysis is using statistics?
-
-Less than you probably think
-
-~80% of your time on getting data, cleaning data, aggregating data, reshaping data, and exploring data using exploratory data analysis and data visualization.
+Mainly isn't statistics. ~80% of your time on getting data, cleaning data, aggregating data, reshaping data, and exploring data using exploratory data analysis and data visualization.
 
 
----
-# Reproducibility is key!
-
-One definition
-*"... obtaining consistent results using the same input data; computational steps, methods, and code; and conditions of analysis. This definition is synonymous with “computational reproducibility"*. (National Academies of Sciences, Engineering Medicine et al., 2019)
-
- Also see 
-
--  The Turing Way "Definitions for Reproducibility" 
--  National Science Foundation (Bollen Cacioppo et al., 2015)
 
 ---
 # Reproducibility is key!
@@ -209,18 +196,6 @@ How the Turing Way  defines reproducible research
 
 
 * **Will** become standard in Science and publishing e.g OECD Global Science Forum Building digital workforce capacity and skills for data-intensive science (OECD Global Science Forum, 2020)
-
----
-# Open Science
-
-&lt;img src="pics/Foster.png" width="700px" /&gt;
-.font60[
-By Petr Knoth and Nancy Pontika - https://en.wikipedia.org/wiki/Open_science#/media/File:Os_taxonomy.png, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=61125075
-]
-
-FAIR - Findable, Accessible, Interoperable, Reusable (Wilkinson Dumontier et al., 2016)
-
-
 
 ---
 class: inverse
@@ -259,22 +234,6 @@ We ensure reproducibility of laboratory and field work by planning and recording
 
 
 Workflows for computational projects and the data analysis and reporting of other work can, and should, be 100% reproducible! Scripting is the way to achieve this.
-
----
-
-# Rationale for scripting analysis
-
-That reproducibility applies to all aspects of the data workflow.
-
-&lt;img src="pics/rationale5.png" width="600px" /&gt;
-
---
-
-From importing or collecting the data, processing it for analysis, building statistical models and communicating the methods and results.
-
---
-
-These are usually iterative and that process of iteration (the development of the analysis) should also be captured.
 
 ---
 class: inverse
@@ -330,198 +289,28 @@ Artwork by @allison_horst
 
 ]
 
----
-# Why R?
 
-# Why R?
-
-R Markdown is sometimes called R's "killer feature". Turns analyses into fully reproducible high quality reports, presentations and dashboards.
-
-Can run Python and other languages in R Markdown documents
-
-&lt;img src="pics/rmarkdown_wizards.png" width="500px" /&gt;
-
-.font70[
-.footnote[
-Artwork by @allison_horst 
-]
-]
 ---
 class: inverse
 
 # Aspects of Reproducibility
 
 ---
-# Organisation of data 
+# Aspects of Reproducibility 
 
-Within files should be 'tidy'
-
-Tidy data adhere to a consistent structure which makes it easier to manipulate, model and visualize them. 
-
-1. Each variable has its own column.  
-2. Each observation has its own row.  
-3. Each value has its own cell.  
-
-Closely allied to the relational algebra of relational databases (Codd, 1990).  
-Underlies the enforced rectangular formatting in SPSS, STATA and R's dataframe.  
-The term 'tidy data' was popularised by Wickham (2014).   
-There may be more than one potential tidy structure.  
-
----
-# Tidy format
-
-
-
-Suppose we had just 3 individuals in each of two populations:
-
-.pull-left[
-
-**Not tidy**
-
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:right;"&gt; A &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; B &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 12.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 11.2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-]
-
-
-.pull-right[
-
-**Tidy!**
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; population &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; distance &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 12.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-]
-
----
-# Organisation of analyses
-
-* Project based approach, e.g., RStudio project or similar  
-* directory structure 
-* naming   
-* commenting  
-* readme  
-* version control  
-
----
-# Organisation of analyses
-
-.pull-left[
-
-**Directories**
-
-* structured  
-* systematic  
-* repeatable  
-
-**Naming**
-
-* human and machine readable  
-  * no spaces  
-  * use snake/kebab case  
-  * ordering: numbers (zero left padded), dates  
-  * file extensions
-]
-
-.pull-right[
-.code40[
-```
--- stem_cell_rna_2019
-   |__stem_cell_rna_2019.Rproj
-   |__raw_ data
-      |__2019-03-21_donor_1.csv
-      |__2019-03-21_donor_2.csv
-      |__2019-03-21_donor_3.csv
-      |__2019-05-14_donor_1.csv
-      |__2019-05-14_donor_2.csv
-      |__2019-05-14_donor_3.csv
-   |__processed_data
-      |__all_long.txt
-   |__figures
-      |__01_volcano_donor_1_vs_donor_2.eps
-      |__02_volcano_donor_1_vs_donor_3.eps
-   |__functions
-      |__01_file_import
-      |__02_normalise.R
-      |__theme_pca.R
-      |__theme_volcano.R
-   |__pics
-      |__01_image.png
-      |__01_image.png
-   |__README.md
-   |__refs
-      |__r_refs.bib
-      |__proj_refs.bib
-   |__analyses
-      |__01_data_processing.R
-      |__02_exploratory.R
-      |__03_modelling.R
-      |__04_figures.R
-      |__05_report.Rmd
-```
-]
-
-]
-
+* Data within files should be 'tidy'
+* Project based approach
+* Consistency: naming, space, style   
+* Documentation: commenting and README  
+* Literate programming e.g. Rmarkdown  
 
 
 ---
-# Organisation of analyses
+# Further Reading
 
-## Further Reading
-
-* "Ten simple rules for reproducible computational research" (Sandve Nekrutenko et al., 2013)  
-* "Best practices for scientific computing" (Wilson Aruliah et al., 2014)  
-* "Good enough practices in scientific computing" (Wilson Bryan et al., 2017)  
+* "Ten simple rules for reproducible computational research" (Sandve Nekrutenko, et al., 2013)  
+* "Best practices for scientific computing" (Wilson Aruliah, et al., 2014)  
+* "Good enough practices in scientific computing" (Wilson Bryan, et al., 2017)  
 * "Excuse Me, Do You Have a Moment to Talk About Version Control?" (Bryan, 2018)  
 
 ---
@@ -532,11 +321,7 @@ Suppose we had just 3 individuals in each of two populations:
   * not enough, you need to practice!  
   * comprised of modules so you can opt out where you already have the skills  
 * Scripting makes your work reproducible  
-* Focus is on R but principles are widely applicable; use Python if you prefer  
-* Recognising structure in your data and organising in 'tidy' format will pay dividends  
-* The structured, systematic and consistent organisation of analyses will pay dividends
-
-
+* Focus is on R but principles of reproducibility are widely applicable; use Python if you prefer  
 
 ---
 # References
@@ -554,42 +339,18 @@ Baggerly, K. A. and K. R. Coombes (2009). "DERIVING CHEMOSENSITIVITY
 FROM CELL LINES: FORENSIC BIOINFORMATICS AND REPRODUCIBLE RESEARCH IN
 HIGH-THROUGHPUT BIOLOGY". In: _Ann. Appl. Stat._ 3.4, pp. 1309-1334.
 
-Bollen, K., J. T. Cacioppo, et al. (2015). _Social, Behavioral, and
-Economic Sciences Perspectives on Robust and Reliable Science_.
-National Science Foundation.
-
 Bryan, J. (2018). "Excuse Me, Do You Have a Moment to Talk About
 Version Control?" In: _Am. Stat._ 72.1, pp. 20-27.
-
-Codd, E. F. (1990). _The Relational Model for Database Management:
-Version 2_. Boston, MA, USA: Addison-Wesley Longman Publishing Co.,
-Inc.
 
 Markowetz, F. (2015). "Five selfish reasons to work reproducibly". En.
 In: _Genome Biol._ 16, p. 274.
 
-National Academies of Sciences, Engineering, Medicine, et al. (2019).
-_Understanding Reproducibility and Replicability_. National Academies
-Press (US).
-]
-
----
-# References
-
-.font60[
 OECD Global Science Forum (2020). _Building digital workforce capacity
 and skills for data-intensive science_. OECD.
 
 Sandve, G. K., A. Nekrutenko, et al. (2013). "Ten simple rules for
 reproducible computational research". En. In: _PLoS Comput. Biol._
 9.10, p. e1003285.
-
-Wickham, H. (2014). "Tidy Data". In: _Journal of Statistical Software,
-Articles_ 59.10, pp. 1-23.
-
-Wilkinson, M. D., M. Dumontier, et al. (2016). "The FAIR Guiding
-Principles for scientific data management and stewardship". En. In:
-_Sci Data_ 3, p. 160018.
 
 Wilson, G., D. A. Aruliah, et al. (2014). "Best practices for
 scientific computing". En. In: _PLoS Biol._ 12.1, p. e1001745.
@@ -601,6 +362,7 @@ Xie, Y. (2019). _xaringan: Presentation Ninja_. R package version 0.12.
 URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
 ]
+
 ---
 # Intro to Repro in R
 
@@ -612,7 +374,7 @@ blog: https://buzzrbeeline.blog/
 
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;Licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
 
-Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167
+Rand, E. (2023). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.2). https://doi.org/10.5281/zenodo.3859818
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
