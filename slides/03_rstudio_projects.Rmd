@@ -1,5 +1,5 @@
 ---
-title: "RStudio Projects."
+title: "Project-oriented workflow"
 subtitle: "White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R."
 author: "Emma Rand"
 institute: "University of York, UK"
@@ -22,15 +22,8 @@ knitr::opts_chunk$set(echo = TRUE,
                       fig.retina = 3)
 options(htmltools.dir.version = FALSE)
 ```
+
 ```{r xaringanextra, include=FALSE}
-# tile view
-xaringanExtra::use_tile_view()
-# share
-xaringanExtra::style_share_again(
-  share_buttons = "all")
-# broadcast: press P to enter the presenter view. Click on the Broadcast button to start broadcasting. Broadcast button will turn into a broadcast link. Share this link with your audience. When they open the link, their browser will connect with yours and from then on, whenever you advance or change slides, your viewer’s slides will move to the current slide.
-# Note that the broadcast link is unique and, as the presenter, is remembered for 4 hours. After 4 hours of inactivity, a new link will be generated..
-xaringanExtra::use_broadcast()
 # scribble, toggle S, note cannot advance sides
 xaringanExtra::use_scribble()
 # copy code
@@ -40,12 +33,13 @@ xaringanExtra::use_extra_styles(
   hover_code_line = TRUE,         
   mute_unhighlighted_code = TRUE)
 ```
+
 ```{r packages, include=FALSE}
 library(RefManageR)
 library(kableExtra)
 library(tidyverse)
-
 ```
+
 ```{r, load-refs, include=FALSE, cache=FALSE}
 BibOptions(check.entries = FALSE,
            bib.style = "authoryear",
@@ -67,88 +61,117 @@ div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
 
 # Outline
 
-The aim of this section is to show you what is meant by a working directory and a path, and how to organise your work in a consistent and reproducible way using RStudio Projects.
-
-RStudio projects help you manage paths, amongst other things.
-
-Today's session will give you a workflow for the remaining modules.
+The aim of this section is train you to take a project-oriented approach to analysis. The majority of the ideas apply in any analysis environment (ot just R). 
 
 ---
 # Learning outcomes 
 
 The successful student will be able to:
 
-* find and change their current working directory  
+* use a project-oriented workflow
+* know what is meant by a working directory, absolute and relative paths  
 * list files in their current working directory  
-* understand what is meant by working directory, absolute and relative paths  
 * use RStudio projects to appropriately organise a piece of work  
 * write code with relative paths given appropriate to your project organisation  
 * write dataframes and figures to file  
 
 `r emo::ji("clapper")` An instruction to do something!!
 
+
 ---
 class: inverse
 
-#  What is a working directory?
-
-
----
-# What is a directory?
-
-Directory is the old word for what many now call a folder `r emo::ji("folder")`.
-
-Commands that act on directories in most programming languages and environments reflect this.
-
-For example, all of these mean "tell me my working directory":
-
-* `getwd()` **get** **w**orking **d**irectory in R
-* `pwd` **p**rint **w**orking **d**irectory in Unix systems
-* `os.getcwd()`  **get** **c**urrent **w**orking **d**irectory in Python
+# Organising analyses
 
 ---
-# What is a working directory?
+# Organising analyses
 
-The working directory is the default location a program is using. It is where the program will read and write files by default. You have only one working directory at a time.
+What does it mean to be be organised? At least:
 
-The terms 'working directory', 'current working directory' and 'current directory' all mean the same thing.
+* Use a project based approach, e.g., RStudio project or similar  (most IDEs have them)
+* Have a hierarchical folder structure 
+* Have a consistent and informative naming system that 'plays nice'   
+* Document code with comments and analyses with README  
 
-`r emo::ji("clapper")` Find your current working directory with:
-.scroll-output-width[
-```{r}
-getwd()
+More advanced
+
+* Generalise with functions and packages
+* version control  
+* [Pipeline and workflow tools](https://github.com/pditommaso/awesome-pipeline) 
+
+---
+# What is a project?
+
+A project is a discrete piece of work which has a number of files associated with it such as the data and scripts for an analysis and the production reports.
+
+Using a project-oriented workflow means to have a hierarchical folder structure with everything needed to reproduce an analysis.
+
+One research project might have several organisational projects associated with it, for example:
+
+* data files and metadata (which may be made into a package) 
+* analysis and reporting 
+* a package developed for the analysis 
+* an app for allowing data to be explored by others 
+
+---
+# Example
+
+
+.pull-left[
+
+* structured  
+* systematic  
+* repeatable  
+
+**Naming**
+
+* human and machine readable  
+  * no spaces  
+  * use snake/kebab case  
+  * ordering: numbers (zero left padded), dates  
+  * file extensions
+]
+
+.pull-right[
+.code40[
+```
+-- stem_cell_rna_2019
+   |__stem_cell_rna_2019.Rproj
+   |__raw_ data
+      |__2019-03-21_donor_1.csv
+      |__2019-03-21_donor_2.csv
+      |__2019-03-21_donor_3.csv
+      |__2019-05-14_donor_1.csv
+      |__2019-05-14_donor_2.csv
+      |__2019-05-14_donor_3.csv
+   |__processed_data
+      |__all_long.txt
+   |__figures
+      |__01_volcano_donor_1_vs_donor_2.eps
+      |__02_volcano_donor_1_vs_donor_3.eps
+   |__functions
+      |__normalise.R
+      |__theme_pca.R
+      |__theme_volcano.R
+   |__pics
+      |__01_image.png
+      |__01_image.png
+   |__README.md
+   |__refs
+      |__r_refs.bib
+      |__proj_refs.bib
+   |__analyses
+      |__01_import.R
+      |__02_data_processing.R
+      |__03_exploratory.R
+      |__04_modelling.R
+      |__05_figures.R
+      |__report.Rmd
 ```
 ]
 
----
-# What is a working directory?
-
-If you do not like the working directory that R automatically chooses on starting up you can change it using the Tools menu
-
-`r emo::ji("clapper")` Tools | Global Options. Then, under the General tab, edit the box labelled "Default working directory (when not in a project):".
-
---
-
-If you want to change your working directory as you are working then use `setwd("address/to/folder/")`. For example:
-
-.scroll-output-width[
-```{r eval=FALSE}
-setwd("C:/Users/er13/Desktop/gist-lm/")
-```
 ]
----
-# What is a working directory?
 
-Your working directory *can* be the same as the location of the script file you are using ....
-
-... but does not have to be.
-
-
---
-
-<div class = "blue">
-When using RStudio projects the working directory is the project directory and you will rarely, if ever, use `setwd()`.
-</div>
 
 ---
 class: inverse
@@ -201,6 +224,42 @@ The absolute path for a file, `pigeon.txt` could be:
 
 * web: `http://www-users.york.ac.uk/~er13/58M_BDS_2019/data/pigeon.txt`  
 
+
+
+---
+class: inverse
+
+#  What is a working directory?
+
+
+---
+# What is a directory?
+
+Directory is the old word for what many now call a folder `r emo::ji("folder")`.
+
+Commands that act on directories in most programming languages and environments reflect this.
+
+For example, all of these mean "tell me my working directory":
+
+* `getwd()` **get** **w**orking **d**irectory in R
+* `pwd` **p**rint **w**orking **d**irectory in Unix systems
+* `os.getcwd()`  **get** **c**urrent **w**orking **d**irectory in Python
+
+---
+# What is a working directory?
+
+The working directory is the default location a program is using. It is where the program will read and write files by default. You have only one working directory at a time.
+
+The terms 'working directory', 'current working directory' and 'current directory' all mean the same thing.
+
+`r emo::ji("clapper")` Find your current working directory with:
+.scroll-output-width[
+```{r}
+getwd()
+```
+]
+
+
 ---
 # Relative paths
 
@@ -238,6 +297,8 @@ You can list the contents of a directory using the `dir()` command
 
 Most of the time you should use relative paths because that makes your work portable.
 
+`r emo::ji("party")` The tab key is your friend!
+
 --
 
 You only need to use absolute paths when you are referring to filesystem outside the one you are using.
@@ -267,48 +328,7 @@ class: inverse
    |__pigeons.Rproj
 ```
 ---
-# Example
 
-`r emo::ji("clapper")` Open the two script files check you can alter the paths for file import and export commands if you set your working directory to
-   * `pigeons`
-   * `scripts`
-   * the directory above `pigeons` on your set up
-   * the directory two directories above `pigeons` on your set up
-
-
-More if you need it: [What do we mean by paths?](https://youtu.be/oZblx36rqq0) 
-
-
----
-class: inverse
-
-# What is a project?
-
----
-# What is a project?
-
-A project is a discrete piece of work which has a number of files associated with it such as the data and scripts for an analysis and the production reports.
-
---
-
-One research project might have several organisational projects associated with it, for example:
-
-* data files and metadata (which may be made into a package)  
-* analysis and reporting  
-* a package developed for the analysis
-* an app for allowing data to be explored by others
-
----
-# Organising a project
-
-* Use an RStudio Project or similar (most IDEs have them)  
-* Use directory structure 
-* Have naming conventions   
-* Document
-  * README
-  * License
-  * Comprehensive commenting
-* Use version control  
 
 ---
 class: inverse
@@ -318,7 +338,7 @@ class: inverse
 ---
 # RStudio Projects
 
-Project is obviously a commonly used word. When I am referring to an [RStudio Project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) I will use the capitalised words 'RStudio Project' or 'Project'.
+Project is obviously a commonly used word. When I am referring to an [RStudio Project](https://support.posit.co/hc/en-us/articles/200526207-Using-Projects) I will use the capitalised words 'RStudio Project' or 'Project'.
 
 In other cases, I will use 'project'.
 
@@ -330,22 +350,35 @@ The name of the RStudio Project is the same as the name of the top level directo
 # RStudio Projects
 
 For example, if you create an RStudio Project `stem_cell_rna` your folder structure would look something like this:
-
 .pull-left[
+.code50[
 ```
 -- stem_cell_rna
    |__stem_cell_rna.Rproj
    |__raw_ data
       |__2019-03-21_donor_1.csv
+      |__2019-03-21_donor_2.csv
+      |__2019-05-14_donor_1.csv
+      |__2019-05-14_donor_2.csv
+   |__figures
+      |__01_volcano_donor_1_vs_donor_2.eps
    |__functions
-      |__01_file_import
-      |__02_normalise.R
+      |__normalise.R
+      |__theme_pca.R
+      |__theme_volcano.R
    |__README.md
+   |__refs
+      |__r_refs.bib
+      |__proj_refs.bib
    |__analyses
-      |__01_data_processing.R
-      |__02_exploratory.R
- 
+      |__01_import.R
+      |__02_data_processing.R
+      |__03_exploratory.R
+      |__04_modelling.R
+      |__05_figures.R
+      |__report.Rmd
 ```
+]
 ]
 
 
@@ -353,20 +386,34 @@ For example, if you create an RStudio Project `stem_cell_rna` your folder struct
 # RStudio Projects
 
 .pull-left[
+.code50[
 ```
 *-- stem_cell_rna
    |__stem_cell_rna.Rproj
    |__raw_ data
       |__2019-03-21_donor_1.csv
+      |__2019-03-21_donor_2.csv
+      |__2019-05-14_donor_1.csv
+      |__2019-05-14_donor_2.csv
+   |__figures
+      |__01_volcano_donor_1_vs_donor_2.eps
    |__functions
-      |__01_file_import
-      |__02_normalise.R
+      |__normalise.R
+      |__theme_pca.R
+      |__theme_volcano.R
    |__README.md
+   |__refs
+      |__r_refs.bib
+      |__proj_refs.bib
    |__analyses
-      |__01_data_processing.R
-      |__02_exploratory.R
- 
+      |__01_import.R
+      |__02_data_processing.R
+      |__03_exploratory.R
+      |__04_modelling.R
+      |__05_figures.R
+      |__report.Rmd
 ```
+]
 ]
 
 .pull-right[
@@ -375,20 +422,34 @@ the Project directory
 ---
 # RStudio Projects
 .pull-left[
+.code50[
 ```
 -- stem_cell_rna
 *  |__stem_cell_rna.Rproj
    |__raw_ data
       |__2019-03-21_donor_1.csv
+      |__2019-03-21_donor_2.csv
+      |__2019-05-14_donor_1.csv
+      |__2019-05-14_donor_2.csv
+   |__figures
+      |__01_volcano_donor_1_vs_donor_2.eps
    |__functions
-      |__01_file_import
-      |__02_normalise.R
+      |__normalise.R
+      |__theme_pca.R
+      |__theme_volcano.R
    |__README.md
+   |__refs
+      |__r_refs.bib
+      |__proj_refs.bib
    |__analyses
-      |__01_data_processing.R
-      |__02_exploratory.R
- 
+      |__01_import.R
+      |__02_data_processing.R
+      |__03_exploratory.R
+      |__04_modelling.R
+      |__05_figures.R
+      |__report.Rmd
 ```
+]
 ]
 
 .pull-right[
@@ -401,22 +462,11 @@ the `.RProj` file which is the defining feature of an RStudio Project
 
 When you open an RStudio Project, the working directory is set to the Project directory (i.e., the location of the `.Rproj` file).  
 
-When you use an RStudio Project you do not need to use `setwd()`
+This makes your work portable.  You can zip up the project folder and send it to any person, including future you, or any computer. 
 
---
+They will be able to unzip, open the project and have all the code just work.
 
-.font150[
-`r emo::ji("exploding_head")`
-]
-
---
-
-And your whole project is portable!
-
-
---
-
-When someone, including future you, opens the project on another machine, all the paths just work. `r emo::ji("party")`
+ `r emo::ji("party")`
 
 ---
 class: inverse
@@ -474,63 +524,6 @@ I typically use:
 * [CC-BY-SA-4.0](https://choosealicense.com/licenses/cc-by-sa-4.0/) for other work
 
 ---
-class: inverse
-
-# Naming things
-
----
-# Naming things
-
-Guiding principle - names of files and directories should be systematic and readable by humans and machines. Have a convention!
-
-I suggest
-  * no spaces in names
-  * use snake_case or kebab-case rather than CamelCase  or dot.case   
-  * use all lower case except very occasionally where convention is otherwise, e.g., README, LICENSE
-  * ordering: use left-padded numbers e.g., 01, 02....99 or 001, 002....999
-  * dates [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: 	2020-10-16
-
----
-# Naming things - example
-
-.code40[
-```
--- stem_cell_rna
-   |__stem_cell_rna.Rproj
-   |__raw_ data
-      |__2019-03-21_donor_1.csv
-      |__2019-03-21_donor_2.csv
-      |__2019-03-21_donor_3.csv
-      |__2019-05-14_donor_1.csv
-      |__2019-05-14_donor_2.csv
-      |__2019-05-14_donor_3.csv
-   |__data-processed
-      |__all_long.txt
-      |__all_wide.txt
-   |__figures
-      |__01_volcano_donor_1_vs_donor_2.eps
-      |__02_volcano_donor_1_vs_donor_3.eps
-   |__functions
-      |__01_file_import
-      |__02_normalise.R
-      |__theme_pca.R
-      |__theme_volcano.R
-   |__pics
-      |__01_image.png
-      |__01_image.png
-   |__README.md
-   |__refs
-      |__r_refs.bib
-      |__proj_refs.bib
-   |__analyses
-      |__01_data_processing.R
-      |__02_exploratory.R
-      |__03_modelling.R
-      |__04_figures.R
-      |__05_report.Rmd
-```
-]
----
 # Reading
 
 Suggested reading [Chapter 2 Project-oriented workflow](https://whattheyforgot.org/project-oriented-workflow.html) of What they forgot to teach you about R `r Cite(myBib, "Bryan-Hester")`
@@ -544,21 +537,23 @@ class: inverse
 # Your turn!
 
 You are going to create an RStudio Project with some directories and use it to organise a very simple analysis.
-The analysis will import a data file, reformat it and write the new format to file. It will then create a figure and write the image to file.
+The analysis will import a data file, reformat it and write the new format to file. It will then create a figure and write the image to file. 
+
+You'll get practice with tidying data and plotting data.
 
 
 ---
 # RStudio Project infrastructure
 
-`r emo::ji("clapper")` create a new Project called `wr-analytics` by clicking on the drop-down menu on top right where it says **Project: (None)** and choosing New Project, then New Directory, then New Project. Name the RStudio Project `wr-analytics`.
+`r emo::ji("clapper")` create a new Project called `seals` by clicking on the drop-down menu on top right where it says **Project: (None)** and choosing New Project, then New Directory, then New Project. Name the RStudio Project `seals`.
 
 --
 
-`r emo::ji("clapper")` Create folders in `wr-analytics` called `data-raw`, `data-processed` and `figures`.
+`r emo::ji("clapper")` Create folders in `seals` called `data-raw`, `data-processed` and `figures`.
 
 --
 
-`r emo::ji("clapper")` Start new scripts called `02-tidy.R`, `01-import.R` and `03-figures.R`
+`r emo::ji("clapper")` Start new scripts called `01-import.R`, `02-tidy.R`,  and `03-figures.R`
 
 
 
@@ -586,7 +581,7 @@ seal <- read_table("data-raw/seal.txt")
 
 --
 
-The relative path is `data-raw/seal.txt` because your working directory is the Project directory, `wr-analytics`.
+The relative path is `data-raw/seal.txt` because your working directory is the Project directory, `seals`.
 
 
 ---
@@ -660,7 +655,7 @@ fig1
 ---
 # Write ggplot figure to file
 
-A useful function for save figures is `ggsave()`. 
+A useful function for saving ggplot figures is `ggsave()`. 
 
 It has arguments for the size, resolution and device for the image. See the [`ggsave()` reference page](https://ggplot2.tidyverse.org/reference/ggsave.html). 
 
@@ -678,7 +673,7 @@ Since I often make more than one figure, I might set these arguments first.
 units <- "in"  
 fig_w <- 3.2
 fig_h <- fig_w
-dpi <- 300
+dpi <- 600
 device <- "tiff" 
 ```
 
@@ -705,13 +700,17 @@ ggsave("figures/fig1.tiff",
 # Summary
 
 
-* Organise your work in a logical, consistent and reproducible way using RStudio Projects and appropriate directory structure. 
+* Use a project based approach 
 
-* Make your code portable by using relative paths.
+* Have a hierarchical folder structure
 
-* Make your analysis comprehensible by breaking it down into different scripts and by using variables for repeatedly used or long values.
+* Make your code portable by using relative paths
 
-* You can write data and figures to file  
+* Have a consistent and informative naming system that 'plays nice'
+
+* Make your analysis easy to understand by breaking it down into different scripts and by using variables for repeatedly used or long values.
+
+* Document code with comments and analyses with README   
 
 ---
 # Reading

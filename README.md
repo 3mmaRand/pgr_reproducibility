@@ -66,7 +66,7 @@ Supported learning for those with some R experience [Tidying data and the tidyve
 1200 - 1245 Lunch 
 
 1245 - 1330
-Tutor-led for Everyone: [RStudio Projects](https://3mmarand.github.io/pgr_reproducibility/slides/03_rstudio_projects.html)
+Tutor-led for Everyone: [Project-oriented workflow](https://3mmarand.github.io/pgr_reproducibility/slides/03_rstudio_projects.html)
 
 1330 - 1430
 Tutor-led for Everyone:[ R Markdown for Reproducible Reports](https://3mmarand.github.io/pgr_reproducibility/slides/06_r_markdown_for_reproducible_reports.html)

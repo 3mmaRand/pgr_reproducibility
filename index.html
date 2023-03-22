@@ -4,18 +4,27 @@
     <title>An Introduction to Reproducible Analyses in R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Emma Rand" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css_files\emma.css" type="text/css" />
-    <link rel="stylesheet" href="css_files\emma-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="css_files/emma.css" type="text/css" />
+    <link rel="stylesheet" href="css_files/emma-fonts.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # An Introduction to Reproducible Analyses in R
+]
+.subtitle[
 ## White Rose BBSRC DTP Training
+]
+.author[
 ### Emma Rand
+]
+.institute[
 ### University of York, UK
+]
 
 ---
 
@@ -26,7 +35,7 @@ class: center, middle, inverse, title-slide
 
 1. [Introduction and Principles of reproducibility](slides/01_intro_and_principles_of_repro.html)
 2. [Introduction to R and working with data](slides/02_intro_to_r_and_working_with_data.html) 
-3. [RStudio Projects](slides/03_rstudio_projects.html)  
+3. [Project-oriented workflow](slides/03_rstudio_projects.html)  
 4. [Tidying data and the tidyverse including the pipe](slides/04_tidying_data_and_the_tidyverse.html)
 5. [Advanced data import](slides/05_advanced_data_import.html)  
 6. [R Markdown for Reproducible Reports](slides/06_r_markdown_for_reproducible_reports.html)  
@@ -34,9 +43,12 @@ class: center, middle, inverse, title-slide
 ---
 # Introduction to Reproducibility in R
 
-## Emma Rand &lt;br&gt; [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) &lt;br&gt; Twitter: [@er13_r](https://twitter.com/er13_r) &lt;br&gt; github: [3mmaRand](https://github.com/3mmaRand)  &lt;br&gt; blog: https://buzzrbeeline.blog/
-&lt;br&gt;
+## Materials
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+
+Please cite as:
+Rand E. (2023). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (version v1.2). DOI: https://doi.org/10.5281/zenodo.3859818 URL: https://github.com/3mmaRand/pgr_reproducibility
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -84,6 +96,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

@@ -26,7 +26,7 @@ options(htmltools.dir.version = FALSE)
 
 1. [Introduction and Principles of reproducibility](slides/01_intro_and_principles_of_repro.html)
 2. [Introduction to R and working with data](slides/02_intro_to_r_and_working_with_data.html) 
-3. [RStudio Projects](slides/03_rstudio_projects.html)  
+3. [Project-oriented workflow](slides/03_rstudio_projects.html)  
 4. [Tidying data and the tidyverse including the pipe](slides/04_tidying_data_and_the_tidyverse.html)
 5. [Advanced data import](slides/05_advanced_data_import.html)  
 6. [R Markdown for Reproducible Reports](slides/06_r_markdown_for_reproducible_reports.html)  
@@ -34,7 +34,9 @@ options(htmltools.dir.version = FALSE)
 ---
 # Introduction to Reproducibility in R
 
-## Emma Rand <br> [emma.rand@york.ac.uk](mailto:emma.rand@york.ac.uk) <br> Twitter: [@er13_r](https://twitter.com/er13_r) <br> github: [3mmaRand](https://github.com/3mmaRand)  <br> blog: https://buzzrbeeline.blog/
-<br>
+## Materials
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+
+Please cite as:
+Rand E. (2023). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (version v1.2). DOI: https://doi.org/10.5281/zenodo.3859818 URL: https://github.com/3mmaRand/pgr_reproducibility
 
