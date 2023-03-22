@@ -151,41 +151,6 @@ Once you have installed R and RStudio, start RStudio up and go to the Packages t
 ## RStudio Cloud
 If installing R and RStudio is tricky or impossible with your set up (e.g., if you only have a chrome book) then you can use https://rstudio.cloud/. This is a version of RStudio that runs in your browser. It is free for 15 hours but you will need to make an account. You will still need to install packages.
 
-# Repository
-
-This repo comprises six modules lasting from ~ 40 minutes to 2.5 hours. 
-
-There is [module index](https://3mmarand.github.io/pgr_reproducibility/index.html)
-
-[Seal example](https://3mmarand.github.io/pgr_reproducibility/seals/paper.html)
-
-
-## Modules
-
-1. Introduction and Principles of reproducibility  
-   Audience: Everyone  
-  40 mins
- 
-2. Introduction to R and working with data. 
-   Audience: Those without previous experience  
-   2 - 2.5 hr  
- 
-3. RStudio Projects.  
-   Audience: Those without experience of RStudio projects  
-   45 mins  
- 
-4. Tidying data and the tidyverse including the pipe.  
-   Audience: For those with previous experience of R but little of 'tidy data' and the tidyverse, such as having done "Introduction to R and working with data."  
-   1.5 - 2 hr  
- 
-5. Advanced data import.  
-   Audience: For those with previous experience of R such as having done "Introduction to R and working with data" and "Tidying data and the tidyverse including the pipe."  
-   2 - 2.5 hr   
- 
-6. R Markdown for Reproducible Reports.  
-   Audience: For those with previous experience of R such as having done "Introduction to R and working with data"  
-   2 - 2.5 hr 
-
 
 ## Materials
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose BBSRC Doctoral Training Partnership (DTP) in Mechanistic Biology Analytics 1: Introduction to reproducible analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
