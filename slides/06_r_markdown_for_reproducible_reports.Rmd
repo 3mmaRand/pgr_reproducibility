@@ -22,15 +22,8 @@ knitr::opts_chunk$set(echo = TRUE,
                       fig.retina = 3)
 options(htmltools.dir.version = FALSE)
 ```
+
 ```{r xaringanextra, include=FALSE}
-# tile view
-xaringanExtra::use_tile_view()
-# share
-xaringanExtra::style_share_again(
-  share_buttons = "all")
-# broadcast: press P to enter the presenter view. Click on the Broadcast button to start broadcasting. Broadcast button will turn into a broadcast link. Share this link with your audience. When they open the link, their browser will connect with yours and from then on, whenever you advance or change slides, your viewer’s slides will move to the current slide.
-# Note that the broadcast link is unique and, as the presenter, is remembered for 4 hours. After 4 hours of inactivity, a new link will be generated..
-xaringanExtra::use_broadcast()
 # scribble, toggle S, note cannot advance sides
 xaringanExtra::use_scribble()
 # copy code
@@ -40,6 +33,7 @@ xaringanExtra::use_extra_styles(
   hover_code_line = TRUE,         
   mute_unhighlighted_code = TRUE)
 ```
+
 ```{r packages, include=FALSE}
 library(RefManageR)
 library(kableExtra)
@@ -57,7 +51,7 @@ BibOptions(check.entries = FALSE,
            dashed = FALSE,
            longnamesfirst = FALSE,
            max.names = 2)
-myBib <- ReadBib("../refs.bib", check = FALSE)
+myBib <- ReadBib("refs.bib", check = FALSE)
 ```
 
 
@@ -180,7 +174,7 @@ This process relies on manual labour.
 If the data changes, the author must repeat the entire process to update the report.
 
 ---
-background-image: url(../pics/rmarkdown.png)
+background-image: url(pics/rmarkdown.png)
 background-position: 100% 85%
 background-size: 180px
 
@@ -213,7 +207,7 @@ This is a time-efficient and reproducible way to write!
 Many output formats are supported!
 
 .pull-left[
-![picture of some of the formats](../pics/rmarkdownoutputformats.png)
+![picture of some of the formats](pics/rmarkdownoutputformats.png)
 ]
 .pull-right[
 * Word
@@ -251,7 +245,7 @@ R can cope with them....  but they can often confuse humans!
 
 --
 
-Save a copy of [seal.txt](../seals/data-raw/seal.txt) to the `data-raw` folder
+Save a copy of [seal.txt](data-raw/seal.txt) to the `data-raw` folder
 
 
 ---
@@ -281,13 +275,13 @@ Save a copy of [seal.txt](../seals/data-raw/seal.txt) to the `data-raw` folder
 
 --
 
-`r emo::ji("clapper")` Delete everything except the YAML header the first code chunk
+`r emo::ji("clapper")` Delete everything except the YAML header and the first code chunk
 
 --
 
 `r emo::ji("clapper")` Add your name, and a title 
 
-You could copy and paste a title from [paper.html](../seals/paper.html)
+You could copy and paste a title from [paper.html](https://3mmarand.github.io/seals/paper.html)
 
 --
 
@@ -299,7 +293,7 @@ You could copy and paste a title from [paper.html](../seals/paper.html)
 
 # YAML
 
-`r emo::ji("clapper")` Add `bookdown` `r Cite(myBib, "bookdown")` output types:
+`r emo::ji("clapper")` Add `bookdown` `r Cite(myBib, c("bookdown", "bookdownbook"))` output types:
 .code60[
 ```
 ---
@@ -315,7 +309,7 @@ bibliography: reference.bib
 ```
 ]
 
-I recommend using the `bookdown` package `r Cite(myBib, "bookdown")` output types because they handle cross referencing well.
+I recommend using the `bookdown` package output types because they handle cross referencing well.
 ---
 # Default code chunk behaviour
 
@@ -494,7 +488,7 @@ Individual lines of code can be run by placing your cursor on the line and doing
 
 ````
 ```{r tidy}`r ''`
-seal2 <- seal %>% 
+seal <- seal %>% 
   pivot_longer(names_to = "species",
                values_to = "myoglobin",
                cols = everything())  
@@ -760,9 +754,9 @@ It's the highest (Weddell) and lowest (Harbour) means that differ.
 .pull-left[
 This is what we are aiming for:
 
-```{r myo-fig, echo = FALSE, out.height="350px"}
+```{r myo-fig, echo = FALSE, out.height="317px", out.width="350px"}
 
-knitr::include_graphics("../pics/seals.png")
+knitr::include_graphics("pics/seals.png")
 
 ```
 ]
@@ -786,7 +780,7 @@ We will go through the items that need to be in the markdown with a basic plot.
 ````
 ```{r myo-fig, fig.cap="Mean Myoglobin content of skeletal muscle"}`r ''`
 ggplot() +
-  geom_point(data = seal2, 
+  geom_point(data = seal, 
              aes(x = species, y = myoglobin),
              position = position_jitter(width = 0.1,
                                         height = 0))
@@ -841,7 +835,7 @@ Adding a figure
 ````
 ```{r myo-fig, fig.cap="(ref:myo-fig)"}`r ''`
 ggplot() +
-  geom_point(data = seal2, 
+  geom_point(data = seal, 
              aes(x = species, y = myoglobin),
              position = position_jitter(width = 0.1,
                                         height = 0))
@@ -863,8 +857,13 @@ Suggestions:
 * Try out a template from `rticles`: File | New File | R Markdown and choose Fr
 
 
+* Switch to Quarto!
+* integrate with zotero
+* Use the visual editor
+
+
 ---
-# R Markdown Resources
+# Resources
 
 * R Markdown cheatsheet: https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf  
 
@@ -874,6 +873,7 @@ Suggestions:
  
 * bookdown: Authoring Books and Technical Documents with R Markdown `r Cite(myBib, "bookdown")` https://bookdown.org/yihui/bookdown/  
 
+* [Quarto](https://quarto.org/)
 
 ---
 # Summary
@@ -917,4 +917,4 @@ blog: https://buzzrbeeline.blog/
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
-Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167
+Rand, E. (2023). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.2). https://doi.org/10.5281/zenodo.3859818
