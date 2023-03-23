@@ -22,15 +22,8 @@ knitr::opts_chunk$set(echo = TRUE,
                       fig.retina = 3)
 options(htmltools.dir.version = FALSE)
 ```
+
 ```{r xaringanextra, include=FALSE}
-# tile view
-xaringanExtra::use_tile_view()
-# share
-xaringanExtra::style_share_again(
-  share_buttons = "all")
-# broadcast: press P to enter the presenter view. Click on the Broadcast button to start broadcasting. Broadcast button will turn into a broadcast link. Share this link with your audience. When they open the link, their browser will connect with yours and from then on, whenever you advance or change slides, your viewer’s slides will move to the current slide.
-# Note that the broadcast link is unique and, as the presenter, is remembered for 4 hours. After 4 hours of inactivity, a new link will be generated..
-xaringanExtra::use_broadcast()
 # scribble, toggle S, note cannot advance sides
 xaringanExtra::use_scribble()
 # copy code
@@ -40,22 +33,24 @@ xaringanExtra::use_extra_styles(
   hover_code_line = TRUE,         
   mute_unhighlighted_code = TRUE)
 ```
+
 ```{r packages, include=FALSE}
 library(RefManageR)
 library(kableExtra)
 library(tidyverse)
 
 ```
+
 ```{r, load-refs, include=FALSE, cache=FALSE}
 BibOptions(check.entries = FALSE,
            bib.style = "authoryear",
            cite.style = "authoryear",
            style = "markdown",
-           hyperlink = TRUE,
+           hyperlink = FALSE,
            dashed = FALSE,
            longnamesfirst = FALSE,
            max.names = 2)
-myBib <- ReadBib("../refs.bib", check = FALSE)
+myBib <- ReadBib("refs.bib", check = FALSE)
 ```
 
 
@@ -68,10 +63,7 @@ div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
 
 # Outline
 
-The aim of this section is to introduce you to the tidyverse `r Cite(myBib, "Wickham2019-ml")` including the pipe, `%>%`,  and some commonly applied data tidying operations. 
-
-
-We are covering data tidying before the [Advanced Data Import](05_advanced_data_import.html) section because some of the import methods will make use of tidyverse methods and generate tidy data structures.
+The aim of this section is to introduce you to the tidyverse `r Cite(myBib, "R-tidyverse")`, the pipe `|>`,  and some commonly applied data tidying operations. 
 
 ---
 # Learning outcomes 
@@ -100,7 +92,7 @@ You should be able to code along with the examples. When you see the film clappe
 
 --
 
-`r emo::ji("clapper")` Use a new script for example. 
+`r emo::ji("clapper")` Use a new script for each example. 
 
 ---
 class: inverse
@@ -129,7 +121,7 @@ Note: There may be more than one potential tidy structure.
 # Tidy format
 
 ```{r echo=FALSE}
-pigeon <- read_table("../data/pigeon.txt")
+pigeon <- read_table("data/pigeon.txt")
 ```
 
 Suppose we had just 3 individuals in each of two populations:
@@ -232,12 +224,12 @@ Examples are `readxl`, `haven`, `rvest` and `lubridate.`
 ---
 class: inverse
 
-#  The pipe %>%
+#  The pipe |> 
 
 ---
-# The pipe %>%
+# The pipe |>
 
-The pipe `%>%` operator from the `magrittr` package `r Cite(myBib, "magrittr")` is loaded with core tidyverse. 
+The base pipe `|>` operator was based on the original tidyverse pipe `%>%` from the `magrittr` package `r Cite(myBib, "magrittr")`. 
 
 
 It is the feature that allows us to connect tools together in a readable way.
@@ -246,7 +238,7 @@ It can improve code readability by:
 
 --
 
-* structuring sequences of data operations left-to-right or top-to-bottom (as opposed to from the inside and out),
+* structuring sequences of data operations left-to-right or top-to-bottom (as opposed to from inside-out),
 
 --
 
@@ -257,7 +249,7 @@ It can improve code readability by:
 * making it easy to add steps anywhere in the sequence of operations.
 
 ---
-# The pipe %>%
+# The pipe |>
 
 The pipe means that instead of using: 
 ```{r eval=FALSE}
@@ -266,14 +258,14 @@ function(object)
 
 We can use 
 ```{r eval=FALSE}
-object %>% function()
+object |> function()
 ```
 
 --
 
 This is useful when you have multiple functions to apply.
 ---
-# The pipe %>%
+# The pipe |>
 
 Instead of:
 
@@ -283,11 +275,11 @@ function2(function1(object))
 
 We can use 
 ```{r eval=FALSE}
-object %>% function1()  %>% function2()
+object |> function1()  |> function2()
 ```
 
 ---
-# The pipe %>%
+# The pipe |>
 
 As a simple example, suppose we want to apply a log-squareroot transformation<sup>1</sup> to some proportion data. 
 
@@ -305,7 +297,7 @@ nums <- sample((1:100)/100, size = 10, replace = FALSE)
 ```
 
 ---
-# The pipe %>%
+# The pipe |>
 
 
 Two ways we *could* apply the log-squareroot transformation are to:
@@ -314,7 +306,7 @@ Two ways we *could* apply the log-squareroot transformation are to:
 2. create intermediate variables  
 
 ---
-# The pipe %>%
+# The pipe |>
 
 `r emo::ji("clapper")` Nest the `sqrt()` and `log()` functions:
 
@@ -331,7 +323,7 @@ Increasingly difficult to read as number of functions increases.
 Also makes simple debugging harder.
 
 ---
-# The pipe %>%
+# The pipe |>
 
 `r emo::ji("clapper")` Create intermediate variables:
 
@@ -347,48 +339,31 @@ Easier to read than nesting.
 But you have extra variables you don't need and which become increasingly difficult to name appropriately creating code and workspace clutter.
 
 ---
-# The pipe %>%
+# The pipe |>
 
 Using the pipe avoids these by taking the output of one operation as the input of the next. 
 
 The pipe has long been used by Unix operating systems (where the pipe operator is `|`). 
 
-The R pipe operator is `%>%` 
+The R pipe operator is `|>` 
 
 --
 
 `r emo::ji("clapper")` The keyboard short cut is ctrl-shift-M.
 
 ---
-# The pipe %>%
+# The pipe |>
 
 `r emo::ji("clapper")` Use pipes to code the functions in sequence:
 ```{r}
-tnums <- nums %>% 
-  sqrt() %>% 
+tnums <- nums |> 
+  sqrt() |> 
   log()
 ```
 
 --
 
 This can be read as: take `nums` *and then* squareroot it *and then* log it.
-
----
-# The pipe %>%
-
-More explicitly, this is:
-
-```{r}
-tnums <- nums %>% 
-  sqrt(.) %>% 
-  log(.)
-```
-
-Where `.` stands for the object being passed in. 
-
-In most cases, you don't need to include the `.`.
-
-Occasionally you do have to, for example when arguments are optional or there is ambiguity over which argument is meant.
 
 ---
 class: inverse
@@ -436,7 +411,7 @@ file <- "data-raw/biomass.txt"
 biomass <- read_table(file)
 ```
 
-`read_table()` is a function from the tidyverse's **`readr`** package. It works a lot like base R's `read.table()` but with some useful defaults (e.g., is header assumed) and extra functionality (e.g.,it's faster).
+`read_table()` is a function from the tidyverse's **`readr`** package. It works a lot like base R's `read.table()` but with some useful defaults (e.g., header assumed) and extra functionality (e.g.,it's faster and makes better column type decisions).
 
 ---
 # Converting "wide" to "long"
@@ -474,7 +449,7 @@ We want to gather the first 6 columns but the `rep_tray` column contents should 
 `r emo::ji("clapper")` Gather all the columns of biomass except `rep_tray`:
 
 ```{r}
-biomass2 <- biomass %>% 
+biomass2 <- biomass |> 
   pivot_longer(names_to = "spray", 
          values_to = "mass",
          cols = -rep_tray)
@@ -558,7 +533,7 @@ We give:
 `r emo::ji("clapper")` Extract parts of `rep_tray` and put in new columns `replicate_number`, `tray_id`:
 
 ```{r}
-biomass3 <- biomass2 %>% 
+biomass3 <- biomass2 |> 
   extract(rep_tray, 
           c("replicate_number", "tray_id"),
           "([0-9]{1,2})\\_([a-z])")
@@ -630,7 +605,7 @@ We can read in from the third row by skipping the first two. We can also use the
 # define file name
 filesol <- "data-raw/Y101_Y102_Y201_Y202_Y101-5.csv"
 # skip first two lines
-sol <- read_csv(filesol, skip = 2) %>% 
+sol <- read_csv(filesol, skip = 2) |> 
   janitor::clean_names()
 ```
 
@@ -653,12 +628,12 @@ We also filter out proteins for which fewer than 2 peptides were detected since 
 ---
 # Filtering rows
 
-**`dplyr`** (yep, a tidyverse package) has the `filter()` function. It is easier to use than selection using `datframe[rows, cols]`
+**`dplyr`** (yep, a tidyverse package) has the `filter()` function. It is easier to use than selection : `dataframe[rows, cols]`
 
 `r emo::ji("clapper")` Keep rows of human proteins identified by more than one peptide:
 ```{r}
-sol <- sol %>% 
-  filter(str_detect(description, "OS=Homo sapiens")) %>% 
+sol <- sol |> 
+  filter(str_detect(description, "OS=Homo sapiens")) |> 
   filter(x1pep == "x")
 ```
 
@@ -728,7 +703,7 @@ Explanation on next slide.
 
 --
 
-So `GN=[^\\s]+` means `GN=` followed by one or more characters that are not whitespace. This means the pattern stops matching at the first white space after "GN=".
+So `GN=[^\\s]+` means `GN=` followed by one or more characters that are not whitespace. This means the pattern *stops* matching at the first white space after "GN=".
 
 ---
 # Processing cells contents
@@ -739,7 +714,7 @@ We're close. Now we will drop the `GN=` part by replacing it with nothing:
 
 `r emo::ji("clapper")` Add replacing `GN=` with an empty string, `""`, to the pipeline:
 ```{r}
-str_extract(one_description, "GN=[^\\s]+") %>% 
+str_extract(one_description, "GN=[^\\s]+") |> 
   str_replace("GN=", "")
 ```
 
@@ -768,8 +743,8 @@ Now we know how to get the result for one value, we need to apply the same proce
 
 `r emo::ji("clapper")` Add a variable `genename` which contains the processed string from the `description` variable:
 ```{r}
-sol <- sol %>%
-  mutate(genename =  str_extract(description,"GN=[^\\s]+") %>% 
+sol <- sol |>
+  mutate(genename =  str_extract(description,"GN=[^\\s]+") |> 
            str_replace("GN=", ""))
 ```
 
@@ -802,12 +777,12 @@ class: inverse
 ```{r}
 # trying it out on one value
 accession <- sol$accession[2]
-str_extract(accession, "1::[^;]+") %>% 
+str_extract(accession, "1::[^;]+") |> 
   str_replace("1::", "")
 
 # adding a new column 
-sol <- sol %>%
-  mutate(protid =  str_extract(accession, "1::[^;]+") %>% 
+sol <- sol |>
+  mutate(protid =  str_extract(accession, "1::[^;]+") |> 
            str_replace("1::", ""))
 
             
@@ -818,7 +793,7 @@ sol <- sol %>%
 
 `r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. 
 ```{r }
-sol2 <- sol %>% pivot_longer(names_to = "lineage_rep",
+sol2 <- sol |> pivot_longer(names_to = "lineage_rep",
                              values_to = "abundance",
                              cols = starts_with("y"))
 
@@ -831,7 +806,7 @@ sol2 <- sol %>% pivot_longer(names_to = "lineage_rep",
 `r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Create separate columns in `sol2` for the cell lineage and the replicate.
 
 ```{r}
-sol2 <- sol2 %>%
+sol2 <- sol2 |>
   extract(lineage_rep,
           c("line", "rep"),
           "(y[0-9]{3,4})\\_([a-c])")
@@ -847,7 +822,7 @@ sol2 <- sol2 %>%
 
 * `tidyverse` is a collection of packages with a common design; many excellent packages are not part of it  
 * `library(tidyverse)` loads the core packages; other `tidyverse` packages need their own `library()` call  
-* the pipe `%>%` is key to connecting `tidyverse` tools together to create highly readable code  
+* the pipe `|>` is key to connecting `tidyverse` tools together to create highly readable code  
 * reshaping data from wide to long format is common: `pivot_longer()`  
 * splitting cell contents is common: `extract()` 
 * regular expressions allow you to match text patterns; expect to have to google and do a lot of trial and error  
@@ -866,7 +841,7 @@ sol2 <- sol2 %>%
 * Tidy Data `r Cite(myBib, "Wickham2014-nl")` sections 1 and 2
 * Welcome to the Tidyverse `r Cite(myBib, "Wickham2019-ml")` 
 * Tidy Data `r Cite(myBib, "Wickham2014-nl")` sections 3 - 6
-* R for Data Science `r Cite(myBib, "Wickham:2017:RDS:3086927")` Chapter 12.1, to 12.3 and Chapter 18
+* R for Data Science `r Cite(myBib, "Wickhamr4ds")` The second edition is really great. 
 
 
 

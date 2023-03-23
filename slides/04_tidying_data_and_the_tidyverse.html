@@ -6,13 +6,6 @@
     <meta name="author" content="Emma Rand" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
-    <script src="libs/tile-view/tile-view.js"></script>
-    <script src="libs/js-cookie/js.cookie.js"></script>
-    <script src="libs/peerjs/peerjs.min.js"></script>
-    <script src="libs/tiny.toast/toast.min.js"></script>
-    <link href="libs/xaringanExtra-broadcast/broadcast.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-broadcast/broadcast.js"></script>
     <script src="libs/fabric/fabric.min.js"></script>
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
@@ -29,12 +22,23 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Tidying data and the tidyverse including the pipe.
+]
+.subtitle[
 ## White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R.
+]
+.author[
 ### Emma Rand
+]
+.institute[
 ### University of York, UK
+]
 
 ---
+
+
+
 
 
 
@@ -51,10 +55,7 @@ div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
 
 # Outline
 
-The aim of this section is to introduce you to the tidyverse &lt;a name=cite-Wickham2019-ml&gt;&lt;/a&gt;([Wickham Averick, et al., 2019](#bib-Wickham2019-ml)) including the pipe, `%&gt;%`,  and some commonly applied data tidying operations. 
-
-
-We are covering data tidying before the [Advanced Data Import](05_advanced_data_import.html) section because some of the import methods will make use of tidyverse methods and generate tidy data structures.
+The aim of this section is to introduce you to the tidyverse (Wickham Averick, et al., 2019), the pipe `|&gt;`,  and some commonly applied data tidying operations. 
 
 ---
 # Learning outcomes 
@@ -83,7 +84,7 @@ You should be able to code along with the examples. When you see the film clappe
 
 --
 
-🎬 Use a new script for example. 
+🎬 Use a new script for each example. 
 
 ---
 class: inverse
@@ -102,9 +103,9 @@ Adhere to a consistent structure which makes it easier to manipulate, model and 
 
 --
 
-Closely allied to the relational algebra &lt;a name=cite-Codd1990-th&gt;&lt;/a&gt;([Codd, 1990](#bib-Codd1990-th)).  
+Closely allied to the relational algebra (Codd, 1990).  
 Underlies the enforced rectangular formatting in SPSS, STATA and R's dataframe.  
-The term 'tidy data' was popularised by &lt;a name=cite-Wickham2014-nl&gt;&lt;/a&gt;[Wickham (2014)](#bib-Wickham2014-nl).   
+The term 'tidy data' was popularised by Wickham (2014).   
 
 Note: There may be more than one potential tidy structure.
 
@@ -191,7 +192,7 @@ class: inverse
 ---
 # Tidyverse
 
-The [tidyverse](https://www.tidyverse.org/)  &lt;a name=cite-R-tidyverse&gt;&lt;/a&gt;([Wickham, 2017](#bib-R-tidyverse)) is both a paradigm for coding in R and a metapackage (a collection of packages).
+The [tidyverse](https://www.tidyverse.org/)  (Wickham Averick, et al., 2019) is both a paradigm for coding in R and a metapackage (a collection of packages).
 
 Contributors describe it as "an opinionated" collection of R packages designed for data science. 
 
@@ -219,10 +220,10 @@ An example is the [Bioconductor Project](https://www.bioconductor.org/).
 
 However, Bioconductor packages that take a tidyverse approach are beginning to accumulate. For example:
 
-* **`tidybulk`** &lt;a name=cite-R-tidybulk&gt;&lt;/a&gt;([Mangiola, 2020](#bib-R-tidybulk)). 
-* **`tidyHeatmap`** &lt;a name=cite-tidyHeatmap&gt;&lt;/a&gt;([Mangiola and Papenfuss, 2020](#bib-tidyHeatmap))
+* **`tidybulk`** (Mangiola, 2020). 
+* **`tidyHeatmap`** (Mangiola and Papenfuss, 2020)
 * See also [A Tidy Transcriptomics introduction to RNA sequencing analyses](https://stemangiola.github.io/rpharma2020_tidytranscriptomics/articles/tidytranscriptomics.html)
-* **`biobroom`** &lt;a name=cite-R-biobroom&gt;&lt;/a&gt;([Bass Robinson, et al., 2020](#bib-R-biobroom))
+* **`biobroom`** (Bass Robinson, et al., 2020)
 
 
 
@@ -257,12 +258,12 @@ Examples are `readxl`, `haven`, `rvest` and `lubridate.`
 ---
 class: inverse
 
-#  The pipe %&gt;%
+#  The pipe |&gt; 
 
 ---
-# The pipe %&gt;%
+# The pipe |&gt;
 
-The pipe `%&gt;%` operator from the `magrittr` package &lt;a name=cite-magrittr&gt;&lt;/a&gt;([Bache and Wickham, 2014](#bib-magrittr)) is loaded with core tidyverse. 
+The base pipe `|&gt;` operator was based on the original tidyverse pipe `%&gt;%` from the `magrittr` package (Bache and Wickham, 2014). 
 
 
 It is the feature that allows us to connect tools together in a readable way.
@@ -271,7 +272,7 @@ It can improve code readability by:
 
 --
 
-* structuring sequences of data operations left-to-right or top-to-bottom (as opposed to from the inside and out),
+* structuring sequences of data operations left-to-right or top-to-bottom (as opposed to from inside-out),
 
 --
 
@@ -282,7 +283,7 @@ It can improve code readability by:
 * making it easy to add steps anywhere in the sequence of operations.
 
 ---
-# The pipe %&gt;%
+# The pipe |&gt;
 
 The pipe means that instead of using: 
 
@@ -293,14 +294,14 @@ function(object)
 We can use 
 
 ```r
-object %&gt;% function()
+object |&gt; function()
 ```
 
 --
 
 This is useful when you have multiple functions to apply.
 ---
-# The pipe %&gt;%
+# The pipe |&gt;
 
 Instead of:
 
@@ -312,11 +313,11 @@ function2(function1(object))
 We can use 
 
 ```r
-object %&gt;% function1()  %&gt;% function2()
+object |&gt; function1()  |&gt; function2()
 ```
 
 ---
-# The pipe %&gt;%
+# The pipe |&gt;
 
 As a simple example, suppose we want to apply a log-squareroot transformation&lt;sup&gt;1&lt;/sup&gt; to some proportion data. 
 
@@ -335,7 +336,7 @@ nums &lt;- sample((1:100)/100, size = 10, replace = FALSE)
 ```
 
 ---
-# The pipe %&gt;%
+# The pipe |&gt;
 
 
 Two ways we *could* apply the log-squareroot transformation are to:
@@ -344,7 +345,7 @@ Two ways we *could* apply the log-squareroot transformation are to:
 2. create intermediate variables  
 
 ---
-# The pipe %&gt;%
+# The pipe |&gt;
 
 🎬 Nest the `sqrt()` and `log()` functions:
 
@@ -362,7 +363,7 @@ Increasingly difficult to read as number of functions increases.
 Also makes simple debugging harder.
 
 ---
-# The pipe %&gt;%
+# The pipe |&gt;
 
 🎬 Create intermediate variables:
 
@@ -379,50 +380,32 @@ Easier to read than nesting.
 But you have extra variables you don't need and which become increasingly difficult to name appropriately creating code and workspace clutter.
 
 ---
-# The pipe %&gt;%
+# The pipe |&gt;
 
 Using the pipe avoids these by taking the output of one operation as the input of the next. 
 
 The pipe has long been used by Unix operating systems (where the pipe operator is `|`). 
 
-The R pipe operator is `%&gt;%` 
+The R pipe operator is `|&gt;` 
 
 --
 
 🎬 The keyboard short cut is ctrl-shift-M.
 
 ---
-# The pipe %&gt;%
+# The pipe |&gt;
 
 🎬 Use pipes to code the functions in sequence:
 
 ```r
-tnums &lt;- nums %&gt;% 
-  sqrt() %&gt;% 
+tnums &lt;- nums |&gt; 
+  sqrt() |&gt; 
   log()
 ```
 
 --
 
 This can be read as: take `nums` *and then* squareroot it *and then* log it.
-
----
-# The pipe %&gt;%
-
-More explicitly, this is:
-
-
-```r
-tnums &lt;- nums %&gt;% 
-  sqrt(.) %&gt;% 
-  log(.)
-```
-
-Where `.` stands for the object being passed in. 
-
-In most cases, you don't need to include the `.`.
-
-Occasionally you do have to, for example when arguments are optional or there is ambiguity over which argument is meant.
 
 ---
 class: inverse
@@ -471,7 +454,7 @@ file &lt;- "data-raw/biomass.txt"
 biomass &lt;- read_table(file)
 ```
 
-`read_table()` is a function from the tidyverse's **`readr`** package. It works a lot like base R's `read.table()` but with some useful defaults (e.g., is header assumed) and extra functionality (e.g.,it's faster).
+`read_table()` is a function from the tidyverse's **`readr`** package. It works a lot like base R's `read.table()` but with some useful defaults (e.g., header assumed) and extra functionality (e.g.,it's faster and makes better column type decisions).
 
 ---
 # Converting "wide" to "long"
@@ -482,7 +465,7 @@ biomass &lt;- read_table(file)
 .code70[
 
 ```
-## # A tibble: 10 x 7
+## # A tibble: 10 × 7
 ##    WaterControl     A     B     C     D     E rep_tray
 ##           &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   
 ##  1         350. 159.  150.   80.0  267.  350. 1_x     
@@ -523,7 +506,7 @@ We want to gather the first 6 columns but the `rep_tray` column contents should 
 
 
 ```r
-biomass2 &lt;- biomass %&gt;% 
+biomass2 &lt;- biomass |&gt; 
   pivot_longer(names_to = "spray", 
          values_to = "mass",
          cols = -rep_tray)
@@ -540,7 +523,7 @@ The values will be in a column called `mass`, the treatments in a column called 
 .code70[
 
 ```
-## # A tibble: 60 x 3
+## # A tibble: 60 × 3
 ##    rep_tray spray         mass
 ##    &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;
 ##  1 1_x      WaterControl 350. 
@@ -553,7 +536,7 @@ The values will be in a column called `mass`, the treatments in a column called 
 ##  8 2_x      A            146. 
 ##  9 2_x      B            154. 
 ## 10 2_x      C            266. 
-## # ... with 50 more rows
+## # … with 50 more rows
 ```
 ]
 ]
@@ -618,7 +601,7 @@ We give:
 
 
 ```r
-biomass3 &lt;- biomass2 %&gt;% 
+biomass3 &lt;- biomass2 |&gt; 
   extract(rep_tray, 
           c("replicate_number", "tray_id"),
           "([0-9]{1,2})\\_([a-z])")
@@ -691,7 +674,7 @@ We can read in from the third row by skipping the first two. We can also use the
 # define file name
 filesol &lt;- "data-raw/Y101_Y102_Y201_Y202_Y101-5.csv"
 # skip first two lines
-sol &lt;- read_csv(filesol, skip = 2) %&gt;% 
+sol &lt;- read_csv(filesol, skip = 2) |&gt; 
   janitor::clean_names()
 ```
 
@@ -714,13 +697,13 @@ We also filter out proteins for which fewer than 2 peptides were detected since 
 ---
 # Filtering rows
 
-**`dplyr`** (yep, a tidyverse package) has the `filter()` function. It is easier to use than selection using `datframe[rows, cols]`
+**`dplyr`** (yep, a tidyverse package) has the `filter()` function. It is easier to use than selection : `dataframe[rows, cols]`
 
 🎬 Keep rows of human proteins identified by more than one peptide:
 
 ```r
-sol &lt;- sol %&gt;% 
-  filter(str_detect(description, "OS=Homo sapiens")) %&gt;% 
+sol &lt;- sol |&gt; 
+  filter(str_detect(description, "OS=Homo sapiens")) |&gt; 
   filter(x1pep == "x")
 ```
 
@@ -801,7 +784,7 @@ Explanation on next slide.
 
 --
 
-So `GN=[^\\s]+` means `GN=` followed by one or more characters that are not whitespace. This means the pattern stops matching at the first white space after "GN=".
+So `GN=[^\\s]+` means `GN=` followed by one or more characters that are not whitespace. This means the pattern *stops* matching at the first white space after "GN=".
 
 ---
 # Processing cells contents
@@ -813,7 +796,7 @@ We're close. Now we will drop the `GN=` part by replacing it with nothing:
 🎬 Add replacing `GN=` with an empty string, `""`, to the pipeline:
 
 ```r
-str_extract(one_description, "GN=[^\\s]+") %&gt;% 
+str_extract(one_description, "GN=[^\\s]+") |&gt; 
   str_replace("GN=", "")
 ```
 
@@ -847,8 +830,8 @@ Now we know how to get the result for one value, we need to apply the same proce
 🎬 Add a variable `genename` which contains the processed string from the `description` variable:
 
 ```r
-sol &lt;- sol %&gt;%
-  mutate(genename =  str_extract(description,"GN=[^\\s]+") %&gt;% 
+sol &lt;- sol |&gt;
+  mutate(genename =  str_extract(description,"GN=[^\\s]+") |&gt; 
            str_replace("GN=", ""))
 ```
 
@@ -882,7 +865,7 @@ class: inverse
 ```r
 # trying it out on one value
 accession &lt;- sol$accession[2]
-str_extract(accession, "1::[^;]+") %&gt;% 
+str_extract(accession, "1::[^;]+") |&gt; 
   str_replace("1::", "")
 ```
 
@@ -892,8 +875,8 @@ str_extract(accession, "1::[^;]+") %&gt;%
 
 ```r
 # adding a new column 
-sol &lt;- sol %&gt;%
-  mutate(protid =  str_extract(accession, "1::[^;]+") %&gt;% 
+sol &lt;- sol |&gt;
+  mutate(protid =  str_extract(accession, "1::[^;]+") |&gt; 
            str_replace("1::", ""))
 ```
 
@@ -903,7 +886,7 @@ sol &lt;- sol %&gt;%
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt; Create a second dataframe, `sol2` in which the protein abundances are in a single column, `abundance` and the cell lineage and replicate, `lineage_rep`, is indicated in another. All the other variables should also be in the new data frame. 
 
 ```r
-sol2 &lt;- sol %&gt;% pivot_longer(names_to = "lineage_rep",
+sol2 &lt;- sol |&gt; pivot_longer(names_to = "lineage_rep",
                              values_to = "abundance",
                              cols = starts_with("y"))
 ```
@@ -915,7 +898,7 @@ sol2 &lt;- sol %&gt;% pivot_longer(names_to = "lineage_rep",
 
 
 ```r
-sol2 &lt;- sol2 %&gt;%
+sol2 &lt;- sol2 |&gt;
   extract(lineage_rep,
           c("line", "rep"),
           "(y[0-9]{3,4})\\_([a-c])")
@@ -931,7 +914,7 @@ sol2 &lt;- sol2 %&gt;%
 
 * `tidyverse` is a collection of packages with a common design; many excellent packages are not part of it  
 * `library(tidyverse)` loads the core packages; other `tidyverse` packages need their own `library()` call  
-* the pipe `%&gt;%` is key to connecting `tidyverse` tools together to create highly readable code  
+* the pipe `|&gt;` is key to connecting `tidyverse` tools together to create highly readable code  
 * reshaping data from wide to long format is common: `pivot_longer()`  
 * splitting cell contents is common: `extract()` 
 * regular expressions allow you to match text patterns; expect to have to google and do a lot of trial and error  
@@ -947,10 +930,10 @@ sol2 &lt;- sol2 %&gt;%
 
 
 * [article by Joe Rickert](https://rviews.rstudio.com/2017/06/08/what-is-the-tidyverse/) gives a good overview.
-* Tidy Data ([Wickham, 2014](#bib-Wickham2014-nl)) sections 1 and 2
-* Welcome to the Tidyverse ([Wickham Averick, et al., 2019](#bib-Wickham2019-ml)) 
-* Tidy Data ([Wickham, 2014](#bib-Wickham2014-nl)) sections 3 - 6
-* R for Data Science &lt;a name=cite-Wickham2017RDS3086927&gt;&lt;/a&gt;([Wickham and Grolemund, 2017](#bib-Wickham2017RDS3086927)) Chapter 12.1, to 12.3 and Chapter 18
+* Tidy Data (Wickham, 2014) sections 1 and 2
+* Welcome to the Tidyverse  
+* Tidy Data (Wickham, 2014) sections 3 - 6
+* R for Data Science (Wickham Çetinkaya-Rundeland, et al., 2023) The second edition is really great. 
 
 
 
@@ -958,66 +941,54 @@ sol2 &lt;- sol2 %&gt;%
 # References
 .footnote[
 .font60[
-Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan)) and xaringanExtra &lt;a name=cite-xaringanExtra&gt;&lt;/a&gt;([Aden-Buie, 2020](#bib-xaringanExtra))
+Slides made with with xaringan (Xie, 2019) and xaringanExtra (Aden-Buie, 2020)
 ]
 ]
 .font60[
-&lt;a name=bib-xaringanExtra&gt;&lt;/a&gt;[Aden-Buie, G.](#cite-xaringanExtra)
-(2020). _xaringanExtra: Extras And Extensions for Xaringan Slides_. R
-package version 0.2.3.9000. URL:
+Aden-Buie, G. (2020). _xaringanExtra: Extras And Extensions for
+Xaringan Slides_. R package version 0.2.3.9000. URL:
 [https://github.com/gadenbuie/xaringanExtra](https://github.com/gadenbuie/xaringanExtra).
 
-&lt;a name=bib-magrittr&gt;&lt;/a&gt;[Bache, S. M. and H. Wickham](#cite-magrittr)
-(2014). _magrittr: A Forward-Pipe Operator for R_. R package version
-1.5. URL:
+Bache, S. M. and H. Wickham (2014). _magrittr: A Forward-Pipe Operator
+for R_. R package version 1.5. URL:
 [https://CRAN.R-project.org/package=magrittr](https://CRAN.R-project.org/package=magrittr).
 
-&lt;a name=bib-R-biobroom&gt;&lt;/a&gt;[Bass, A. J., D. G. Robinson, et
-al.](#cite-R-biobroom) (2020). _biobroom: Turn Bioconductor objects
-into tidy data frames_. R package version 1.20.0. URL:
+Bass, A. J., D. G. Robinson, et al. (2020). _biobroom: Turn
+Bioconductor objects into tidy data frames_. R package version 1.20.0.
+URL:
 [https://github.com/StoreyLab/biobroom](https://github.com/StoreyLab/biobroom).
 
-&lt;a name=bib-Codd1990-th&gt;&lt;/a&gt;[Codd, E. F.](#cite-Codd1990-th) (1990).
-_The Relational Model for Database Management: Version 2_. Boston, MA,
-USA: Addison-Wesley Longman Publishing Co., Inc.
+Codd, E. F. (1990). _The Relational Model for Database Management:
+Version 2_. Boston, MA, USA: Addison-Wesley Longman Publishing Co.,
+Inc.
 
-&lt;a name=bib-R-tidybulk&gt;&lt;/a&gt;[Mangiola, S.](#cite-R-tidybulk) (2020).
-_tidybulk: Brings transcriptomics to the tidyverse_. R package version
-1.0.2. URL:
+Mangiola, S. (2020). _tidybulk: Brings transcriptomics to the
+tidyverse_. R package version 1.0.2. URL:
 [https://bioconductor.org/packages/release/bioc/html/tidybulk.html](https://bioconductor.org/packages/release/bioc/html/tidybulk.html).
 
-&lt;a name=bib-tidyHeatmap&gt;&lt;/a&gt;[Mangiola, S. and A.
-Papenfuss](#cite-tidyHeatmap) (2020). "tidyHeatmap: an R package for
+Mangiola, S. and A. Papenfuss (2020). "tidyHeatmap: an R package for
 modular heatmap production based on tidy principles". In: _Journal of
 Open Source Software_ 5.52, p. 2472. DOI:
 [10.21105/joss.02472](https://doi.org/10.21105%2Fjoss.02472). URL:
 [https://doi.org/10.21105/joss.02472](https://doi.org/10.21105/joss.02472).
 
-&lt;a name=bib-Wickham2014-nl&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2014-nl)
-(2014). "Tidy Data". In: _Journal of Statistical Software, Articles_
-59.10, pp. 1-23.
+Wickham, H. (2014). "Tidy Data". In: _Journal of Statistical Software,
+Articles_ 59.10, pp. 1-23.
 ]
 
 ---
 # References
 .font60[
-&lt;a name=bib-R-tidyverse&gt;&lt;/a&gt;[Wickham, H.](#cite-R-tidyverse) (2017).
-_tidyverse: Easily Install and Load the 'Tidyverse'_. R package version
-1.2.1. URL:
-[https://CRAN.R-project.org/package=tidyverse](https://CRAN.R-project.org/package=tidyverse).
+Wickham, H., M. Averick, et al. (2019). "Welcome to the tidyverse". In:
+_Journal of Open Source Software_ 4.43, p. 1686. DOI:
+[10.21105/joss.01686](https://doi.org/10.21105%2Fjoss.01686).
 
-&lt;a name=bib-Wickham2019-ml&gt;&lt;/a&gt;[Wickham, H., M. Averick, et
-al.](#cite-Wickham2019-ml) (2019). "Welcome to the Tidyverse". In:
-_JOSS_ 4.43, p. 1686.
+Wickham, H., M. Çetinkaya-Rundeland, et al. (2023). _R for Data Science
+(2e)_. 2nd. O'Reilly Media, Inc. URL:
+[https://r4ds.hadley.nz/](https://r4ds.hadley.nz/).
 
-&lt;a name=bib-Wickham2017RDS3086927&gt;&lt;/a&gt;[Wickham, H. and G.
-Grolemund](#cite-Wickham2017RDS3086927) (2017). _R for Data Science:
-Import, Tidy, Transform, Visualize, and Model Data_. 1st. O'Reilly
-Media, Inc. ISBN: 1491910399, 9781491910399. URL:
-[https://r4ds.had.co.nz/](https://r4ds.had.co.nz/).
-
-&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan:
-Presentation Ninja_. R package version 0.12. URL:
+Xie, Y. (2019). _xaringan: Presentation Ninja_. R package version 0.12.
+URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
 ]
 
@@ -1032,7 +1003,8 @@ blog: https://buzzrbeeline.blog/
 
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;Licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
 
-Rand, E. (2021). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.1). https://doi.org/10.5281/zenodo.4701167
+Rand, E. (2023). White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R (Version v1.2). https://doi.org/10.5281/zenodo.3859818
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -1080,6 +1052,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
