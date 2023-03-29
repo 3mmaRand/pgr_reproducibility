@@ -36,7 +36,7 @@ showtext_auto()
 ```
 
 
-# Survey results 1/4
+
 
 ```{r echo=FALSE}
 # gs4_auth() run interactively
@@ -45,9 +45,11 @@ survey <- read_sheet(file) %>%
   filter(Timestamp > "2022-12-31")
 
 ```
-The distribution of ratings you (n = `r dim(survey)[1]`) gave in the survey were:
-```{r echo=FALSE, fig.width = 6, fig.height=6}
-survey %>%
+
+# Survey results 1/4 (n = `r dim(survey)[1]`)
+
+```{r echo=FALSE, fig.width = 12, fig.height=5}
+r_exp <- survey %>%
   ggplot(aes(x = `Please rate your expertise in R`)) +
   geom_bar(fill = "#9d5e78") +
   scale_x_continuous(name = "Rating",
@@ -57,8 +59,8 @@ survey %>%
   scale_y_continuous(name = "Number of people",
                      expand = c(0, 0),
                      breaks = c(0, 5, 10, 15, 20),
-                     limits = c(0, 20)) +
-  ggtitle("Rate your expertise in R") +
+                     limits = c(0, 21)) +
+  ggtitle("Expertise in R") +
   theme_classic() +
   theme(plot.background = element_rect(fill = "#f6fafd"),
         panel.background = element_rect(fill = "#f6fafd"),
@@ -67,25 +69,49 @@ survey %>%
         axis.text.x = element_text(size = 35),
         axis.text.y = element_text(size = 35))
 
+lang_exp <- survey %>%
+  ggplot(aes(x = `Please rate your expertise in the non-R language you consider yourself most competent.`)) +
+  geom_bar(fill = "#9d5e78") +
+  scale_x_continuous(name = "Rating",
+                     expand = c(0, 0),
+                     breaks = 1:10,
+                     limits = c(0, 11)) +
+  scale_y_continuous(name = "Number of people",
+                     expand = c(0, 0),
+                     breaks = c(0, 5, 10, 15, 20),
+                     limits = c(0, 21)) +
+  ggtitle("Expertise in non-R language") +
+  theme_classic() +
+  theme(plot.background = element_rect(fill = "#f6fafd"),
+        panel.background = element_rect(fill = "#f6fafd"),
+        plot.title = element_text(size = 50),
+        axis.title = element_text(size = 35),
+        axis.text.x = element_text(size = 35),
+        axis.text.y = element_text(size = 35))
+
+r_exp + lang_exp &
+  plot_annotation(theme = theme(plot.background = element_rect(fill = "#f6fafd")))
+
+
 ```
 
 
 ---
-# Survey results 2/4
+# Survey results 2/4 (n = `r dim(survey)[1]`)
 
 
 
 ```{r echo=FALSE, fig.width = 12, fig.height=6}
 df <- survey %>% group_by(`Have you experience in any of the following programming languages. Tick all that apply.`) %>%  
   summarise(count = n())
-lang <- df %>%
+df %>%
   ggplot(aes(x = reorder(`Have you experience in any of the following programming languages. Tick all that apply.`, count), y = count)) +
   geom_bar(fill = "#9d5e78", stat = "identity") +
   scale_x_discrete(name = "") +
   scale_y_continuous(name = "Number of people",
                      expand = c(0, 0),
                      breaks = c(0, 5, 10, 15, 20),
-                     limits = c(0, 20)) +
+                     limits = c(0, 21)) +
   ggtitle("Experience of other langauges") +
   theme_classic() +
   theme(plot.background = element_rect(fill = "#f6fafd"),
@@ -97,37 +123,16 @@ lang <- df %>%
   coord_flip()
 
 
-lang_exp <- survey %>%
-  ggplot(aes(x = `Please rate your expertise in the non-R language you consider yourself most competent.`)) +
-  geom_bar(fill = "#9d5e78") +
-  scale_x_continuous(name = "Rating",
-                     expand = c(0, 0),
-                     breaks = 1:10,
-                     limits = c(0, 11)) +
-  scale_y_continuous(name = "Number of people",
-                     expand = c(0, 0),
-                     breaks = c(0, 5, 10, 15),
-                     limits = c(0, 15)) +
-  ggtitle("Rate your expertise in non-R language") +
-  theme_classic() +
-  theme(plot.background = element_rect(fill = "#f6fafd"),
-        panel.background = element_rect(fill = "#f6fafd"),
-        plot.title = element_text(size = 50),
-        axis.title = element_text(size = 35),
-        axis.text.x = element_text(size = 35),
-        axis.text.y = element_text(size = 35))
 
-lang + lang_exp &
-  plot_annotation(theme = theme(plot.background = element_rect(fill = "#f6fafd")))
 
 ```
 
 ---
-# Survey results 3/4
+# Survey results 3/4 (n = `r dim(survey)[1]`)
 
 ## Current
 
-```{r echo=FALSE, fig.width = 12, fig.height=5}
+```{r echo=FALSE, fig.width = 13, fig.height=5}
 df <- survey %>% group_by(`In what package/programme are you MOST likely to carry out data analysis and visualisation currently?`) %>%  
   summarise(count = n())
 data_pkg <- df %>%
@@ -136,13 +141,13 @@ data_pkg <- df %>%
   scale_x_discrete(name = "") +
   scale_y_continuous(name = "Number of people",
                      expand = c(0, 0),
-                     breaks = c(0, 5, 10, 15),
-                     limits = c(0, 15)) +
+                     breaks = c(0, 5, 10, 15, 20),
+                     limits = c(0, 24)) +
   ggtitle("Data Analysis package") +
   theme_classic() +
   theme(plot.background = element_rect(fill = "#f6fafd"),
         panel.background = element_rect(fill = "#f6fafd"),
-        plot.title = element_text(size = 50),
+        plot.title = element_text(size = 40),
         axis.title = element_text(size = 35),
         axis.text.x = element_text(size = 35),
         axis.text.y = element_text(size = 35)) +
@@ -157,13 +162,13 @@ writing_pkg <- df %>%
   scale_x_discrete(name = "") +
   scale_y_continuous(name = "Number of people",
                      expand = c(0, 0),
-                     breaks = c(0, 10, 20),
+                     breaks = c(0, 5, 10, 15, 20),
                      limits = c(0, 24)) +
   ggtitle("Writing package") +
   theme_classic() +
   theme(plot.background = element_rect(fill = "#f6fafd"),
         panel.background = element_rect(fill = "#f6fafd"),
-        plot.title = element_text(size = 50),
+        plot.title = element_text(size = 40),
         axis.title = element_text(size = 35),
         axis.text.x = element_text(size = 35),
         axis.text.y = element_text(size = 35)) +
@@ -176,7 +181,7 @@ data_pkg + writing_pkg &
 
 
 ---
-# Survey results 4/4
+# Survey results 4/4 (n = `r dim(survey)[1]`)
 Please rate your level of comfort with...
 
 ```{r echo=FALSE, fig.width = 12, fig.height=7}
@@ -203,8 +208,8 @@ topics1 %>%
    scale_x_discrete(name = "") +
    scale_y_continuous(name = "Number of people",
                       expand = c(0, 0),
-                      breaks = c(0, 10, 20),
-                      limits = c(0, 25)) +
+                      breaks = c(0, 5, 10, 15, 20, 25),
+                      limits = c(0, 30)) +
     facet_wrap(.~ Topic, nrow = 4,  strip.position = "top",
               labeller = label_wrap_gen(width = 35)) + 
    coord_flip() +

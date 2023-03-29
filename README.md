@@ -48,6 +48,8 @@ After this workshop the successful learner will be able to:
 
 To help me direct you to useful training and manage diversity in previous experience during the sessions, please complete this form to indicate your current level: https://forms.gle/cpSjdcjVa7niz6iq5
 
+[Results 2023](https://3mmarand.github.io/pgr_reproducibility/slides/01_with_survey.html)
+
 ## Facilities
 
 There are Windows PCs at the venue and you are not required to bring your own machine. Participants from outside of York will be provided with a temporary IT account. However, if you prefer to work on your own machine please follow the instructions in [Computing requirements](#computing-requirements)
