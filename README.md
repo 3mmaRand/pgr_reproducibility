@@ -65,85 +65,30 @@ Tutor-led for Beginners:  [Introduction to R and working with data](https://3mma
 or
 Supported learning for those with some R experience [Tidying data and the tidyverse including the pipe](https://3mmarand.github.io/pgr_reproducibility/slides/04_tidying_data_and_the_tidyverse.html)
 
-1200 - 1245 Lunch 
+1200 - 1300 Lunch 
 
-1245 - 1330
+1300 - 1330
 Tutor-led for Everyone: [Project-oriented workflow](https://3mmarand.github.io/pgr_reproducibility/slides/03_rstudio_projects.html)
 
-1330 - 1430
-Tutor-led for Everyone:[ R Markdown for Reproducible Reports](https://3mmarand.github.io/pgr_reproducibility/slides/06_r_markdown_for_reproducible_reports.html)
+1330 - 1445
+Tutor-led for Everyone: Quarto for reproducible reporting
 
-1430 - 1515 Tea and coffee break with Special Interests Group launch
+1445 - 1515 Tea and coffee break 
 
 1515 - 1645
-Continuation of Tutor-led for Everyone:[ R Markdown for Reproducible Reports](https://3mmarand.github.io/pgr_reproducibility/slides/06_r_markdown_for_reproducible_reports.html)
-
-
-
-
+Continuation of Tutor-led for Everyone: Quarto for reproducible reporting
 
 
 # Computing requirements
 
 Laptops should have the following installed **prior** to attending attempting the materials.
 
-- R version 4.0 or higher
-- RStudio (1.4)
-- OS-specific development tools as detailed below
-- these packages from CRAN: `devtools`, `usethis`, `tidyverse`, `janitor`, `rticles`, `bookdown`, `tinytex`
-- Once `tinytex` is installed, run: `tinytex::install_tinytex()`
-
-## Installing R
-
-Download the pre-compiled binary for your OS from https://cloud.r-project.org/ and install. More specifically:
-
-**For Windows**
-
-Click "Download R for Windows", then "base", then "Download R 4.x.x for Windows". This will download an `.exe` file; once downloaded, open to start the installation. You can accept all the defaults.
-
-**For Mac**
-
-Click "Download R for (Mac) OS X", then "R-4.x.x.pkg" to download the installer.
-Run the installer to complete installation. You can accept all the defaults.
-
-**For Linux**
-
-Click "Download R for Linux". Instructions on installing are given for Debian, Redhat, Suse and Ubuntu distributions. Where there is a choice, install both `r-base` and `r-base-dev`.
-
-## Installing R Studio
-
-Download and install the version for your OS from: https://rstudio.com/products/rstudio/download/#download.
-You can accept all the defaults.
-
-**For Windows with no admin rights**
-
-Download the `.zip` source archive under "Zip/Tarballs". Extract the files to a folder where you have write access, e.g. `C:\Users\username\RStudio`. In this folder, open the `bin` directory and find the RStudio program: it is named `rstudio.exe`, but the file extension will typically be hidden, so look for `rstudio`. Right-click this executable to create a desktop shortcut. Double-click the executable or use the shortcut to open.
-
-## Development Tools
-Some additional tools may be required to compile R packages from source.
-
-**For Windows with no admin rights**
-
-Download the latest (recommended) Rtools40 installer, Rtools.exe, from https://cran.r-project.org/bin/windows/Rtools/. Run the installer keeping the default settings.
-
-**For Windows with admin rights**
-
-Download the latest Rtools installer from https://cran.r-project.org/bin/windows/Rtools/. Run the installer making the following selections: keep the default settings for the installation location and components to install; check the box to add rtools to the system PATH.
-
-**For Mac**
-
-Install XCode. Either:
-
-Download and install XCode from the Mac AppStore: http://itunes.apple.com/us/app/xcode/id497799835?mt=12
-Within XCode go to Preferences : Downloads and install the Command Line Tools
-Or for a smaller download size:
-
-Register as an Apple Developer (free) here: https://developer.apple.com/programs/register/
-Download the Command Line Tools for XCode appropriate for the version of OS X you are running from here: https://developer.apple.com/downloads/
-
-**For Linux**
-
-If you installed r-base-dev, when installing R, you should have all you need to build packages from source. Otherwise return to the instructions for installing R for your distribution and follow the instructions there to install the additional tools.
+- R version 4.3.1 or higher: https://cloud.r-project.org/
+- RStudio Version: 2023.12.1+402 or higher: https://posit.co/download/rstudio-desktop/
+- Quarto v1.4.550 or higher: https://quarto.org/docs/get-started/
+- Development Tools: [RTools (windows)](https://cran.r-project.org/bin/windows/Rtools/) or [xcode(mac)](http://itunes.apple.com/us/app/xcode/id497799835?mt=12)
+- these R packages from CRAN: `devtools`, `usethis`, `tidyverse`, `janitor`
+- quarto install tinytex
 
 ## Installing packages
 
