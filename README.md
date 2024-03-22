@@ -81,16 +81,12 @@ Continuation Quarto for Reproducible Reports
 
 To help me direct you to useful training and manage diversity in previous experience during the sessions, please complete this form to indicate your current level: https://forms.gle/cpSjdcjVa7niz6iq5
 
-## Facilities
-
-There are Windows PCs at the venue and you are not required to bring your own machine. Participants from outside of York will be provided with a temporary IT account. However, if you prefer to work on your own machine please follow the instructions in below
-
-
 # Computing requirements
 
 If you decide to use your own laptop, please install the following **before** 
 the workshop. If you have any problems with installation, please use the 
 computers provided at the venue.
+
 
 -   R version R-4.3. https://cloud.r-project.org/
 
@@ -106,7 +102,6 @@ computers provided at the venue.
     name of the package you want to install in the box that appears. 
     Then wait until you get the cursor (>) back in the console window
     and install the next package.
-
 
 ## Materials
 
