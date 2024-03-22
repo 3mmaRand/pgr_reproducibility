@@ -56,7 +56,6 @@ div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
 
 
 ---
-
 class: inverse
 
 # Programme Overview
@@ -76,7 +75,7 @@ Chosen topics are: foundational, widely applicable, and transferable conceptuall
 **It is**
 * An introduction to R for those without previous experience
 * About using RStudio projects and good practice for code and project documentation and organisation
-* An introduction to the tidyverse, RMarkdown, some more advanced data import
+* An introduction to the tidyverse and Quarto
  
 
 ]
@@ -102,10 +101,12 @@ Chosen topics are: foundational, widely applicable, and transferable conceptuall
 
 Modules, tutor-led or supported study. The selection of modules you undertake will depend on your previous experience.
 
-.font60[
+.font70[
 
 [1. Introduction and Principles of reproducibility](01_intro_and_principles_of_repro.html)  
+
 Audience: Everyone
+
 * Rationale for scripting  
 * Why R?  
 
@@ -113,9 +114,9 @@ Audience: Everyone
 [2. A. Introduction to R and working with data](02_intro_to_r_and_working_with_data.html)  
 
 Audience: Those without previous experience of R
+
 * Finding your way round RStudio  
 * Typing in data, doing some calculations on it, plotting it  
-* Understanding the manual  
 * Importing data: working directories and paths  
 * Summarising and visualising with the [`tidyverse`](https://www.tidyverse.org/)  
 * Installing and loading packages  
@@ -125,41 +126,35 @@ Audience: Those without previous experience of R
 ---
 # Have experience?
 
-.font60[
+.font70[
 
 [2. B. Tidying data and the tidyverse including the pipe](04_tidying_data_and_the_tidyverse.html)  
-Audience: For those with previous experience of R but little of 'tidy data' and the tidyverse
+
+Audience: For those with previous experience of R 
+
 * Using the tidyverse including the pipe to link operations together.  
 * Carrying out some common data tidying tasks such as reshaping, renaming and recoding variable and cleaning cell contents  
 
-
-
-[2. C. Advanced data import](05_advanced_data_import.html)  
-Audience: For those with previous experience of R and the tidyverse including the pipe. 
-* Understanding what matters in data import  
-* Importing plain text and proprietary data formats stored locally and on the web  
-* Carrying out some simple web scraping  
-* Packages available for importing publicly accessible data from APIs  
 ]
-
 
 ---
 # Programme overview
 
-.font60[
+.font70[
 
 [3. Project-oriented workflow](03_rstudio_projects.html)  
-Audience: Those without experience of RStudio projects
+
+Audience: Everyone
+
 * Organising your work in a logical, consistent and reproducible way
 * Working directories and paths    
 * Using RStudio Projects  
-* Writing code with relative paths given appropriate to your project organisation  
-* Writing dataframes and figures to file  
+ 
 
-[4. R Markdown for Reproducible Reports](06_r_markdown_for_reproducible_reports.html)  
+[4. Quarto for Reproducible Reports](xxx)  
+
 Audience: For those with previous experience of R such as having done "Introduction to R and working with data."
-* Making more advanced figures  
-* Creating reproducible reports in a variety of output formats.  
+ 
 
 ]
 
@@ -167,24 +162,26 @@ Audience: For those with previous experience of R such as having done "Introduct
 ---
 class: inverse
 
-# Data analysis
-
-
----
-# Data analysis
-
-Mainly isn't statistics. ~80% of your time on getting data, cleaning data, aggregating data, reshaping data, and exploring data using exploratory data analysis and data visualization.
-
-
+# Reproducibility
 
 ---
-# Reproducibility is key!
+
+# Reproducibility
 
 &lt;img src="pics/reproducible-matrix.jpg" width="700px" /&gt;
+
 
 .font60[
 How the Turing Way  defines reproducible research
 ]
+
+---
+# Why does it matter?
+
+
+![futureself, CC-BY-NC, by Julen
+Colomb](pics/future_you.png){fig-alt="Person working at a computer with an offstage person asking 'How is the analysis going?' The person at the computer replies 'Can't understand the date...and the data collector does not answer my emails or calls' Person offstage: 'That's terrible! So cruel! Who did collect the data? I will sack them!' Person at the computer: 'um...I did, 3 years ago.'"
+width="400"}
 
 
 ---
@@ -198,42 +195,18 @@ How the Turing Way  defines reproducible research
 * **Will** become standard in Science and publishing e.g OECD Global Science Forum Building digital workforce capacity and skills for data-intensive science (OECD Global Science Forum, 2020)
 
 ---
-class: inverse
 
-# Rationale for scripting analysis
+# How to achieve reproducibility
 
+-   Scripting
 
----
-# Rationale for scripting analysis
-Science is the generation of ideas, designing work to test them and reporting the results.
+-   Project-oriented workflows 
 
-&lt;img src="pics/rationale1.png" width="600px" /&gt;
+-   Documentation at code and Project level
 
-.pull-left[
-Generating the results
-]
+-   Literate programming
 
-.pull-right[
-Analysing and reporting them
-]
----
-
-# Rationale for scripting analysis
-We ensure reproducibility of laboratory and field work by planning and recording in lab books and using standard protocols. 
-
-
-&lt;img src="pics/rationale2.png" width="600px" /&gt;
-
-Even so replicating results can be hard.
----
-
-# Rationale for scripting analysis
-We ensure reproducibility of laboratory and field work by planning and recording in lab books and using standard protocols. 
-
-&lt;img src="pics/rationale3.png" width="600px" /&gt;
-
-
-Workflows for computational projects and the data analysis and reporting of other work can, and should, be 100% reproducible! Scripting is the way to achieve this.
+Workflows for computational projects and the data analysis and reporting of other work can, and should, be 100% reproducible! 
 
 ---
 class: inverse
@@ -265,10 +238,11 @@ Designed for data analysis and graphics - which means it is often easier to achi
 The R community is one of R's greatest assets, being vibrant, inclusive and supportive of users at all levels.
 
 .pull-left[
-* [#rstats](https://twitter.com/hashtag/rstats?lang=en) on twitter is very active
-* [RForwards](https://forwards.github.io/about/) the widening participation task force &lt;sup&gt;1&lt;/sup&gt;
-* [RLadies](https://rladies.org/) gender diversity promotion 
-* [Hey! You there! You are welcome here](https://ropensci.org/blog/2017/06/23/community/)  
+
+-   [#rstats](https://twitter.com/hashtag/rstats?lang=en) on twitter has been very active
+-   [RForwards](https://forwards.github.io/about/) the widening participation task force &lt;sup&gt;1&lt;/sup&gt;
+-   [RLadies](https://rladies.org/) gender diversity promotion 
+-   [Hey! You there! You are welcome here](https://ropensci.org/blog/2017/06/23/community/)  
 
 .font70[
 .footnote[
@@ -293,35 +267,41 @@ Artwork by @allison_horst
 ---
 class: inverse
 
-# Aspects of Reproducibility
+# Summary
 
 ---
-# Aspects of Reproducibility 
+# Summary
 
-* Data within files should be 'tidy'
-* Project based approach
-* Consistency: naming, space, style   
-* Documentation: commenting and README  
-* Literate programming e.g. Rmarkdown  
+-   The course is:
+
+   - an introduction to reproducible analyses rather than statistics  
+   - not enough, you need to practice!  
+   - comprised of modules so you can opt out where you already have the skills  
+   
+-   Scripting makes your work reproducible  
+
+-   Focus is on R but principles of reproducibility are widely applicable; use Python if you prefer  
+
+---
+class: inverse
+
+# Further Reading
 
 
 ---
 # Further Reading
 
-* "Ten simple rules for reproducible computational research" (Sandve Nekrutenko et al., 2013)  
-* "Best practices for scientific computing" (Wilson Aruliah et al., 2014)  
-* "Good enough practices in scientific computing" (Wilson Bryan et al., 2017)  
-* "Excuse Me, Do You Have a Moment to Talk About Version Control?" (Bryan, 2018)  
+-   "Data Organization in Spreadsheets" (Broman and Woo, 2018)
 
----
-# Summary
+-   "Ten simple rules for reproducible computational research" (Sandve Nekrutenko et al., 2013)  
 
-* The course is:
-  * an introduction to reproducible analyses rather than statistics  
-  * not enough, you need to practice!  
-  * comprised of modules so you can opt out where you already have the skills  
-* Scripting makes your work reproducible  
-* Focus is on R but principles of reproducibility are widely applicable; use Python if you prefer  
+-   "Best practices for scientific computing" (Wilson Aruliah et al., 2014)  
+
+-   "Good enough practices in scientific computing" (Wilson Bryan et al., 2017)  
+
+-   "Excuse Me, Do You Have a Moment to Talk About Version Control?" (Bryan, 2018) 
+
+
 
 ---
 # References
@@ -338,6 +318,13 @@ Xaringan Slides_. R package version 0.2.3.9000. URL:
 Baggerly, K. A. and K. R. Coombes (2009). "DERIVING CHEMOSENSITIVITY
 FROM CELL LINES: FORENSIC BIOINFORMATICS AND REPRODUCIBLE RESEARCH IN
 HIGH-THROUGHPUT BIOLOGY". In: _Ann. Appl. Stat._ 3.4, pp. 1309-1334.
+
+Broman, K. W. and K. H. Woo (2018). "Data Organization in
+Spreadsheets". In: _Am. Stat._ 72.1. Publisher: Taylor &amp; Francis, pp.
+2-10. ISSN: 0003-1305. DOI:
+[10.1080/00031305.2017.1375989](https://doi.org/10.1080%2F00031305.2017.1375989).
+URL:
+[https://doi.org/10.1080/00031305.2017.1375989](https://doi.org/10.1080/00031305.2017.1375989).
 
 Bryan, J. (2018). "Excuse Me, Do You Have a Moment to Talk About
 Version Control?" In: _Am. Stat._ 72.1, pp. 20-27.
