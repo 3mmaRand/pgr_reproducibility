@@ -11,7 +11,7 @@
 
 
 
-<title>README</title>
+<title>Introduction to Reproducibility in R</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,13 +348,12 @@ display: none;
 
 
 
+<h1 class="title toc-ignore">Introduction to Reproducibility in R</h1>
 
 </div>
 
 
-<p><a href="https://doi.org/10.5281/zenodo.3859818"><img src="data:image/svg+xml; charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgICAgd2lkdGg9IjE4NiIgaGVpZ2h0PSIyMCI+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJiIiB4Mj0iMCIgeTI9IjEwMCUiPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNiYmIiIHN0b3Atb3BhY2l0eT0iLjEiLz4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIi8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgICA8bWFzayBpZD0iYSIgd2lkdGg9IjE4NiIgaGVpZ2h0PSIyMCI+CiAgICAgICAgICAgIDxyZWN0IHdpZHRoPSIxODYiIGhlaWdodD0iMjAiIHJ4PSIzIgogICAgICAgICAgICBmaWxsPSIjZmZmIi8+CiAgICAgICAgPC9tYXNrPgogICAgICAgIDxnIG1hc2s9InVybCgjYSkiPgogICAgICAgICAgICA8cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDMxdjIwSDB6IiAvPgogICAgICAgICAgICA8cGF0aCBmaWxsPSIjMDA3ZWM2IgogICAgICAgICAgICBkPSJNMzEgMGgxNTV2MjBIMzF6IgogICAgICAgICAgICAvPgogICAgICAgICAgICA8cGF0aCBmaWxsPSJ1cmwoI2IpIiBkPSJNMCAwaDE4NnYyMEgweiIgLz4KICAgICAgICA8L2c+CiAgICAgICAgPGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLAogICAgICAgIFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPgogICAgICAgICAgICA8dGV4dCB4PSIxNiIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiCiAgICAgICAgICAgIGZpbGwtb3BhY2l0eT0iLjMiPgogICAgICAgICAgICAgICAgRE9JCiAgICAgICAgICAgIDwvdGV4dD4KICAgICAgICAgICAgPHRleHQgeD0iMTYiIHk9IjE0Ij4KICAgICAgICAgICAgICAgIERPSQogICAgICAgICAgICA8L3RleHQ+CiAgICAgICAgICAgIDx0ZXh0IHg9IjEwOCIKICAgICAgICAgICAgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPgogICAgICAgICAgICAgICAgMTAuNTI4MS96ZW5vZG8uMzg1OTgxOAogICAgICAgICAgICA8L3RleHQ+CiAgICAgICAgICAgIDx0ZXh0IHg9IjEwOCIgeT0iMTQiPgogICAgICAgICAgICAgICAgMTAuNTI4MS96ZW5vZG8uMzg1OTgxOAogICAgICAgICAgICA8L3RleHQ+CiAgICAgICAgPC9nPgogICAgPC9zdmc+" alt="DOI" /></a></p>
-<div id="introduction-to-reproducibility-in-r" class="section level1">
-<h1>Introduction to Reproducibility in R</h1>
+<p><a href="https://doi.org/10.5281/zenodo.3859818"><img src="data:image/svg+xml; charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgICAgd2lkdGg9IjE4My44NTkzNzUiIGhlaWdodD0iMjAiPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDI9IjAiIHkyPSIxMDAlIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIi8+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPG1hc2sgaWQ9ImEiIHdpZHRoPSIxODMuODU5Mzc1IiBoZWlnaHQ9IjIwIj4KICAgICAgICAgICAgPHJlY3Qgd2lkdGg9IjE4My44NTkzNzUiIGhlaWdodD0iMjAiIHJ4PSIzIgogICAgICAgICAgICBmaWxsPSIjZmZmIi8+CiAgICAgICAgPC9tYXNrPgogICAgICAgIDxnIG1hc2s9InVybCgjYSkiPgogICAgICAgICAgICA8cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDMxLjM3NXYyMEgweiIgLz4KICAgICAgICAgICAgPHBhdGggZmlsbD0iIzAwN2VjNiIKICAgICAgICAgICAgZD0iTTMxLjM3NSAwaDE1Mi40ODQzNzV2MjBIMzEuMzc1eiIKICAgICAgICAgICAgLz4KICAgICAgICAgICAgPHBhdGggZmlsbD0idXJsKCNiKSIgZD0iTTAgMGgxODMuODU5Mzc1djIwSDB6IiAvPgogICAgICAgIDwvZz4KICAgICAgICA8ZyBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsCiAgICAgICAgVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSI+CiAgICAgICAgICAgIDx0ZXh0IHg9IjE2LjE4NzUiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIgogICAgICAgICAgICBmaWxsLW9wYWNpdHk9Ii4zIj4KICAgICAgICAgICAgICAgIERPSQogICAgICAgICAgICA8L3RleHQ+CiAgICAgICAgICAgIDx0ZXh0IHg9IjE2LjE4NzUiIHk9IjE0Ij4KICAgICAgICAgICAgICAgIERPSQogICAgICAgICAgICA8L3RleHQ+CiAgICAgICAgICAgIDx0ZXh0IHg9IjEwNy4xMTcxODc1IgogICAgICAgICAgICB5PSIxNSIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyI+CiAgICAgICAgICAgICAgICAxMC41MjgxL3plbm9kby4zODU5ODE4CiAgICAgICAgICAgIDwvdGV4dD4KICAgICAgICAgICAgPHRleHQgeD0iMTA3LjExNzE4NzUiIHk9IjE0Ij4KICAgICAgICAgICAgICAgIDEwLjUyODEvemVub2RvLjM4NTk4MTgKICAgICAgICAgICAgPC90ZXh0PgogICAgICAgIDwvZz4KICAgIDwvc3ZnPg==" alt="DOI" /></a></p>
 <p>Training programme for first year PhD students on the White Rose
 Universities (York, Sheffield, Leeds) DTP. It is designed and delivered
 by <a href="https://www.york.ac.uk/biology/our-staff/emma-rand/">Emma
@@ -415,10 +414,31 @@ relative paths and be able to apply these concepts to data import</li>
 tasks</li>
 <li>Develop highly organised analyses including well-commented scripts
 that can be understood by future you and others</li>
-<li>Use R Markdown to produce reproducible analyses, figures and
+<li>Use Quarto to produce reproducible analyses, figures and
 reports</li>
 </ul>
 </div>
+<div id="schedule-for-workshop" class="section level1">
+<h1>Schedule for workshop</h1>
+<p>1015 - 1035 Tutor-led for Everyone: <a href="https://3mmarand.github.io/pgr_reproducibility/slides/01_intro_and_principles_of_repro.html">Introduction
+and Principles of reproducibility</a></p>
+<p>1035 - 1200</p>
+<p>Either:</p>
+<ul>
+<li>Tutor-led for Beginners: <a href="https://3mmarand.github.io/pgr_reproducibility/slides/02_intro_to_r_and_working_with_data.html">Introduction
+to R and working with data</a> or</li>
+<li>Supported learning for those with some R experience <a href="https://3mmarand.github.io/pgr_reproducibility/slides/04_tidying_data_and_the_tidyverse.html">Tidying
+data and the tidyverse including the pipe</a></li>
+</ul>
+<p>1200 - 1300 Lunch</p>
+<p>1300 - 1330<br />
+Tutor-led for Everyone: <a href="https://3mmarand.github.io/pgr_reproducibility/slides/03_rstudio_projects.html">Project-oriented
+workflow</a></p>
+<p>1330 - 1445<br />
+Tutor-led for Everyone: Quarto for Reproducible Reports</p>
+<p>1515 - 1515 Tea and coffee break</p>
+<p>1515 - 1645<br />
+Continuation Quarto for Reproducible Reports</p>
 </div>
 <div id="pre-course-instructions-for-participants" class="section level1">
 <h1>Pre-course instructions for participants</h1>
@@ -433,156 +453,30 @@ indicate your current level: <a href="https://forms.gle/cpSjdcjVa7niz6iq5" class
 <p>There are Windows PCs at the venue and you are not required to bring
 your own machine. Participants from outside of York will be provided
 with a temporary IT account. However, if you prefer to work on your own
-machine please follow the instructions in <a href="#computing-requirements">Computing requirements</a></p>
+machine please follow the instructions in below</p>
 </div>
-</div>
-<div id="schedule-for-workshop" class="section level1">
-<h1>Schedule for workshop</h1>
-<p>1015 - 1030 Tutor-led for Everyone: <a href="https://3mmarand.github.io/pgr_reproducibility/slides/01_intro_and_principles_of_repro.html">Introduction
-and Principles of reproducibility</a></p>
-<p>1030 - 1200 Tutor-led for Beginners: <a href="https://3mmarand.github.io/pgr_reproducibility/slides/02_intro_to_r_and_working_with_data.html">Introduction
-to R and working with data</a> or Supported learning for those with some
-R experience <a href="https://3mmarand.github.io/pgr_reproducibility/slides/04_tidying_data_and_the_tidyverse.html">Tidying
-data and the tidyverse including the pipe</a></p>
-<p>1200 - 1245 Lunch</p>
-<p>1245 - 1330 Tutor-led for Everyone: <a href="https://3mmarand.github.io/pgr_reproducibility/slides/03_rstudio_projects.html">Project-oriented
-workflow</a></p>
-<p>1330 - 1430 Tutor-led for Everyone:<a href="https://3mmarand.github.io/pgr_reproducibility/slides/06_r_markdown_for_reproducible_reports.html"> R
-Markdown for Reproducible Reports</a></p>
-<p>1430 - 1515 Tea and coffee break with Special Interests Group
-launch</p>
-<p>1515 - 1645 Continuation of Tutor-led for Everyone:<a href="https://3mmarand.github.io/pgr_reproducibility/slides/06_r_markdown_for_reproducible_reports.html"> R
-Markdown for Reproducible Reports</a></p>
 </div>
 <div id="computing-requirements" class="section level1">
 <h1>Computing requirements</h1>
-<p>Laptops should have the following installed <strong>prior</strong> to
-attending attempting the materials.</p>
+<p>If you decide to use your own laptop, please install the following
+<strong>before</strong> the workshop. If you have any problems with
+installation, please use the computers provided at the venue.</p>
 <ul>
-<li>R version 4.0 or higher</li>
-<li>RStudio (1.4)</li>
-<li>OS-specific development tools as detailed below</li>
-<li>these packages from CRAN: <code>devtools</code>,
-<code>usethis</code>, <code>tidyverse</code>, <code>janitor</code>,
-<code>rticles</code>, <code>bookdown</code>, <code>tinytex</code></li>
-<li>Once <code>tinytex</code> is installed, run:
-<code>tinytex::install_tinytex()</code></li>
+<li><p>R version R-4.3. <a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a></p></li>
+<li><p>RStudio Desktop (1.4) <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p></li>
+<li><p>OS-specific development tools:</p>
+<ul>
+<li>Windows: Rtools <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">https://cran.r-project.org/bin/windows/Rtools/</a></li>
+<li>Mac: Xcode <a href="https://developer.apple.com/xcode/" class="uri">https://developer.apple.com/xcode/</a></li>
+</ul></li>
+<li><p>these packages from CRAN: <strong><code>devtools</code></strong>,
+<strong><code>tidyverse</code></strong>,
+<strong><code>janitor</code></strong> Once you have installed R and
+RStudio, start RStudio up and go to the Packages tab in the bottom right
+pane; click Install and type the name of the package you want to install
+in the box that appears. Then wait until you get the cursor (&gt;) back
+in the console window and install the next package.</p></li>
 </ul>
-<div id="installing-r" class="section level2">
-<h2>Installing R</h2>
-<p>Download the pre-compiled binary for your OS from <a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a> and install. More
-specifically:</p>
-<p><strong>For Windows</strong></p>
-<p>Click “Download R for Windows”, then “base”, then “Download R 4.x.x
-for Windows”. This will download an <code>.exe</code> file; once
-downloaded, open to start the installation. You can accept all the
-defaults.</p>
-<p><strong>For Mac</strong></p>
-<p>Click “Download R for (Mac) OS X”, then “R-4.x.x.pkg” to download the
-installer. Run the installer to complete installation. You can accept
-all the defaults.</p>
-<p><strong>For Linux</strong></p>
-<p>Click “Download R for Linux”. Instructions on installing are given
-for Debian, Redhat, Suse and Ubuntu distributions. Where there is a
-choice, install both <code>r-base</code> and
-<code>r-base-dev</code>.</p>
-</div>
-<div id="installing-r-studio" class="section level2">
-<h2>Installing R Studio</h2>
-<p>Download and install the version for your OS from: <a href="https://rstudio.com/products/rstudio/download/#download" class="uri">https://rstudio.com/products/rstudio/download/#download</a>.
-You can accept all the defaults.</p>
-<p><strong>For Windows with no admin rights</strong></p>
-<p>Download the <code>.zip</code> source archive under “Zip/Tarballs”.
-Extract the files to a folder where you have write access,
-e.g. <code>C:\Users\username\RStudio</code>. In this folder, open the
-<code>bin</code> directory and find the RStudio program: it is named
-<code>rstudio.exe</code>, but the file extension will typically be
-hidden, so look for <code>rstudio</code>. Right-click this executable to
-create a desktop shortcut. Double-click the executable or use the
-shortcut to open.</p>
-</div>
-<div id="development-tools" class="section level2">
-<h2>Development Tools</h2>
-<p>Some additional tools may be required to compile R packages from
-source.</p>
-<p><strong>For Windows with no admin rights</strong></p>
-<p>Download the latest (recommended) Rtools40 installer, Rtools.exe,
-from <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">https://cran.r-project.org/bin/windows/Rtools/</a>. Run the
-installer keeping the default settings.</p>
-<p><strong>For Windows with admin rights</strong></p>
-<p>Download the latest Rtools installer from <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">https://cran.r-project.org/bin/windows/Rtools/</a>. Run the
-installer making the following selections: keep the default settings for
-the installation location and components to install; check the box to
-add rtools to the system PATH.</p>
-<p><strong>For Mac</strong></p>
-<p>Install XCode. Either:</p>
-<p>Download and install XCode from the Mac AppStore: <a href="http://itunes.apple.com/us/app/xcode/id497799835?mt=12" class="uri">http://itunes.apple.com/us/app/xcode/id497799835?mt=12</a>
-Within XCode go to Preferences : Downloads and install the Command Line
-Tools Or for a smaller download size:</p>
-<p>Register as an Apple Developer (free) here: <a href="https://developer.apple.com/programs/register/" class="uri">https://developer.apple.com/programs/register/</a> Download
-the Command Line Tools for XCode appropriate for the version of OS X you
-are running from here: <a href="https://developer.apple.com/downloads/" class="uri">https://developer.apple.com/downloads/</a></p>
-<p><strong>For Linux</strong></p>
-<p>If you installed r-base-dev, when installing R, you should have all
-you need to build packages from source. Otherwise return to the
-instructions for installing R for your distribution and follow the
-instructions there to install the additional tools.</p>
-</div>
-<div id="installing-packages" class="section level2">
-<h2>Installing packages</h2>
-<div id="from-cran" class="section level3">
-<h3>From CRAN</h3>
-<p>Once you have installed R and RStudio, start RStudio up and go to the
-Packages tab in the bottom right pane; click Install and type the name
-of the package you want to install in the box that appears. Then wait
-until you get the cursor (&gt;) back in the console window.</p>
-</div>
-</div>
-<div id="rstudio-cloud" class="section level2">
-<h2>RStudio Cloud</h2>
-<p>If installing R and RStudio is tricky or impossible with your set up
-(e.g., if you only have a chrome book) then you can use <a href="https://rstudio.cloud/" class="uri">https://rstudio.cloud/</a>.
-This is a version of RStudio that runs in your browser. It is free for
-15 hours but you will need to make an account. You will still need to
-install packages.</p>
-</div>
-</div>
-<div id="repository" class="section level1">
-<h1>Repository</h1>
-<p>This repo comprises six modules lasting from ~ 40 minutes to 2.5
-hours.</p>
-<p>There is <a href="https://3mmarand.github.io/pgr_reproducibility/index.html">module
-index</a></p>
-<p><a href="https://3mmarand.github.io/pgr_reproducibility/seals/paper.html">Seal
-example</a></p>
-<div id="modules" class="section level2">
-<h2>Modules</h2>
-<ol style="list-style-type: decimal">
-<li><p>Introduction and Principles of reproducibility<br />
-Audience: Everyone<br />
-40 mins</p></li>
-<li><p>Introduction to R and working with data. Audience: Those without
-previous experience<br />
-2 - 2.5 hr</p></li>
-<li><p>RStudio Projects.<br />
-Audience: Those without experience of RStudio projects<br />
-45 mins</p></li>
-<li><p>Tidying data and the tidyverse including the pipe.<br />
-Audience: For those with previous experience of R but little of ‘tidy
-data’ and the tidyverse, such as having done “Introduction to R and
-working with data.”<br />
-1.5 - 2 hr</p></li>
-<li><p>Advanced data import.<br />
-Audience: For those with previous experience of R such as having done
-“Introduction to R and working with data” and “Tidying data and the
-tidyverse including the pipe.”<br />
-2 - 2.5 hr</p></li>
-<li><p>R Markdown for Reproducible Reports.<br />
-Audience: For those with previous experience of R such as having done
-“Introduction to R and working with data”<br />
-2 - 2.5 hr</p></li>
-</ol>
-</div>
 <div id="materials" class="section level2">
 <h2>Materials</h2>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="data:image/png;base64,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" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">White Rose
