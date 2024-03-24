@@ -121,7 +121,7 @@ Note: There may be more than one potential tidy structure.
 # Tidy format
 
 ```{r echo=FALSE}
-pigeon <- read_table("data/pigeon.txt")
+pigeon <- read_table("data-raw/pigeon.txt")
 ```
 
 Suppose we had just 3 individuals in each of two populations:
@@ -473,7 +473,7 @@ biomass2
 ---
 # Converting "wide" to "long"
 
-`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Write this dataframe to file to your `data-processed` folder. 
+`r kableExtra::text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)` Write this dataframe to file to your `data-processed` folder using `write_csv()` 
 
 
 ```{r echo=FALSE}

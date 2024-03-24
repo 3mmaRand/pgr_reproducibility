@@ -55,7 +55,7 @@ div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
 
 # Outline
 
-The aim of this section is to introduce you to the tidyverse (Wickham Averick, et al., 2019), the pipe `|&gt;`,  and some commonly applied data tidying operations. 
+The aim of this section is to introduce you to the tidyverse (Wickham Averick et al., 2019), the pipe `|&gt;`,  and some commonly applied data tidying operations. 
 
 ---
 # Learning outcomes 
@@ -192,7 +192,7 @@ class: inverse
 ---
 # Tidyverse
 
-The [tidyverse](https://www.tidyverse.org/)  (Wickham Averick, et al., 2019) is both a paradigm for coding in R and a metapackage (a collection of packages).
+The [tidyverse](https://www.tidyverse.org/)  (Wickham Averick et al., 2019) is both a paradigm for coding in R and a metapackage (a collection of packages).
 
 Contributors describe it as "an opinionated" collection of R packages designed for data science. 
 
@@ -223,7 +223,7 @@ However, Bioconductor packages that take a tidyverse approach are beginning to a
 * **`tidybulk`** (Mangiola, 2020). 
 * **`tidyHeatmap`** (Mangiola and Papenfuss, 2020)
 * See also [A Tidy Transcriptomics introduction to RNA sequencing analyses](https://stemangiola.github.io/rpharma2020_tidytranscriptomics/articles/tidytranscriptomics.html)
-* **`biobroom`** (Bass Robinson, et al., 2020)
+* **`biobroom`** (Bass Robinson et al., 2020)
 
 
 
@@ -263,7 +263,7 @@ class: inverse
 ---
 # The pipe |&gt;
 
-The base pipe `|&gt;` operator was based on the original tidyverse pipe `%&gt;%` from the `magrittr` package (Bache and Wickham, 2014). 
+The base pipe `|&gt;` operator was based on the original tidyverse pipe `%&gt;%` from the `magrittr` package . 
 
 
 It is the feature that allows us to connect tools together in a readable way.
@@ -536,7 +536,7 @@ The values will be in a column called `mass`, the treatments in a column called 
 ##  8 2_x      A            146. 
 ##  9 2_x      B            154. 
 ## 10 2_x      C            266. 
-## # … with 50 more rows
+## # ℹ 50 more rows
 ```
 ]
 ]
@@ -933,7 +933,7 @@ sol2 &lt;- sol2 |&gt;
 * Tidy Data (Wickham, 2014) sections 1 and 2
 * Welcome to the Tidyverse  
 * Tidy Data (Wickham, 2014) sections 3 - 6
-* R for Data Science (Wickham Çetinkaya-Rundeland, et al., 2023) The second edition is really great. 
+* R for Data Science (Wickham Çetinkaya-Rundeland et al., 2023) The second edition is really great. 
 
 
 
@@ -941,17 +941,13 @@ sol2 &lt;- sol2 |&gt;
 # References
 .footnote[
 .font60[
-Slides made with with xaringan (Xie, 2019) and xaringanExtra (Aden-Buie, 2020)
+Slides made with with xaringan (Xie, 2024) and xaringanExtra (Aden-Buie, 2020)
 ]
 ]
 .font60[
 Aden-Buie, G. (2020). _xaringanExtra: Extras And Extensions for
 Xaringan Slides_. R package version 0.2.3.9000. URL:
 [https://github.com/gadenbuie/xaringanExtra](https://github.com/gadenbuie/xaringanExtra).
-
-Bache, S. M. and H. Wickham (2014). _magrittr: A Forward-Pipe Operator
-for R_. R package version 1.5. URL:
-[https://CRAN.R-project.org/package=magrittr](https://CRAN.R-project.org/package=magrittr).
 
 Bass, A. J., D. G. Robinson, et al. (2020). _biobroom: Turn
 Bioconductor objects into tidy data frames_. R package version 1.20.0.
@@ -974,20 +970,20 @@ Open Source Software_ 5.52, p. 2472. DOI:
 
 Wickham, H. (2014). "Tidy Data". In: _Journal of Statistical Software,
 Articles_ 59.10, pp. 1-23.
+
+Wickham, H., M. Averick, et al. (2019). "Welcome to the tidyverse". In:
+_Journal of Open Source Software_ 4.43, p. 1686. DOI:
+[10.21105/joss.01686](https://doi.org/10.21105%2Fjoss.01686).
 ]
 
 ---
 # References
 .font60[
-Wickham, H., M. Averick, et al. (2019). "Welcome to the tidyverse". In:
-_Journal of Open Source Software_ 4.43, p. 1686. DOI:
-[10.21105/joss.01686](https://doi.org/10.21105%2Fjoss.01686).
-
 Wickham, H., M. Çetinkaya-Rundeland, et al. (2023). _R for Data Science
 (2e)_. 2nd. O'Reilly Media, Inc. URL:
 [https://r4ds.hadley.nz/](https://r4ds.hadley.nz/).
 
-Xie, Y. (2019). _xaringan: Presentation Ninja_. R package version 0.12.
+Xie, Y. (2024). _xaringan: Presentation Ninja_. R package version 0.29.
 URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
 ]
