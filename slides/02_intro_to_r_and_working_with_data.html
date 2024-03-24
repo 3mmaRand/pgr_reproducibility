@@ -55,6 +55,7 @@ class: center, middle, inverse, title-slide
 
 
 
+
 &lt;style&gt;
 div.blue { background-color:#b0cdef; border-radius: 5px; padding: 20px;}
 div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
@@ -64,7 +65,7 @@ div.grey { background-color:#d3d3d3; border-radius: 0px; padding: 0px;}
 # Overview
 
 * Finding your way round RStudio  
-* Typing in data, doing some calculations on it, plotting it
+* Typing in data and plotting it
 * Understanding the manual  
 * Working with a data  
   * Importing data: working directories and paths  
@@ -167,47 +168,51 @@ Structures
 
 class: inverse
 
-# Typing in data, doing some calculations on it, plotting it
+# Typing in data and plotting it
 
 ---
-# Typing in data, calcs, plots
+# Typing in data and plots
 
 ## The goal
-We will work some data on the number of males in 64 bird nests with a clutch size of 5. You are going to type data in R, summarise and plot it
+
+We will work with some data on the coat colour of 62 cats. You are going to type data in R, summarise and plot it
+
+The data are as a frequency table:
 --
 .pull-left[
 
-&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
+&lt;table style="width:30%; font-size: 16px; margin-left: auto; margin-right: auto;" class="table"&gt;
+&lt;caption style="font-size: initial !important;"&gt;Frequency of coat colours in 62 cats&lt;/caption&gt;
  &lt;thead&gt;
   &lt;tr&gt;
-   &lt;th style="text-align:right;"&gt; No. males &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; No. nests &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Coat colour &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; No. cats &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; black &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; white &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; tabby &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ginger &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; tortoiseshell &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; calico &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -218,8 +223,10 @@ We will work some data on the number of males in 64 bird nests with a clutch siz
 ]
 
 
+
+
 ---
-# Typing in data, calcs, plots
+# Typing in data and plots
 
 ## Getting set up
 
@@ -227,172 +234,67 @@ In RStudio do File | New project | New directory
 
 Be purposeful about where you create it and name it.
 
-I suggest `birds`
+I suggest `dtp-training`
 
 --
 
-Make a new script ![new script](pics/newscript.png) and save it as analysis.R to carry out the rest of the work.  
+Make a new script ![new script](pics/newscript.png) and save it as `cats.R` to carry out the rest of the work.  
 
 
 
 ---
-# Typing in data, calcs, plots
+# Typing in data and plots
 
-## Data structures
+## Creating the data
 
-Make a vector `n` that holds the numbers 0 to 5. 
+Start by making a vector called `coat` that holds coat colours:
+
 
 ```r
-# the number of males in a clutch of five
-n &lt;- c(0, 1, 2, 3, 4, 5)
+# coat colours
+coat &lt;- c("black", 
+          "white", 
+          "tabby", 
+          "ginger", 
+          "tortoiseshell", 
+          "calico")
 ```
 
-* Write your command in the analysis.R  
 
---
+-   Cursor on the line you want to execute, press Ctrl+Enter
 
-* Notice I have used a comment  
---
-
-* Cursor on the line you want to execute  
-
---
-
-* Execute with ![Run](pics/runbutton.png) or Ctrl+Enter 
 
 ---
-# Typing in data, calcs, plots
+# Typing in data and plots
 
-## Data structures
+## Creating the data
 
-Create a vector, `freq`, containing the numbers of nests with 0 to 5 males. 
+Create a vector called `freq` containing the numbers of cats with each coat colour. 
 
 --
 
 
 ```r
-# the number of nests with 0 to 5 males
-freq &lt;- c(4, 13, 14, 15, 13, 5)
+# numbers of cats with each coat colour
+freq &lt;- c(23, 15, 8, 10, 5, 1)
 ```
 
 ---
-# Typing in data, calcs, plots
+# Typing in data and plots
 
 ## Total number of nests
 
-We can use `sum(freq)` to check the total number of nests is 64.
+We can use `sum(freq)` to check the total number of cats is 62
 
 
 ```r
-# the total number of nests
+# the total Number of cats
 sum(freq)
 ```
 
 ```
-## [1] 64
+## [1] 62
 ```
-
----
-# Typing in data, calcs, plots
-
-## Finding the mean
-We have frequencies so to find the mean number of males per nest we need the total number of males:
-.pull-left[
-&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; No. males &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; No. nests &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; No. males *No. nests &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 14 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 28 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 15 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 45 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 52 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 25 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;background-color: #C0C2C9 !important;"&gt; Total &lt;/td&gt;
-   &lt;td style="text-align:left;font-weight: bold;background-color: #C0C2C9 !important;"&gt; 64 &lt;/td&gt;
-   &lt;td style="text-align:left;font-weight: bold;background-color: #C0C2C9 !important;"&gt; 163 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-]
-
-.pull-right[
-
-`$$\frac{163}{64} = 2.55$$`
-]
-
----
-# Typing in data, calcs, plots
-
-## Finding the mean
-Total number of nests:
-
-```r
-total_nests &lt;- sum(freq)
-```
- 
---
-Total number of males
-
-```r
-total_males &lt;- sum(n * freq)
-```
-
----
-# Typing in data, calcs, plots
-
-## Finding the mean
-Mean number of males per nest:
-
-```r
-total_males/total_nests
-```
-
-```
-## [1] 2.546875
-```
-
-
----
-# Why it works
-
-R works 'elementwise' unlike most programming languages.  
-` n * freq`
-gives
-
-`$$\begin{bmatrix}0\\1\\2\\3\\4\\5\end{bmatrix}\times\begin{bmatrix}4\\13\\14\\15\\13\\5\end{bmatrix}=\begin{bmatrix}0\\13\\28\\45\\52\\25\end{bmatrix}$$`
-
-It was designed to make it easy to work with data.
 
 ---
 
@@ -405,7 +307,7 @@ background-image: url(pics/ggplot2.png)
 background-position: 90% 75%
 background-size: 200px
 
-# Typing in data, calcs, plots
+# Typing in data and plots
 
 Commands like `c()`, `sum()`, and `str()` are part the 'base' R system.
 
@@ -448,18 +350,16 @@ We will also later use `dplyr` and `tidyr` functions also from `tidyverse`.
 
 `ggplot()` takes a dataframe for an argument
 
-We can make a dataframe of the two vectors, `n` and `freq`: 
+Make a dataframe called `coat_data`: 
+
 
 ```r
-nest_data &lt;- data.frame(n = factor(n), freq)
+coat_data &lt;- data.frame(coat, freq)
 ```
 
-`n` was made into a factor (a categorical variable).
+Click on `coat_data` in the Environment to open a spreadsheet-like view of it.
 
 
-`nest_data` is the name we have given the dataframe
-
-Click on `nest_data` in the Environment. 
 
 ---
 # Plotting using ggplot2
@@ -470,11 +370,11 @@ Create a simple barplot using `ggplot` like this:
 
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = coat_data, aes(x = coat, y = freq)) +
   geom_col()
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-14-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-10-1.png" width="288" /&gt;
 
 
 ---
@@ -486,7 +386,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 --
 
-`ggplot(data = nest_data)` looks the same. 
+`ggplot(data = coat_data)` looks the same. 
 
 --
 
@@ -498,7 +398,7 @@ Thus...
 
 ## A barplot
 
-`ggplot(data = nest_data, aes(x = n, y = freq))` produces a plot with axes 
+`ggplot(data = coat_data, aes(x = coat, y = freq))` produces a plot with axes
 
 --
 
@@ -553,11 +453,11 @@ Open the manual page using:
 Change the fill of the bars using `fill`:
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = coat_data, aes(x = coat, y = freq)) +
   geom_col(fill = "lightblue")
 ```
 .pull-left[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-16-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-12-1.png" width="288" /&gt;
 ]
 --
 .pull-right[
@@ -577,11 +477,11 @@ We can set (map) fill aesthetic to a particular colour inside `geom_col()` or ma
 # Using manual: Alter a ggplot
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq, fill = n)) +
+ggplot(data = coat_data, aes(x = coat, y = freq, fill = freq)) +
   geom_col()
 ```
 .pull-left[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-17-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-13-1.png" width="288" /&gt;
 ]
 --
 .pull-right[
@@ -600,11 +500,11 @@ Can you use the manual to put the bars next to each other?
 
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = coat_data, aes(x = coat, y = freq)) +
   geom_col(fill = "lightblue", width = 1)
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-18-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-14-1.png" width="288" /&gt;
 
 
 ---
@@ -615,8 +515,8 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 .pull-left[
 
 ```r
-ggplot(data = nest_data,
-       aes(x = n, y = freq)) +
+ggplot(data = coat_data,
+       aes(x = coat, y = freq)) +
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black")
@@ -624,7 +524,7 @@ ggplot(data = nest_data,
 ]
 
 .pull-right[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-19-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-15-1.png" width="288" /&gt;
 ]
 ---
 # Top Tip
@@ -639,11 +539,13 @@ Make your code easier to read by using white space and new lines
 
 ---
 # Alter a ggplot: axes 
-Changes to a discrete x axis: `scale_x_discrete()`.
 
-Changes to a continuous y axis: `scale_y_continuous()`.
+We can make changes to the axes using:
 
-`ggplot` automatically extends the axes slightly. You can turn this behaviour off with the expand argument.
+-   Changes to a discrete x axis: `scale_x_discrete()`
+-   Changes to a continuous y axis: `scale_y_continuous()`
+
+`ggplot` automatically extends the axes slightly. You can turn this behaviour off with the `expand` argument in `scale_x_discrete()` and `scale_y_continuous()`.
 
 --
 
@@ -652,21 +554,23 @@ Each 'layer' is added to the ggplot() command with a `+`
 ---
 # Alter a ggplot: axes
 
+Remove the gap between the axes and the data:
+
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = coat_data, aes(x = coat, y = freq)) +
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black") +
-* scale_x_discrete(expand = c(0, 0)) +
-* scale_y_continuous(expand = c(0, 0))
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_continuous(expand = c(0, 0)) 
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-20-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-16-1.png" width="288" /&gt;
 
 .pull-right[
 .footnote[
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Look up `scale_x_discrete` in the manual and work out how to change "n" to "Number of Males"]
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Look up `scale_x_discrete` in the manual and work out how to change the axis title from "coat" to "Coat colour"]
 ]
 
 ---
@@ -674,17 +578,64 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = coat_data, aes(x = coat, y = freq)) +
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black") +
   scale_x_discrete(expand = c(0, 0),
-*                  name = "Number of Males") +
+                   name = "Coat colour") + 
   scale_y_continuous(expand = c(0, 0),
-                     name = "Number of Nests") 
+                     name = "Number of cats") 
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-21-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-17-1.png" width="288" /&gt;
+
+---
+
+# Alter a ggplot: themes
+
+
+```r
+ggplot(data = coat_data, aes(x = coat, y = freq)) +
+  geom_col(width = 1, 
+           colour = "black",
+           fill = "lightblue") +
+  scale_x_discrete(expand = c(0, 0),
+                   name = "Coat colour") + 
+  scale_y_continuous(expand = c(0, 0),
+                     name = "Number of cats",
+                     limits = c(0, 25)) +
+  theme_classic()
+```
+
+---
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-18-1.png" width="288" /&gt;
+
+---
+
+# Alter a ggplot: order of bars
+
+Reorder the categories in `coat` by the the value in `freq`:
+
+
+```r
+ggplot(data = coat_data, 
+       aes(x = reorder(coat, freq, decreasing = TRUE), 
+           y = freq)) +
+  geom_col(width = 1, 
+           colour = "black",
+           fill = "lightblue") +
+  scale_x_discrete(expand = c(0, 0),
+                   name = "Coat colour") + 
+  scale_y_continuous(expand = c(0, 0),
+                     name = "Number of cats",
+                     limits = c(0, 25)) +
+  theme_classic()
+```
+
+---
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-19-1.png" width="288" /&gt;
+
 
 ---
 
@@ -729,7 +680,7 @@ Summarise
 .pull-right[
 Plot
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-23-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-21-1.png" width="288" /&gt;
 ]
 ---
 background-image: url(pics/interorbital.png)
@@ -763,20 +714,20 @@ We will work with the interorbital distances of domestic pigeons in two differen
 # Working with Data 
 ## Organising
 
-Make two folders in your Project directory (this is also your working directory) called 'data'
+Make a folder in your Project directory (this is also your working directory) called `data-raw`.
 
 The easiest way to do this is in RStudio  - see the bottom right Files panel
 
 --
 
-Save a copy of [pigeon.txt](data/pigeon.txt) to the 'data' folder
+Save a copy of [pigeon.txt](data-raw/pigeon.txt) to the `data-raw` folder
 
 ---
 # Working with Data 
 
 ## Start coding
 
-Make a new script called 'analysis.R'
+Make a new script called `pigeons.R`
 
 --
 
@@ -795,25 +746,28 @@ We need to load the `tidyverse` packages for several of commands we will use.
 ## Importing
 
 
-To read the data in to R you need to use the 'relative path'
-
-to the file in the `read_table()` command:
+To read the data in to R you need to use the 'relative path' to the file: 
 
 
 
 ```r
-pigeon &lt;- read_table("data/pigeon.txt")
+pigeon &lt;- read_table("data-raw/pigeon.txt")
 ```
 
 --
 
-The `data/` part is the 'relative path' to the file. 
+The `data-raw/` part is the 'relative path' to the file. 
 
 --
 It says where the file is **relative to your working directory**
 
-pigeon.txt is inside a folder (directory) called 'data' which is in your working directory.
+`pigeon.txt` is inside a folder (directory) called `data-raw` which is in your working directory.
 
+.footnote[
+.font60[
+More  on File systems and paths: [Computational Analysis for Bioscientists](https://3mmarand.github.io/comp4biosci/file_systems.html) (Rand, 2023).
+]
+]
 
 ---
 # Working with Data
@@ -833,7 +787,7 @@ Instead of having a population in each column, we often have, **and want**, all 
 
 --
 
-This format is described as 'tidy' (Wickham Averick, et al., 2019).
+This format is described as 'tidy' .
 
 
 --
@@ -948,10 +902,12 @@ TIDY!
 
 ---
 # Working with Data 
-We can make the data tidy with `pivot_longer()`&lt;sup&gt;1&lt;/sup&gt;.
+We can make the data tidy with `pivot_longer()`.
 
 .footnote[
-[1] `pivot_longer()` is a function from a package called `tidyr` which is one of the `tidyverse` packages.
+.font60[
+`pivot_longer()` is a function from a package called `tidyr` which is one of the `tidyverse` packages.
+]
 ]
 --
 
@@ -1096,7 +1052,7 @@ ggplot(data = pigeon2, aes(x = distance)) +
 ```
 .pull-left[
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-36-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-34-1.png" width="288" /&gt;
 ]
 
 --
@@ -1121,7 +1077,7 @@ To plot multiple group data in tidy form we map the population variable to the `
   scale_x_continuous(name = "Interorbital distance (mm)")
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-37-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-35-1.png" width="288" /&gt;
 .pull-right[
 .footnote[
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Make the axes cross at (0,0)]
@@ -1146,7 +1102,7 @@ result on next slide.
 # Working with Data 
 The result:
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-38-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-36-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1157,10 +1113,13 @@ The result:
 ```r
 ggplot(data = pigeon2, aes(x = distance, fill = population)) +
 * geom_density(col = "black") +
-  scale_x_continuous(name = "Interorbital distance (mm)")
+  scale_x_continuous(name = "Interorbital distance (mm)",
+                     expand = c(0, 0)) + 
+  scale_y_continuous(name = "Density",
+                     expand = c(0, 0)) 
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-39-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-37-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1171,10 +1130,13 @@ Alter the transparency using `alpha`:
 ```r
 ggplot(data = pigeon2, aes(x = distance, fill = population)) +
 * geom_density(col = "black", alpha = 0.3) +
-  scale_x_continuous(name = "Interorbital distance (mm)")
+  scale_x_continuous(name = "Interorbital distance (mm)",
+                     expand = c(0, 0)) + 
+  scale_y_continuous(name = "Density",
+                     expand = c(0, 0)) 
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-40-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-38-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1190,11 +1152,14 @@ All [elements can be customised individually](https://ggplot2.tidyverse.org/refe
 ```r
 ggplot(data = pigeon2, aes(x = distance, fill = population)) +
   geom_density(col = "black", alpha = 0.3) +
-  scale_x_continuous(name = "Interorbital distance (mm)") +
+  scale_x_continuous(name = "Interorbital distance (mm)",
+                     expand = c(0, 0)) + 
+  scale_y_continuous(name = "Density",
+                     expand = c(0, 0)) +
 * theme_classic()
 ```
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-41-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-39-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1202,7 +1167,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
 A different kind of plot:
 
 .pull-left[
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-42-1.png" width="288" /&gt;
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-40-1.png" width="288" /&gt;
 ]
 
 .pull-right[
@@ -1224,29 +1189,44 @@ ggplot(data = pigeon2, aes(x = population, y = distance)) +
   theme_classic()
 ```
 
-
 .footnote[
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Can you (gratuitously) colour the boxes by population too?
 ]
----
-# Working with Data 
 
-&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-43-1.png" width="288" /&gt;
 ---
+# Working with Data
+
+
+```r
+ggplot(data = pigeon2, aes(x = population, y = distance, fill = population)) + 
+  geom_boxplot() +                            
+  scale_x_discrete(name = "Population") +
+  scale_y_continuous(name = "Interorbital distance (mm)",
+                   expand = c(0, 0),
+                   limits = c(0, 15)) +
+  theme_classic()
+```
+
+&lt;img src="02_intro_to_r_and_working_with_data_files/figure-html/unnamed-chunk-42-1.png" width="288" /&gt;
+
+
+---
+
 # Summary
-* Use a script and comment it  
-* organise analyses and use relative paths
-* shortcuts: `&lt;-` is Alt-minus  ` |&gt;` is Ctl-Shift-M  
-* objects are seen in the Environment window  
-* data is read in to R from files into dataframes  
-* the dataframe is a common data structure  
-* you'll eventually get used to the manual!  
-* a `ggplot` has a `data` argument and an `aesthetic` argument; layers are added with a `+`; `geoms`determine how the data are plotted  
+-   Use a script and comment it
+-   organise analyses and use relative paths
+-   shortcuts: `&lt;-` is Alt-minus  ` |&gt;` is Ctl-Shift-M
+-   objects are seen in the Environment window
+-   data is read in to R from files into dataframes
+-   the dataframe is a common data structure
+-   you'll eventually get used to the manual!
+-   a `ggplot` has a `data` argument and an `aesthetic` argument; layers are added with a `+`; `geoms` determine how the data are plotted
+
 ---
 
 class: inverse
 
-# 🥳 Congratulations! Keep practising! 🎉 
+# 🥳 Congratulations! Keep practising! 🎈 
 
 
 
@@ -1266,15 +1246,15 @@ Codd, E. F. (1990). _The Relational Model for Database Management:
 Version 2_. Boston, MA, USA: Addison-Wesley Longman Publishing Co.,
 Inc.
 
+Rand, E. (2023). _Computational Analysis for Bioscientists_. URL:
+[https://3mmarand.github.io/comp4biosci/](https://3mmarand.github.io/comp4biosci/).
+
 Wickham, H. (2014). "Tidy Data". In: _Journal of Statistical Software,
 Articles_ 59.10, pp. 1-23.
 
 Wickham, H. (2016). _ggplot2: Elegant Graphics for Data Analysis_.
 Springer-Verlag New York. ISBN: 978-3-319-24277-4. URL:
 [https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org).
-
-Wickham, H., M. Averick, et al. (2019). "Welcome to the Tidyverse". In:
-_JOSS_ 4.43, p. 1686.
 
 Xie, Y. (2019). _xaringan: Presentation Ninja_. R package version 0.12.
 URL:
