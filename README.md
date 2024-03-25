@@ -66,7 +66,7 @@ or
 Tutor-led for Everyone: [Project-oriented workflow](https://3mmarand.github.io/pgr_reproducibility/slides/03_rstudio_projects.html)
 
 1330 - 1445  
-Tutor-led for Everyone: Quarto for Reproducible Reports
+Tutor-led for Everyone: [Quarto for Reproducible Reports](https://3mmarand.github.io/wr-analytics-1/modules/quarto/slide.html#/title-slide)
 
 1515 - 1515 Tea and coffee break 
 
