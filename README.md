@@ -58,9 +58,10 @@ Either:
 
 -   Tutor-led for Beginners:  [Introduction to R and working with data](https://3mmarand.github.io/pgr_reproducibility/slides/02_intro_to_r_and_working_with_data.html)
 or
--   Supported learning for those with some R experience [Tidying data and the tidyverse including the pipe](https://3mmarand.github.io/pgr_reproducibility/slides/04_tidying_data_and_the_tidyverse.html)
--   [Flow cytometry data analysis in R](https://3mmarand.github.io/R4BABS/r4babs4/week-2/overview.html)
--   [RNA-seq analysis in R](https://3mmarand.github.io/BIO00088H-data/omics/omics.html) from counts to volcanos
+-   Supported learning for those with some R experience
+    -   [Tidying data and the tidyverse including the pipe](https://3mmarand.github.io/pgr_reproducibility/slides/04_tidying_data_and_the_tidyverse.html)
+    -   [Flow cytometry data analysis in R](https://3mmarand.github.io/R4BABS/r4babs4/week-2/overview.html)
+    -   [RNA-seq analysis in R](https://3mmarand.github.io/BIO00088H-data/omics/omics.html) from counts to volcanos
 
 1200 - 1300 Lunch 
 
