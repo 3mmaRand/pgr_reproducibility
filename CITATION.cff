@@ -13,9 +13,9 @@ authors:
     given-names: Emma
     orcid: "https://orcid.org/0000-0002-1358-8275"
 cff-version: "1.2.0"
-date-released: 2024-06-27
+date-released: "2024-06-27"
 doi: "10.5281/zenodo.4701167"
-license: " Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License"
+license: "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License"
 message: "If you use this material, please cite it using these metadata."
 repository-code: "https://github.com/3mmaRand/pgr_reproducibility"
 title: "White Rose BBSRC DTP Training: An Introduction to Reproducible Analyses in R"
